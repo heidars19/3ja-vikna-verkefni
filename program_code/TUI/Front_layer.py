@@ -1,11 +1,9 @@
 import curses
-from curses import wrapper, color_pair
+from curses import wrapper
 
 def create_menu(stdscr, TUI_list, list_den,list_den2,list_den3):
     stdscr.clear()
-    h, w = stdscr.getmaxyx()
-    print("H er: {} --".format(h))
-    print("W er: {} --".format(w))
+    #h, w = stdscr.getmaxyx()
 
     x = 4
     y = 10

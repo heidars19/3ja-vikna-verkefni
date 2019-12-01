@@ -2,7 +2,7 @@ import Front_layer
 import curses
 import time
 import datetime
-from curses import wrapper, color_pair
+from curses import wrapper
 
 menu = ("1.Starfsmenn", "2.Vinnuferðir", "3.Áfangastaðir", "4.Flugvélar")
 header_lengd = 20
@@ -215,12 +215,13 @@ def vinnuferðagluggi(item_list = []):
     return TUI_list
 
 
-def menu_constants(idx,random_list = []):
+def menu_constants(idx,menu_list = []):
     if idx == 0:
-        TUI_list = starfsmannagluggi()
-    if idx == 1:
-        TUI_list = vinnuferðagluggi()
-    
+        TUI_list = starfsmannagluggi(menu_list)
+    elif idx == 1:
+        TUI_list = vinnuferðagluggi(menu_list)
+    else:
+        pass
     return TUI_list
 
 def main(stdscr):
