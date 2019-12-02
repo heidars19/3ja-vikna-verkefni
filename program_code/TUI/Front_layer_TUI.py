@@ -26,3 +26,4 @@ def print_menu(stdscr, TUI_list, list_den,list_den2,list_den3,idx):
         stdscr.delch(idx[i][0],idx[i][1])
         stdscr.insstr(idx[i][0],idx[i][1],idx[i][2],curses.color_pair(2))
     stdscr.refresh()
+    
