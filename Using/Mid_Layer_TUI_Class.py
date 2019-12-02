@@ -1,4 +1,3 @@
-import User_interface
 import Front_layer_TUI
 import curses
 import time
@@ -248,7 +247,7 @@ class TUI_Builder():
 def main(stdscr):
     # Clear screen
     stdscr.clear() 
-    curses.init_pair(1,curses.can_change_color(), curses.COLOR_BLACK)
+    curses.init_pair(1,curses.COLOR_GREEN, curses.COLOR_BLACK)
     curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
     
     # This raises ZeroDivisionError when i == 10.
@@ -319,12 +318,12 @@ def main(stdscr):
                 else:
                     TUI_instance.exeption = 0
         
-        """stdscr.clear()
+        stdscr.clear()
         stdscr.attron(curses.color_pair(1))
-        stdscr.addstr(0,0,str(TUI_instance.menu_select))
+        stdscr.addstr(0,0,str(key))
         stdscr.attroff(curses.color_pair(1))
         stdscr.refresh()
-        time.sleep(1)"""
+        time.sleep(1)
     curses.curs_set(0)
 
 #curses.cbreak

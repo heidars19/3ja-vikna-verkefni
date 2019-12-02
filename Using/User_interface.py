@@ -2,9 +2,7 @@ import time
 import sys
 """import curses
 import blessed"""
-import colorama
-from colorama import Fore,Style,Back, init
-init()
+
 empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 airplane = \
 ("   __|__   "\
