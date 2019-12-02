@@ -1,0 +1,3 @@
+class AirplaneFile (ContactFile) :
+    
+    pass
