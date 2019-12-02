@@ -15,19 +15,19 @@ def append_data_to_file(data_list, name_of_file, header=""):
 
 
 def does_line_exists(filestream, fieldname, searchparam): 
-    ''' Checks if line exists in a file, returns a boolean '''
-    reader = DictReader(filestream, fieldname)
-    for row in reader: 
-        if row[fieldname] == searchparam :
-            return True
+    ''' Checks if line exists in a file, returns line number, or False if not found '''
+    reader = csv.DictReader(filestream, delimiter=',')
+    for line_number, line in enumerate(reader): 
+        if line[fieldname] == searchparam :
+            return line_number+1 # Add 1 because this func doesn't count the header
     return False
 
 
 def open_file(filename):
     ''' Opens a file and returns a filestream, or None if error '''
     try :
-        with open(filename) as f:
-            return f
+        f =  open(filename, 'r')
+        return f
     except :
         return None
 

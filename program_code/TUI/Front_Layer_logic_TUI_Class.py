@@ -1,12 +1,14 @@
-import User_interface
+#import User_interface
+import os
 import Front_layer_TUI
 import curses
 import time
 import datetime
 import dateutil.parser
 from curses import wrapper, color_pair
+from curses.textpad import Textbox, rectangle
 header_lengd = 20
-
+os.system('mode con: cols=150 lines=30')  # works on M$ Windows
 
 
 item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
@@ -76,15 +78,21 @@ item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
                 ]
                 ]
+
 class TUI_Builder():
-    def __init__(self):
+    def __init__(self,stdscr):
         self.menu_select = 0
         self.exeption = 0
-
+        self.new_registration = False
+        self.stdscr = stdscr
+        self.new_reg_u_input = False
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
-        body_temp = self.construct_body()
+        if self.new_registration == True:
+            body_temp = self.construct_body_new_registration()
+        else:    
+            body_temp = self.construct_body_lists()
         footer_temp = self.construct_footer(x_list)
         self.TUI_list = []
         self.create_TUI_list(main_menu_temp)
@@ -127,8 +135,8 @@ class TUI_Builder():
         (("║  "),(header_string),("  ║")),
         )
         return header_template
-    
-    def construct_body(self):
+
+    def construct_body_lists(self):
         new_list = []
         exeptions = ["", "Flugmaður", "Flugþjónn"]
         for i in range(len(item_list[self.menu_select])):
@@ -167,6 +175,48 @@ class TUI_Builder():
         (("║ └────────────────────────────────────────────────────────────────────────────────────────────────────┘ ║"))
         )
         return body_template
+
+    def construct_body_new_registration(self):
+        registration_list = (
+            ("Kennitala:","Nafn:","Heimilsfang:","Gsm sími:", "Netfang:","Starfstitill:","Starfsstaða:","Flugréttindi:"),
+            ("Dagsetning:","Brottfaratími út:","Brottfaratími heim:","Flugvél:","Upphafsstaður:","Áfangastaður:"),
+            ("Nafn áfangastaðar:","Land", "Flugvöllur","Flugtími","Fjarlægð frá Íslandi", "Nafn tengiliðar","Neyðarsímanúmer"),
+            ("Nafn:","Framleiðandi:","Tengund:","Fjöldi sæta:"),
+            )
+        new_list = []
+        exeptions = ["", "Flugmaður", "Flugþjónn"]
+        new_string = ""
+        for i in range(len(registration_list[self.menu_select])):
+            new_string += "{:<{lengd:}}".format(registration_list[self.menu_select][i],lengd = 49)
+            new_list.append(new_string)
+            new_string = ""
+        for i in range(8-len(new_list)):
+            new_list.append("{:^{lengd:}}".format("", lengd = 49))
+        for i in range(len(new_list)):
+            for x in range(49-len(new_list[i])):
+                new_list[i] += " "
+        body_template = (
+        (("║ ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐ ║")),
+        (("║ │ "),(new_list[0]),(new_list[4]),                                                                 (" │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │ "),(new_list[1]),(new_list[5]),                                                                 (" │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │ "),(new_list[2]),(new_list[6]),                                                                 (" │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │ "),(new_list[3]),(new_list[7]),                                                                 (" │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ │                                                                                                    │ ║")),
+        (("║ └────────────────────────────────────────────────────────────────────────────────────────────────────┘ ║"))
+        )
+        self.new_registration = False
+        return body_template
+
     def construct_footer(self, x_list):
         top_box = "┌───────┐"
         top_box2 = "┌──────────┐"
@@ -241,10 +291,59 @@ class TUI_Builder():
         (("║ "),(footer[self.menu_select][0][0]),(" "),(footer[self.menu_select][0][1]),(" "),(footer[self.menu_select][0][2]),(" "),(footer[self.menu_select][0][3]),(footer[self.menu_select][0][4]),("                                             ║")),
         (("║ "),(footer[self.menu_select][1][0]),(" "),(footer[self.menu_select][1][1]),(" "),(footer[self.menu_select][1][2]),(" "),(footer[self.menu_select][1][3]),(footer[self.menu_select][1][4]),("                                             ║")),
         (("║ "),(footer[self.menu_select][2][0]),(" "),(footer[self.menu_select][2][1]),(" "),(footer[self.menu_select][2][2]),(" "),(footer[self.menu_select][2][3]),(footer[self.menu_select][2][4]),("                                             ║")),
-        (("╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝")))
+        (("╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝"))
+        )
         return footer_template
 
-
+    def get_user_input(self):
+        curses.curs_set(1)
+        if self.menu_select == 0:
+            kt = self.make_user_input_window(5,15)
+            name = self.make_user_input_window(9,10)
+            address = self.make_user_input_window(12,17)
+            gsm = self.make_user_input_window(16,14)
+            email = self.make_user_input_window(5,62)
+            job_title = self.make_user_input_window(9,67)
+            rank = self.make_user_input_window(12,66)
+            licence = self.make_user_input_window(16,67)
+            le = (kt,name,address,gsm,email,job_title,rank,licence)
+        if self.menu_select == 1:
+            date = self.make_user_input_window(5,16)
+            departure_time_out = self.make_user_input_window(9,22)
+            departure_time_home = self.make_user_input_window(12,24)
+            airplane = self.make_user_input_window(16,13)
+            departure = self.make_user_input_window(5,68)
+            destination = self.make_user_input_window(9,67)
+            le = (date,departure_time_out,departure_time_home,airplane,departure,destination)
+        if self.menu_select == 2:
+            kt = self.make_user_input_window(5,15)
+            name = self.make_user_input_window(9,10)
+            address = self.make_user_input_window(12,17)
+            gsm = self.make_user_input_window(16,14)
+            email = self.make_user_input_window(5,62)
+            job_title = self.make_user_input_window(9,67)
+            rank = self.make_user_input_window(12,66)
+            licence = self.make_user_input_window(16,67)
+            le = (kt,name,address,gsm,email,job_title,rank,licence)
+        if self.menu_select == 3:
+            kt = self.make_user_input_window(5,15)
+            name = self.make_user_input_window(9,10)
+            address = self.make_user_input_window(12,17)
+            gsm = self.make_user_input_window(16,14)
+            email = self.make_user_input_window(5,62)
+            job_title = self.make_user_input_window(9,67)
+            rank = self.make_user_input_window(12,66)
+            licence = self.make_user_input_window(16,67)
+            le = (kt,name,address,gsm,email,job_title,rank,licence)
+        self.new_reg_u_input = False
+        curses.curs_set(0)
+        return 
+    def make_user_input_window(self,y,x):
+        editwin = curses.newwin(1,30,y,x)
+        self.stdscr.refresh()
+        box = Textbox(editwin)
+        box.edit()
+        return box.gather()
 
 
 def main(stdscr):
@@ -262,7 +361,7 @@ def main(stdscr):
     list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
     list_den4 = [[[22,4,"S"],[22,14,"N"],[22,25,"D"],[22,35,"F"]],[[22,4,"S"],[22,14,"N"],[22,25,"D"],[22,35,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
     list_den5 = ["x", " ", " "]
-    TUI_instance = TUI_Builder()
+    TUI_instance = TUI_Builder(stdscr)
     while True:
         TUI_list = TUI_instance.construct_TUI(list_den5)
         x = 4
@@ -271,7 +370,22 @@ def main(stdscr):
         curses.noecho()
         Front_layer_TUI.print_menu(stdscr, TUI_list, list_den[idx], list_den2[idy], list_den3[idz],list_den4[idx])
         #string_input = stdscr.getstr(21, 70)
-        key = stdscr.getch()
+        if TUI_instance.new_reg_u_input == True:
+            new_tuple = TUI_instance.get_user_input()
+            key = 0
+        else:
+            key = stdscr.getch()
+        """if lol == 0:
+            editwin = curses.newwin(1,30,22,70)
+            rectangle(stdscr, 21,69, 23,100)
+            stdscr.refresh()
+            box = Textbox(editwin)
+            box.edit()
+            message = box.gather()
+            lol = 1
+            key = 0
+        else:"""
+        
         if key == 49:
             TUI_instance.menu_select = 0
             list_den5 = ["x", " ", " "]
@@ -312,6 +426,9 @@ def main(stdscr):
                 idz += 1
         elif key == 27:
             break
+        elif key == ord("n"):
+            TUI_instance.new_registration = True
+            TUI_instance.new_reg_u_input = True
         if idx == 0:
             if key == 102:
                 buffer_str = list_den5.pop()
@@ -323,7 +440,7 @@ def main(stdscr):
         
         """stdscr.clear()
         stdscr.attron(curses.color_pair(1))
-        stdscr.addstr(0,0,str(TUI_instance.menu_select))
+        stdscr.addstr(0,0,str(new_tuple[0]+" "+ new_tuple[1]))
         stdscr.attroff(curses.color_pair(1))
         stdscr.refresh()
         time.sleep(1)"""
@@ -331,9 +448,5 @@ def main(stdscr):
 
 #curses.cbreak
 #curses.nocbreak
-time.sleep(1)
+#time.sleep(1)
 wrapper(main)
-
-"""tui = TUI_Builder()
-tui.menu_select = 1
-tui.construct_TUI(["x","",""])"""
