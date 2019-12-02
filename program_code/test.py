@@ -1,8 +1,8 @@
 
-
+#Þessi kóði keyrir alltaf
 
 def main() :
-    #Gerir eitthvað
+    # Þessi kóði keyrir bara ef þessi skrá er keyrð beint, semsagt ekki import'uð
     pass
 
 
