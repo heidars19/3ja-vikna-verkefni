@@ -1,7 +1,9 @@
+import User_interface
 import Front_layer_TUI
 import curses
 import time
 import datetime
+import dateutil.parser
 from curses import wrapper, color_pair
 header_lengd = 20
 
@@ -78,6 +80,7 @@ class TUI_Builder():
     def __init__(self):
         self.menu_select = 0
         self.exeption = 0
+
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -96,7 +99,7 @@ class TUI_Builder():
 
     def construct_main_menu(self):
         menu = ("1.Starfsmenn", "2.Vinnuferðir", "3.Áfangastaðir", "4.Flugvélar")
-        date = str(datetime.date.today())
+        date = str(datetime.date.today().isoformat())
         get_date = "{:^{lengd:}}".format(date,lengd = header_lengd)
         main_menu_length = 20
         m_starf = "{:^{lengd:}}".format(menu[0],lengd = main_menu_length)
@@ -247,7 +250,7 @@ class TUI_Builder():
 def main(stdscr):
     # Clear screen
     stdscr.clear() 
-    curses.init_pair(1,curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(1,curses.can_change_color(), curses.COLOR_BLACK)
     curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
     
     # This raises ZeroDivisionError when i == 10.
@@ -266,7 +269,7 @@ def main(stdscr):
         y = 10
         curses.curs_set(0)
         curses.noecho()
-        Front_layer_TUI.create_menu(stdscr, TUI_list, list_den[idx], list_den2[idy], list_den3[idz],list_den4[idx])
+        Front_layer_TUI.print_menu(stdscr, TUI_list, list_den[idx], list_den2[idy], list_den3[idz],list_den4[idx])
         #string_input = stdscr.getstr(21, 70)
         key = stdscr.getch()
         if key == 49:
@@ -318,12 +321,12 @@ def main(stdscr):
                 else:
                     TUI_instance.exeption = 0
         
-        stdscr.clear()
+        """stdscr.clear()
         stdscr.attron(curses.color_pair(1))
-        stdscr.addstr(0,0,str(key))
+        stdscr.addstr(0,0,str(TUI_instance.menu_select))
         stdscr.attroff(curses.color_pair(1))
         stdscr.refresh()
-        time.sleep(1)
+        time.sleep(1)"""
     curses.curs_set(0)
 
 #curses.cbreak

@@ -2,7 +2,6 @@ import time
 import sys
 """import curses
 import blessed"""
-
 empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 airplane = \
 ("   __|__   "\
@@ -141,8 +140,8 @@ def make_static_plane(interface_string,userface_list):
 
 
 def main2():
-    interface_list = [(Fore.RED + "*Deildarstjóri*" + Fore.RESET + "    " ,"blah", "Vaktstjóri", "Quit"),("Max","*Boeing*","blah","blah","blah","Back",),("*Nuuk*","blah","blah","Þórshöfn","Back")]
-    interface_list2 = [(Fore.RED + "*Deildarstjóri*" + Fore.RESET + "    "  ,"blah", "Vaktstjóri", "Quit"),("Max","*Boeing*","blah","blah","blah","Back",)]
+    interface_list = [("*Deildarstjóri*","blah", "Vaktstjóri", "Quit"),("Max","*Boeing*","blah","blah","blah","Back",),("*Nuuk*","blah","blah","Þórshöfn","Back")]
+    interface_list2 = [("*Deildarstjóri*","blah", "Vaktstjóri", "Quit"),("Max","*Boeing*","blah","blah","blah","Back",)]
     interface_list3 = [("*Deildarstjóri*","blah", "Vaktstjóri", "Quit")]
     print(empty_space)
     interface_string = make_user_interface_1(interface_list3)
