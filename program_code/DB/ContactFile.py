@@ -14,4 +14,6 @@ class ContactFile :
         
     def __str__ (self) :
         
+        
+        pass
     
