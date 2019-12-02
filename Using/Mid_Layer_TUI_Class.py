@@ -298,12 +298,12 @@ def main(stdscr):
                 idy = 0
             else:
                 idy += 1
-        elif key == curses.KEY_UP:
+        elif key == curses.KEY_UP or key == 450:
             if idz == 0:
                 idz = 14
             else:
                 idz -= 1
-        elif key == curses.KEY_DOWN:
+        elif key == curses.KEY_DOWN or key == 456:
             if idz == 14:
                 idz = 0
             else:
