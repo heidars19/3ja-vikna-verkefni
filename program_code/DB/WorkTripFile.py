@@ -1,0 +1,3 @@
+class WorkTripFile (ContactFile) :
+    
+    pass
