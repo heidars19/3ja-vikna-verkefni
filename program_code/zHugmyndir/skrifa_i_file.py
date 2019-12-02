@@ -16,6 +16,9 @@ def append_data_to_file(data_list, name_of_file, header="") :
         f.write(data_string + '\n') # Append data to file
 
 
+
+
+
 def main() :
     
     # Býr til lista til að testa hluti með
@@ -27,4 +30,6 @@ def main() :
 
 main()
     
+if __name__ == "__main__":
+    main()
     
