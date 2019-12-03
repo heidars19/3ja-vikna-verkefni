@@ -1,7 +1,7 @@
 
 #10 stafa númer
 def checkssn(ssn):
-    if ssn = "" or len(ssn) != 10:
+    if ssn == "" or len(ssn) != 10:
         return False
     
     try: 

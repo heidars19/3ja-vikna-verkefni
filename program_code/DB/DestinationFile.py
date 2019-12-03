@@ -1,3 +1,4 @@
 class DestinationFile (ContactFile) :
     
+    
     pass
