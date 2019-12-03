@@ -1,6 +1,8 @@
 class Employee:
-
+    """This class represents the Employees of Nan Air and keeps track of their information."""
     def __init__(self,ssn,name,address,mobile,email,role,rank,licence): 
+        from datetime import date
+        today = date.today()
 
         self.__ssn = ssn
         self.__name = name
@@ -10,60 +12,49 @@ class Employee:
         self.__role = role
         self.__rank = rank
         self.__licence = licence
-
+        self.__creationdate = today
 
     def __str__(self):
-        return f' {self.__ssn},{self.__name},{self.__address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence}
+        return f'{self.__ssn},{self.__name},{self.__address},{self.__mobile},{self.__email},{self.__role},{self.__rank},{self.__licence}'
 
-    def set(self, infotype, new_info):
+    def __repr__(self):
+        return Employee({self.__ssn},{self.__name},{self.__address},{self.__mobile},{self.__email},{self.__role},{self.__rank},{self.__licence})'
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self,name):
+        self.__name = name
+
+    """def change_employee(self):
         self.personalinfo[infotype] = new_info
+        pass
 
-        name, "Guðný"
-        self.name = "Guðný"
-    
+    def assign_worktrip(self,worktrip):
+        self.worktrip = worktrip
+        pass
+
+    def get_personalinfo(self,ssn):
+        return f"{self.__ssn},{self.__name},{self.__address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence}"
+
+    def write_personalinfo(self):
+        Save information about employee to database
+        data_to_append = str(self)
+        name_of_file = "Employees"
+        return append_data_to_file(data_to_append, name_of_file, header="")
+        
+    def check_ssn(self,ssn):
+        #tala við database - láta fá kennitölu og fá true eða false
+        if false:
+            write_personalinfo(self)
+        else:
+            return True"""
 
 
-staff1 = Employee('2501952149','Eyþór Óli','Þingás 31','8453474','eythorb19@marel.com','Meistari','Pilot','Fokker 484')
-set()
-
-print(staff1)
-x = str(staff1)
-print(x)
-
-#print(staff1.__name)
-#print(help(Employee))
-# 
-
-class Student(object):
-    def __init__(self, name, age, gender, level, grades=None):
-        self.name = name
-        self.age = age
-        self.gender = gender
-        self.level = level
-        self.grades = grades or {}
-
-    def setGrade(self, course, grade):
-        self.grades[course] = grade
-
-    def getGrade(self, course):
-        return self.grades[course]
-
-    def getGPA(self):
-        return sum(self.grades.values())/len(self.grades)
-    def __str__(self):
-        if self.gender == "male":
-            return str(self.name) + " is a " + str(self.age) + " years old " + str(self.gender) + " his grades are: " + str(self.grades)
-        elif self.gender == "female":
-            return str(self.name) + " is a " + str(self.age) + " years old " + str(self.gender) + " her grades are: " + str(self.grades)
-
-# Define some students
-john = Student("John", 12, "male", 6, {"math":3.5, "computer":3})
-jane = Student("Jane", 12, "female", 6, {"math":3.5})
-
-# Now we can get to the grades easily
-jane.setGrade("computer", 3)
-print(john.getGrade("computer"))
-print(john.getGPA())
-print(jane.getGPA())
-print(john)
-print(jane)
+eythor = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
+print(eythor)
+print(eythor.name)
+eythor.name = "Sigurgeir"
+print(eythor)
