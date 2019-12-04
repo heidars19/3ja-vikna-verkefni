@@ -10,15 +10,21 @@ class DATA_API :
         def read_filestream_into_list(filestream):
         def change_line_in_file(filename, line_to_replace, replace_with) :
 
-     '''
-    
-    
-    
-    
-    
-    
-    
-    def append_data_to_file(data_to_append, name_of_file, header=""):
+    '''
+
+
+
+
+
+    def __init__ (self, filename, header="") :
+        self.header = header
+        self.filename = filename
+
+
+
+
+
+    def append_data_to_file(self, data_to_append):
         ''' 
         Appends data to file, creates a new file if none exists, and adds a header. 
 
@@ -30,14 +36,14 @@ class DATA_API :
         else :
             data_string = data_to_append
 
-        with open(name_of_file, 'a') as f:
+        with open(self.filename, 'a') as f:
             if f.tell() == 0: 
                 # File is empty or we just created it, so we add a header
-                f.write(header + '\n')
+                f.write(self.header + '\n')
             f.write(data_string + '\n') # Append data to file
 
 
-    def does_line_exists(filestream, fieldname, searchparam): 
+    def does_line_exists(self, filestream, fieldname, searchparam): 
         ''' 
         Checks if line exists in a file, returns line number, or False if not found 
         '''
@@ -48,19 +54,19 @@ class DATA_API :
         return False
 
 
-    def open_file(filename):
+    def open_file(self):
         ''' 
         Opens a file and returns a filestream, or None if error.
         Does not close the file!
         '''
         try :
-            f =  open(filename, 'r')
+            f =  open(self.filename, 'r')
             return f
         except :
             return None
 
 
-    def read_filestream_into_list(filestream):
+    def read_filestream_into_list(self, filestream):
         '''
         Takes a filestream, returns a list with file contents.
         Closes the file after reading it.
@@ -72,7 +78,7 @@ class DATA_API :
         return data_list
 
 
-    def change_line_in_file(filename, line_to_replace, replace_with) :
+    def change_line_in_file(self, line_to_replace, replace_with) :
         ''' 
         Replaces 1 line in a file. 
 
@@ -81,13 +87,13 @@ class DATA_API :
         '''
         
         if isinstance(line_to_replace, int) : # If line_to_replace is a line number (int)
-            for i, line in enumerate(fileinput.FileInput(filename,inplace=1)) :
+            for i, line in enumerate(fileinput.FileInput(self.filename,inplace=1)) :
                 if i == line_to_replace :
                     print(replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
                 else :
                     print(line, end='')
         else :   # line_to_replace is a complete line (str)
-            for line in fileinput.FileInput(filename,inplace=1):
+            for line in fileinput.FileInput(self.filename,inplace=1):
                 line = line.replace(line_to_replace,replace_with)
                 print(line, end='')
 
