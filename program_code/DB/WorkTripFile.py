@@ -1,3 +1,3 @@
-class WorkTripFile (ContactFile) :
+class WorkTripFile (FileHandlr) :
     
     pass

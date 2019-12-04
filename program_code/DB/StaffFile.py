@@ -1,3 +1,3 @@
-class StaffFile (ContactFile) :
+class StaffFile (FileHandlr) :
     
     pass

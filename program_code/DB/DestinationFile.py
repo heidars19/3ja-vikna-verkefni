@@ -1,4 +1,4 @@
-class DestinationFile (ContactFile) :
+class DestinationFile (FileHandlr) :
     
     
     pass
