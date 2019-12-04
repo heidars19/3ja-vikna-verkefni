@@ -4,6 +4,17 @@ import fileinput
 class FileHandlr :
     ''' Abstract class for filehandling '''
 
+    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
+    
+        self.filename = 'Aircraft.csv'
+        self.header = 'plainID,plainType,manufacturer,model,capacity,'
+        self.data_to_append = data_to_append
+        self.fieldname = fieldname
+        self.searchparam = searchparam
+        self.line_to_replace = line_to_replace
+        self.replace_with = replace_with
+        self.filestream = None
+
 
 
     def append_data_to_file(self):
@@ -30,16 +41,18 @@ class FileHandlr :
         Checks if line exists in a file, returns line number, returns 0 if not found, returns -1 on error 
         '''
 
-        self.filestream = open_file(self)
+        self.filestream = self.open_file()
         if not self.filestream :
             return -1 # Error opening file
 
         reader = csv.DictReader(self.filestream, delimiter=',')
-        self.filestream.close_file()
+        
 
         for line_number, line in enumerate(reader): 
             if line[self.fieldname] == self.searchparam :
+                self.filestream.close()
                 return line_number+1 # Add 1 because this func doesn't count the header
+        self.filestream.close()
         return 0
 
 
@@ -60,6 +73,9 @@ class FileHandlr :
         Takes a filestream, returns a list with file contents.
         Closes the file after reading it.
         '''
+        self.filestream = self.open_file()
+        if not self.filestream:
+            return None
         data_list = []
         for line in self.filestream :
             data_list.append(line.strip())
@@ -87,13 +103,3 @@ class FileHandlr :
                 line = line.replace(self.line_to_replace,self.replace_with)
                 print(line, end='')
 
-
-    def __init__ (self, filename) :
-        
-
-
-
-    def __str__ (self) :
-        
-        
-        pass
