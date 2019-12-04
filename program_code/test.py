@@ -1,11 +1,10 @@
 from DB.DATA_API import *
 
-# -*- coding: cp1252 -*-
 
 def main ():
-    # #Append data to a file - check
-    # test = DestinationFile(data_to_append="8,Longyearbyen,Svalbard,1:30:25,1.993,Þarmar Klámsson,632827365")
-    # test.start()
+    #Append data to a file - check
+    test = WorkTripFileOld(data_to_append="NA6839,LWK,KEF,2019-11-24T03:00:00,2019-11-24T05:00:00,TF-PGK,2907675667,1900769521,1811931544,1107951952,2509913418")
+    test.start()
 
     # # Reads a file and returns a list - check
     # test = AirplaneFile()
