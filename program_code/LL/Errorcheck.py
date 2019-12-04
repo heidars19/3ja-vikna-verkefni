@@ -9,27 +9,27 @@ def check_ssn(ssn):
             ssn_list = wrap (ssn, 2)
             ssn_list = [int(n) for n in ssn_list]
             if ssn_list[0] < 1 or ssn_list[0] > 31:
-                return True, ('Kennitala ekki lögleg.')
+                return False, 'Kennitala ekki lögleg.'
             if ssn_list[1] < 1 or ssn_list[1] > 12:
-                return True, ('Kennitala ekki lögleg.')
+                return False, 'Kennitala ekki lögleg.'
             if ssn_list[4]%10==0:
                 birthyear = ssn_list[2]+2000
             if ssn_list[4]%10==9:
                 birthyear = ssn_list[2]+1900
             if birthyear > now.year  or birthyear < 1903:
-                return True, ('Kennitala ekki lögleg.')
+                return False, 'Kennitala ekki lögleg.'
             if  ssn_list[4]%10 != 0 and ssn_list[4]%10 != 9:
-                return True, ('Kennitala ekki lögleg.')
-            return 'kennitala logleg'
+                return False, 'Kennitala ekki lögleg.'
+            return True
         except:
-            return True, ('Kennitala ekki lögleg')
+            return False, ('Kennitala ekki lögleg')
     else:
-        return True, ('Kennitala ekki lögleg.') 
+        return False, ('Kennitala ekki lögleg.') 
 
 #Strengur og númer
 def check_address(address):
     if address == "":
-        return True, 'Vinsamlega skráið heimilisfang starfsmanns'
+        return False, 'Vinsamlega skráið heimilisfang starfsmanns'
 
 
 #strengur@strengur.strengur
@@ -38,21 +38,21 @@ def check_mail(email):
     email_list[1] = email_list[1].split('.')
     print ()
     if len(email_list)==2 and len(email_list[1])==2 and len(email_list[1][1]) > 1:
-        return False
+        return True
     else:
-        return True, 'Invalid e-mail address!'
+        return False, 'Invalid e-mail address!'
     
 #7 stafa tala XXXXXXX
 def check_cellphone(cellphone):
     if len(cellphone) > 7:
-        return False
+        return True
     else:
-        return True, ("Lengd símanúmers er að lámarki 7 stafir")
+        return False, ("Lengd símanúmers er að lámarki 7 stafir")
 
 
 
 def main():
-    print(check_ssn('0810015920'))    
+    
 
 if __name__ == "__main__":
     main()
