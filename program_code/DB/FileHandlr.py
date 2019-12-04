@@ -4,6 +4,20 @@ import fileinput
 class FileHandlr :
     ''' Abstract class for filehandling '''
 
+    AIRPLANE_TABLE = "Data/Airplane.csv"
+    AIRLPANE_TABLE_HEADER = 'planeID,planeType,manufacturer,model,name,capacity'
+    
+    STAFF_TABLE = "Data/StaffFile.csv"
+    STAFF_TABLE_HEADER = ''
+    
+    DESTINATION_TABLE = "Data/DestinationFile.csv"
+    DESTINATION_TABLE_HEADER = ''
+    
+    WORKTRIP_TABLE = "Data/WorkTripFile.csv"
+    WORKTRIP_TABLE_HEADER = ''
+
+    
+    
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
     
         self.filename = 'Aircraft.csv'
@@ -29,7 +43,7 @@ class FileHandlr :
         else :
             data_string = self.data_to_append
 
-        with open(self.filename, 'a') as f:
+        with open(self.filename, 'a', encoding='UTF-8') as f:
             if f.tell() == 0: 
                 # File is empty or we just created it, so we add a header
                 f.write(self.header + '\n')
@@ -40,14 +54,12 @@ class FileHandlr :
         ''' 
         Checks if line exists in a file, returns line number, returns 0 if not found, returns -1 on error 
         '''
-
         self.filestream = self.open_file()
         if not self.filestream :
             return -1 # Error opening file
 
         reader = csv.DictReader(self.filestream, delimiter=',')
         
-
         for line_number, line in enumerate(reader): 
             if line[self.fieldname] == self.searchparam :
                 self.filestream.close()
@@ -62,7 +74,7 @@ class FileHandlr :
         Does not close the file!
         '''
         try :
-            f =  open(self.filename, 'r')
+            f =  open(self.filename, 'r', encoding='UTF-8')
             return f
         except :
             return None
@@ -83,7 +95,6 @@ class FileHandlr :
         self.data_list = data_list
 
 
-
     def change_line_in_file(self) :
         ''' 
         Replaces 1 line in a file. 
@@ -91,15 +102,14 @@ class FileHandlr :
         line_to_replace can be a line number (int) or a complete line (str).
         When line_to_replace is a string, it can replace partial lines.
         '''
-        
         if isinstance(self.line_to_replace, int) : # If line_to_replace is a line number (int)
-            for i, line in enumerate(fileinput.FileInput(self.filename,inplace=1)) :
+            for i, line in enumerate(fileinput.FileInput(self.filename,inplace=1, openhook=fileinput.hook_encoded('UTF-8'))) :
                 if i == self.line_to_replace :
                     print(self.replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
                 else :
                     print(line, end='')
         else :   # line_to_replace is a complete line (str)
-            for line in fileinput.FileInput(self.filename,inplace=1):
+            for line in fileinput.FileInput(self.filename,inplace=1, openhook=fileinput.hook_encoded('UTF-8')):
                 line = line.replace(self.line_to_replace,self.replace_with)
                 print(line, end='')
 
