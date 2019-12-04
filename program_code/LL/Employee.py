@@ -57,4 +57,3 @@ eythor = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','84534
 print(eythor)
 print(eythor.name)
 eythor.name = "Sigurgeir"
-print(eythor)
