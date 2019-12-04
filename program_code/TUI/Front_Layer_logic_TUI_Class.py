@@ -85,7 +85,7 @@ item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ]
                 ]
 
-class TUI_Builder():
+class TUI():
     def __init__(self,stdscr,highlight_main_list,highlight_index):
         self.menu_select = 0
         self.exeption = 0
@@ -309,6 +309,47 @@ class TUI_Builder():
         )
         return footer_template
 
+    def make_drop_down_menu(self,y,x,text_string_1,text_string_2):
+        position_y = 0
+        editwin = curses.newwin(2,30,y,x)
+        editwin.keypad(1)
+        while True:
+            editwin.refresh()
+            self.drop_down(editwin,text_string_1,text_string_2,position_y)
+            button_press = editwin.getch()
+            if button_press == curses.KEY_UP or button_press == 450:
+                if position_y == 0:
+                    position_y = 1
+                else:
+                    position_y -= 1
+            elif button_press == curses.KEY_DOWN or button_press == 456:
+                if position_y == 1:
+                    position_y = 0
+                else:
+                    position_y += 1
+            elif button_press == 10:
+                if position_y == 0:
+                    return text_string_1
+                else:
+                    return text_string_2
+
+
+    def drop_down(self,editwin,text_string_1,text_string_2,position_y):
+        if position_y == 0:
+            editwin.attron(curses.color_pair(2))
+            editwin.addstr(0,0,text_string_1)
+            editwin.attroff(curses.color_pair(2))
+            editwin.attron(curses.color_pair(1))
+            editwin.addstr(1,0,text_string_2)
+            editwin.attroff(curses.color_pair(1))
+        else:
+            editwin.attron(curses.color_pair(1))
+            editwin.addstr(0,0,text_string_1)
+            editwin.attroff(curses.color_pair(1))
+            editwin.attron(curses.color_pair(2))
+            editwin.addstr(1,0,text_string_2)
+            editwin.attroff(curses.color_pair(2))
+
     def get_user_input(self):
         Front_layer_TUI.print_menu(self.stdscr, self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
         curses.curs_set(1)
@@ -318,11 +359,19 @@ class TUI_Builder():
             address = self.make_user_input_window(12,17)
             gsm = self.make_user_input_window(16,14)
             email = self.make_user_input_window(5,62)
-            job_title = self.make_user_input_window(9,67)
-            if "pilot" in job_title:
+            job_title = self.make_drop_down_menu(9,67,"Pilot","Cabincrew")
+            self.make_text_appear(9,67,job_title,30)
+            self.make_text_appear(10,53,"",30)
+            if "Pilot" in job_title:
                 self.make_text_appear(16,53,"Flugréttindi:",30)
-            rank = self.make_user_input_window(12,66)
-            if "pilot" in job_title:
+                rank = self.make_drop_down_menu(12,66,"Captain","Co-Pilot")
+                self.make_text_appear(12,66,rank,30)
+                self.make_text_appear(13,66,"",30)
+            else:
+                rank = self.make_drop_down_menu(12,66,"Flight Service Manager","Flight Attendant")
+                self.make_text_appear(12,66,rank,30)
+                self.make_text_appear(13,66,"",30)
+            if "Pilot" in job_title:
                 licence = self.make_user_input_window(16,67)
             else:
                 licence = ""
@@ -351,6 +400,7 @@ class TUI_Builder():
             num_of_seats = self.make_user_input_window(16,17)
             le = (name,producer,product_id,num_of_seats)
         self.new_reg_u_input = False
+        time.sleep(1)
         self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
         time.sleep(2)
         curses.curs_set(0)
@@ -500,7 +550,7 @@ def main(stdscr):
     list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
     list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
     list_den5 = ["x", " ", " "]
-    TUI_instance = TUI_Builder(stdscr,list_den,idx)
+    TUI_instance = TUI(stdscr,list_den,idx)
     while True:
         TUI_list = TUI_instance.construct_TUI(list_den5)
         x = 4

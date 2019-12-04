@@ -1,3 +1,6 @@
+    
+class EmployeeLL():
+
     def append_data_to_file(self): 
         pass
     
