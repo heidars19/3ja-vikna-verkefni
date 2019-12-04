@@ -1,52 +1,27 @@
 #All calls UI needs to use - forwards calls to the right Class in LL
 #10 stafa númer
-def check_ssn(ssn):
-    if ssn == "" or len(ssn) != 10:
-        return False
+from Employee import Employee
+import EmployeeLL
+
+def create_employee(ssn,name,address,mobile,email,role,rank,licence):
     
-    try: 
-        int(ssn)
-    except:
-        return False
-    return True
-
-#Strengur og númer
-def check_address(address):
-    if address == "":
-        return False
-    #   return "Heimilisfang vantar"
-
-#strengur@strengur.strengur
-def check_email(email):
-    if email == "":
-        return False
-
-#7 stafa tala XXXXXXX
-def check_cellphone(cellphone):
-    if cellphone == "":
-        return False
-    if len(cellphone) > 7:
-        return False
+    Newemp = Employee(ssn,name,address,mobile,email,role,rank,licence)
+    return Newemp
+   # EmployeeLL.Write(Newemp)
 
 
+   # Newemp = Employee.from_string(new_emp)
 
+    
 
-def main():
-    c = 3333453
-    a = check_cellphone(c)
-    return
-
-
-newemployee = Employee(ssn,...)
-
-
-
-
-#Ef checkið virkar býr hann til tilvik af employee 
-# Employee = Employee(....)
-#svo má nota breyta eða hvað sem þarf að gera eftir tilvikum. Notfæra föllin sem klasinn á.
-#Skrifa niður o.s.frv.
 #if __name__ == "__main__":
 
 
     #main()
+
+
+
+#new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
+emp = create_employee("2501952149","Eyþór Óli Borgþórsson","Þingás 31","8453474","eythoroli95@gmail.com","Pilot","Copilot","Fokker232")
+
+print(emp)
