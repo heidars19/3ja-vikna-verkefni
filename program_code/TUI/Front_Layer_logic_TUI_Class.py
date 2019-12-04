@@ -1,14 +1,20 @@
 #import User_interface
 import os
 import Front_layer_TUI
+import locale
+locale.setlocale(locale.LC_ALL,"")
 import curses
 import time
 import datetime
 import dateutil.parser
+
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
 header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
+
+code = locale.getpreferredencoding()
+str.encode(code)
 
 
 item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
@@ -115,7 +121,7 @@ class TUI_Builder():
 
     def construct_main_menu(self):
         menu = ("1.Starfsmenn", "2.Vinnuferðir", "3.Áfangastaðir", "4.Flugvélar")
-        date = str(datetime.date.today().isoformat())
+        date = datetime.date.today().strftime("%d %b %Y")
         get_date = "{:^{lengd:}}".format(date,lengd = header_lengd)
         main_menu_length = 20
         m_starf = "{:^{lengd:}}".format(menu[0],lengd = main_menu_length)
@@ -129,14 +135,14 @@ class TUI_Builder():
         return main_menu_template
 
     def construct_header(self):
-        header = (\
+        self.header = (\
         ("Nafn","Starf","Réttindi","Staða","Áfangastaður"),\
         ("Dagsetning","Brottför","Áfangastaður","Flugvél","Mönnun","Flugnr.","Sæti","Staða"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
         header_string = ""
-        for i in range(len(header[self.menu_select])):
-            header_string += "{:<{lengd:}}".format(header[self.menu_select][i],lengd = int(100/(len(header[self.menu_select]))))
+        for i in range(len(self.header[self.menu_select])):
+            header_string += "{:<{lengd:}}".format(self.header[self.menu_select][i],lengd = int(100/(len(self.header[self.menu_select]))))
         for i in range(100-len(header_string)):
             header_string += " "
         header_template = (
@@ -380,107 +386,92 @@ class TUI_Builder():
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
         if self.menu_select == 0:
-            self.make_text_appear(5,4,"Nafn: "+item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,"Starfsheiti: "+item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,"Flugréttindi: "+item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,"Staða: "+item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,"Staðsetning: "+item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
-            self.make_text_appear(5,4,"Dagsetning: "+item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,"Brotfaratími: "+item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,"Áfangastaður: "+item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,"Flugvél: "+item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,"Mönnun: "+item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,"Skráninganúmer: "+item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,"Frátekin sæti: "+item_list[self.menu_select][self.list_line_index][6],49)
-            self.make_text_appear(16,53,"Staða: "+item_list[self.menu_select][self.list_line_index][7],49)
+            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(9,53,self.header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
+            self.make_text_appear(12,53,self.header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
+            self.make_text_appear(16,53,self.header[self.menu_select][7] + ": " +item_list[self.menu_select][self.list_line_index][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,"Áfangastaður: "+item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,"Land: "+item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,"Flugvöllur: "+item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,"Tengiliður: "+item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,"Símanúmer tengiliðs: "+item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
+
         if self.menu_select == 3:
-            self.make_text_appear(5,4,"Nafn: "+item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,"Flugvélamodel: "+item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,"Sætafjöld: "+item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,"Staða: "+item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,"Áfangastaður: "+item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,"Flugnúmer: "+item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,"Aflögufær: "+item_list[self.menu_select][self.list_line_index][6],49)
+            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(9,53,self.header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
+            self.make_text_appear(12,53,self.header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
             self.make_text_appear(16,53,"",49)
+
         action = self.stdscr.getch()
         if action == ord("b"):
-            self.change_user()
-    def change_user(self):
-        if self.menu_select == 0:
-            self.get_chr_from_user(5,len("Nafn: "+item_list[self.menu_select][self.list_line_index][0]))
-            self.get_chr_from_user(9,len("Starfsheiti: "+item_list[self.menu_select][self.list_line_index][1]))
-            self.get_chr_from_user(12,len("Flugréttindi: "+item_list[self.menu_select][self.list_line_index][2]))
-            self.get_chr_from_user(16,len("Staða: "+item_list[self.menu_select][self.list_line_index][3]))
-            self.get_chr_from_user(5,len("Staðsetning: "+item_list[self.menu_select][self.list_line_index][4])+49)
-        if self.menu_select == 1:
-            self.get_chr_from_user(5,len("Dagsetning: "+item_list[self.menu_select][self.list_line_index][0]))
-            self.get_chr_from_user(9,len("Brotfaratími: "+item_list[self.menu_select][self.list_line_index][1]))
-            self.get_chr_from_user(12,len("Áfangastaður: "+item_list[self.menu_select][self.list_line_index][2]))
-            self.get_chr_from_user(16,len("Flugvél: "+item_list[self.menu_select][self.list_line_index][3]))
-            self.get_chr_from_user(5,len("Mönnun: "+item_list[self.menu_select][self.list_line_index][4])+49)
-            self.get_chr_from_user(9,len("Skráninganúmer: "+item_list[self.menu_select][self.list_line_index][5])+49)
-            self.get_chr_from_user(12,len("Frátekin sæti: "+item_list[self.menu_select][self.list_line_index][6])+49)
-            self.get_chr_from_user(16,len("Staða: "+item_list[self.menu_select][self.list_line_index][7])+49)
-            
-        if self.menu_select == 2:
-            self.get_chr_from_user(5,len("Nafn: "+ item_list[self.menu_select][self.list_line_index][0]))
-            self.get_chr_from_user(9,len("Flugvélamodel: "+item_list[self.menu_select][self.list_line_index][1]))
-            self.get_chr_from_user(12,len("Sætafjöld: "+item_list[self.menu_select][self.list_line_index][2]))
-            self.get_chr_from_user(16,len("Staða: "+item_list[self.menu_select][self.list_line_index][3]))
-            self.get_chr_from_user(5,len("Áfangastaður: "+item_list[self.menu_select][self.list_line_index][4])+49)
-            self.get_chr_from_user(9,len("Flugnúmer: "+item_list[self.menu_select][self.list_line_index][5])+49)
-            self.get_chr_from_user(12,len("Aflögufær: "+item_list[self.menu_select][self.list_line_index][6])+49)
-        if self.menu_select == 3:
-            check = self.get_chr_from_user(5,len("Nafn: "+ item_list[self.menu_select][self.list_line_index][0]))
-            if check == 8:
-                name = self.make_user_input_window(5,4 + len("Nafn: "))
-            else:
-                name = item_list[self.menu_select][self.list_line_index][0]
-            check = self.get_chr_from_user(9,len("Flugvélamodel: "+item_list[self.menu_select][self.list_line_index][1]))
-            if check == 8:
-                name = self.make_user_input_window(9,4 + len("Flugvélamodel: "))
-            else:
-                name = item_list[self.menu_select][self.list_line_index][1]
-            check = self.get_chr_from_user(12,len("Sætafjöld: "+item_list[self.menu_select][self.list_line_index][2]))
-            if check == 8:
-                name = self.make_user_input_window(12,4 + len("Sætafjöld: "))
-            else:
-                name = item_list[self.menu_select][self.list_line_index][2]
-            check = self.get_chr_from_user(16,len("Staða: "+item_list[self.menu_select][self.list_line_index][3]))
-            if check == 8:
-                name = self.make_user_input_window(16,4 + len("Staða: "))
-            else:
-                name = item_list[self.menu_select][self.list_line_index][3]
-            check = self.get_chr_from_user(5,len("Áfangastaður: "+item_list[self.menu_select][self.list_line_index][4])+49)
-            if check == 8:
-                name = self.make_user_input_window(5,4 + len("Staða: ")+49)
-            else:
-                name = item_list[self.menu_select][self.list_line_index][4]
-            check = self.get_chr_from_user(9,len("Flugnúmer: "+item_list[self.menu_select][self.list_line_index][5])+49)
-            if check == 8:
-                name = self.make_user_input_window(9,4 + len("Flugnúmer: ")+49)
-            else:
-                name = item_list[self.menu_select][self.list_line_index][5]
-            check = self.get_chr_from_user(12,len("Aflögufær: "+item_list[self.menu_select][self.list_line_index][6])+49)
-            if check == 8:
-                name = self.make_user_input_window(12,4 + len("Flugnúmer: ")+49)
-            else:
-                name = item_list[self.menu_select][self.list_line_index][5]
+            self.change_user_menu()
     
+    def change_user(self,index,y_position,extra_len):
+        check = self.get_chr_from_user(y_position,2 + len(self.header[self.menu_select][index] + item_list[self.menu_select][self.list_line_index][index]) + extra_len)
+        if check == 8:
+            variable_x = self.make_user_input_window(y_position,6 + len(self.header[self.menu_select][index]) + extra_len)
+        else:
+            variable_x = item_list[self.menu_select][self.list_line_index][index]
+        return variable_x
+
+    def change_user_menu(self):
+        if self.menu_select == 0:
+            name = self.change_user(0,5,0)
+            starf = self.change_user(1,9,0)
+            rettindi = self.change_user(2,12,0)
+            stada = self.change_user(3,16,0)
+            afangastadur = self.change_user(4,5,49)
+
+        if self.menu_select == 1:
+            blah = self.change_user(0,5,0)
+            blah = self.change_user(1,9,0)
+            blah = self.change_user(2,12,0)
+            blah = self.change_user(3,16,0)
+            blah = self.change_user(4,5,49)
+            blah = self.change_user(5,9,49)
+            blah = self.change_user(6,12,49)
+            blah = self.change_user(7,16,49)
+
+        if self.menu_select == 2:
+            blah = self.change_user(0,5,0)
+            blah = self.change_user(1,9,0)
+            blah = self.change_user(2,12,0)
+            blah = self.change_user(3,16,0)
+            blah = self.change_user(4,5,49)
+            blah = self.change_user(5,9,49)
+            blah = self.change_user(6,12,49)
+
+        if self.menu_select == 3:
+            blah = self.change_user(0,5,0)
+            blah = self.change_user(1,9,0)
+            blah = self.change_user(2,12,0)
+            blah = self.change_user(3,16,0)
+            blah = self.change_user(4,5,49)
+            blah = self.change_user(5,9,49)
+            blah = self.change_user(6,12,49)
+
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
 
