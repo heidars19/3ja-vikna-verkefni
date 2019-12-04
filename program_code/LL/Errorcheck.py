@@ -20,13 +20,9 @@ def check_ssn(ssn):
                 return True, ('Kennitala ekki lögleg.')
             if  ssn_list[4]%10 != 0 and ssn_list[4]%10 != 9:
                 return True, ('Kennitala ekki lögleg.')
-<<<<<<< HEAD
             return 'kennitala logleg'
-=======
-            return False
->>>>>>> dbb96137e7f9382613eb3148127c2fa4deb6252f
         except:
-            return True, ('Kennitala ekki logleg')
+            return True, ('Kennitala ekki lögleg')
     else:
         return True, ('Kennitala ekki lögleg.') 
 
