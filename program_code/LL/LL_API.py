@@ -1,6 +1,9 @@
 from Employee import *
 from EmployeeLL import *
 from DB.DATA_API import *
+from Airplanes import *
+from AirplanesLL import *
+
 
 class LL_API():
 """    All functions UI needs to call. Calls use functions in corresponding Classes.
@@ -40,7 +43,17 @@ class LL_API():
 
        #----------------------------------------------------------------------------------------------
 
-        
+        #Airplanes
+
+        def get_airplane_types():
+            all_planes = get_all_planes()
+            filtered_planes = filter_planes(all_planes, model)
+            return filtered_planes
+
+        def return_all_airplanes():
+            all_planes = get_all_planes()
+            return all_planes
+
 
 
         
