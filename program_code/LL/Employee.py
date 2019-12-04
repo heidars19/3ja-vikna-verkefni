@@ -28,7 +28,7 @@ class Employee:
     def name(self,name):
         self.__name = name
 
-    """def change_employee(self):
+       def change_employee(self):
         self.personalinfo[infotype] = new_info
         pass
 
@@ -50,7 +50,7 @@ class Employee:
         if false:
             write_personalinfo(self)
         else:
-            return True"""
+            return True
 
 
 eythor = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')

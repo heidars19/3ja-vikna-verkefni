@@ -37,7 +37,16 @@ def main():
     return
 
 
+newemployee = Employee(ssn,...)
 
 
+
+
+#Ef checkið virkar býr hann til tilvik af employee 
+# Employee = Employee(....)
+#svo má nota breyta eða hvað sem þarf að gera eftir tilvikum. Notfæra föllin sem klasinn á.
+#Skrifa niður o.s.frv.
 #if __name__ == "__main__":
+
+
     #main()
