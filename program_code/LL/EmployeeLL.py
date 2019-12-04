@@ -19,13 +19,19 @@ class EmployeeLL():
 
     def save_employee(self,emp_info):
         '''Saves employee to database'''
-        new_emp = Employee(emp_info)
+        ssn,name,address,mobile,email,role,rank,licence = emp_info.split(',')
+
+        new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence )
+
         log_employee = StaffFile(data_to_append=str(new_emp))
-        log_employee.run_me()
+        #log_employee.run_me()
+
 
     def change_employee(self,old_info,new_info):
         '''Checks if user is trying to change invalid information'''
         
+        ssn,name,address,mobile,email,role,rank,licence = new_info.split(',')
+
         old_info = StaffFile(fieldname="ssn",searchparam=ssn)
 
 
