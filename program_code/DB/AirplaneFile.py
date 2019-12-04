@@ -4,32 +4,24 @@ class AirplaneFile (FileHandlr) :
     ''' 
     Filehandler for airplane table.
 
-    Airplane(data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None )    
+    class Airplane(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    
 
     Usage:
     Call class constructor with variable name.
     Append data 
-    MakeNewInstance = Airplane(data_to_append=data) 
-    --data_to_append can be a list or a string
+    MakeNewInstance = Airplane(data_to_append=...) 
     
     Read data
     MakeNewInstance = Airplane() 
     --Empty constructor reads and returns a list
     
     Replace data
-    Airplane(line_to_replace=data, replace_with=data)
-    -- replace data with actual data
+    Airplane(line_to_replace=..., replace_with=...)
     
     Find data, returns line number, 0 if not found and -1 if error
-    MakeNewInstance = Airplane(fieldname=data, searchparam=data1)
-    -- Enter fieldname and data to make a search for a value
-    
-    
-    Airplane(data_to_append=data) data_to_append can be a list or a string
-    Call with variable names, for example: a = Airplane(data_to_append=data)
-    
+    MakeNewInstance = Airplane(fieldname=..., searchparam=...)
     '''
-
+    
     def run_me(self) :
         if self.data_to_append :
             FileHandlr.append_data_to_file(self)
@@ -50,8 +42,8 @@ class AirplaneFile (FileHandlr) :
 
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
 
-        self.filename = 'Aircraft.csv'
-        self.header = 'plainID,plainType,manufacturer,model,capacity,'
+        self.filename = FileHandlr.AIRPLANE_TABLE
+        self.header = FileHandlr.AIRLPANE_TABLE_HEADER
         self.data_to_append = data_to_append
         self.fieldname = fieldname
         self.searchparam = searchparam
