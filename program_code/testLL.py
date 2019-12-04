@@ -1,16 +1,15 @@
-import LL.LL_API
-import LL.Employee
+from LL.LL_API import *
 
 def main():
+    
     new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
     create_employee(new_emp)
     print(new_emp)
 
 
-    # staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
-    # print(staff1)
+# staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
+# print(staff1)
 
-  
 # #Prófum að stofna starfsmann
 # staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
 # print(staff1)
