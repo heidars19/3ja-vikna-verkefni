@@ -6,6 +6,7 @@ def main():
     create_employee(new_emp)
     print(new_emp)
 
+
     # staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
     # print(staff1)
 

@@ -7,16 +7,17 @@ class FileHandlr :
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'planeID,planeType,manufacturer,model,name,capacity'
     
-    STAFF_TABLE = "Data/StaffFile.csv"
-    STAFF_TABLE_HEADER = ''
+    STAFF_TABLE = "Data/Crew.csv"
+    STAFF_TABLE_HEADER = 'ssn,name,address,mobile,email,role,rank,licence'
     
-    DESTINATION_TABLE = "Data/DestinationFile.csv"
-    DESTINATION_TABLE_HEADER = ''
+    DESTINATION_TABLE = "Data/Destinations.csv"
+    DESTINATION_TABLE_HEADER = 'id,destination,Country,flightTime,distance,contact,emergNumber,airport'
     
-    WORKTRIP_TABLE = "Data/WorkTripFile.csv"
-    WORKTRIP_TABLE_HEADER = ''
+    WORKTRIP_TABLE = "Data/Worktrips.csv"
+    WORKTRIP_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2'
 
-    
+    WORKTRIP_OLD_TABLE = "Data/Worktrips_old.csv"
+    WORKTRIP_OLD_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2'
     
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
     
@@ -43,7 +44,7 @@ class FileHandlr :
         else :
             data_string = self.data_to_append
 
-        with open(self.filename, 'a', encoding='UTF-8') as f:
+        with open(self.filename, 'a', encoding='utf-8') as f:
             if f.tell() == 0: 
                 # File is empty or we just created it, so we add a header
                 f.write(self.header + '\n')

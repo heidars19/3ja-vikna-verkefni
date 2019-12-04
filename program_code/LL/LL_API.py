@@ -1,27 +1,62 @@
-#All calls UI needs to use - forwards calls to the right Class in LL
-#10 stafa númer
-from Employee import Employee
-import EmployeeLL
+from Employee import *
+from EmployeeLL import *
+from DB.DATA_API import *
 
-def create_employee(ssn,name,address,mobile,email,role,rank,licence):
+class LL_API():
+"""    All functions UI needs to call. Calls use functions in corresponding Classes.
+"""   
+
+   #Staff functions
+   #----------------------------------------------------------------------------------------------
+    def create_employee(ssn,name,address,mobile,email,role,rank,licence):
+"""        Creates a new employee, returns string with information about success.     """      
+      
+      # Newemp = Employee.from_string(new_emp)
+        newemp = Employee(ssn,name,address,mobile,email,role,rank,licence)
+        EmployeeLL.save_employee(newemp) 
+
+        updatedlist = EmployeeLL.get_employee_list()
+        return updatedlist
+
+
+        #write new info to DB
+        #biðja um update af listanum
+        #Return updated list
+
+        return newemp
+
+    def change_employee(ssn,name,address,mobile,email,role,rank,licence):
+        emptochange = Employee(ssn,name,address,mobile,email,role,rank,licence)
+
+        old_info = AirplaneFile(fieldname="ssn",searchparam=ssn)
+        line_number = old_info.run_me()
+
+
+        data_string = ",".join([ssn,name,address,mobile,email,role,rank,licence])
+
+        new_info = AirplaneFile(line_to_replace=line_number,replace_with=data_string)
+        new_info.run_me()
+
+
+       #----------------------------------------------------------------------------------------------
+
+        
+
+
+        
+
     
-    Newemp = Employee(ssn,name,address,mobile,email,role,rank,licence)
-    return Newemp
-   # EmployeeLL.Write(Newemp)
+
+        
+
+    #if __name__ == "__main__":
 
 
-   # Newemp = Employee.from_string(new_emp)
-
-    
-
-#if __name__ == "__main__":
-
-
-    #main()
+        #main()
 
 
 
-#new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
-emp = create_employee("2501952149","Eyþór Óli Borgþórsson","Þingás 31","8453474","eythoroli95@gmail.com","Pilot","Copilot","Fokker232")
+    #new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
+    emp = create_employee("2501952149","Eyþór Óli Borgþórsson","Þingás 31","8453474","eythoroli95@gmail.com","Pilot","Copilot","Fokker232")
 
-print(emp)
+    print(emp)
