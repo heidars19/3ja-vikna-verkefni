@@ -2,27 +2,27 @@ from DB.FileHandlr import FileHandlr
 
 class AirplaneFile (FileHandlr) :
     ''' 
-    Filehandler for airplane table.
-
-    class Airplane(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    
-
-    Usage:
-    Call class constructor with variable name.
-    Append data 
-    MakeNewInstance = Airplane(data_to_append=...) 
+    Filehandler for airplane table.\n
+\n
+    class AirplaneFile(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    \n
+\n
+    Usage:\n
+    Call class constructor with variable name. \n
+    Append data \n
+    MakeNewInstance = AirplaneFile(data_to_append=...) \n
+    \n 
+    Read data\n
+    MakeNewInstance = AirplaneFile() \n
+    --Empty constructor reads and returns a list\n
     
-    Read data
-    MakeNewInstance = Airplane() 
-    --Empty constructor reads and returns a list
-    
-    Replace data
-    Airplane(line_to_replace=..., replace_with=...)
-    
-    Find data, returns line number, 0 if not found and -1 if error
-    MakeNewInstance = Airplane(fieldname=..., searchparam=...)
+    Replace data\n
+    AirplaneFile(line_to_replace=..., replace_with=...)\n
+    \n
+    Find data, returns line number, 0 if not found and -1 if error\n
+    MakeNewInstance = AirplaneFile(fieldname=..., searchparam=...)
     '''
     
-    def run_me(self) :
+    def start(self) :
         if self.data_to_append :
             FileHandlr.append_data_to_file(self)
         
