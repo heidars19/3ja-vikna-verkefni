@@ -44,7 +44,7 @@ class Airplane():
         return status
 
     def change_airplane(self, new_info):
-                new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity = new_info
+        new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity = new_info
         line_in_db = AirplaneFile(fieldname="plane_id",searchparam=new_plane_id)
         
         if line_in_db == 0:
