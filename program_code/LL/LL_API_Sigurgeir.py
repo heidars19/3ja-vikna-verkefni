@@ -33,6 +33,7 @@ def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
 
 
 #----------------------------------------------------------------------------------------------
+
 #Airplanes
 
 def get_airplane_types():
@@ -41,7 +42,7 @@ def get_airplane_types():
     return filtered_planes
 
 def get_all_airplanes():
-    all_planes = get_all_planes()
+    all_planes =  get_all_planes()
     return all_planes
 
 def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
@@ -51,7 +52,7 @@ def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
 
 
 
-
+    
 
 
 
