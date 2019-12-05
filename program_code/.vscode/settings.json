@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Python\\Python37-32\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
+=======
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.8/bin/python3"
+>>>>>>> f65346ec69c75ac463124d648ba5846e79e59427
 }

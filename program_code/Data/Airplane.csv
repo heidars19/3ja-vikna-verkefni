@@ -5,7 +5,14 @@ TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
 Þetta ætti að breyta línu 4
 TF-OAS,NABAE146,BAE,146,Sessý,82
 TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
+<<<<<<< HEAD
 TF-EOB,NAFokker100,Fokker,F100,Helgi,100
+=======
+TF-EOB,NAFokker100,Fokker,F100,Helgi,100
+TF-OAS,NABAE146,BAE,146,Sessý,82
+TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
+TF-EOB,NAFokker100,Fokker,F100,Helgi,100
+>>>>>>> f65346ec69c75ac463124d648ba5846e79e59427
 TF-EOC,NAFokker80,Fokker,F800,Heiðar,100
 TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:27.952434
 TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:49.522516

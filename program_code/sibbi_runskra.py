@@ -1,3 +1,3 @@
-from LL.AirplanesLL import *
+from LL.LL_API_sigurgeir import *
 
-test_main()
+testmain()
