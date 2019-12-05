@@ -1,4 +1,5 @@
-import Airplanes
+from DB.DATA_API import *
+from LL.Airplanes import Airplane
 import string
 
 ALL_TEST = ['TF-OAS,NABAE146,BAE,146,Sessý,82','TF-STH,NAFokkerF28,Fokker,F28,Finnur,65','TF-EOB,NAFokker100,Fokker,F100,Helgi,100']
@@ -6,8 +7,8 @@ ALL_TEST = ['TF-OAS,NABAE146,BAE,146,Sessý,82','TF-STH,NAFokkerF28,Fokker,F28,F
 def filter_available(all_planes):
     pass
 
-def filter(all_list, a_type):
-    header = ['planeID','planeType','manufacturer','model','name','capacity']
+def filter_airplanes(all_list, a_type):
+    header = ['plane_id', 'plane_type', 'manufacturer', 'model', 'name', 'capacity']
     type_input = None
     for index, value in enumerate(header):
         if value.lower() == a_type.lower():
@@ -25,15 +26,20 @@ def filter(all_list, a_type):
     
 
 
-def get_in_database():
-    all_planes = AirplaneFile.start()
+def get_airplane_list():
+    plane_file_handler = AirplaneFile()
+    all_planes = plane_file_handler.start()
     return all_planes
 
-def register_to_database():
+def save_airplane(planeID, planeType, manufacturer, model, name, capacity):
+    new_plain = Airplane(planeID, planeType, manufacturer, model, name, capacity)
+    print (new_plain)
+    log_plain = AirplaneFile(data_to_append=str(new_plain))
+    log_plain.start()
+
+def change_airplane():
     pass
 
-def change_register_in_database():
-    pass
 
-
-filter(ALL_TEST, 'MOdEl')
+def test_main():
+    save_airplane('TEST,TEST,BAE,146,Sessý,82')

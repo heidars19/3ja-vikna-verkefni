@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 planeID,planeType,manufacturer,model,name,capacity 
 TF-OAS,NABAE146,BAE,146,SessÃ½,82
 TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
 TF-EOB,NAFokker100,Fokker,F100,Helgi,100
 Þetta ætti að breyta línu 4
+=======
+planeID,planeType,manufacturer,model,name,capacity 
+TF-OAS,NABAE146,BAE,146,Sessý,82
+TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
+TF-EOB,NAFokker100,Fokker,F100,Helgi,100
+TF-EOC,NAFokker80,Fokker,F800,Heiðar,100
+Sessý,TEST,TEST,BAE,BAE
+>>>>>>> faab0cbd4be2c85dde3ddeca74b6ca7fe1ae1f7d

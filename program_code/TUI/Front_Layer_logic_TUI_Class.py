@@ -2,20 +2,17 @@
 import os
 import Front_layer_TUI
 import locale
-locale.setlocale(locale.LC_ALL,"")
 import curses
 import time
 import datetime
 import dateutil.parser
+#import Errorcheck
 
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
 header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
-
-code = locale.getpreferredencoding()
-str.encode(code)
-
+# coding = UTF-8
 
 item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
@@ -193,7 +190,7 @@ class TUI():
     def construct_body_new_registration(self):
         registration_list = (
             ("Kennitala:","Nafn:","Heimilsfang:","Gsm sími:", "Netfang:","Starfstitill:","Starfsstaða:"),
-            ("Dagsetning:","Brottfaratími út:","Brottfaratími heim:","Flugvél:","Upphafsstaður:","Áfangastaður:"),
+            ("Dagsetning:","Brottfaratími út:","Flugvél:","Upphafsstaður:","Áfangastaður:"),
             ("Nafn áfangastaðar:","Land:", "Flugvöllur:","Flugtími:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:"),
             ("Nafn:","Framleiðandi:","Tengund:","Fjöldi sæta:"),
             )
@@ -354,36 +351,44 @@ class TUI():
         Front_layer_TUI.print_menu(self.stdscr, self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
         curses.curs_set(1)
         if self.menu_select == 0:
+            """while True:"""
             kt = self.make_user_input_window(5,15)
+            """check,error_msg = Errorcheck.check_ssn(kt.strip())
+            if check == True:
+                break
+            else:
+                self.make_text_appear(5,15,error_msg,30)
+                time.sleep(1)"""
             name = self.make_user_input_window(9,10)
             address = self.make_user_input_window(12,17)
             gsm = self.make_user_input_window(16,14)
             email = self.make_user_input_window(5,62)
             job_title = self.make_drop_down_menu(9,67,"Pilot","Cabincrew")
-            self.make_text_appear(9,67,job_title,30)
+            self.make_text_appear(9,67,job_title,30,2)
             self.make_text_appear(10,53,"",30)
             if "Pilot" in job_title:
                 self.make_text_appear(16,53,"Flugréttindi:",30)
                 rank = self.make_drop_down_menu(12,66,"Captain","Co-Pilot")
-                self.make_text_appear(12,66,rank,30)
+                self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             else:
                 rank = self.make_drop_down_menu(12,66,"Flight Service Manager","Flight Attendant")
-                self.make_text_appear(12,66,rank,30)
+                self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
                 licence = self.make_user_input_window(16,67)
             else:
                 licence = ""
             le = (kt,name,address,gsm,email,job_title,rank,licence)
+            self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
         if self.menu_select == 1:
+            self.make_text_appear(16,19,"KEF",30,2)
             date = self.make_user_input_window(5,16)
             departure_time_out = self.make_user_input_window(9,22)
-            departure_time_home = self.make_user_input_window(12,24)
-            airplane = self.make_user_input_window(16,13)
-            departure = self.make_user_input_window(5,68)
-            destination = self.make_user_input_window(9,67)
-            le = (date,departure_time_out,departure_time_home,airplane,departure,destination)
+            airplane = self.make_user_input_window(12,13)
+            destination = self.make_user_input_window(5,67)
+            le = (date,departure_time_out,airplane,destination)
+            self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
         if self.menu_select == 2:
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
@@ -393,15 +398,16 @@ class TUI():
             name_of_contact = self.make_user_input_window(9,70)
             contacts_phone = self.make_user_input_window(12,70)
             le = (destination_name,country,airport,fly_time,distance_from_iceland,name_of_contact,contacts_phone)
+            self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
         if self.menu_select == 3:
             name = self.make_user_input_window(5,10)
             producer = self.make_user_input_window(9,18)
             product_id = self.make_user_input_window(12,13)
             num_of_seats = self.make_user_input_window(16,17)
             le = (name,producer,product_id,num_of_seats)
+            self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
         self.new_reg_u_input = False
         time.sleep(1)
-        self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
         time.sleep(2)
         curses.curs_set(0)
 
@@ -409,10 +415,26 @@ class TUI():
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
-        box = Textbox(editwin)
-        box.edit()
+        #editwin.encoding
+        data = ""
+        while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
+            ch = editwin.getch()
+            if ch== 10:
+                break
+            if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
+            or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
+            or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
+            or ch == 250 or ch == 218 or ch == 225 or ch == 193: #This defines all the chrs this custom input accepts
+                data += chr(ch)
+            elif ch == 8:
+                data = data[:-1]
+            elif data == 27:
+                wrapper(main)
+            editwin.clear()
+            editwin.refresh()
+            editwin.addstr(0,0,data)
         editwin.attroff(curses.color_pair(2))
-        return box.gather()
+        return data
 
     def make_text_appear(self,y,x,text_string,box_len, color_pair = 1):
         editwin2 = curses.newwin(1,box_len,y,x)
@@ -569,17 +591,7 @@ def main(stdscr):
             curses.noecho()
             stdscr.refresh()
             key = stdscr.getch()
-        """if lol == 0:
-            editwin = curses.newwin(1,30,22,70)
-            rectangle(stdscr, 21,69, 23,100)
-            stdscr.refresh()
-            box = Textbox(editwin)
-            box.edit()
-            message = box.gather()
-            lol = 1
-            key = 0
-        else:"""
-        
+
         if key == 49:
             TUI_instance.menu_select = 0
             list_den5 = ["x", " ", " "]
@@ -647,7 +659,6 @@ def main(stdscr):
         stdscr.attroff(curses.color_pair(1))
         stdscr.refresh()
         time.sleep(1)"""
-    curses.curs_set(0)
 
 #curses.cbreak
 #curses.nocbreak

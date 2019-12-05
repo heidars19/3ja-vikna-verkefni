@@ -4,3 +4,6 @@ hellofromeythor.rtf
 Arnar_.txt
 Using/*
 .DS_Store
+program_code/DB/__pycache__/*
+program_code/TUI/__pycache__/*
+program_code/LL/__pycache__/*
