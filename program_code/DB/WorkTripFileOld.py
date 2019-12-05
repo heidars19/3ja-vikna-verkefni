@@ -1,25 +1,25 @@
 from DB.FileHandlr import FileHandlr
 
-class AirplaneFile (FileHandlr) :
+class WorkTripFileOld (FileHandlr) :
     ''' 
-    Filehandler for airplane table.\n
+    Filehandler for WorkTripOld table.\n
 \n
-    class AirplaneFile(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    \n
+    class WorkTripFileOld(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    \n
 \n
     Usage:\n
     Call class constructor with variable name. \n
     Append data \n
-    MakeNewInstance = AirplaneFile(data_to_append=...) \n
+    MakeNewInstance = WorkTripFileOld(data_to_append=...) \n
     \n 
     Read data\n
-    MakeNewInstance = AirplaneFile() \n
+    MakeNewInstance = WorkTripFileOld() \n
     --Empty constructor reads and returns a list\n
     
     Replace data\n
-    AirplaneFile(line_to_replace=..., replace_with=...)\n
+    WorkTripFileOld(line_to_replace=..., replace_with=...)\n
     \n
     Find data, returns line number, 0 if not found and -1 if error\n
-    MakeNewInstance = AirplaneFile(fieldname=..., searchparam=...)
+    MakeNewInstance = WorkTripFileOld(fieldname=..., searchparam=...)
     '''
     
     def start(self) :
@@ -38,17 +38,15 @@ class AirplaneFile (FileHandlr) :
             return self.data_list
 
         return
-
+    
 
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
 
-        self.filename = FileHandlr.AIRPLANE_TABLE
-        self.header = FileHandlr.AIRLPANE_TABLE_HEADER
+        self.filename = FileHandlr.WORKTRIP_OLD_TABLE
+        self.header = FileHandlr.WORKTRIP_OLD_TABLE_HEADER
         self.data_to_append = data_to_append
         self.fieldname = fieldname
         self.searchparam = searchparam
         self.line_to_replace = line_to_replace
         self.replace_with = replace_with
         self.filestream = None
-
-        
