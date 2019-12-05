@@ -2,10 +2,7 @@ from Employee import *
 from EmployeeLL import *
 #from DB.DATA_API import * eigum ekki að tala beint við db
 from Airplanes import *
-from AirplanesLL import *
 from Destination import *
-from DestinationLL import *
-
 
 
 #Staff functions
@@ -36,12 +33,11 @@ def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
 
 
 #----------------------------------------------------------------------------------------------
-
 #Airplanes
 
 def get_airplane_types():
-    all_planes = get_all_planes()
-    filtered_planes = filter_planes(all_planes, model)
+    all_planes = Airplane.get_airplane_list()
+    filtered_planes =Airplane.filter_planes(all_planes, model)
     return filtered_planes
 
 def get_all_airplanes():
@@ -55,7 +51,7 @@ def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
 
 
 
-    
+
 
 
 

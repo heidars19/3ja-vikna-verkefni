@@ -17,14 +17,15 @@ class EmployeeLL():
         self.old_info = old_info
         self.employee = Employee(ssn,name,address,mobile,email,role,rank,licence)
 
-    def save_employee(self,emp_info):
-        '''Saves employee to database'''
-        ssn,name,address,mobile,email,role,rank,licence = emp_info.split(',')
-
+    def save_employee(self,ssn,name,address,mobile,email,role,rank,licence):
         new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence )
+        log_emp = StaffFile(data_to_append=str(new_emp))
+        log_emp.start()
 
-        log_employee = StaffFile(data_to_append=str(new_emp))
-        #log_employee.run_me()
+    def get_updated_list():
+        new_emp_list = StaffFile()               #create new instance
+        updated_list = new_emp_list.start()      
+        return updated_list
 
 
     def change_employee(self,old_info,new_info):
