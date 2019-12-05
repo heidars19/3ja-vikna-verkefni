@@ -9,23 +9,22 @@ from LL.DestinationLL import *
 #Airplanes
 class LL_API():
     def get_airplane_types():
-        all_planes = AirplanesLL.get_airplane_list()
+        all_planes = AirplanesLL.get_plane_list()
         filtered_planes = AirplanesLL.filter_planes(all_planes, 'model')
         return filtered_planes
 
     def get_all_airplanes():
-        all_planes = AirplanesLL.get_airplane_list()
+        all_planes = AirplanesLL.get_plane_list()
         return all_planes
 
     def create_airplane(self, plane_id, plane_type, manufacturer, model, name, capacity):
         new_register = AirplanesLL()
-        status = new_register.save_airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+        status = new_register.create_airplane(plane_id, plane_type, manufacturer, model, name, capacity)
         
+    def change_airplane()
 def testmain():
     
-    thelist = LL_API.get_airplane_types()
-    print (thelist)
-
+    
     
 
 

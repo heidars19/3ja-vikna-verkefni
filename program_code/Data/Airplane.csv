@@ -1,9 +1,11 @@
-planeID,planeType,manufacturer,model,name,capacity 
-TF-OAS,NABAE146,BAE,146,SessÃ½,82
-TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
-TF-EOB,NAFokker100,Fokker,F100,Helgi,100
-TF-OAS,NABAE146,BAE,146,Sessý,82
-TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
-TF-EOB,NAFokker100,Fokker,F100,Helgi,100
-TF-EOC,NAFokker80,Fokker,F800,Heiðar,100
-Sessý,TEST,TEST,BAE,BAE
+plane_id ,plane_type     ,manufacturer ,model ,name   ,capacity ,timestamp
+TF-OAS  ,NABAE146      ,BAE          ,146   ,SessÃ½ ,82       ,52019-12-05 21:23:08.227855
+TF-STH  ,NAFokkerF28   ,Fokker       ,F28   ,Finnur ,65       ,52019-12-05 21:23:08.227855
+TF-EOB  ,NAFokker100   ,Fokker       ,F100  ,Helgi  ,100      ,52019-12-05 21:23:08.227855
+TF-OAS  ,NABAE146      ,BAE          ,146   ,Sessý  ,82       ,52019-12-05 21:23:08.227855
+TF-STH  ,NAFokkerF28   ,Fokker       ,F28   ,Finnur ,65       ,52019-12-05 21:23:08.227855
+TF-EOB  ,NAFokker100   ,Fokker       ,F100  ,Helgi  ,100      ,52019-12-05 21:23:08.227855
+TF-EOC  ,NAFokker80    ,Fokker       ,F800  ,Heiðar ,100      ,52019-12-05 21:23:08.227855
+KR-3424 ,Mother-fucker ,Brummi       ,Audi  ,R2D2   ,Brummi   ,52019-12-05 21:23:08.227855
+KR-3424,Mother-fucker,Brummi,Audi,R2D2,Brummi,52019-12-05 21:29:25.631034
+KR-3424,Mother-fucker,Brummi,Audi,R2D2,Brummi,52019-12-05 21:34:22.652317
