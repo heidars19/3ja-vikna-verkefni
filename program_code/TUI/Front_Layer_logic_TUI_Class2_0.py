@@ -1,4 +1,6 @@
 #import User_interface
+from LL.LL_API_sigurgeir import *
+from LL.LL_API_eythor import *
 import os
 #import Front_layer_TUI
 import locale
@@ -6,8 +8,9 @@ import curses
 import time
 import datetime
 import dateutil.parser
-#import Errorcheck
+import calendar
 
+#from LL.LL_API_eythor import *
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
 header_lengd = 20
@@ -93,7 +96,7 @@ class TUI():
         self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-
+        self.item_list = []
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -118,8 +121,8 @@ class TUI():
 
     def construct_main_menu(self):
         menu = ("1.Starfsmenn", "2.Vinnuferðir", "3.Áfangastaðir", "4.Flugvélar")
-        date = datetime.date.today().strftime("%d %b %Y")
-        get_date = "{:^{lengd:}}".format(date,lengd = header_lengd)
+        self.date = datetime.date.today().strftime("%d %b %Y")
+        get_date = "{:^{lengd:}}".format(self.date,lengd = header_lengd)
         main_menu_length = 20
         m_starf = "{:^{lengd:}}".format(menu[0],lengd = main_menu_length)
         m_vinnufe = "{:^{lengd:}}".format(menu[1],lengd = main_menu_length)
@@ -382,8 +385,14 @@ class TUI():
             le = (kt,name,address,gsm,email,job_title,rank,licence)
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
         if self.menu_select == 1:
+            curses.curs_set(0)
+            time.sleep(1)
+            date = self.calendar_screen()
+            self.print_menu(self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
             self.make_text_appear(16,19,"KEF",30,2)
-            date = self.make_user_input_window(5,16)
+            self.make_text_appear(5,16,date,30,2)
+            self.make_text_appear(10,22,"xx:xx",30,3)
+            curses.curs_set(1)
             departure_time_out = self.make_user_input_window(9,22)
             airplane = self.make_user_input_window(12,13)
             destination = self.make_user_input_window(5,67)
@@ -411,6 +420,129 @@ class TUI():
         time.sleep(2)
         curses.curs_set(0)
 
+    def calendar_screen(self):
+            cal = calendar.Calendar()
+            editwin2 = curses.newwin(15,100,5,3)
+            editwin2.attron(curses.color_pair(1))
+            editwin2.keypad(1)
+            add_month = 0
+            add_year = 0
+            datetime_year = datetime.date.today().year
+            datetime_month = datetime.date.today().month
+            date_selected = 1
+            while True:
+                month = cal.monthdatescalendar(year = (int(datetime_year) + add_year),month = (int(datetime_month) + add_month))
+                for i in range(len(month)):
+                    for x in range(len(month[i])):
+                        month[i][x] = str(month[i][x])
+                y = 0
+                days_in_month = 0
+                stop = 0
+                for i in range(len(month)):
+                    for x in range(len(month[i])):
+                        if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year) + add_year:
+                            days_in_month += 1
+                            if date_selected == days_in_month:
+                                editwin2.attron(curses.color_pair(2))
+                                editwin2.attroff(curses.color_pair(1))
+                                selected_day = month[i][x]
+                            if stop == 0:
+                                editwin2.addstr(y,0,month[i][x])
+                                stop = 1
+                                if y > 15:
+                                    y = 0
+                            elif stop == 1:
+                                editwin2.addstr(y,25,month[i][x])
+                                stop = 2
+                                if y > 15:
+                                    
+                                    y = 0
+                            elif stop == 2:
+                                editwin2.addstr(y,50,month[i][x])
+                                stop = 3
+                                if y > 15:
+                                    
+                                    y = 0
+                            else:
+                                editwin2.addstr(y,75,month[i][x])
+                                y+=2
+                                stop = 0
+                                if y > 15:
+                                    y = 0
+                            editwin2.attroff(curses.color_pair(2))
+                            editwin2.attron(curses.color_pair(1))
+                check = editwin2.getch()
+                if check == curses.KEY_LEFT:
+                    if date_selected == 1:
+                        pass
+                    elif date_selected == 5:
+                        pass
+                    elif date_selected == 9:
+                        pass
+                    elif date_selected == 13:
+                        pass
+                    elif date_selected == 17:
+                        pass
+                    elif date_selected == 21:
+                        pass
+                    elif date_selected == 25:
+                        pass
+                    elif date_selected == 29:
+                        pass
+                    else:
+                        date_selected -= 1
+                elif check == curses.KEY_RIGHT:
+                    if date_selected == 4:
+                        pass
+                    elif date_selected == 8:
+                        pass
+                    elif date_selected == 12:
+                        pass
+                    elif date_selected == 16:
+                        pass
+                    elif date_selected == 20:
+                        pass
+                    elif date_selected == 24:
+                        pass
+                    elif date_selected == 28:
+                        pass
+                    elif date_selected == days_in_month:
+                        pass
+                    else:
+                        date_selected += 1
+                elif check == curses.KEY_UP or check == 450:
+                    current = date_selected
+                    if date_selected == 1:
+                        pass
+                    elif date_selected == 2:
+                        pass
+                    elif date_selected == 3:
+                        pass
+                    elif date_selected == 4:
+                        pass
+                    else:
+                        date_selected -= 4
+                elif check == curses.KEY_DOWN or check == 456:
+                    if date_selected == 28:
+                        pass
+                    elif date_selected == 29:
+                        pass
+                    elif date_selected == 30:
+                        pass
+                    elif date_selected == 31:
+                        pass
+                    else:
+                        date_selected += 4
+                elif check == 27:
+                    editwin2.clear()
+                    return ""
+                elif check == 10:
+                    editwin2.clear()
+                    return selected_day
+
+            editwin2.attroff(curses.color_pair(1))
+            editwin2.refresh()
+
     def make_user_input_window(self,y,x):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
@@ -424,7 +556,7 @@ class TUI():
             if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
             or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
             or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
-            or ch == 250 or ch == 218 or ch == 225 or ch == 193: #This defines all the chrs this custom input accepts
+            or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
                 data += chr(ch)
             elif ch == 8:
                 data = data[:-1]
@@ -562,6 +694,7 @@ class TUI():
         curses.init_color(curses.COLOR_GREEN,1000,0,0)
         curses.init_pair(1,curses.COLOR_GREEN,curses.COLOR_BLACK)
         curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
+        curses.init_pair(3,curses.COLOR_MAGENTA, curses.COLOR_BLACK)
         
         # This raises ZeroDivisionError when i == 10.
         idx = 0
@@ -613,6 +746,9 @@ class TUI():
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
+                new_instance = LL_API()
+                self.item_list = new_instance.get_all_airplanes()
+
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
@@ -652,12 +788,14 @@ class TUI():
                         self.exeption += 1
                     else:
                         self.exeption = 0
-            """stdscr.clear()
-            stdscr.attron(curses.color_pair(1))
-            stdscr.addstr(0,0,str(key))
-            stdscr.attroff(curses.color_pair(1))
-            stdscr.refresh()
-            time.sleep(1)"""
+            for i in range(len(self.item_list)):
+                for x in range(len(self.item_list[i])):
+                    self.stdscr.clear()
+                    self.stdscr.attron(curses.color_pair(1))
+                    self.stdscr.addstr(0,0,item_list[i][x])
+                    self.stdscr.attroff(curses.color_pair(1))
+                    self.stdscr.refresh()
+                    time.sleep(1)
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
         h, w = self.stdscr.getmaxyx()
@@ -693,3 +831,9 @@ class TUI():
 #curses.nocbreak
 #time.sleep(1)
 #wrapper(main)
+
+def start(stdscr):
+    new_tui = TUI(stdscr)
+    new_tui.main()
+
+#wrapper(start)

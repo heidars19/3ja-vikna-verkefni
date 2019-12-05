@@ -1,3 +1,5 @@
+from DB.DATA_API import *
+
 class Airplane():
     def __init__(self, plane_id, plane_type, manufacturer, model, name, capacity) :
         self.planeID = plane_id
@@ -34,21 +36,33 @@ class Airplane():
                 types.append(list[3])
             
     def get_airplane_list():
-        {PlaneFilehandler = AirplaneFile()
+        PlaneFilehandler = AirplaneFile()
         all_planes = PlaneFilehandler.start()
-        return all_planes
+        all_planes_list = []
+        for plane in all_planes:
+            all_planes_list.append(plane.split(','))
+        return all_planes_list
 
-    def save_airplane(planeID, planeType, manufacturer, model, name, capacity):
-        new_plain = Airplane(planeID, planeType, manufacturer, model, name, capacity)
-        log_plain = AirplaneFile(data_to_append=str(new_plain))
-        log_plain.start()
+    def save_airplane(self):
+        log_plain = AirplaneFile(data_to_append=str(self))
+        status = log_plain.start()
+        return status
 
-    def change_airplane(planeID, planeType, manufacturer, model, name, capacity):
-        pass
+    def change_airplane(self, new_info):
+        new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity = new_info
+        line_in_db = AirplaneFile(fieldname="plane_id",searchparam=new_plane_id)
+        
+        if line_in_db == 0:
+            return False, "Flugvél ekki til í gagnagrunni"
+        if line_in_db == -1:
+            return False, "Villa kom upp!"
+        
+        new_info_plane = Airplane(new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity)
+        PlaneFilehandler = AirplaneFile(line_to_replace=line_in_db, replace_with=str(new_info_plane))
+        status = PlaneFilehandler.start()
+        
+        return status
 
-    def change_employee(self,old_info,new_info):
-            '''Checks if user is trying to change invalid information'''
-            
-            ssn,name,address,mobile,email,role,rank,licence = new_info.split(',')
-
-            old_info = StaffFile(fieldname="ssn",searchparam=ssn)
+def testmain():
+    thelist = Airplane.get_airplane_list()
+    print (thelist)
