@@ -14,7 +14,6 @@ header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
 # coding = UTF-8
 
-
 item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
                 ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
@@ -416,16 +415,21 @@ class TUI():
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
-        editwin.encoding
+        #editwin.encoding
         data = ""
-        while True:
+        while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
             ch = editwin.getch()
             if ch== 10:
                 break
-            if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121) or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205 or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 or ch == 250 or ch == 218 or ch == 225 or ch == 193:
+            if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
+            or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
+            or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
+            or ch == 250 or ch == 218 or ch == 225 or ch == 193: #This defines all the chrs this custom input accepts
                 data += chr(ch)
             elif ch == 8:
                 data = data[:-1]
+            elif data == 27:
+                wrapper(main)
             editwin.clear()
             editwin.refresh()
             editwin.addstr(0,0,data)
