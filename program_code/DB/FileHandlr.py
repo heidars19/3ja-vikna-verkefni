@@ -32,6 +32,8 @@ class FileHandlr :
         self.filestream = None
 
 
+    def get_header(self):
+        return self.header
 
     def append_data_to_file(self):
         ''' 
@@ -105,13 +107,13 @@ class FileHandlr :
         When line_to_replace is a string, it can replace partial lines.
         '''
         if isinstance(self.line_to_replace, int) : # If line_to_replace is a line number (int)
-            for i, line in enumerate(fileinput.FileInput(self.filename,inplace=1)) :
+            for i, line in enumerate(fileinput.FileInput(self.filename,openhook=fileinput.hook_encoded("utf-8"))) :
                 if i == self.line_to_replace :
                     print(self.replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
                 else :
                     print(line, end='')
         else :   # line_to_replace is a complete line (str)
-            for line in fileinput.FileInput(self.filename,inplace=1):
+            for line in fileinput.FileInput(self.filename,openhook=fileinput.hook_encoded("utf-8")) :   # openhook=fileinput.hook_encoded("utf-8")  --  inplace=1
                 line = line.replace(self.line_to_replace,self.replace_with)
                 print(line, end='')
 
