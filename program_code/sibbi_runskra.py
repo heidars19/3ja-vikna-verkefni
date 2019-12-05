@@ -1,3 +1,3 @@
-from LL.AirplanesLL import *
+from LL.Airplanes import *
 
-test_main()
+testmain()

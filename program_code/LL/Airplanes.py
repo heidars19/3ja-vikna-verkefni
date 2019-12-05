@@ -1,4 +1,5 @@
 from DB.DATA_API import *
+
 class Airplane():
     def __init__(self, plane_id, plane_type, manufacturer, model, name, capacity) :
         self.planeID = plane_id
@@ -37,7 +38,10 @@ class Airplane():
     def get_airplane_list():
         PlaneFilehandler = AirplaneFile()
         all_planes = PlaneFilehandler.start()
-        return all_planes
+        all_planes_list = []
+        for plane in all_planes:
+            all_planes_list.append(plane.split(','))
+        return all_planes_list
 
     def save_airplane(self):
         log_plain = AirplaneFile(data_to_append=str(self))
@@ -59,3 +63,6 @@ class Airplane():
         
         return status
 
+def testmain():
+    thelist = Airplane.get_airplane_list()
+    print (thelist)
