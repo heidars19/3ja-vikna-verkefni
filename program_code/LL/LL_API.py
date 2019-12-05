@@ -33,7 +33,6 @@ def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
 
 
 #----------------------------------------------------------------------------------------------
-
 #Airplanes
 
 def get_airplane_types():
@@ -52,7 +51,7 @@ def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
 
 
 
-    
+
 
 
 

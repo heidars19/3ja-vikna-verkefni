@@ -18,8 +18,8 @@ class Employee:
         self.licence = licence
         self.__creation_date = today
 
-    def __str__(self):
-        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__creationdate}'
+    # def __str__(self):
+    #     return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__creationdate}'
 
     #def __repr__(self):
      #   return Employee({self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__creationdate})
