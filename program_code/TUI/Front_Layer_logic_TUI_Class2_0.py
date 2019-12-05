@@ -96,7 +96,7 @@ class TUI():
         self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-
+        self.item_list = []
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -746,6 +746,9 @@ class TUI():
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
+                new_instance = LL_API()
+                self.item_list = new_instance.get_all_airplanes()
+
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
@@ -785,12 +788,14 @@ class TUI():
                         self.exeption += 1
                     else:
                         self.exeption = 0
-            """self.stdscr.clear()
-            self.stdscr.attron(curses.color_pair(1))
-            self.stdscr.addstr(0,0,str(key))
-            self.stdscr.attroff(curses.color_pair(1))
-            self.stdscr.refresh()
-            time.sleep(1)"""
+            for i in range(len(self.item_list)):
+                for x in range(len(self.item_list[i])):
+                    self.stdscr.clear()
+                    self.stdscr.attron(curses.color_pair(1))
+                    self.stdscr.addstr(0,0,item_list[i][x])
+                    self.stdscr.attroff(curses.color_pair(1))
+                    self.stdscr.refresh()
+                    time.sleep(1)
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
         h, w = self.stdscr.getmaxyx()
