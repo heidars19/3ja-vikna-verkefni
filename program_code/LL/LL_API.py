@@ -26,7 +26,6 @@ def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
     return updated_list
 
 #----------------------------------------------------------------------------------------------
-
 #Airplanes
 
 def get_airplane_types():
@@ -40,7 +39,7 @@ def return_all_airplanes():
 
 
 
-    
+
 
 
 
