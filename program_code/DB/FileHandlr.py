@@ -1,23 +1,24 @@
 import csv
 import fileinput
+import datetime
 
 class FileHandlr :
     ''' Abstract class for filehandling '''
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
-    AIRLPANE_TABLE_HEADER = 'planeID,planeType,manufacturer,model,name,capacity'
+    AIRLPANE_TABLE_HEADER = 'planeID,planeType,manufacturer,model,name,capacity,registrationDate'
     
     STAFF_TABLE = "Data/Crew.csv"
-    STAFF_TABLE_HEADER = 'ssn,name,address,mobile,email,role,rank,licence'
+    STAFF_TABLE_HEADER = 'ssn,name,address,mobile,email,role,rank,licence,registrationDate'
     
     DESTINATION_TABLE = "Data/Destinations.csv"
-    DESTINATION_TABLE_HEADER = 'id,destination,Country,flightTime,distance,contact,emergNumber,airport'
+    DESTINATION_TABLE_HEADER = 'id,destination,Country,flightTime,distance,contact,emergNumber,airport,registrationDate'
     
     WORKTRIP_TABLE = "Data/Worktrips.csv"
-    WORKTRIP_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2'
+    WORKTRIP_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2,registrationDate'
 
     WORKTRIP_OLD_TABLE = "Data/Worktrips_old.csv"
-    WORKTRIP_OLD_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2'
+    WORKTRIP_OLD_TABLE_HEADER = 'id,flightNumberOut,flightNumberHome,departingFrom,arrivingAt,departure,arrival,aircraftID,captain,copilot,fsm,fa1,fa2,registrationDate'
     
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
     
@@ -48,7 +49,7 @@ class FileHandlr :
             if f.tell() == 0: 
                 # File is empty or we just created it, so we add a header
                 f.write(self.header + '\n')
-            f.write(data_string + '\n') # Append data to file
+            f.write(data_string + str(datetime.datetime.now()) + '\n') # Append data to file
 
 
     def does_line_exists(self): 
