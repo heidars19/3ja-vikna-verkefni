@@ -1,10 +1,25 @@
 planeID,planeType,manufacturer,model,name,capacity 
-TF-OAS,NABAE146,BAE,146,SessÃ½,82
+TF-OAS,NABAE146,BAE,146,Sessý,82
 TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
-TF-EOB,NAFokker100,Fokker,F100,Helgi,100
+Þetta ætti að breyta línu 3
 Þetta ætti að breyta línu 4
 TF-OAS,NABAE146,BAE,146,Sessý,82
 TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
 TF-EOB,NAFokker100,Fokker,F100,Helgi,100
 TF-EOC,NAFokker80,Fokker,F800,Heiðar,100
-Sessý,TEST,TEST,BAE,BAE
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:27.952434
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:49.522516
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:31:17.508565
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:31:36.344730
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:11.571674
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:25.202619
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:30.947401
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:40.262081
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:38:15.757439
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:40:16.125204
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:42:12.954348
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:42:58.339859
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:44:25.899155
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:46:21.434982
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:46:45.221879
+TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:48:23.607582
