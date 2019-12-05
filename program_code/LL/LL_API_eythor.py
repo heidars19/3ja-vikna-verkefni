@@ -6,7 +6,6 @@ from LL.Employee import *
 # from Destination import *
 # from DestinationLL import *
 
-
 #Staff functions
 #----------------------------------------------------------------------------------------------
 def create_employee(ssn,name,address,mobile,email,role,rank,licence):
@@ -14,8 +13,8 @@ def create_employee(ssn,name,address,mobile,email,role,rank,licence):
     
     new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence)
     new_emp.save_employee()
-    updated_list = new_emp.get_employee_list()
-    return updated_list
+    # updated_list = new_emp.get_employee_list()
+    # return updated_list
     
 def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
     """Changes information about employee, except ssn, name or creation date."""

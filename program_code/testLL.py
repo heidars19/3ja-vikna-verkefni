@@ -1,11 +1,11 @@
 from LL.LL_API_eythor import *
+from LL.Employee import *
 
 def main():
-    
   #  new_emp = '2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'
-    create_employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232')
+    LL_API_eythor.create_employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232')
 
-
+    return
 
 # staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
 # print(staff1)
@@ -24,6 +24,6 @@ def main():
 # print(new_emp)
 
 
-    return 
-if __name__ == "__main__":
-    main()
+#     return 
+# if __name__ == "__main__":
+#     main()
