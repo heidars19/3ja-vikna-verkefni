@@ -1,14 +1,14 @@
 class Airplane():
-    def __init__(self, name, planeID, planeType, manufacturer, model, capacity) :
+    def __init__(self, plane_id, plane_type, manufacturer, model, name, capacity) :
+        self.planeID = plane_id
+        self.planeType = plane_type
+        self.manufacturer = manufacturer 	
+        self.model = model
         self.name = name
-        self.__planeID = planeID
-        self.__planeType = planeType
-        self.__model = model
-        self.__manufacturer = manufacturer 	
-        self.__capacity = capacity 
+        self.capacity = capacity 
 
     def __repr__(self):
-        return f'Aircraft({self.name}, {self.__planeID}, {self.__planeType}, {self.__manufacturer}, {self.__manufacturer})'
+        return f'Aircraft({self.planeID},{self.planeType},{self.name},{self.manufacturer},{self.model},{self.name},{self.capacity})'
 
-    def __str__():
-        return f'{self.name}, {self.__planeID}, {self.__planeType}, {self.__manufacturer}, {self.__manufacturer}'
+    def __str__(self):
+        return f'{self.planeID},{self.planeType},{self.name},{self.manufacturer},{self.model},{self.name},{self.capacity}'

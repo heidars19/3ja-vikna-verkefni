@@ -44,9 +44,14 @@ def get_airplane_types():
     filtered_planes = filter_planes(all_planes, model)
     return filtered_planes
 
-def return_all_airplanes():
+def get_all_airplanes():
     all_planes = get_all_planes()
     return all_planes
+
+def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
+    save_airplane(planeID, planeType, manufacturer, model, name, capacity)
+    
+    
 
 
 
