@@ -1,4 +1,5 @@
 #import User_interface
+from LL.LL_API_Sigurgeir import *
 import os
 #import Front_layer_TUI
 import locale
@@ -7,7 +8,7 @@ import time
 import datetime
 import dateutil.parser
 import calendar
-#from LL.LL_API_Sigurgeir import *
+
 #from LL.LL_API_eythor import *
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
@@ -829,4 +830,4 @@ def start(stdscr):
     new_tui = TUI(stdscr)
     new_tui.main()
 
-wrapper(start)
+#wrapper(start)
