@@ -1,36 +1,7 @@
-ssn,name,address,mobile,email,role,rank,licence
-3009907461,William Carillo     ,Ármúli 1,8496489,will@nan.is,Pilot     ,Captain                ,NAFokkerF100
-2910858778,Virginia Ho         ,Ármúli 2,8496491,virginia@nan.is,Pilot     ,Captain                ,NABAE146
-2706838569,Gerard Nelson       ,Ármúli 3,8496492,Gerard@nan.is,Pilot     ,Captain                ,NAFokkerF100
-2209955782,Allen Ley           ,Ármúli 4,8496493,Allen@nan.is,Pilot     ,Captain                ,NABAE146
-2907675667,Felecia Moye        ,Ármúli 5,8496494,FeliciaM@nan.is,Pilot     ,Captain                ,NABAE146
-1309797899,Tyler Anderson      ,Ármúli 6,8496495,TylerA@nan.is,Pilot     ,Captain                ,NAFokkerF28
-2410876598,Nan Gage            ,Ármúli 7,8496496,NanG@nan.is,Pilot     ,Copilot                ,NAFokkerF100
-2211658134,Charla Johnson      ,Ármúli 8,8496497,CharlaJ@nan.is,Pilot     ,Copilot                ,NABAE146
-2504939263,Sam Preciado        ,Ármúli 9,8496498,SamP@nan.is,Pilot     ,Copilot                ,NABAE146
-1900769521,Jasmine Hagadone    ,Ármúli 10,8496499,JasmineH@nan.is,Pilot     ,Copilot                ,NABAE146
-2500812671,Anna Phillips       ,Ármúli 11,8496500,AnnaP@nan.is,Pilot     ,Copilot                ,NAFokkerF28
-1309927223,Patricia Bates      ,Ármúli 12,8496501,PatB@nan.is,Pilot     ,Copilot                ,NAFokkerF28
-1600904199,Sherry Walker       ,Ármúli 13,8496502,SherryW@nan.is,Cabincrew ,Flight Service Manager ,N/A
-303758167,Margarita Fischer   ,Ármúli 14,8496503,MargaritaF@nan.is,Cabincrew ,Flight Service Manager ,N/A
-2200763823,Judith Aleshire     ,Ármúli 15,8496504,JudyA@nan.is,Cabincrew ,Flight Service Manager ,N/A
-1308941169,Jacob Blecha        ,Ármúli 16,8496505,JacobB@nan.is,Cabincrew ,Flight Service Manager ,N/A
-1405853585,Lula Stefani        ,Ármúli 17,8496506,LulaS@nan.is,Cabincrew ,Flight Service Manager ,N/A
-909862878,Richard Sanders     ,Ármúli 18,8496507,RichardS@nan.is,Cabincrew ,Flight Service Manager ,N/A
-1811931544,John Kline          ,Ármúli 19,8496508,Johnny@nan.is,Cabincrew ,Flight Service Manager ,N/A
-409858797,Evelyn Pickhardt    ,Ármúli 20,8496509,EveP@nan.is,Cabincrew ,Flight Service Manager ,N/A
-3002688722,Stacey Henrickson   ,Ármúli 21,8496510,Stacey@nan.is,Cabincrew ,Flight Attendant       ,N/A
-3003962187,Delores Whitfield   ,Ármúli 22,8496511,DeloresW@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1311772221,Maribel Lucero      ,Ármúli 23,8496512,MaribelL@nan.is,Cabincrew ,Flight Attendant       ,N/A
-2509913418,Katherine Wernimont ,Ármúli 24,8496513,Kathy@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1103647756,Wilma Horne         ,Ármúli 25,8496514,WilmaH@nan.is,Cabincrew ,Flight Attendant       ,N/A
-2807755841,Bernard Carr        ,Ármúli 26,8496515,BernardC@nan.is,Cabincrew ,Flight Attendant       ,N/A
-409907212,Sara Davis          ,Ármúli 27,8496516,SaraD@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1103912131,Robert Swope        ,Ármúli 28,8496517,RobertS@nan.is,Cabincrew ,Flight Attendant       ,N/A
-2801645554,John Iversen        ,Ármúli 29,8496518,JohnI@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1501681497,Rhonda Forman       ,Ármúli 30,8496519,RhondaF@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1811813379,Melissa Paquette    ,Ármúli 31,8496520,MelP@nan.is,Cabincrew ,Flight Attendant       ,N/A
-505942924,Carlton Chan        ,Ármúli 32,8496521,CarltonC@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1110732819,Arthur Karr         ,Ármúli 33,8496522,ArthurK@nan.is,Cabincrew ,Flight Attendant       ,N/A
-2602806942,Teresa Thruman      ,Ármúli 34,8496523,TeresaT@nan.is,Cabincrew ,Flight Attendant       ,N/A
-1107951952,Elizabeth Mcfadden  ,Ármúli 35,8496524,Eliza@nan.is,Cabincrew ,Flight Attendant       ,N/A
+ssn        ,name                  ,address      ,mobile  ,email                 ,role  ,rank    ,licence   ,timestamp
+1008953349 ,Eyþór Óli Borgþórsson ,Brunahani 31 ,8453474 ,kroli95@gmail.com     ,Pilot ,Copilot ,Fokker232 ,2019-12-05 17:27:37.492230
+1008953349 ,Sigurgeir Jónasson    ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:07:34.815100
+8884449999 ,Heiðar Hallgrímsson   ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:23:22.161232
+9933883300 ,Gunnar Jónsson        ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:32:19.559319
+1234567890 ,Ingimundur Jónsson    ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:45:18.095017
+1234567890 ,Gunni Jónsson         ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:49:51.086720
