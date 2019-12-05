@@ -7,8 +7,8 @@ import time
 import datetime
 import dateutil.parser
 import calendar
-from LL.LL_API import *
-
+#from LL.LL_API_Sigurgeir import *
+#from LL.LL_API_eythor import *
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
 header_lengd = 20
