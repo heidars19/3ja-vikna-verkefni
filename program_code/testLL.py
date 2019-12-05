@@ -1,11 +1,20 @@
 from LL.LL_API_eythor import *
+from LL.EmployeeLL import *
 from LL.Employee import *
 
 def main():
-  #  new_emp = '2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'
-    LL_API_eythor.create_employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232')
 
+  #-----------------------------KEYRSLUTEST------------------------------"
+  # "
+  #  new_emp = '2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'
+    #create_employee('1008953349','Sigurgeir Jónasson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232')
+    
+    #change_employee('1008953349','Eyþór Óli Borgþórsson','Brunahani 31','8453474','kroli95@gmail.com','Pilot','Copilot','Fokker232','2019-12-05 17:27:37.492230')  
+    new_emp = LL_API_eythor()
+    new_emp.create("employee",('1234567890','Gunni Jónsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
     return
+
+
 
 # staff1 = Employee('2501952149','Eyþór Óli Borgþórsson','Þingás 31','8453474','eythoroli95@gmail.com', 'Pilot', 'Copilot', 'Fokker232')
 # print(staff1)
@@ -24,6 +33,6 @@ def main():
 # print(new_emp)
 
 
-#     return 
-# if __name__ == "__main__":
-#     main()
+
+if __name__ == "__main__":
+    main()
