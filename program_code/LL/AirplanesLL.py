@@ -1,4 +1,3 @@
-from DB.DATA_API import *
 from LL.Airplanes import Airplane
 import string
 
