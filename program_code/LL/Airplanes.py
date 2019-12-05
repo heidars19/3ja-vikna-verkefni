@@ -1,3 +1,4 @@
+from DB.DATA_API import *
 class Airplane():
     def __init__(self, plane_id, plane_type, manufacturer, model, name, capacity) :
         self.planeID = plane_id
