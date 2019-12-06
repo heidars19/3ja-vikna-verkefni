@@ -1,4 +1,5 @@
 from LL.EmployeeLL import *
+from LL.LL_functions import *
 #from EmployeeLL import *
 #from DB.DATA_API import * eigum ekki að tala beint við db
 # from Airplanes import *
@@ -8,44 +9,43 @@ from LL.EmployeeLL import *
  
 class LL_API_eythor:
 
-    def create(self,data_type,data_info):    #create("employee",(ssn,name,address,mobile,email,role,rank,licence))
+    def create(self,keyword,user_input):    #create("employee",(ssn,name,address,mobile,email,role,rank,licence))
         '''Creates new item and saves to Database. \n
         \n Returns True if operation successful.
         
-        data_type: employee,airplane,destination or worktrip
+        keyword: employee,airplane,destination or worktrip
         \n
-        data_info: user input for corresponding item
+        user_input: user input for corresponding item
         '''
 
-        if data_type == 'employee':
+        if keyword == 'employee':
             #ssn,name,address,mobile,email,role,rank,licence = data_info
             cr_emp = EmployeeLL()
-            cr_emp.create_employee(data_info)
-            #cr_emp.create_employee(ssn,name,address,mobile,email,role,rank,licence)
+            cr_emp.create_employee(user_input)
 
-        # if data_type == 'airplane':
+        if data_type == 'airplane':
 
-        #     airplane_id,plane_type,manufacturer,model,name,capacity = data_info
+            airplane_id,plane_type,manufacturer,model,name,capacity = data_info
 
-        #     cr_air == AirplaneLL()
-        #     cr_emp.create_airplane(planeID,planeType,manufacturer,model,name,capacity)
+            cr_air == AirplaneLL()
+            cr_emp.create_airplane(planeID,planeType,manufacturer,model,name,capacity)
 
-        # if data_type == 'destination':
+        if data_type == 'destination':
 
-        #     destination,country,flight_time,distance,contact,emerg_number,airport = data_info
+            destination,country,flight_time,distance,contact,emerg_number,airport = data_info
 
-        #     cr_dest == DestinationLL()
-        #     cr_dest.create_destination(destination,country,flight_time,distance,contact,emerg_number,airport)
+            cr_dest == DestinationLL()
+            cr_dest.create_destination(destination,country,flight_time,distance,contact,emerg_number,airport)
 
-        # if data_type =='worktrip':
+        if data_type =='worktrip':
 
-        #     departing_from, arriving_at, airplane_id, departure, arrival = data_info
-        #     #þarf að útfæra betur hvernig við höndlum dates og skilum niður
+            departing_from, arriving_at, airplane_id, departure, arrival = data_info
+            #þarf að útfæra betur hvernig við höndlum dates og skilum niður
 
-        #     cr_trip == WorktripLL()
-        #     cr_trip.create_worktrip(departing_from, arriving_at, airplane_id, departure, arrival)   
+            cr_trip == WorktripLL()
+            cr_trip.create_worktrip(departing_from, arriving_at, airplane_id, departure, arrival)   
 
-    def change(self,data_type,data_info):
+    def change(self,keyword,user_input):
         
         #ssn,name,address,mobile,email,role,rank,licence,registration_date = data_info
 
@@ -53,6 +53,24 @@ class LL_API_eythor:
             ch_emp == EmployeeLL()
             #ch_emp.change_employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
             ch_emp.change_employee(data_info)
+
+    def get_list(self,keyword):
+        '''Gets updated list from database. \n
+        
+        keyword: employee,airplane,destination or worktrip
+        \n
+        user_input: user input for corresponding item
+        '''
+        if data_type == 'employee': 
+            updated_list = get_updated_list_from_DB(keyword)
+        return updated_list
+
+        
+
+
+
+        
+            
 
 
 #Staff functions

@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+ssn        ,name                  ,address      ,mobile  ,email                 ,role  ,rank    ,licence   ,timestamp
+1008953349 ,Eyþór Óli Borgþórsson ,Brunahani 31 ,8453474 ,kroli95@gmail.com     ,Pilot ,Copilot ,Fokker232 ,2019-12-05 17:27:37.492230
+1008953349 ,Sigurgeir Jónasson    ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:07:34.815100
+8884449999 ,Heiðar Hallgrímsson   ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:23:22.161232
+9933883300 ,Gunnar Jónsson        ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:32:19.559319
+1234567890 ,Ingimundur Jónsson    ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:45:18.095017
+1234567890 ,Gunni Jónsson         ,Þingás 31    ,8453474 ,eythoroli95@gmail.com ,Pilot ,Copilot ,Fokker232 ,2019-12-05 20:49:51.086720
+4455668855,Anna Jónsson,Sigurbrunnur 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,,2019-12-06 16:54:32.918277
+=======
 id,ssn,name,address,mobile,email,role,rank,licence,registration_date
 1,1008953349,Eyþór Óli Borgþórsson,Brunahani 31,8453474,kroli95@gmail.com,Pilot,Copilot,Fokker232,2019-12-05 17:27:37.492230
 2,1008953349,Sigurgeir Jónasson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,2019-12-05 20:07:34.815100
@@ -11,3 +21,4 @@ id,ssn,name,address,mobile,email,role,rank,licence,registration_date
 10,1234567891,1234567890,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:58:04.131029
 11,1234567892,1234567890,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:58:11.842919
 12,1234567890,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:59:36.558634
+>>>>>>> 32d4f696116fd12bde33eb5a1be23a174b3853f3

@@ -63,13 +63,13 @@ class Employee:
     #     log_emp = StaffFile(data_to_append=str(self))
     #     log_emp.start()
 
-    def change_employee(self):
-        '''Changes personal information about employee, except ssn, name and creation_date'''
+    # def change_employee(self):
+    #     '''Changes personal information about employee, except ssn, name and creation_date'''
 
-        new_file = StaffFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in StaffFile and returns line number
-        line_number = new_file.start()
-        update_line = StaffFile(line_to_replace=line_number,replace_with=str(self))
-        update_line.start()
+    #     new_file = StaffFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in StaffFile and returns line number
+    #     line_number = new_file.start()
+    #     update_line = StaffFile(line_to_replace=line_number,replace_with=str(self))
+    #     update_line.start()
         
     def error_check(self):
         '''Defensive programming: Checks if errors in user input.'''

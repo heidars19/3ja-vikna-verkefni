@@ -1,15 +1,12 @@
 
 from DB.DATA_API import *
 from LL.Employee import *
+from LL.LL_functions import *
+
 #from DB.AirplaneFile import AirplaneFile
 
-class EmployeeLL():
+class EmployeeLL(LL_functions):
 
-    def save_employee(self,emp):
-        '''Save new employee to database'''
-        print(emp)
-        log_emp = StaffFile(data_to_append=emp)
-        log_emp.start()
 
     def create_employee(self,personal_identity):
     #def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
@@ -18,7 +15,7 @@ class EmployeeLL():
         ssn,name,address,mobile,email,role,rank,licence = personal_identity
         new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence)
 
-        self.save_employee(str(new_emp))
+        self.save_object_to_DB("employee",str(new_emp))
 
         # updated_list = new_emp.get_employee_list()
         # return updated_list
@@ -27,6 +24,7 @@ class EmployeeLL():
         """Changes information about employee, except ssn, name or creation date."""
 
         ssn,name,address,mobile,email,role,rank,licence,registration_date = registered_identity
+
         changed_emp = Employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
         changed_emp.change_employee()
 
@@ -34,24 +32,6 @@ class EmployeeLL():
         #return updated_list
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     #def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
