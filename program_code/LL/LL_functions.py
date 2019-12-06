@@ -46,7 +46,7 @@ class LL_functions():
             new_list = []
             for x in updated_list:
                 new_list.append(x.split(','))
-        return updated_list
+        return new_list
 
 
    # def change_object_in_DB(self,keyword,object_instance)
