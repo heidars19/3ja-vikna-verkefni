@@ -160,11 +160,13 @@ class TUI():
             if self.menu_select == 0:
                 if exeptions[self.exeption] in self.item_list[i]:
                     for x in range(len(self.item_list[i])):
-                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                        if x != 0:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
                     new_list.append(new_string)
             else:
                 for x in range(len(self.item_list[i])):
-                    new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                    if x != 0:
+                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
                 new_list.append(new_string)
         for i in range(15-len(new_list)):
             new_list.append("{:^{lengd:}}".format("", lengd = 100))
