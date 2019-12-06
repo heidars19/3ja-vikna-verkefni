@@ -16,7 +16,7 @@ class LL_API():
 
     def get_all_airplanes(self):
         all_planes = AirplanesLL.get_plane_list()
-        all_destinations.pop(0)
+        all_planes.pop(0)
         return all_planes
 
     def create_airplane(self, plane_id, plane_type, manufacturer, model, name, capacity):
