@@ -8,12 +8,12 @@ from LL.DestinationLL import *
 
 #Airplanes
 class LL_API():
-    def get_airplane_types():
+    def get_airplane_types(self):
         all_planes = AirplanesLL.get_plane_list()
         filtered_planes = AirplanesLL.filter_planes(all_planes, 'model')
         return filtered_planes
 
-    def get_all_airplanes():
+    def get_all_airplanes(self):
         all_planes = AirplanesLL.get_plane_list()
         return all_planes
 
@@ -29,7 +29,7 @@ class LL_API():
 
 #-----------------------------------------Destinations----------------------------------------#
 
-    def get_all_destinations():
+    def get_all_destinations(self):
         all_destinations = DestinationLL.get_destination_list()
         print (all_destinations)
 

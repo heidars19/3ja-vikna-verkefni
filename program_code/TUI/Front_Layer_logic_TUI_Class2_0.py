@@ -457,24 +457,24 @@ class TUI():
                                 editwin2.attroff(curses.color_pair(1))
                                 selected_day = month[i][x]
                             if stop == 0:
-                                editwin2.addstr(y,0,month[i][x].strftime("%d %b %Y"))
+                                editwin2.addstr(y,0,month[i][x])
                                 stop = 1
                                 if y > 15:
                                     y = 0
                             elif stop == 1:
-                                editwin2.addstr(y,25,month[i][x].strftime("%d %b %Y"))
+                                editwin2.addstr(y,25,month[i][x])
                                 stop = 2
                                 if y > 15:
                                     
                                     y = 0
                             elif stop == 2:
-                                editwin2.addstr(y,50,month[i][x].strftime("%d %b %Y"))
+                                editwin2.addstr(y,50,month[i][x])
                                 stop = 3
                                 if y > 15:
                                     
                                     y = 0
                             else:
-                                editwin2.addstr(y,75,month[i][x].strftime("%d %b %Y"))
+                                editwin2.addstr(y,75,month[i][x])
                                 y+=2
                                 stop = 0
                                 if y > 15:
@@ -733,6 +733,7 @@ class TUI():
         list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
         list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
         list_den5 = ["x", " ", " "]
+        new_instance = LL_API()
         while True:
             TUI_list = self.construct_TUI(list_den5)
             x = 4
@@ -769,12 +770,20 @@ class TUI():
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
+                self.item_list1 = new_instance.get_all_destinations()
+                for i in range(len(self.item_list1)):
+                    for x in range(len(self.item_list1[i])):
+                        self.stdscr.clear()
+                        self.stdscr.attron(curses.color_pair(1))
+                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.attroff(curses.color_pair(1))
+                        self.stdscr.refresh()
+                        time.sleep(1) 
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
-                new_instance = LL_API()
                 self.item_list1 = new_instance.get_all_airplanes()
                 """for i in range(len(self.item_list1)):
                     for x in range(len(self.item_list1[i])):
