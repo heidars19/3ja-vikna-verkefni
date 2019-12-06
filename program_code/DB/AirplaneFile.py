@@ -36,6 +36,10 @@ class AirplaneFile (FileHandlr) :
             self._line_number = FileHandlr.does_line_exists(self)
             return self._line_number
 
+        elif self._searchparam:
+            self._line_number = FileHandlr.find_id(self)
+            return self._line_number
+
         else :
             FileHandlr.read_filestream_into_list(self)
             return self._data_list

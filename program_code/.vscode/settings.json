@@ -1,3 +1,10 @@
 {
+<<<<<<< HEAD
+    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.8/bin/python3",
+    "python.linting.pylintEnabled": false,
+    "python.linting.banditEnabled": true,
+    "python.linting.enabled": true
+=======
     "python.pythonPath": "C:\\Users\\ofeigurs\\Python\\Python37-32\\python.exe"
+>>>>>>> 32d4f696116fd12bde33eb5a1be23a174b3853f3
 }

@@ -17,6 +17,12 @@ def main ():
     # new_instance = WorkTripFileOld(data_to_append="152,NA1914,LYR,KEF,2019-11-28T11:25:00,2019-11-28T15:25:00,TF-LNQ,2907675667,2211658134,1405853585,1103647756,1103912131,321321")
     # new_instance.start()
     
+    # # Finds line number of a an id - check
+    # new_instance = WorkTripFileOld(searchparam=148)
+    # line_number = new_instance.start()
+    # print("Ætti að skila línu númeri: --> {}".format(line_number))
+    # print()
+
     # # Finds line number of a given search parameter - check
     # new_instance = WorkTripFileOld(fieldname="id", searchparam="148")
     # line_number = new_instance.start()
