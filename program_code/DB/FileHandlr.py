@@ -34,30 +34,7 @@ class FileHandlr :
         self._line_number = None
         self._data_list = None
         self._id = 0
-        
-        
-    def find_id(self): 
-        ''' 
-        Finds the line number of a given id and returns it\n
-        \n
-        Returns -1 on error, 0 if empty file
-        '''
-        self._filestream = self.open_file()
-        if not self._filestream :
-            return -1 # Error opening file
 
-        reader = csv.DictReader(self._filestream, delimiter=',')
-        for linenumber, line in enumerate(reader):
-            if int(line['id']) == self._searchparam :
-                self._line_number = linenumber + 1 # Add 1 because this func doesn't count the header
-                break
-        self._filestream.close()
-        
-        if self._line_number > 0 :
-            return self._line_number 
-        else :
-            return 0 # Empty file
-        
 
     def find_next_id(self): 
         ''' 

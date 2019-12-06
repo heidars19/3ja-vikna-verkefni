@@ -39,6 +39,7 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
+<<<<<<< HEAD
         updated_list = []
         if keyword == "Employee":
             new_instance = StaffFile()               #create new instance
@@ -46,6 +47,12 @@ class LL_functions():
             new_list = []
             for x in updated_list:
                 new_list.append(x.split(','))
+=======
+
+        if keyword == "Employee":
+            new_emp_list = StaffFile()               #create new instance
+            updated_list = new_emp_list.start()      
+>>>>>>> 60d4b6aeea56f561416095b96abd27e3b75d2a3a
         return updated_list
 
 
