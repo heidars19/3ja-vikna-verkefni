@@ -3,7 +3,7 @@ from LL.Destination import Destination
 
 class DestinationLL():
 
-    def get_destination_list():
+    def get_destination_list(self):
         DestinatioFilehandler = DestinationFile()
         all_destinations = DestinatioFilehandler.start()
         all_destinations_list = []

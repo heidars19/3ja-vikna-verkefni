@@ -30,8 +30,11 @@ class LL_API():
 #-----------------------------------------Destinations----------------------------------------#
 
     def get_all_destinations(self):
-        all_destinations = DestinationLL.get_destination_list()
-        print (all_destinations)
+        dest = DestinationLL()
+        all_destinations = dest.get_destination_list()
+        all_destinations.pop(0)
+        all_destinations.pop(0)
+        return all_destinations
 
     def create_destination(self, id,destination,country,flight_time,distance,contact,emerg_number,airport):
         new_register = DestinationLL()

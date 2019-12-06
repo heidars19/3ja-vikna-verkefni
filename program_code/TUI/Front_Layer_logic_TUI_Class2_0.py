@@ -785,14 +785,14 @@ class TUI():
                 self.highlight_index = 3
                 idz = 0
                 self.item_list1 = new_instance.get_all_airplanes()
-                """for i in range(len(self.item_list1)):
+                for i in range(len(self.item_list1)):
                     for x in range(len(self.item_list1[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
                         self.stdscr.addstr(0,0,self.item_list1[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1) """
+                        time.sleep(1)
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
