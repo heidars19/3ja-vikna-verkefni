@@ -1,6 +1,7 @@
 import csv
 import fileinput
 import datetime
+import os
 
 class FileHandlr :
     ''' Abstract class for filehandling '''
@@ -132,21 +133,45 @@ class FileHandlr :
         self._data_list = data_list
 
 
-    def change_line_in_file(self) :
-        ''' 
-        Replaces 1 line in a file. 
+    def change_line_in_file(filename):
+        filename2 = filename +".bak"
 
-        line_to_replace can be a line number (int) or a complete line (str).
-        When line_to_replace is a string, it can replace partial lines.
-        '''
-        if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
-            for i, line in enumerate(fileinput.FileInput(self._filename, inplace=1)) :
-                if i == self._line_to_replace :
-                    print(self._replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
+        with open(filename, 'r', encoding='utf-8') as file_original:
+            with open(filename2, 'w+', encoding='utf-8') as file_bak:
+                if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
+                    for linenumber, line in enumerate(file_original):
+                        if linenumber == self._line_to_replace :
+                            file_bak.write(self._replace_with + '\n')
+                        else :
+                            file_bak.write(line)
                 else :
-                    print(line, end='')
-        else :   # line_to_replace is a complete line (str)
-            for line in fileinput.FileInput(self._filename, inplace=1) :   # openhook=fileinput.hook_encoded("utf-8")  --  inplace=1
-                line = line.replace(self._line_to_replace,self._replace_with)
-                print(line, end='')
+                    for line in file_original:
+                        file_bak.write(line)
+
+        with open(filename2, 'r', encoding='utf-8') as file_original:
+            with open(filename, 'w+', encoding='utf-8') as file_bak:
+                for line in file_original:
+                    file_bak.write(line)
+        
+        if os.path.exists(filename2):
+            os.remove(filename2)
+        
+        
+    # def change_line_in_file(self) :
+    #     ''' 
+    #     Replaces 1 line in a file. 
+
+    #     line_to_replace can be a line number (int) or a complete line (str).
+    #     When line_to_replace is a string, it can replace partial lines.
+    #     '''
+    #     if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
+    #         for i, line in enumerate(fileinput.FileInput(self._filename, inplace=1)) :
+    #             if i == self._line_to_replace :
+    #                 print(self._replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
+    #             else :
+    #                 print(line, end='')
+    #     else :   # line_to_replace is a complete line (str)
+    #         for line in fileinput.FileInput(self._filename, inplace=1) :   # openhook=fileinput.hook_encoded("utf-8")  --  inplace=1
+    #             line = line.replace(self._line_to_replace,self._replace_with)
+    #             print(line, end='')
 
