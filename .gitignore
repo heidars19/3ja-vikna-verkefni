@@ -1,12 +1,12 @@
 NaN_air_lokaverkefni_eythorb19_heidars19_ofeigur19__sigurgeir19_arnari19.pdf
-STUDENTDATA
+STUDENTDATA/*
 hellofromeythor.rtf
 Arnar_.txt
-Using
-.DS_Store
-program_code/DB/__pycache__
-program_code/TUI/__pycache__
-program_code/LL/__pycache__
-program_code/Data
+Using/*
+.DS_Store/*
+program_code/DB/__pycache__/*
+program_code/TUI/__pycache__/*
+program_code/LL/__pycache__/*
+program_code/Data/*
 program_code/.vscode/*.json
 

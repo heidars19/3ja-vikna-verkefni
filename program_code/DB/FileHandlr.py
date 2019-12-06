@@ -135,17 +135,18 @@ class FileHandlr :
 
     def change_line_in_file(self):
         filename2 = self._filename +".bak"
-        
+
         with open(self._filename, 'r', encoding='utf-8') as file_original:
             with open(filename2, 'w+', encoding='utf-8') as file_bak:
                 if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
-                    
                     for linenumber, line in enumerate(file_original): # Reads 1 file line by line into another file
                         if linenumber == self._line_to_replace :
                             file_bak.write(self._replace_with + '\n')
                         else :
                             file_bak.write(line)
                 else :
+                    self._line_to_replace = self._line_to_replace + '\n' # Have to add newline, so LL we can accept normal strings
+
                     for line in file_original:
                         if line == self._line_to_replace :
                             file_bak.write(self._replace_with + '\n')

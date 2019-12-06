@@ -96,7 +96,7 @@ class TUI():
         self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-        self.item_list = []
+        self.item_list1 = []
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -429,9 +429,19 @@ class TUI():
             add_year = 0
             datetime_year = datetime.date.today().year
             datetime_month = datetime.date.today().month
+            starting_month, starting_year = datetime_month,datetime_year
             date_selected = 1
+            years_added = 0
             while True:
-                month = cal.monthdatescalendar(year = (int(datetime_year) + add_year),month = (int(datetime_month) + add_month))
+                if  int(datetime_month) + add_month == 13:
+                    datetime_month = 1
+                    add_month = 0
+                    datetime_year += 1
+                elif int(datetime_month) + add_month == 0:
+                    datetime_month = 12
+                    add_month = 0
+                    datetime_year -= 1
+                month = cal.monthdatescalendar(year = (int(datetime_year)),month = (int(datetime_month) + add_month))
                 for i in range(len(month)):
                     for x in range(len(month[i])):
                         month[i][x] = str(month[i][x])
@@ -440,7 +450,7 @@ class TUI():
                 stop = 0
                 for i in range(len(month)):
                     for x in range(len(month[i])):
-                        if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year) + add_year:
+                        if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year):
                             days_in_month += 1
                             if date_selected == days_in_month:
                                 editwin2.attron(curses.color_pair(2))
@@ -471,6 +481,14 @@ class TUI():
                                     y = 0
                             editwin2.attroff(curses.color_pair(2))
                             editwin2.attron(curses.color_pair(1))
+                editwin3 = curses.newwin(3,50,21,50)
+                editwin3.attron(curses.color_pair(2))
+                editwin3.addstr(0,0,"Örvar til að velja dag")
+                editwin3.addstr(1,0,"pg up til að fara í næsta mánuð")
+                editwin3.addstr(2,0,"pg dn til að fara í seinasta mánuð")
+                editwin3.refresh()
+                editwin3.attron(curses.color_pair(2))
+                            
                 check = editwin2.getch()
                 if check == curses.KEY_LEFT:
                     if date_selected == 1:
@@ -539,6 +557,16 @@ class TUI():
                 elif check == 10:
                     editwin2.clear()
                     return selected_day
+                elif check == 338:
+                    if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
+                        pass
+                    else:
+                        add_month += 1
+                elif check == 339:
+                    if starting_year == datetime_year and starting_month == datetime_month:
+                        pass
+                    else:
+                        add_month -= 1
 
             editwin2.attroff(curses.color_pair(1))
             editwin2.refresh()
@@ -705,6 +733,7 @@ class TUI():
         list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
         list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
         list_den5 = ["x", " ", " "]
+        new_instance = LL_API()
         while True:
             TUI_list = self.construct_TUI(list_den5)
             x = 4
@@ -741,14 +770,29 @@ class TUI():
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
+                self.item_list1 = new_instance.get_all_destinations()
+                for i in range(len(self.item_list1)):
+                    for x in range(len(self.item_list1[i])):
+                        self.stdscr.clear()
+                        self.stdscr.attron(curses.color_pair(1))
+                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.attroff(curses.color_pair(1))
+                        self.stdscr.refresh()
+                        time.sleep(1) 
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
-                new_instance = LL_API()
-                self.item_list = new_instance.get_all_airplanes()
-
+                self.item_list1 = new_instance.get_all_airplanes()
+                for i in range(len(self.item_list1)):
+                    for x in range(len(self.item_list1[i])):
+                        self.stdscr.clear()
+                        self.stdscr.attron(curses.color_pair(1))
+                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.attroff(curses.color_pair(1))
+                        self.stdscr.refresh()
+                        time.sleep(1)
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
@@ -788,14 +832,12 @@ class TUI():
                         self.exeption += 1
                     else:
                         self.exeption = 0
-            for i in range(len(self.item_list)):
-                for x in range(len(self.item_list[i])):
-                    self.stdscr.clear()
-                    self.stdscr.attron(curses.color_pair(1))
-                    self.stdscr.addstr(0,0,item_list[i][x])
-                    self.stdscr.attroff(curses.color_pair(1))
-                    self.stdscr.refresh()
-                    time.sleep(1)
+                """self.stdscr.clear()
+                self.stdscr.attron(curses.color_pair(1))
+                self.stdscr.addstr(0,0,str(key))
+                self.stdscr.attroff(curses.color_pair(1))
+                self.stdscr.refresh()
+                time.sleep(1)"""
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
         h, w = self.stdscr.getmaxyx()
