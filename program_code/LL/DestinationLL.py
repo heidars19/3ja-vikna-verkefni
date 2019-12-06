@@ -7,8 +7,8 @@ class DestinationLL(LL_functions):
     def create_destination(self,destination_identity):
         """Creates a new destination and saves to database."""
              
-        dest_id,destination,country,flight_time,distance,contact,emerg_number,airport = destination_identity #unpack
-        new_dest = Destination(dest_id,destination,country,flight_time,distance,contact,emerg_number,airport)
+        destination,country,flight_time,distance,contact,emerg_number,airport = destination_identity
+        new_dest = Destination(destination,country,flight_time,distance,contact,emerg_number,airport)
 
         self.save_object_to_DB("destination",str(new_dest))
 
@@ -25,9 +25,6 @@ class DestinationLL(LL_functions):
         for destination in all_destinations:
             all_destinations_list.append(destination.split(','))
         return all_destinations_list
-
-   
-
 
     def change_destination(self, new_info):
         new_id, new_destination, new_country, new_flight_time, new_distance, new_contact, new_emerg_number, new_airport = new_info

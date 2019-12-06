@@ -2,7 +2,7 @@ from DB.DATA_API import *
 
 class LL_functions():
     #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
-    def save_object_to_DB(self,keyword,object_instance):
+    def save_object_to_DB(keyword,object_instance):
         '''Saves new object to database. \n
         \n Returns True if operation successful.
         keyword: employee,airplane,destination or worktrip as string
@@ -24,7 +24,7 @@ class LL_functions():
             file_type = WorkTripFile
 
         else:
-            return "There is no such object type as" + str(keyword) + "Change keyword - should be string."
+            return f"There is no such object type as {keyword}. Change keyword - should be string."
 
         save_obj = file_type(data_to_append=object_instance)
         save_obj.start()
@@ -47,7 +47,6 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-  
   
         if keyword == "employee":
             new_instance = EmployeeFile()               #create new instance of employee

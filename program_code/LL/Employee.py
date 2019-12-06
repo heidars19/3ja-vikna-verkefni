@@ -3,11 +3,11 @@ from DB.DATA_API import *
 class Employee:
     """This class represents the Employees of Nan Air and keeps track of their information."""
 
-    def __init__(self,ssn,name,address,mobile,email,role,rank,licence,registration_date="", emp_id =""): 
+    def __init__(self,ssn,name,address,mobile,email,role,rank,licence,registration_date=""): 
         from datetime import date
         #today = date.today()
 
-        self.emp_id = emp_id
+        self._id = _id
         self.__ssn = ssn
         self.__name = name
         self.address = address
@@ -18,12 +18,11 @@ class Employee:
         self.licence = licence
         self.__registration_date = registration_date
 
+    def registration(self):
+        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence}'
 
-    def __str__(self): #Runs when using the str() method
-        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
-
-    #def __repr__(self):
-     #   return Employee({self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__creationdate})
+    def change_registration(self):
+        return f'{self._id},{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
 
     #name getterar fyrir privat breytur
     @property 

@@ -8,12 +8,13 @@ class AirplanesLL(LL_functions):
     #Útfærði þetta á sama hátt og hjá employee þar sem við notum save_object_to_DB function til að vista hvað sem er og unpökkum hér
     def create_airplane(self,airplane_identity):
         '''Creates a new airplane and saves to database'''
-    
-        plane_id, plane_type, manufacturer, model, name, capacity = airplane_identity
-        new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+        print (airplane_identity)
+        _id,plane_id, plane_type, manufacturer, model, name  = airplane_identity
+        new_plane = Airplane(_id,plane_id, plane_type, manufacturer, model, name, registration_date='')
 
-        self.save_object_to_DB("airplane",str(new_plane))
-        
+        data_string = new_plane.registration()
+
+        LL_functions.save_object_to_DB("airplane",data_string)
 
     def filter_available(self, all_planes):
         pass

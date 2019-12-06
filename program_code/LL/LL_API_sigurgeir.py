@@ -45,3 +45,6 @@ class LL_API():
 def testmain():
     new = LL_API()
     new.create_destination('1','Longyearbyen','Svalbard','1:30:25','1.993','Þarmar Klámsson','632827365', 'Vik')
+
+
+
