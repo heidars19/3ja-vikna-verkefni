@@ -1,5 +1,4 @@
 from LL.EmployeeLL import *
-from LL_functions import *
 from LL.LL_functions import *
 #from EmployeeLL import *
 #from DB.DATA_API import * eigum ekki að tala beint við db
