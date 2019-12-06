@@ -69,6 +69,3 @@ class LL_functions():
                 new_list.append(x.split(','))
 
         return new_list
-
-
-   # def change_object_in_DB(self,keyword,object_instance)
