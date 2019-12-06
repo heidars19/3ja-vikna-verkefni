@@ -24,6 +24,9 @@ class WorkTripFile (FileHandlr) :
     
     def start(self) :
         if self._data_to_append :
+            return_value = FileHandlr.find_next_id(self)
+            if return_value <= 0 :
+                return return_value
             FileHandlr.append_data_to_file(self)
         
         elif self._line_to_replace : 
