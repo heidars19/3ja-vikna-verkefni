@@ -37,7 +37,7 @@ class LL_API_eythor:
         if user_input == 'employee':
             ch_emp == EmployeeLL()
             #ch_emp.change_employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
-            
+            ch_emp.change_employee(user_input)
 
     def get_list(self,keyword):
         '''Gets updated list from database. \n
