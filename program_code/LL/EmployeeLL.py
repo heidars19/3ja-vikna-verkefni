@@ -6,7 +6,6 @@ from LL.LL_functions import *
 
 class EmployeeLL(LL_functions):
 
-
     def create_employee(self,personal_identity):
     #def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
         """Creates a new employee and saves to database."""      
@@ -16,20 +15,15 @@ class EmployeeLL(LL_functions):
 
         self.save_object_to_DB("employee",str(new_emp))
 
-        # updated_list = new_emp.get_employee_list()
-        # return updated_list
     
     def change_employee(self,registered_identity):
         """Changes information about employee, except ssn, name or creation date."""
 
         ssn,name,address,mobile,email,role,rank,licence,registration_date = registered_identity
         changed_emp = Employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
+
+        self.change_object_in_DB("employee",str(changed_emp),ssn)
         changed_emp.change_employee()
-
-        #updated_list = Employee.get_employee_list 
-        #return updated_list
-
-    
 
 
     #def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :

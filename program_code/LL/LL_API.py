@@ -8,7 +8,6 @@ class LL_API:
 #create("employee",(ssn,name,address,mobile,email,role,rank,licence))
     def create(self,keyword,user_input):    
         '''Creates new object and saves to Database. \n
-
         keyword: employee,airplane,destination or worktrip
         \n
         user_input: user input for corresponding item

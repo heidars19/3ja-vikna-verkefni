@@ -25,13 +25,21 @@ class LL_functions():
 
         save_obj.start()
 
-    def change_object_in_DB(self,keyword,object_instance):
-        '''Changes personal information about employee, except ssn, name and creation_date'''
+    #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
+    def change_object_in_DB(self,keyword,object_instance,search_keyword, search_attribute):
+        '''Changes information about object in Database. 
+         '''
 
-        new_file = StaffFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in StaffFile and returns line number
+        new_file = StaffFile(fieldname="ssn",searchparam=search_param) #Looks for ssn in StaffFile and returns line number
         line_number = new_file.start()
-        update_line = StaffFile(line_to_replace=line_number,replace_with=str(self))
+
+        update_line = StaffFile(line_to_replace=line_number,replace_with=object_instance)
         update_line.start()
+
+
+
+
+
 
     def get_updated_list_from_DB(self,keyword):
         '''Returns updated list from database \n
