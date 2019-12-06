@@ -46,7 +46,7 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-        updated_list = []
+        new_list = []
 
         if keyword == "employee":
             new_instance = StaffFile()               #create new instance
