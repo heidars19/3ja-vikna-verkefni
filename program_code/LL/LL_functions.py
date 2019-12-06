@@ -40,8 +40,14 @@ class LL_functions():
             keyword: employee, airplane, destionation or worktrip
             '''
         updated_list = []
-        if keyword == "Employee":
+        if keyword == "employee":
             new_instance = StaffFile()               #create new instance
+            updated_list = new_instance.start() 
+            new_list = []
+            for x in updated_list:
+                new_list.append(x.split(','))
+        elif keyword == "worktrip":
+            new_instance = WorkTripFile()               #create new instance
             updated_list = new_instance.start() 
             new_list = []
             for x in updated_list:
