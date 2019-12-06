@@ -34,6 +34,28 @@ class FileHandlr :
         self._line_number = None
         self._data_list = None
         self._id = 0
+  
+  
+    def start(self) :
+        if self._data_to_append :
+            return_value = FileHandlr.find_next_id(self)
+            if return_value <= 0 :
+                return return_value
+            FileHandlr.append_data_to_file(self)
+        
+        elif self._line_to_replace : 
+            FileHandlr.change_line_in_file(self)
+
+        elif self._fieldname:
+            self._line_number = FileHandlr.does_line_exists(self)
+            return self._line_number
+
+        else :
+            FileHandlr.read_filestream_into_list(self)
+            return self._data_list
+
+        return
+
 
 
     def find_next_id(self): 
