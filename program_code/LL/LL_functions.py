@@ -9,21 +9,26 @@ class LL_functions():
         \n 
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
         '''
+        file_type = ""
+
         if keyword == "employee":
-            save_obj = StaffFile(data_to_append=object_instance)
-       
+            file_type = StaffFile
+
         elif keyword == "destination":
-            save_obj = DestinationFile(data_to_append=object_instance)
+            file_type = DestinationFile
 
         elif keyword == "airplane":
-            save_obj = AirplaneFile(data_to_append=object_instance)
+            file_type = AirplaneFile
 
         elif keyword == "worktrip":
-            save_obj = WorkTripFile(data_to_append=object_instance)
+            file_type = WorkTripFile
+
         else:
             return "There is no such object type as" + str(keyword) + "Change keyword - should be string."
 
+        save_obj = file_type(data_to_append=object_instance)
         save_obj.start()
+
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
     def change_object_in_DB(self,keyword,object_instance,object_id):
@@ -36,10 +41,6 @@ class LL_functions():
 
         update_line = StaffFile(line_to_replace=line_number,replace_with=object_instance)
         update_line.start()
-
-
-
-
 
 
     def get_updated_list_from_DB(self,keyword):

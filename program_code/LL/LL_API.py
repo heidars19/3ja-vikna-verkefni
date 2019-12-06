@@ -2,15 +2,16 @@ from LL.WorktripLL import *
 from LL.DestinationLL import *
 from LL.EmployeeLL import *
 from LL.AirplanesLL import *
+from LL.LL_functions import *
 
 class LL_API:
 
-#create("employee",(ssn,name,address,mobile,email,role,rank,licence))
+#From UI: create("employee",(ssn,name,address,mobile,email,role,rank,licence))
     def create(self,keyword,user_input):    
         '''Creates new object and saves to Database. \n
         keyword: employee,airplane,destination or worktrip
         \n
-        user_input: user input for corresponding item
+        user_input: user input for corresponding item as tuple
         '''
         if keyword == 'employee':
             cr_emp = EmployeeLL()
@@ -28,6 +29,17 @@ class LL_API:
             cr_trip == WorktripLL()
             cr_trip.create_worktrip(user_input)   
 
+
+
+
+#    def change(self,keyword,user_input):
+        
+#         #ssn,name,address,mobile,email,role,rank,licence,registration_date = data_info
+
+#         if user_input == 'employee':
+#             ch_emp == EmployeeLL()
+#             ch_emp.chan
+
 def get_list(self,keyword):
         '''Gets updated list from database. \n
             keyword: employee,airplane,destination or worktrip
@@ -38,10 +50,6 @@ def get_list(self,keyword):
         updated_list =new_instance.get_updated_list_from_DB(keyword)
         return updated_list
         
-
-
-
-
 
 
 
