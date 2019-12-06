@@ -17,7 +17,7 @@ header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
 # coding = UTF-8
 
-item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
+"""item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
                 ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
@@ -83,7 +83,7 @@ item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
                 ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
                 ]
-                ]
+                ]"""
 
 class TUI():
     def __init__(self,stdscr,highlight_index = 0):
@@ -96,7 +96,9 @@ class TUI():
         self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-        self.item_list = 
+        self.new_instance_API = LL_API()
+        self.new_instance_API2 = LL_API_eythor()
+        self.item_list = self.new_instance_API2.get_list("employee")
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -702,8 +704,8 @@ class TUI():
         list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
         list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
         list_den5 = ["x", " ", " "]
-        new_instance = LL_API()
-        new_instance2 = LL_API_eythor()
+        
+        
         while True:
             TUI_list = self.construct_TUI(list_den5)
             x = 4
@@ -730,7 +732,7 @@ class TUI():
                 idx = 0
                 self.highlight_index = 0
                 idz = 0
-                self.item_list = new_instance2.get_list("employee")
+                self.item_list = self.new_instance_API2.get_list("employee")
                 """for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
@@ -744,7 +746,7 @@ class TUI():
                 idx = 1
                 self.highlight_index = 1
                 idz = 0
-                self.item_list = new_instance2.get_list("worktrip")
+                self.item_list = self.new_instance_API2.get_list("worktrip")
                 """for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
@@ -758,21 +760,21 @@ class TUI():
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
-                self.item_list = new_instance.get_all_destinations()
-                for i in range(len(self.item_list)):
+                self.item_list = self.new_instance_API.get_all_destinations()
+                """for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
                         self.stdscr.addstr(0,0,self.item_list[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)
+                        time.sleep(1)"""
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
-                self.item_list = new_instance.get_all_airplanes()
+                self.item_list = self.new_instance_API.get_all_airplanes()
                 """for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
