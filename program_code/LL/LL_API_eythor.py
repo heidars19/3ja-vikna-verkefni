@@ -1,4 +1,5 @@
 from LL.EmployeeLL import *
+from LL_functions import *
 from LL.LL_functions import *
 #from EmployeeLL import *
 #from DB.DATA_API import * eigum ekki að tala beint við db
@@ -23,36 +24,39 @@ class LL_API_eythor:
             cr_emp = EmployeeLL()
             cr_emp.create_employee(user_input)
 
-        if data_type == 'airplane':
+        # if user_input == 'airplane':
 
-            airplane_id,plane_type,manufacturer,model,name,capacity = data_info
+        #     airplane_id,plane_type,manufacturer,model,name,capacity = user_input
 
-            cr_air == AirplaneLL()
-            cr_emp.create_airplane(planeID,planeType,manufacturer,model,name,capacity)
+        #     cr_air == AirplaneLL()
+        #     cr_air.create_airplane(airplane_id,plane_type,manufacturer,model,name,capacity )
 
-        if data_type == 'destination':
+        # if user_input == 'destination':
 
-            destination,country,flight_time,distance,contact,emerg_number,airport = data_info
+        #     destination,country,flight_time,distance,contact,emerg_number,airport = user_input
 
-            cr_dest == DestinationLL()
-            cr_dest.create_destination(destination,country,flight_time,distance,contact,emerg_number,airport)
+        #     cr_dest == DestinationLL()
+        #     cr_dest.create_destination(destination,country,flight_time,distance,contact,emerg_number,airport)
 
-        if data_type =='worktrip':
+        # if user_input =='worktrip':
 
-            departing_from, arriving_at, airplane_id, departure, arrival = data_info
-            #þarf að útfæra betur hvernig við höndlum dates og skilum niður
+        #     departing_from, arriving_at, airplane_id, departure, arrival = data_info
+        #     #þarf að útfæra betur hvernig við höndlum dates og skilum niður
 
-            cr_trip == WorktripLL()
-            cr_trip.create_worktrip(departing_from, arriving_at, airplane_id, departure, arrival)   
+        #     cr_trip == WorktripLL()
+        #     cr_trip.create_worktrip(departing_from, arriving_at, airplane_id, departure, arrival)   
+
+
+    
 
     def change(self,keyword,user_input):
         
         #ssn,name,address,mobile,email,role,rank,licence,registration_date = data_info
 
-        if data_type == 'employee':
+        if user_input == 'employee':
             ch_emp == EmployeeLL()
             #ch_emp.change_employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
-            ch_emp.change_employee(data_info)
+            ch_emp.change_employee(user_input)
 
     def get_list(self,keyword):
         '''Gets updated list from database. \n
@@ -64,11 +68,8 @@ class LL_API_eythor:
         if keyword == 'employee': 
             emp_list == EmployeeLL()
             emp_updated_list =emp_list.get_updated_list_from_DB(keyword)
+
         return emp_updated_list
-
-        
-
-
 
         
 
