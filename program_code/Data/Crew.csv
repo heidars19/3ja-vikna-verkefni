@@ -11,3 +11,7 @@ id,ssn,name,address,mobile,email,role,rank,licence,registration_date
 10,1234567891,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:58:04.131029
 11,1234567892,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:58:11.842919
 12,1234567890,Svanur Ketilsson,Hverfisbar,8453474,smurf@gmail.com,Pilot,Copilot,BOEING747,2019-12-06 15:59:36.558634
+13,4455668855,Guðbjörg Helga,Hehe 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,,2019-12-06 20:47:24.088806
+14,4455668855,sissi Helga,Hehe 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,,2019-12-06 20:50:43.229762
+15,4455668855,sissi Helga,Hehe 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,,2019-12-06 20:53:26.353725
+16,4455668855,sissi Helga,Hehe 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232,,2019-12-06 20:57:01.798276

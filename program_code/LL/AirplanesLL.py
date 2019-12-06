@@ -9,11 +9,10 @@ class AirplanesLL(LL_functions):
     def create_airplane(self,airplane_identity):
         '''Creates a new airplane and saves to database'''
     
-        plane_id, plane_type, manufacturer, model, name, capacity = airplane_identity
-        new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+        plane_id, plane_type, manufacturer, model, name = airplane_identity
+        new_plane = Airplane(plane_id, plane_type, manufacturer, model, name)
 
         self.save_object_to_DB("airplane",str(new_plane))
-        
 
     def filter_available(self, all_planes):
         pass
