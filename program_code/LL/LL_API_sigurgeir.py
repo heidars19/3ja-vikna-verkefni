@@ -3,6 +3,9 @@ from LL.AirplanesLL import *
 from LL.DestinationLL import *
 #----------------------------------------------------------------------------------------------
 
+#Er búinn að breyta hvernig við útfærum create og get list - tékkaðu á LL_functions og apann minn :)
+#Eyddi engu btw, commentaði bara út
+
 #Airplanes
 class LL_API():
     def get_airplane_types(self):
@@ -22,8 +25,6 @@ class LL_API():
         
     def change_airplane():
         pass
-
-
 
 
 #-----------------------------------------Destinations----------------------------------------#
