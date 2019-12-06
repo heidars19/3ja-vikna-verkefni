@@ -41,7 +41,7 @@ class LL_functions():
             keyword: employee, airplane, destionation or worktrip
             '''
 
-        if keyword == "Employee"
+        if keyword == "Employee":
             new_emp_list = StaffFile()               #create new instance
             updated_list = new_emp_list.start()      
         return updated_list

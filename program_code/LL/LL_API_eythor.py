@@ -61,16 +61,17 @@ class LL_API_eythor:
         \n
         user_input: user input for corresponding item
         '''
-        if data_type == 'employee': 
-            updated_list = get_updated_list_from_DB(keyword)
-        return updated_list
+        if keyword == 'employee': 
+            emp_list == EmployeeLL()
+            emp_updated_list =emp_list.get_updated_list_from_DB(keyword)
+        return emp_updated_list
 
         
 
 
 
         
-            
+
 
 
 #Staff functions
