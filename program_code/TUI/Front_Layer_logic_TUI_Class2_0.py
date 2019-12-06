@@ -448,6 +448,7 @@ class TUI():
                 y = 0
                 days_in_month = 0
                 stop = 0
+                editwin2.clear()
                 for i in range(len(month)):
                     for x in range(len(month[i])):
                         if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year):
@@ -459,26 +460,16 @@ class TUI():
                             if stop == 0:
                                 editwin2.addstr(y,0,month[i][x])
                                 stop = 1
-                                if y > 15:
-                                    y = 0
                             elif stop == 1:
                                 editwin2.addstr(y,25,month[i][x])
                                 stop = 2
-                                if y > 15:
-                                    
-                                    y = 0
                             elif stop == 2:
                                 editwin2.addstr(y,50,month[i][x])
                                 stop = 3
-                                if y > 15:
-                                    
-                                    y = 0
                             else:
                                 editwin2.addstr(y,75,month[i][x])
                                 y+=2
                                 stop = 0
-                                if y > 15:
-                                    y = 0
                             editwin2.attroff(curses.color_pair(2))
                             editwin2.attron(curses.color_pair(1))
                 editwin3 = curses.newwin(3,50,21,50)
@@ -491,66 +482,42 @@ class TUI():
                             
                 check = editwin2.getch()
                 if check == curses.KEY_LEFT:
-                    if date_selected == 1:
-                        pass
-                    elif date_selected == 5:
-                        pass
-                    elif date_selected == 9:
-                        pass
-                    elif date_selected == 13:
-                        pass
-                    elif date_selected == 17:
-                        pass
-                    elif date_selected == 21:
-                        pass
-                    elif date_selected == 25:
-                        pass
-                    elif date_selected == 29:
+                    if date_selected == 1 or date_selected == 5 or date_selected == 9  or date_selected == 13  or date_selected == 17 or date_selected == 21 or date_selected == 25 or date_selected == 29:
                         pass
                     else:
                         date_selected -= 1
                 elif check == curses.KEY_RIGHT:
-                    if date_selected == 4:
-                        pass
-                    elif date_selected == 8:
-                        pass
-                    elif date_selected == 12:
-                        pass
-                    elif date_selected == 16:
-                        pass
-                    elif date_selected == 20:
-                        pass
-                    elif date_selected == 24:
-                        pass
-                    elif date_selected == 28:
-                        pass
-                    elif date_selected == days_in_month:
+                    if date_selected == 4 or date_selected == 8 or date_selected == 12 or date_selected == 16 or date_selected == 20 or date_selected == 24 or date_selected == 28 or date_selected == days_in_month:
                         pass
                     else:
                         date_selected += 1
                 elif check == curses.KEY_UP or check == 450:
                     current = date_selected
-                    if date_selected == 1:
-                        pass
-                    elif date_selected == 2:
-                        pass
-                    elif date_selected == 3:
-                        pass
-                    elif date_selected == 4:
+                    if date_selected == 1 or date_selected == 2 or date_selected == 3 or date_selected == 4:
                         pass
                     else:
                         date_selected -= 4
                 elif check == curses.KEY_DOWN or check == 456:
-                    if date_selected == 28:
-                        pass
-                    elif date_selected == 29:
-                        pass
-                    elif date_selected == 30:
-                        pass
-                    elif date_selected == 31:
-                        pass
-                    else:
-                        date_selected += 4
+                    if days_in_month == 31:
+                        if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 31:
+                            pass
+                        else:
+                            date_selected += 4
+                    elif days_in_month == 30:
+                        if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 27:
+                            pass
+                        else:
+                            date_selected += 4
+                    elif days_in_month == 29:
+                        if date_selected == 28 or date_selected == 29 or date_selected == 26 or date_selected == 27:
+                            pass
+                        else:
+                            date_selected += 4
+                    elif days_in_month == 28:
+                        if date_selected == 28 or date_selected == 25 or date_selected == 26 or date_selected == 27:
+                            pass
+                        else:
+                            date_selected += 4
                 elif check == 27:
                     editwin2.clear()
                     return ""
@@ -562,11 +529,13 @@ class TUI():
                         pass
                     else:
                         add_month += 1
+                        date_selected = 1
                 elif check == 339:
                     if starting_year == datetime_year and starting_month == datetime_month:
                         pass
                     else:
                         add_month -= 1
+                        date_selected = 1
 
             editwin2.attroff(curses.color_pair(1))
             editwin2.refresh()
@@ -771,28 +740,28 @@ class TUI():
                 self.highlight_index = 2
                 idz = 0
                 self.item_list1 = new_instance.get_all_destinations()
-                for i in range(len(self.item_list1)):
+                """for i in range(len(self.item_list1)):
                     for x in range(len(self.item_list1[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
                         self.stdscr.addstr(0,0,self.item_list1[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1) 
+                        time.sleep(1) """
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
                 self.item_list1 = new_instance.get_all_airplanes()
-                for i in range(len(self.item_list1)):
+                """for i in range(len(self.item_list1)):
                     for x in range(len(self.item_list1[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
                         self.stdscr.addstr(0,0,self.item_list1[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)
+                        time.sleep(1)"""
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
