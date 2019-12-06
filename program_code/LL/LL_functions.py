@@ -3,7 +3,6 @@ from DB.DATA_API import *
 class LL_functions():
     #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
     def save_object_to_DB(self,keyword,object_instance):
-
         '''Saves new object to database. \n
         \n Returns True if operation successful.
         keyword: employee,airplane,destination or worktrip as string
@@ -69,6 +68,3 @@ class LL_functions():
                 new_list.append(x.split(','))
 
         return new_list
-
-
-   # def change_object_in_DB(self,keyword,object_instance)

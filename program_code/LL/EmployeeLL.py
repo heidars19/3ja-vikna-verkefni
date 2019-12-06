@@ -1,4 +1,3 @@
-
 from DB.DATA_API import *
 from LL.Employee import *
 from LL.LL_functions import *
@@ -10,7 +9,7 @@ class EmployeeLL(LL_functions):
 
     def create_employee(self,personal_identity):
     #def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
-        """Creates a new employee, returns updated list of employees."""      
+        """Creates a new employee and saves to database."""      
     
         ssn,name,address,mobile,email,role,rank,licence = personal_identity
         new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence)
@@ -24,7 +23,6 @@ class EmployeeLL(LL_functions):
         """Changes information about employee, except ssn, name or creation date."""
 
         ssn,name,address,mobile,email,role,rank,licence,registration_date = registered_identity
-
         changed_emp = Employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
         changed_emp.change_employee()
 

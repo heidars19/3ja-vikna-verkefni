@@ -1,7 +1,22 @@
 from DB.DATA_API import *
 from LL.Destination import Destination
+from LL.LL_functions import *
 
-class DestinationLL():
+class DestinationLL(LL_functions):
+
+    def create_destination(self,destination_identity):
+        """Creates a new destination and saves to database."""
+             
+        dest_id,destination,country,flight_time,distance,contact,emerg_number,airport = destination_identity #unpack
+        new_dest = Destination(dest_id,destination,country,flight_time,distance,contact,emerg_number,airport)
+
+        self.save_object_to_DB("destination",str(new_dest))
+
+    #  def create_destination(self,dest_id,destination,country,flight_time,distance,contact,emerg_number,airport):
+    #     new_destination = Destination(dest_id,destination,country,flight_time,distance,contact,emerg_number,airport)
+    #     print (new_destination)
+    #     log_destination = AirplaneFile(data_to_append=str(new_destination))
+    #     log_destination.start()
 
     def get_destination_list(self):
         DestinatioFilehandler = DestinationFile()
@@ -11,11 +26,7 @@ class DestinationLL():
             all_destinations_list.append(destination.split(','))
         return all_destinations_list
 
-    def create_destination(self,id,destination,country,flight_time,distance,contact,emerg_number,airport):
-        new_destination = Destination(id,destination,country,flight_time,distance,contact,emerg_number,airport)
-        print (new_destination)
-        log_destination = AirplaneFile(data_to_append=str(new_destination))
-        log_destination.start()
+   
 
 
     def change_destination(self, new_info):

@@ -1,10 +1,10 @@
-#from DB.DATA_API import * eigum ekki að tala beint við db
 from DB.DATA_API import *
 from LL.AirplanesLL import *
 from LL.DestinationLL import *
-
-
 #----------------------------------------------------------------------------------------------
+
+#Er búinn að breyta hvernig við útfærum create og get list - tékkaðu á LL_functions og apann minn :)
+#Eyddi engu btw, commentaði bara út
 
 #Airplanes
 class LL_API():
@@ -27,14 +27,11 @@ class LL_API():
         pass
 
 
-
-
 #-----------------------------------------Destinations----------------------------------------#
 
     def get_all_destinations(self):
         dest = DestinationLL()
         all_destinations = dest.get_destination_list()
-        all_destinations.pop(0)
         all_destinations.pop(0)
         return all_destinations
 

@@ -1,12 +1,22 @@
 from LL.Airplanes import Airplane
 from DB.DATA_API import *
+from LL.LL_functions import *
 import string
 
-class AirplanesLL():
+class AirplanesLL(LL_functions):
+
+    #Útfærði þetta á sama hátt og hjá employee þar sem við notum save_object_to_DB function til að vista hvað sem er og unpökkum hér
+    def create_airplane(self,airplane_identity):
+        '''Creates a new airplane and saves to database'''
+    
+        plane_id, plane_type, manufacturer, model, name, capacity = airplane_identity
+        new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+
+        self.save_object_to_DB("airplane",str(new_plane))
+        
 
     def filter_available(self, all_planes):
         pass
-
 
     def filter_planes(planes_list=[], a_header=''):
         header = planes_list[0]
@@ -23,7 +33,6 @@ class AirplanesLL():
 
         return types
 
-
     def get_plane_list():        
         PlaneFilehandler = AirplaneFile()
         all_planes = PlaneFilehandler.start()
@@ -33,11 +42,11 @@ class AirplanesLL():
         return all_planes_list
 
 
-    def create_plane(self, plane_id, plane_type, manufacturer, model, name, capacity):
-        new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
-        log_plain = AirplaneFile(data_to_append=str(new_plane))
-        status = log_plain.start()
-        return status
+    # def create_plane(self, plane_id, plane_type, manufacturer, model, name, capacity):
+    #     new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+    #     log_plain = AirplaneFile(data_to_append=str(new_plane))
+    #     status = log_plain.start()
+    #     return status
 
 
     def change_plane(self, new_info):
@@ -48,4 +57,5 @@ class AirplanesLL():
 
         PlaneFilehandler = AirplaneFile(line_to_replace=line_in_db, replace_with=str(updated_plane))
         PlaneFilehandler.start()
+    
     
