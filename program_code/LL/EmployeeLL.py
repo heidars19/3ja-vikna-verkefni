@@ -15,15 +15,13 @@ class EmployeeLL(LL_functions):
 
         self.save_object_to_DB("employee",str(new_emp))
 
-    
     def change_employee(self,registered_identity):
         """Changes information about employee, except ssn, name or creation date."""
 
         ssn,name,address,mobile,email,role,rank,licence,registration_date = registered_identity
         changed_emp = Employee(ssn,name,address,mobile,email,role,rank,licence,registration_date)
 
-        self.change_object_in_DB("employee",str(changed_emp),ssn)
-        changed_emp.change_employee()
+        self.change_object_in_DB("employee",str(changed_emp),self.id)
 
 
     #def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
