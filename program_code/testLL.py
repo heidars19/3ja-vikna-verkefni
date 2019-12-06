@@ -11,7 +11,7 @@ def main():
     
     #change_employee('1008953349','Eyþór Óli Borgþórsson','Brunahani 31','8453474','kroli95@gmail.com','Pilot','Copilot','Fokker232','2019-12-05 17:27:37.492230')  
     new_emp = LL_API_eythor()
-    new_emp.create("employee",('1234567890','Gunni Jónsson','Þingás 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
+    new_emp.create("employee",('4455668855','Anna Jónsson','Sigurbrunnur 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
     return
 
 
