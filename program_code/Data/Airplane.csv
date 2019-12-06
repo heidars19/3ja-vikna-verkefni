@@ -28,3 +28,6 @@ id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date
 27,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-06 16:01:15.198133
 28,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-06 16:01:25.685532
 29,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-06 18:01:30.874836
+30,,TF-TEST,NANTES146,Fokker,555,Skvis,,2019-12-06 21:30:16.388529
+31,,TF-TEST,NANTES146,Fokker,555,Skvis,2019-12-06 21:32:08.247208
+32,,TF-TEST,NANTES146,Fokker,555,Skvis,2019-12-06 21:33:26.407276

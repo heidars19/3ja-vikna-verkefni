@@ -18,15 +18,15 @@ class LL_API:
             cr_emp.create_employee(user_input)
 
         elif keyword == 'airplane':
-            cr_air == AirplanesLL()
+            cr_air = AirplanesLL()
             cr_air.create_airplane(user_input)
 
         elif keyword == 'destination':
-            cr_dest == DestinationLL()
+            cr_dest = DestinationLL()
             cr_dest.create_destination(user_input)
 
         elif keyword =='worktrip':
-            cr_trip == WorktripLL()
+            cr_trip = WorktripLL()
             cr_trip.create_worktrip(user_input)   
 
 

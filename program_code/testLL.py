@@ -12,10 +12,10 @@ def main():
     
     #change_employee('1008953349','Eyþór Óli Borgþórsson','Brunahani 31','8453474','kroli95@gmail.com','Pilot','Copilot','Fokker232','2019-12-05 17:27:37.492230')  
     new_emp = LL_API()
-    new_emp.create("employee",('4455668855','sissi Helga','Hehe 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
+    new_emp.create("employee",('','4455668855','aparassgat Helga','Hehe 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
     
     new_airplane = LL_API()
-    new_airplane.create("airplane", ("TF-TEST","NANTES146","Fokker","555","Skvis"))
+    new_airplane.create("airplane", ('',"TF-TEST","NANTES146","Fokker","555","Skvis"))
     return
 
 
