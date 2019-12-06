@@ -1,12 +1,8 @@
 from LL.EmployeeLL import *
 from LL.LL_functions import *
 from LL.AirplanesLL import *
-from EmployeeLL import *
-from DB.DATA_API import * eigum ekki að tala beint við db
-from Airplanes import *
-from AirplanesLL import *
-from Destination import *
-from DestinationLL import *
+from DB.DATA_API import * 
+
  
 class LL_API_eythor:
 
