@@ -9,7 +9,7 @@ class FileHandlr :
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
     
-    STAFF_TABLE = "Data/Crew.csv"
+    STAFF_TABLE = "Data/Employee.csv"
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
     
     DESTINATION_TABLE = "Data/Destinations.csv"
