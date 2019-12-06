@@ -564,6 +564,7 @@ class TUI():
             editwin.clear()
             editwin.refresh()
             editwin.addstr(0,0,data)
+            
         editwin.attroff(curses.color_pair(2))
         return data
 
