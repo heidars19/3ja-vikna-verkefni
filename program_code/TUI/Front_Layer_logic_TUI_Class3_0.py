@@ -164,36 +164,37 @@ class TUI():
         exeptions = ["", "Pilot", "Cabincrew"]
         for i in range(0+self.next_section,15+self.next_section):
             try:
-                new_string = ""
-                if self.menu_select == 0:
-                    if self.exeption != 0:
-                        if exeptions[self.exeption] in self.item_list[i]:
+                if i != 0:
+                    new_string = ""
+                    if self.menu_select == 0:
+                        if self.exeption != 0:
+                            if exeptions[self.exeption] in self.item_list[i]:
+                                for x in range(len(self.item_list[i])):
+                                    if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
+                        else:
                             for x in range(len(self.item_list[i])):
                                 if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
-                    else:
+                        if len(new_string) > 100:
+                            for i in range(len(new_string)-100):
+                                new_string = new_string[:-1]
+                        new_list.append(new_string)
+                    elif self.menu_select == 1:
                         for x in range(len(self.item_list[i])):
-                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
-                    if len(new_string) > 100:
-                        for i in range(len(new_string)-100):
-                            new_string = new_string[:-1]
-                    new_list.append(new_string)
-                elif self.menu_select == 1:
-                    for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 6 and x != 7 and x != 8 and x != 9:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 20)
-                    new_list.append(new_string)
-                elif self.menu_select == 2:
-                    for x in range(len(self.item_list[i])):
-                        if x != 0:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
-                    new_list.append(new_string)
-                elif self.menu_select == 3:
-                    for x in range(len(self.item_list[i])):
-                        if x != 0:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
-                    new_list.append(new_string)
+                            if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 6 and x != 7 and x != 8 and x != 9:
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 20)
+                        new_list.append(new_string)
+                    elif self.menu_select == 2:
+                        for x in range(len(self.item_list[i])):
+                            if x != 0:
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                        new_list.append(new_string)
+                    elif self.menu_select == 3:
+                        for x in range(len(self.item_list[i])):
+                            if x != 0:
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                        new_list.append(new_string)
             except:
                 for i in range(15-len(new_list)):
                     new_list.append("")
@@ -796,7 +797,7 @@ class TUI():
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
-                self.item_list = self.new_instance_API.get_all_destinations()
+                self.item_list = self.new_instance_API2.get_list("destination")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
@@ -812,7 +813,7 @@ class TUI():
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
-                self.item_list = self.new_instance_API.get_all_airplanes()
+                self.item_list = self.new_instance_API2.get_list("airplane")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
