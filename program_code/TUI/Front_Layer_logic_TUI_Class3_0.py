@@ -823,12 +823,12 @@ class TUI():
                         self.exeption += 1
                     else:
                         self.exeption = 0
-                self.stdscr.clear()
+                """self.stdscr.clear()
                 self.stdscr.attron(curses.color_pair(1))
                 self.stdscr.addstr(0,0,str(key))
                 self.stdscr.attroff(curses.color_pair(1))
                 self.stdscr.refresh()
-                time.sleep(1)
+                time.sleep(1)"""
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
         h, w = self.stdscr.getmaxyx()
