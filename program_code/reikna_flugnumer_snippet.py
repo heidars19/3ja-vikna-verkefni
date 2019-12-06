@@ -1,12 +1,21 @@
 
+
+# Er alltaf með worktrip_id
+
 def flight_number_today():
+    
+    
     
     
     return "20"
 
 def get_destination_number() :
     
+    
+    
+    
     return "0"
+
 
 
 def flugnumer() :
