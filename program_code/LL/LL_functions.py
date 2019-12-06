@@ -19,13 +19,12 @@ class LL_functions():
         elif keyword == "airplane":
             save_obj = AirplaneFile(data_to_append=object_instance)
 
-        elif worktrip == "worktrip":
+        elif keyword == "worktrip":
             save_obj = WorkTripFile(data_to_append=object_instance)
         else:
             return "There is no such object type as" + str(keyword) + "Change keyword - should be string."
 
         save_obj.start()
-        return True
 
     def change_object_in_DB(self,keyword,object_instance):
         '''Changes personal information about employee, except ssn, name and creation_date'''
@@ -40,18 +39,35 @@ class LL_functions():
             keyword: employee, airplane, destionation or worktrip
             '''
         updated_list = []
+
         if keyword == "employee":
             new_instance = StaffFile()               #create new instance
             updated_list = new_instance.start() 
             new_list = []
             for x in updated_list:
                 new_list.append(x.split(','))
+
         elif keyword == "worktrip":
             new_instance = WorkTripFile()               #create new instance
             updated_list = new_instance.start() 
             new_list = []
             for x in updated_list:
                 new_list.append(x.split(','))
+
+        elif keyword == "destination":
+            new_instance = DestinationFile()               #create new instance
+            updated_list = new_instance.start() 
+            new_list = []
+            for x in updated_list:
+                new_list.append(x.split(','))
+
+        elif keyword == "airplane":
+            new_instance = AirplaneFile()               #create new instance
+            updated_list = new_instance.start() 
+            new_list = []
+            for x in updated_list:
+                new_list.append(x.split(','))
+
         return new_list
 
 
