@@ -555,9 +555,9 @@ class TUI():
             if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
             or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
             or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
-            or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":") or ch == 127: #This defines all the chrs this custom input accepts
+            or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
                 data += chr(ch)
-            elif ch == 8:
+            elif ch == 8 or ch == 127:
                 data = data[:-1]
             elif data == 27:
                 wrapper(main)
