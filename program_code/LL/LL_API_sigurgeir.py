@@ -11,10 +11,12 @@ class LL_API():
     def get_airplane_types(self):
         all_planes = AirplanesLL.get_plane_list()
         filtered_planes = AirplanesLL.filter_planes(all_planes, 'model')
+        
         return filtered_planes
 
     def get_all_airplanes(self):
         all_planes = AirplanesLL.get_plane_list()
+        all_destinations.pop(0)
         return all_planes
 
     def create_airplane(self, plane_id, plane_type, manufacturer, model, name, capacity):
