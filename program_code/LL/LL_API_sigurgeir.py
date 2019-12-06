@@ -32,7 +32,6 @@ class LL_API():
         dest = DestinationLL()
         all_destinations = dest.get_destination_list()
         all_destinations.pop(0)
-        all_destinations.pop(0)
         return all_destinations
 
     def create_destination(self, id,destination,country,flight_time,distance,contact,emerg_number,airport):

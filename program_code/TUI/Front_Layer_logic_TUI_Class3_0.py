@@ -98,6 +98,7 @@ class TUI():
         self.check_specifcly = False
         self.new_instance_API = LL_API()
         self.new_instance_API2 = LL_API_eythor()
+        self.next_section = 0
         self.item_list = self.new_instance_API2.get_list("employee")
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
@@ -138,7 +139,7 @@ class TUI():
 
     def construct_header(self):
         self._header = (\
-        ("Nafn","Starf","Réttindi","Staða","Áfangastaður"),\
+        ("Kennitala","Nafn","Réttindi","Staða","Áfangastaður"),\
         ("Dagsetning","Brottför","Áfangastaður","Flugvél","Mönnun","Flugnr.","Sæti","Staða"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
@@ -154,20 +155,36 @@ class TUI():
 
     def construct_body_lists(self):
         new_list = []
-        exeptions = ["", "Flugmaður", "Flugþjónn"]
-        for i in range(len(self.item_list)):
-            new_string = ""
-            if self.menu_select == 0:
-                if exeptions[self.exeption] in self.item_list[i]:
+        exeptions = ["", "Pilot", "Cabincrew"]
+        for i in range(0+self.next_section,15+self.next_section):
+            try:
+                new_string = ""
+                if self.menu_select == 0:
+                    """if exeptions[self.exeption] in self.item_list[i]:"""
+                    for x in range(len(self.item_list[i])):
+                        if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                            new_string += "{:<{lengd:}} ".format(self.item_list[i][x],lengd = 25)
+                    for i in range(10):
+                        new_string = new_string[:-1]
+                    new_list.append(new_string)
+                elif self.menu_select == 1:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 20)
+                    new_list.append(new_string)
+                elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
                         if x != 0:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
                     new_list.append(new_string)
-            else:
-                for x in range(len(self.item_list[i])):
-                    if x != 0:
-                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
-                new_list.append(new_string)
+                elif self.menu_select == 3:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                    new_list.append(new_string)
+            except:
+                for i in range(15-len(new_list)):
+                    new_list.append("")
         for i in range(15-len(new_list)):
             new_list.append("{:^{lengd:}}".format("", lengd = 100))
         for i in range(len(new_list)):
@@ -736,56 +753,64 @@ class TUI():
                 self.highlight_index = 0
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("employee")
-                """for i in range(len(self.item_list)):
+                """leng = 0
+                for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
-                        self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list[i][x])
+                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)"""
+                        leng += len(self.item_list[i][x]) +1 
+                    time.sleep(1)
+                    leng = 0"""
             elif key == 50:
                 self.menu_select = 1
                 idx = 1
                 self.highlight_index = 1
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("worktrip")
-                """for i in range(len(self.item_list)):
+                """leng = 0
+                for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
-                        self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list[i][x])
+                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)"""
+                        leng += len(self.item_list[i][x]) +1 
+                    time.sleep(1)
+                    leng = 0"""
             elif key == 51:
                 self.menu_select = 2
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
                 self.item_list = self.new_instance_API.get_all_destinations()
-                """for i in range(len(self.item_list)):
+                """leng = 0
+                for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
-                        self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list[i][x])
+                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)"""
+                        leng += len(self.item_list[i][x]) +1 
+                    time.sleep(1)
+                    leng = 0"""
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
                 self.item_list = self.new_instance_API.get_all_airplanes()
-                """for i in range(len(self.item_list)):
+                """leng = 0
+                for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
-                        self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list[i][x])
+                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)"""
+                        leng += len(self.item_list[i][x]) +1 
+                    time.sleep(1)
+                    leng = 0"""
             elif key == curses.KEY_LEFT:
                 if idy == 0:
                     idy = 4
