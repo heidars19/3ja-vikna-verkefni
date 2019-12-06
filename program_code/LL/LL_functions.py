@@ -6,7 +6,6 @@ class LL_functions():
 
         '''Saves new object to database. \n
         \n Returns True if operation successful.
-
         keyword: employee,airplane,destination or worktrip as string
         \n 
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
@@ -40,10 +39,13 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-
-        if keyword == "Employee"
-            new_emp_list = StaffFile()               #create new instance
-            updated_list = new_emp_list.start()      
+        updated_list = []
+        if keyword == "Employee":
+            new_instance = StaffFile()               #create new instance
+            updated_list = new_instance.start() 
+            new_list = []
+            for x in updated_list:
+                new_list.append(x.split(','))
         return updated_list
 
 

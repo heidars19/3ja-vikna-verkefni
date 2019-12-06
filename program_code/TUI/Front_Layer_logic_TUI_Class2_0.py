@@ -729,6 +729,16 @@ class TUI():
                 idx = 0
                 self.highlight_index = 0
                 idz = 0
+                new_instance2 = LL_API_eythor()
+                self.item_list1 = new_instance2.get_list("employee")
+                for i in range(len(self.item_list1)):
+                    for x in range(len(self.item_list1[i])):
+                        self.stdscr.clear()
+                        self.stdscr.attron(curses.color_pair(1))
+                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.attroff(curses.color_pair(1))
+                        self.stdscr.refresh()
+                        time.sleep(1)
             elif key == 50:
                 self.menu_select = 1
                 idx = 1
@@ -740,14 +750,14 @@ class TUI():
                 self.highlight_index = 2
                 idz = 0
                 self.item_list1 = new_instance.get_all_destinations()
-                """for i in range(len(self.item_list1)):
+                for i in range(len(self.item_list1)):
                     for x in range(len(self.item_list1[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
                         self.stdscr.addstr(0,0,self.item_list1[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1) """
+                        time.sleep(1)
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
