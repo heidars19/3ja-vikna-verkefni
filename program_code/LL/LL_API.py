@@ -7,7 +7,7 @@ from LL.LL_functions import *
 class LL_API:
 
 #From UI: create("employee",(ssn,name,address,mobile,email,role,rank,licence))
-    def create(self,keyword,user_input):    
+    def create(self, keyword,user_input):    
         '''Creates new object and saves to Database. \n
         keyword: employee,airplane,destination or worktrip
         \n
@@ -52,8 +52,9 @@ def get_list(self,keyword):
 
 
 
-
-
+def testmain():
+    new = LL_API()
+    new.create('airplane', ('10','KR-3424','Mother-fucker','Audi','R2D2','Brummi'))
 
 
 

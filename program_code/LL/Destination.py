@@ -1,7 +1,7 @@
 class Destination():
 
-    def __init__(self, id, destination,	country,  flight_time, distance, contact, emerg_number, airport):
-        self.id	= id
+    def __init__(self, _id, destination, country, flight_time, distance, contact, emerg_number, airport, registration_date=''):
+        self._id = _id
         self.destination = destination
         self.country = country
         self.flight_time = flight_time
@@ -9,14 +9,17 @@ class Destination():
         self.contact = contact
         self.emergency_number = emerg_number
         self.airport = airport
+        self.registration_date = registration_date
 
 
     def __repr__(self):
-        return f'Destination({self.destination},{self.country},,{self.flight_time},{self.distance},{self.contact},{self.emergency_number}'
+        return f'Destination({self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
 
-
-    def __str__(self):
-        return f'{self.id},{self.destination},{self.country},{self.id},{self.flight_time},{self.distance},{self.contact},{self.emergency_number}'
-
-    def __db__(self):
+    def registration(self):
         return f'{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
+
+    def change_registration(self):
+        f'{self._id},{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport},{self.registration_date}'
+
+
+
