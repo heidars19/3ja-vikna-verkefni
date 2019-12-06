@@ -5,7 +5,8 @@ from LL.LL_functions import *
 class DestinationLL(LL_functions):
 
     def create_destination(self,destination_identity):
-        """Creates a new destination and saves to database."""     
+        """Creates a new destination and saves to database."""
+             
         dest_id,destination,country,flight_time,distance,contact,emerg_number,airport = destination_identity #unpack
         new_dest = Destination(dest_id,destination,country,flight_time,distance,contact,emerg_number,airport)
 

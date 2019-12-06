@@ -1,9 +1,6 @@
-#from DB.DATA_API import * eigum ekki að tala beint við db
 from DB.DATA_API import *
 from LL.AirplanesLL import *
 from LL.DestinationLL import *
-
-
 #----------------------------------------------------------------------------------------------
 
 #Airplanes

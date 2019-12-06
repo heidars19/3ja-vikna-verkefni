@@ -21,7 +21,7 @@ class Worktrip:
 
 
     def __str__(self): #Runs when using the str() method
-        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
+        return f'{self.worktrip_id},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2}'
 
     #name getterar fyrir privat breytur
     @property 
