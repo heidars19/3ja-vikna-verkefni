@@ -7,10 +7,10 @@ class FileHandlr :
     ''' Abstract class for filehandling '''
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
-    AIRLPANE_TABLE_HEADER = 'plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
+    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
     
     STAFF_TABLE = "Data/Crew.csv"
-    STAFF_TABLE_HEADER = 'ssn,name,address,mobile,email,role,rank,licence,registration_date'
+    STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
     
     DESTINATION_TABLE = "Data/Destinations.csv"
     DESTINATION_TABLE_HEADER = 'id,destination,country,flight_time,distance,contact,emerg_number,airport,registration_date'
@@ -23,8 +23,8 @@ class FileHandlr :
     
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
     
-        self._filename = 'Aircraft.csv'
-        self._header = 'plainID,plainType,manufacturer,model,capacity,'
+        self._filename = ''
+        self._header = ''
         self._data_to_append = data_to_append
         self._fieldname = fieldname
         self._searchparam = searchparam
@@ -133,45 +133,31 @@ class FileHandlr :
         self._data_list = data_list
 
 
-    def change_line_in_file(filename):
-        filename2 = filename +".bak"
-
-        with open(filename, 'r', encoding='utf-8') as file_original:
+    def change_line_in_file(self):
+        filename2 = self._filename +".bak"
+        
+        with open(self._filename, 'r', encoding='utf-8') as file_original:
             with open(filename2, 'w+', encoding='utf-8') as file_bak:
                 if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
-                    for linenumber, line in enumerate(file_original):
+                    
+                    for linenumber, line in enumerate(file_original): # Reads 1 file line by line into another file
                         if linenumber == self._line_to_replace :
                             file_bak.write(self._replace_with + '\n')
                         else :
                             file_bak.write(line)
                 else :
                     for line in file_original:
-                        file_bak.write(line)
+                        if line == self._line_to_replace :
+                            file_bak.write(self._replace_with + '\n')
+                        else :
+                            file_bak.write(line)
 
-        with open(filename2, 'r', encoding='utf-8') as file_original:
-            with open(filename, 'w+', encoding='utf-8') as file_bak:
-                for line in file_original:
-                    file_bak.write(line)
+
+        with open(filename2, 'r', encoding='utf-8') as file_bak:
+            with open(self._filename, 'w+', encoding='utf-8') as file_original:
+                for line in file_bak:
+                    file_original.write(line)
         
-        if os.path.exists(filename2):
+        if os.path.exists(filename2): # Checks if .bak file exists and removes it if it does
             os.remove(filename2)
-        
-        
-    # def change_line_in_file(self) :
-    #     ''' 
-    #     Replaces 1 line in a file. 
-
-    #     line_to_replace can be a line number (int) or a complete line (str).
-    #     When line_to_replace is a string, it can replace partial lines.
-    #     '''
-    #     if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
-    #         for i, line in enumerate(fileinput.FileInput(self._filename, inplace=1)) :
-    #             if i == self._line_to_replace :
-    #                 print(self._replace_with.strip())   # Strip to remove extra \n, cause print adds it anyways
-    #             else :
-    #                 print(line, end='')
-    #     else :   # line_to_replace is a complete line (str)
-    #         for line in fileinput.FileInput(self._filename, inplace=1) :   # openhook=fileinput.hook_encoded("utf-8")  --  inplace=1
-    #             line = line.replace(self._line_to_replace,self._replace_with)
-    #             print(line, end='')
 
