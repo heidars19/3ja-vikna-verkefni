@@ -69,13 +69,12 @@ class LL_API_eythor:
             emp_list = LL_functions()
             emp_updated_list = emp_list.get_updated_list_from_DB(keyword)
             emp_updated_list.pop(0)
-            emp_updated_list.pop(0)
+     
         elif keyword == 'worktrip': 
             emp_list = LL_functions()
             emp_updated_list = emp_list.get_updated_list_from_DB(keyword)
             emp_updated_list.pop(0)
-            emp_updated_list.pop(0)
-
+           
         return emp_updated_list
 
         
