@@ -26,13 +26,13 @@ class LL_functions():
         save_obj.start()
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
-    def change_object_in_DB(self,keyword,object_instance,search_keyword, search_attribute):
+    def change_object_in_DB(self,keyword,object_instance,object_id):
         '''Changes information about object in Database. 
          '''
 
-        new_file = StaffFile(fieldname="ssn",searchparam=search_param) #Looks for ssn in StaffFile and returns line number
+        new_file = StaffFile(fieldname="id",searchparam=object_id) #Looks for ssn in StaffFile and returns line number
         line_number = new_file.start()
-
+        
         update_line = StaffFile(line_to_replace=line_number,replace_with=object_instance)
         update_line.start()
 
