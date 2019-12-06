@@ -139,13 +139,19 @@ class TUI():
 
     def construct_header(self):
         self._header = (\
-        ("Kennitala","Nafn","Réttindi","Staða","Áfangastaður"),\
+        ("Kennitala","Nafn","Síma númer","Email","Starfsheiti"),\
         ("Dagsetning","Brottför","Áfangastaður","Flugvél","Mönnun","Flugnr.","Sæti","Staða"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
-            header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/(len(self._header[self.menu_select]))))
+            if self.menu_select == 0:
+                header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = 22)
+            else:
+                header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/(len(self._header[self.menu_select]))))
+        if len(header_string) > 100:
+            for i in range(len(header_string)-100):
+                        header_string = header_string[:-1]
         for i in range(100-len(header_string)):
             header_string += " "
         header_template = (
@@ -160,16 +166,22 @@ class TUI():
             try:
                 new_string = ""
                 if self.menu_select == 0:
-                    """if exeptions[self.exeption] in self.item_list[i]:"""
-                    for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
-                            new_string += "{:<{lengd:}} ".format(self.item_list[i][x],lengd = 25)
-                    for i in range(10):
-                        new_string = new_string[:-1]
+                    if self.exeption != 0:
+                        if exeptions[self.exeption] in self.item_list[i]:
+                            for x in range(len(self.item_list[i])):
+                                if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                                    new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
+                    else:
+                        for x in range(len(self.item_list[i])):
+                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
+                    if len(new_string) > 100:
+                        for i in range(len(new_string)-100):
+                            new_string = new_string[:-1]
                     new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10:
+                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 6 and x != 7 and x != 8 and x != 9:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 20)
                     new_list.append(new_string)
                 elif self.menu_select == 2:

@@ -25,19 +25,30 @@ class LL_functions():
 
         save_obj.start()
 
-    def change_object_in_DB(self,keyword,object_instance):
-        '''Changes personal information about employee, except ssn, name and creation_date'''
+    #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
+    def change_object_in_DB(self,keyword,object_instance,object_id):
+        '''Changes information about object in Database. 
+                keyword: employee, destination, airplane, worktrip
+                
+            keyword
+         '''
 
-        new_file = StaffFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in StaffFile and returns line number
+        new_file = StaffFile(fieldname="id",searchparam=object_id) #Looks for ssn in StaffFile and returns line number
         line_number = new_file.start()
-        update_line = StaffFile(line_to_replace=line_number,replace_with=str(self))
+
+        update_line = StaffFile(line_to_replace=line_number,replace_with=object_instance)
         update_line.start()
+
+
+
+
+
 
     def get_updated_list_from_DB(self,keyword):
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-        updated_list = []
+        new_list = []
 
         if keyword == "employee":
             new_instance = StaffFile()               #create new instance

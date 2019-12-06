@@ -1,12 +1,8 @@
 from LL.EmployeeLL import *
 from LL.LL_functions import *
 from LL.AirplanesLL import *
-from EmployeeLL import *
-from DB.DATA_API import * eigum ekki að tala beint við db
-from Airplanes import *
-from AirplanesLL import *
-from Destination import *
-from DestinationLL import *
+from DB.DATA_API import * 
+
  
 class LL_API_eythor:
 
@@ -18,7 +14,6 @@ class LL_API_eythor:
         \n
         user_input: user input for corresponding item
         '''
-
         if keyword == 'employee':
             cr_emp = EmployeeLL()
             cr_emp.create_employee(user_input)
@@ -28,17 +23,12 @@ class LL_API_eythor:
             cr_air.create_airplane(user_input)
 
         if keyword == 'destination':
-
             cr_dest == DestinationLL()
             cr_dest.create_destination(user_input)
 
         if keyword =='worktrip':
-
-            departing_from, arriving_at, airplane_id, departure, arrival = data_info
-            #þarf að útfæra betur hvernig við höndlum dates og skilum niður
-
             cr_trip == WorktripLL()
-            cr_trip.create_worktrip(departing_from, arriving_at, airplane_id, departure, arrival)   
+            cr_trip.create_worktrip(user_input)   
 
     def change(self,keyword,user_input):
         
