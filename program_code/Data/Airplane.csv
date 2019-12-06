@@ -1,10 +1,29 @@
-planeID,planeType,manufacturer,model,name,capacity 
-TF-OAS,NABAE146,BAE,146,SessÃ½,82
-TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
-TF-EOB,NAFokker100,Fokker,F100,Helgi,100
-Þetta ætti að breyta línu 4
-TF-OAS,NABAE146,BAE,146,Sessý,82
-TF-STH,NAFokkerF28,Fokker,F28,Finnur,65
-TF-EOB,NAFokker100,Fokker,F100,Helgi,100
-TF-EOC,NAFokker80,Fokker,F800,Heiðar,100
-Sessý,TEST,TEST,BAE,BAE
+id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date
+1,TF-OAS,NABAE146,BAE,146,Sessý,82,52019-12-05 21:23:08.227855
+2,TF-STH,NAFokkerF28,Fokker,F28,Finnur,65,52019-12-05 21:23:08.227855
+3,TF-EOB,NAFokker100,Fokker,F100,Helgi,100,52019-12-05 21:23:08.227855
+4,TF-OAS,NABAE146,BAE,146,Sessý,82,52019-12-05 21:23:08.227855
+5,TF-STH,NAFokkerF28,Fokker,F28,Finnur,65,52019-12-05 21:23:08.227855
+6,TF-EOB,NAFokker100,Fokker,F100,Helgi,100,52019-12-05 21:23:08.227855
+7,TF-EOC,NAFokker80,Fokker,F800,Heiðar,100,52019-12-05 21:23:08.227855
+8,KR-3424,Mother-fucker ,Brummi,Audi,R2D2,Brummi,52019-12-05 21:23:08.227855
+9,KR-3424,Mother-fucker,Brummi,Audi,R2D2,Brummi,52019-12-05 21:29:25.631034
+10,KR-3424,Mother-fucker,Brummi,Audi,R2D2,Brummi,52019-12-05 21:34:22.652317
+11,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:27.952434
+12,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:29:49.522516
+13,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:31:17.508565
+14,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:31:36.344730
+15,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:11.571674
+22,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:25.202619
+17,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:30.947401
+18,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:40.262081
+19,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:38:15.757439
+20,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:40:16.125204
+21,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:42:12.954348
+22,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:32:25.202619
+23,TF-BAD,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:44:25.899155
+24,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:46:21.434982
+25,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:46:45.221879
+26,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-05 18:48:23.607582
+27,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-06 16:01:15.198133
+28,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-06 16:01:25.685532

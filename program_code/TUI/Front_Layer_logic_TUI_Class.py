@@ -132,14 +132,14 @@ class TUI():
         return main_menu_template
 
     def construct_header(self):
-        self.header = (\
+        self._header = (\
         ("Nafn","Starf","Réttindi","Staða","Áfangastaður"),\
         ("Dagsetning","Brottför","Áfangastaður","Flugvél","Mönnun","Flugnr.","Sæti","Staða"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
         header_string = ""
-        for i in range(len(self.header[self.menu_select])):
-            header_string += "{:<{lengd:}}".format(self.header[self.menu_select][i],lengd = int(100/(len(self.header[self.menu_select]))))
+        for i in range(len(self._header[self.menu_select])):
+            header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/(len(self._header[self.menu_select]))))
         for i in range(100-len(header_string)):
             header_string += " "
         header_template = (
@@ -458,42 +458,42 @@ class TUI():
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
         if self.menu_select == 0:
-            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
-            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,self.header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,self.header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
-            self.make_text_appear(16,53,self.header[self.menu_select][7] + ": " +item_list[self.menu_select][self.list_line_index][7],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
+            self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +item_list[self.menu_select][self.list_line_index][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 3:
-            self.make_text_appear(5,4,self.header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self.header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self.header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self.header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self.header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,self.header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,self.header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
             self.make_text_appear(16,53,"",49)
 
         action = self.stdscr.getch()
@@ -501,9 +501,9 @@ class TUI():
             self.change_user_menu()
     
     def change_user(self,index,y_position,extra_len):
-        check = self.get_chr_from_user(y_position,2 + len(self.header[self.menu_select][index] + item_list[self.menu_select][self.list_line_index][index]) + extra_len)
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + item_list[self.menu_select][self.list_line_index][index]) + extra_len)
         if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self.header[self.menu_select][index]) + extra_len)
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len)
         else:
             variable_x = item_list[self.menu_select][self.list_line_index][index]
         return variable_x

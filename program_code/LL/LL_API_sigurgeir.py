@@ -8,35 +8,38 @@ from LL.DestinationLL import *
 
 #Airplanes
 class LL_API():
-    def get_airplane_types(self):
-        all_planes = Airplane.get_airplane_list()
-        filtered_planes = Airplane.filter_planes(all_planes, model)
+    def get_airplane_types():
+        all_planes = AirplanesLL.get_plane_list()
+        filtered_planes = AirplanesLL.filter_planes(all_planes, 'model')
         return filtered_planes
 
-    def get_all_airplanes(self):
-        all_planes = Airplane.get_airplane_list()
+    def get_all_airplanes():
+        all_planes = AirplanesLL.get_plane_list()
         return all_planes
 
     def create_airplane(self, plane_id, plane_type, manufacturer, model, name, capacity):
-        new_plain = Airplane(planeID, planeType, manufacturer, model, name, capacity)
-        new_plain.save_airplane()
+        new_register = AirplanesLL()
+        status = new_register.create_airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+        
+    def change_airplane():
+        pass
 
 
 
-    
+
+#-----------------------------------------Destinations----------------------------------------#
+
+    def get_all_destinations():
+        all_destinations = DestinationLL.get_destination_list()
+        print (all_destinations)
+
+    def create_destination(self, id,destination,country,flight_time,distance,contact,emerg_number,airport):
+        new_register = DestinationLL()
+        status = new_register.create_destination(id, destination, country, flight_time, distance, contact, emerg_number, airport)
 
 
 
-    
 
-#if __name__ == "__main__":
-
-
-    #main()
-
-
-
-#new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
-"""emp = create_employee("2501952149","Eyþór Óli Borgþórsson","Þingás 31","8453474","eythoroli95@gmail.com","Pilot","Copilot","Fokker232")
-
-print(emp)"""
+def testmain():
+    new = LL_API()
+    new.create_destination('1','Longyearbyen','Svalbard','1:30:25','1.993','Þarmar Klámsson','632827365', 'Vik')
