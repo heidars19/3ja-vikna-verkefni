@@ -7,7 +7,7 @@ import locale
 import curses
 import time
 import datetime
-import dateutil.parser
+#import dateutil.parser
 import calendar
 
 #from LL.LL_API_eythor import *
@@ -17,7 +17,7 @@ header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
 # coding = UTF-8
 
-item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
+"""item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
                 ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
@@ -83,7 +83,7 @@ item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
                 ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
                 ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
                 ]
-                ]
+                ]"""
 
 class TUI():
     def __init__(self,stdscr,highlight_index = 0):
@@ -96,7 +96,9 @@ class TUI():
         self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-        self.item_list1 = []
+        self.new_instance_API = LL_API()
+        self.new_instance_API2 = LL_API_eythor()
+        self.item_list = self.new_instance_API2.get_list("employee")
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         header_temp = self.construct_header()
@@ -153,16 +155,18 @@ class TUI():
     def construct_body_lists(self):
         new_list = []
         exeptions = ["", "Flugmaður", "Flugþjónn"]
-        for i in range(len(item_list[self.menu_select])):
+        for i in range(len(self.item_list)):
             new_string = ""
             if self.menu_select == 0:
-                if exeptions[self.exeption] in item_list[self.menu_select][i]:
-                    for x in range(len(item_list[self.menu_select][i])):
-                        new_string += "{:<{lengd:}}".format(item_list[self.menu_select][i][x],lengd = int(100/(len(item_list[self.menu_select][i]))))
+                if exeptions[self.exeption] in self.item_list[i]:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
                     new_list.append(new_string)
             else:
-                for x in range(len(item_list[self.menu_select][i])):
-                    new_string += "{:<{lengd:}}".format(item_list[self.menu_select][i][x],lengd = int(100/(len(item_list[self.menu_select][i]))))
+                for x in range(len(self.item_list[i])):
+                    if x != 0:
+                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
                 new_list.append(new_string)
         for i in range(15-len(new_list)):
             new_list.append("{:^{lengd:}}".format("", lengd = 100))
@@ -555,13 +559,14 @@ class TUI():
             or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
             or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
                 data += chr(ch)
-            elif ch == 8:
+            elif ch == 8 or ch == 127:
                 data = data[:-1]
             elif data == 27:
                 wrapper(main)
             editwin.clear()
             editwin.refresh()
             editwin.addstr(0,0,data)
+            
         editwin.attroff(curses.color_pair(2))
         return data
 
@@ -587,42 +592,42 @@ class TUI():
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
         if self.menu_select == 0:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
-            self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +item_list[self.menu_select][self.list_line_index][7],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index][6],49)
+            self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 3:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +item_list[self.menu_select][self.list_line_index][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +item_list[self.menu_select][self.list_line_index][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +item_list[self.menu_select][self.list_line_index][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +item_list[self.menu_select][self.list_line_index][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +item_list[self.menu_select][self.list_line_index][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +item_list[self.menu_select][self.list_line_index][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +item_list[self.menu_select][self.list_line_index][6],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index][6],49)
             self.make_text_appear(16,53,"",49)
 
         action = self.stdscr.getch()
@@ -630,11 +635,11 @@ class TUI():
             self.change_user_menu()
     
     def change_user(self,index,y_position,extra_len):
-        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + item_list[self.menu_select][self.list_line_index][index]) + extra_len)
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index][index]) + extra_len)
         if check == 8:
             variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len)
         else:
-            variable_x = item_list[self.menu_select][self.list_line_index][index]
+            variable_x = self.item_list[self.list_line_index][index]
         return variable_x
 
     def change_user_menu(self):
@@ -702,8 +707,8 @@ class TUI():
         list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
         list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
         list_den5 = ["x", " ", " "]
-        new_instance = LL_API()
-        new_instance2 = LL_API_eythor()
+        
+        
         while True:
             TUI_list = self.construct_TUI(list_den5)
             x = 4
@@ -730,12 +735,12 @@ class TUI():
                 idx = 0
                 self.highlight_index = 0
                 idz = 0
-                self.item_list1 = new_instance2.get_list("employee")
-                """for i in range(len(self.item_list1)):
-                    for x in range(len(self.item_list1[i])):
+                self.item_list = self.new_instance_API2.get_list("employee")
+                """for i in range(len(self.item_list)):
+                    for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.addstr(0,0,self.item_list[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
                         time.sleep(1)"""
@@ -744,12 +749,12 @@ class TUI():
                 idx = 1
                 self.highlight_index = 1
                 idz = 0
-                self.item_list1 = new_instance2.get_list("worktrip")
-                """for i in range(len(self.item_list1)):
-                    for x in range(len(self.item_list1[i])):
+                self.item_list = self.new_instance_API2.get_list("worktrip")
+                """for i in range(len(self.item_list)):
+                    for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.addstr(0,0,self.item_list[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
                         time.sleep(1)"""
@@ -758,26 +763,26 @@ class TUI():
                 idx = 2
                 self.highlight_index = 2
                 idz = 0
-                self.item_list1 = new_instance.get_all_destinations()
-                for i in range(len(self.item_list1)):
-                    for x in range(len(self.item_list1[i])):
+                self.item_list = self.new_instance_API.get_all_destinations()
+                """for i in range(len(self.item_list)):
+                    for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.addstr(0,0,self.item_list[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
-                        time.sleep(1)
+                        time.sleep(1)"""
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
                 self.highlight_index = 3
                 idz = 0
-                self.item_list1 = new_instance.get_all_airplanes()
-                """for i in range(len(self.item_list1)):
-                    for x in range(len(self.item_list1[i])):
+                self.item_list = self.new_instance_API.get_all_airplanes()
+                """for i in range(len(self.item_list)):
+                    for x in range(len(self.item_list[i])):
                         self.stdscr.clear()
                         self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,0,self.item_list1[i][x])
+                        self.stdscr.addstr(0,0,self.item_list[i][x])
                         self.stdscr.attroff(curses.color_pair(1))
                         self.stdscr.refresh()
                         time.sleep(1)"""
