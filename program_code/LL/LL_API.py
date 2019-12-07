@@ -30,14 +30,6 @@ class LL_API:
             cr_trip.create_worktrip(user_input)   
 
 
-#    def change(self,keyword,user_input):
-        
-#         #ssn,name,address,mobile,email,role,rank,licence,registration_date = data_info
-
-#         if user_input == 'employee':
-#             ch_emp == EmployeeLL()
-#             ch_emp.chan
-
 def get_list(self,keyword):
         '''Gets updated list from database. \n
             keyword: employee,airplane,destination or worktrip

@@ -10,8 +10,8 @@ class AirplanesLL(LL_functions):
         '''Creates a new airplane and saves to database'''
         
         new_plane = Airplane(*airplane_identity, registration_date='')
-
         registration_str = new_plane.get_registration_str()
+        
         self.save_object_to_DB("airplane",registration_str)
 
     def filter_available(self, all_planes):

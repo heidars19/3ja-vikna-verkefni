@@ -14,8 +14,8 @@ def main():
     # new_emp = LL_API()
     # new_emp.create("employee",('','4455668855','Gunna Elvu','ass 31','0934958','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
     
-    new_airplane = LL_API()
-    new_airplane.create("airplane", ('',"TF-TEST","NANTES146","Fokker","555","Skvis"))
+    # new_airplane = LL_API()
+    # new_airplane.create("airplane", ('',"TF-TEST","NANTES146","Fokker","555","Skvis"))
     
     new_destination = LL_API()
     new_destination.create("destination", ('','Köbenhavn', 'Denmark','2:30:10','2.100','Rasmus Rasmussen','0219933884','Kastrup') )

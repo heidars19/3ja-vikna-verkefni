@@ -10,7 +10,7 @@ class DestinationLL(LL_functions):
         new_dest = Destination(*destination_identity,registration_date="")
         registration_str = new_dest.get_registration_str()
 
-        self.save_object_to_DB("destination",str(registration_str))
+        self.save_object_to_DB("destination",registration_str)
 
     # def get_destination_list(self):
     #     DestinatioFilehandler = DestinationFile()
