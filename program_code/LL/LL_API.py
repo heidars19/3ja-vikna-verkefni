@@ -30,16 +30,16 @@ class LL_API:
             cr_trip.create_worktrip(user_input)   
 
 
-def get_list(self,keyword):
-        '''Gets updated list from database. \n
-            keyword: employee,airplane,destination or worktrip
-        '''
-        updated_list = []
-        
-        new_instance = LL_functions()
-        updated_list =new_instance.get_updated_list_from_DB(keyword)
-        return updated_list
-        
+    def get_list(self,keyword):
+            '''Gets updated list from database. \n
+                keyword: employee,airplane,destination or worktrip
+            '''
+            updated_list = []
+            
+            new_instance = LL_functions()
+            updated_list =new_instance.get_updated_list_from_DB(keyword)
+            return updated_list
+            
 
 
 
