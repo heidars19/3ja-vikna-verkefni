@@ -54,8 +54,10 @@ def get_list(self,keyword):
 
 def testmain():
     new = LL_API()
-    new.create('employee', ('32','rass','re re','re 31','er','asdf@gmail.com','Pilot','Copilot','Fokker232'))
-
+   
+#    new.create('airplane', ('32','rass','re re','re 31','er','asdf@gmail.com')) #airplane nyskraning test
+#    new.create('employee', ('0','4455668855','aparassgat Helga','Hehe 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
+    new.create('destination',('11','asdf','Greenland','1:00:55','1.343','Hraði Brunann','328738975','flugvolllur'))
 
 
 
