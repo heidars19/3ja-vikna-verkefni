@@ -15,10 +15,10 @@ class Destination():
     def __repr__(self):
         return f'Destination({self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
 
-    def registration(self):
+    def get_registration_str(self):
         return f'{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
 
-    def change_registration(self):
+    def get_changes_registration_str(self):
         f'{self._id},{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport},{self.registration_date}'
 
 

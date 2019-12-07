@@ -54,7 +54,7 @@ def get_list(self,keyword):
 
 def testmain():
     new = LL_API()
-    new.create('airplane', ('10','KR-3424','Mother-fucker','Audi','R2D2','Brummi'))
+    new.create('employee', ('32','rass','re re','re 31','er','asdf@gmail.com','Pilot','Copilot','Fokker232'))
 
 
 

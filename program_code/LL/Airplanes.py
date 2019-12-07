@@ -11,8 +11,8 @@ class Airplane():
     def __repr__(self):
         return f'Airplane({self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name},{self.registration_date})'
 
-    def registration(self):
+    def get_registration_str(self):
         return f'{self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name}'
 
-    def change_registration(self):
+    def get_changes_registration_str(self):
         return f'{self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name},{self.registration_date}'

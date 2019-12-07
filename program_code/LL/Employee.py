@@ -3,7 +3,7 @@ from DB.DATA_API import *
 class Employee:
     """This class represents the Employees of Nan Air and keeps track of their information."""
 
-    def __init__(self,ssn,name,address,mobile,email,role,rank,licence,registration_date=""): 
+    def __init__(self,_id,ssn,name,address,mobile,email,role,rank,licence,registration_date=""): 
         from datetime import date
         #today = date.today()
 
@@ -18,10 +18,10 @@ class Employee:
         self.licence = licence
         self.__registration_date = registration_date
 
-    def registration(self):
+    def get_registration_str(self):
         return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence}'
 
-    def change_registration(self):
+    def get_changes_registration_str(self):
         return f'{self._id},{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
 
     #name getterar fyrir privat breytur
@@ -32,9 +32,7 @@ class Employee:
     def name(self):
         return self.__name
 
-#    # @property
-#   def creationdate(self):
-#   return self.__creation_date
+
 
     #name setter fyrir privat breytur
     # @ssn.setter 
