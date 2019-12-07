@@ -1,6 +1,7 @@
 #import User_interface
 from LL.LL_API_sigurgeir import *
 from LL.LL_API_eythor import *
+from LL.LL_API_offi import *
 import os
 #import Front_layer_TUI
 import locale
@@ -17,99 +18,30 @@ header_lengd = 20
 os.system('mode con: cols=150 lines=30')  # works on M$ Windows
 # coding = UTF-8
 
-"""item_list = [[["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""],
-                ["Arnar Ívarsson","Flugþjónn","","Í ferð","New York"],
-                ["Sigurgeir Helgason","Flugmaður","Boeing 747","Laus",""]
-                ],
-                [["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ["14/12/19","14:30","Svalbarði","Boeing 787","Ómönnuð","NA011","100/150","Lokið"],
-                ["15/12/19","13:00","Kúlusúkk","Boeing 767","Mönnuð","NA012","104/150","Lokið"],
-                ],
-                [["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"],
-                ["Berlín","Þýskaland","Berlin Airport","Baldur Magnússon","45443788643"],
-                ["Longyearbyen","Svalbarði","Svalbard Airport","Finnur Finnason","2342342342"]
-                ],
-                [["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ["Batman","Boeing 747","400","Laus","","","12/12/19 - 14:30"],
-                ["Spiderman","Boeing 767","500","Lent ytra","New York","NA2020","12/12/19 - 18:20"],
-                ]
-                ]"""
-
 class TUI():
-    def __init__(self,stdscr,highlight_index = 0):
+    def __init__(self,stdscr):
         self.menu_select = 0
         self.exeption = 0
         self.new_registration = False
         self.stdscr = stdscr
         self.new_reg_u_input = False
         self.highlight_main_list = ["x", " ", " "]
-        self.highlight_index = highlight_index
         self.list_line_index = 0
         self.check_specifcly = False
-        self.new_instance_API = LL_API()
-        self.new_instance_API2 = LL_API_eythor()
+        self.new_instance_API2 = LL_API_offii()
         self.next_section = 0
         self.item_list = self.new_instance_API2.get_list("employee")
+        self.header_len = []
+        self.index_len = []
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
-        header_temp = self.construct_header()
         if self.new_registration == True:
             body_temp = self.construct_body_new_registration()
         elif self.check_specifcly == True:
             body_temp = self.construct_body_new_registration()
         else:    
             body_temp = self.construct_body_lists()
-        
+        header_temp = self.construct_header()
         footer_temp = self.construct_footer(x_list)
         self.TUI_list = []
         self.create_TUI_list(main_menu_temp)
@@ -140,15 +72,18 @@ class TUI():
     def construct_header(self):
         self._header = (\
         ("Kennitala","Nafn","Síma númer","Email","Starfsheiti"),\
-        ("Dagsetning","Brottför","Áfangastaður","Flugvél","Mönnun","Flugnr.","Sæti","Staða"),\
+        ("Brottför","Áfangastaður","Dagsetning","Flugvél"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
-            if self.menu_select == 0:
-                header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = 22)
-            else:
-                header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/(len(self._header[self.menu_select]))))
+            try:
+                if self.menu_select == 0:
+                    header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                else:
+                    header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+            except :
+                continue
         if len(header_string) > 100:
             for i in range(len(header_string)-100):
                         header_string = header_string[:-1]
@@ -162,6 +97,17 @@ class TUI():
     def construct_body_lists(self):
         new_list = []
         exeptions = ["", "Pilot", "Cabincrew"]
+        self.index_len = []
+        self.header_len = []
+        for i in range(len(self.item_list[0])):
+            longest = 0
+            for x in range(len(self.item_list)):
+                try:
+                    if len(self.item_list[x][i]) > longest:
+                        longest = len(self.item_list[x][i])
+                except:
+                    continue
+            self.index_len.append(longest)
         for i in range(0+self.next_section,15+self.next_section):
             try:
                 if i != 0:
@@ -171,38 +117,43 @@ class TUI():
                             if exeptions[self.exeption] in self.item_list[i]:
                                 for x in range(len(self.item_list[i])):
                                     if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
-                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
+                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                        self.header_len.append(self.index_len[x])
                         else:
                             for x in range(len(self.item_list[i])):
                                 if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
-                                    new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 22)
-                        if len(new_string) > 100:
-                            for i in range(len(new_string)-100):
-                                new_string = new_string[:-1]
+                                    new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                    self.header_len.append(self.index_len[x])
                         new_list.append(new_string)
                     elif self.menu_select == 1:
                         for x in range(len(self.item_list[i])):
-                            if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 6 and x != 7 and x != 8 and x != 9:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = 20)
+                            if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                self.header_len.append(self.index_len[x])
                         new_list.append(new_string)
                     elif self.menu_select == 2:
                         for x in range(len(self.item_list[i])):
                             if x != 0:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                self.header_len.append(self.index_len[x])
                         new_list.append(new_string)
                     elif self.menu_select == 3:
                         for x in range(len(self.item_list[i])):
                             if x != 0:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = int(100/(len(self.item_list[i]))))
+                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                self.header_len.append(self.index_len[x])
                         new_list.append(new_string)
             except:
                 for i in range(15-len(new_list)):
                     new_list.append("")
+        
         for i in range(15-len(new_list)):
             new_list.append("{:^{lengd:}}".format("", lengd = 100))
         for i in range(len(new_list)):
             for x in range(100-len(new_list[i])):
                 new_list[i] += " "
+            for x in range(len(new_list[i])-100):
+                new_list[i] = new_list[i][:-1]
         body_template = (
         (("║ ┌────────────────────────────────────────────────────────────────────────────────────────────────────┐ ║")),
         (("║ │"),(new_list[0]),                                                                                 ("│ ║")),
@@ -385,7 +336,7 @@ class TUI():
             editwin.attroff(curses.color_pair(2))
 
     def get_user_input(self):
-        self.print_menu(self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
+        self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
         curses.curs_set(1)
         if self.menu_select == 0:
             """while True:"""
@@ -416,13 +367,14 @@ class TUI():
                 licence = self.make_user_input_window(16,67)
             else:
                 licence = ""
-            le = (kt,name,address,gsm,email,job_title,rank,licence)
+            self.new_instance_API2.create("employee","",kt,name,address,gsm,email,job_title,rank,licence)
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
+            self.item_list = self.new_instance_API2.get_list("employee")
         if self.menu_select == 1:
             curses.curs_set(0)
             time.sleep(1)
             date = self.calendar_screen()
-            self.print_menu(self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
+            self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(16,19,"KEF",30,2)
             self.make_text_appear(5,16,date,30,2)
             self.make_text_appear(10,22,"xx:xx",30,3)
@@ -455,124 +407,124 @@ class TUI():
         curses.curs_set(0)
 
     def calendar_screen(self):
-            cal = calendar.Calendar()
-            editwin2 = curses.newwin(15,100,5,3)
-            editwin2.attron(curses.color_pair(1))
-            editwin2.keypad(1)
-            add_month = 0
-            add_year = 0
-            datetime_year = datetime.date.today().year
-            datetime_month = datetime.date.today().month
-            starting_month, starting_year = datetime_month,datetime_year
-            date_selected = 1
-            years_added = 0
-            while True:
-                if  int(datetime_month) + add_month == 13:
-                    datetime_month = 1
-                    add_month = 0
-                    datetime_year += 1
-                elif int(datetime_month) + add_month == 0:
-                    datetime_month = 12
-                    add_month = 0
-                    datetime_year -= 1
-                month = cal.monthdatescalendar(year = (int(datetime_year)),month = (int(datetime_month) + add_month))
-                for i in range(len(month)):
-                    for x in range(len(month[i])):
-                        month[i][x] = str(month[i][x])
-                y = 0
-                days_in_month = 0
-                stop = 0
+        cal = calendar.Calendar()
+        editwin2 = curses.newwin(15,100,5,3)
+        editwin2.attron(curses.color_pair(1))
+        editwin2.keypad(1)
+        add_month = 0
+        add_year = 0
+        datetime_year = datetime.date.today().year
+        datetime_month = datetime.date.today().month
+        starting_month, starting_year = datetime_month,datetime_year
+        date_selected = 1
+        years_added = 0
+        while True:
+            if  int(datetime_month) + add_month == 13:
+                datetime_month = 1
+                add_month = 0
+                datetime_year += 1
+            elif int(datetime_month) + add_month == 0:
+                datetime_month = 12
+                add_month = 0
+                datetime_year -= 1
+            month = cal.monthdatescalendar(year = (int(datetime_year)),month = (int(datetime_month) + add_month))
+            for i in range(len(month)):
+                for x in range(len(month[i])):
+                    month[i][x] = str(month[i][x])
+            y = 0
+            days_in_month = 0
+            stop = 0
+            editwin2.clear()
+            for i in range(len(month)):
+                for x in range(len(month[i])):
+                    if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year):
+                        days_in_month += 1
+                        if date_selected == days_in_month:
+                            editwin2.attron(curses.color_pair(2))
+                            editwin2.attroff(curses.color_pair(1))
+                            selected_day = month[i][x]
+                        if stop == 0:
+                            editwin2.addstr(y,0,month[i][x])
+                            stop = 1
+                        elif stop == 1:
+                            editwin2.addstr(y,25,month[i][x])
+                            stop = 2
+                        elif stop == 2:
+                            editwin2.addstr(y,50,month[i][x])
+                            stop = 3
+                        else:
+                            editwin2.addstr(y,75,month[i][x])
+                            y+=2
+                            stop = 0
+                        editwin2.attroff(curses.color_pair(2))
+                        editwin2.attron(curses.color_pair(1))
+            editwin3 = curses.newwin(3,50,21,50)
+            editwin3.attron(curses.color_pair(2))
+            editwin3.addstr(0,0,"Örvar til að velja dag")
+            editwin3.addstr(1,0,"pg up til að fara í næsta mánuð")
+            editwin3.addstr(2,0,"pg dn til að fara í seinasta mánuð")
+            editwin3.refresh()
+            editwin3.attron(curses.color_pair(2))
+                        
+            check = editwin2.getch()
+            if check == curses.KEY_LEFT:
+                if date_selected == 1 or date_selected == 5 or date_selected == 9  or date_selected == 13  or date_selected == 17 or date_selected == 21 or date_selected == 25 or date_selected == 29:
+                    pass
+                else:
+                    date_selected -= 1
+            elif check == curses.KEY_RIGHT:
+                if date_selected == 4 or date_selected == 8 or date_selected == 12 or date_selected == 16 or date_selected == 20 or date_selected == 24 or date_selected == 28 or date_selected == days_in_month:
+                    pass
+                else:
+                    date_selected += 1
+            elif check == curses.KEY_UP or check == 450:
+                current = date_selected
+                if date_selected == 1 or date_selected == 2 or date_selected == 3 or date_selected == 4:
+                    pass
+                else:
+                    date_selected -= 4
+            elif check == curses.KEY_DOWN or check == 456:
+                if days_in_month == 31:
+                    if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 31:
+                        pass
+                    else:
+                        date_selected += 4
+                elif days_in_month == 30:
+                    if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 27:
+                        pass
+                    else:
+                        date_selected += 4
+                elif days_in_month == 29:
+                    if date_selected == 28 or date_selected == 29 or date_selected == 26 or date_selected == 27:
+                        pass
+                    else:
+                        date_selected += 4
+                elif days_in_month == 28:
+                    if date_selected == 28 or date_selected == 25 or date_selected == 26 or date_selected == 27:
+                        pass
+                    else:
+                        date_selected += 4
+            elif check == 27:
                 editwin2.clear()
-                for i in range(len(month)):
-                    for x in range(len(month[i])):
-                        if int(month[i][x][5:7]) == int(datetime_month) + add_month and int(month[i][x][0:4]) == int(datetime_year):
-                            days_in_month += 1
-                            if date_selected == days_in_month:
-                                editwin2.attron(curses.color_pair(2))
-                                editwin2.attroff(curses.color_pair(1))
-                                selected_day = month[i][x]
-                            if stop == 0:
-                                editwin2.addstr(y,0,month[i][x])
-                                stop = 1
-                            elif stop == 1:
-                                editwin2.addstr(y,25,month[i][x])
-                                stop = 2
-                            elif stop == 2:
-                                editwin2.addstr(y,50,month[i][x])
-                                stop = 3
-                            else:
-                                editwin2.addstr(y,75,month[i][x])
-                                y+=2
-                                stop = 0
-                            editwin2.attroff(curses.color_pair(2))
-                            editwin2.attron(curses.color_pair(1))
-                editwin3 = curses.newwin(3,50,21,50)
-                editwin3.attron(curses.color_pair(2))
-                editwin3.addstr(0,0,"Örvar til að velja dag")
-                editwin3.addstr(1,0,"pg up til að fara í næsta mánuð")
-                editwin3.addstr(2,0,"pg dn til að fara í seinasta mánuð")
-                editwin3.refresh()
-                editwin3.attron(curses.color_pair(2))
-                            
-                check = editwin2.getch()
-                if check == curses.KEY_LEFT:
-                    if date_selected == 1 or date_selected == 5 or date_selected == 9  or date_selected == 13  or date_selected == 17 or date_selected == 21 or date_selected == 25 or date_selected == 29:
-                        pass
-                    else:
-                        date_selected -= 1
-                elif check == curses.KEY_RIGHT:
-                    if date_selected == 4 or date_selected == 8 or date_selected == 12 or date_selected == 16 or date_selected == 20 or date_selected == 24 or date_selected == 28 or date_selected == days_in_month:
-                        pass
-                    else:
-                        date_selected += 1
-                elif check == curses.KEY_UP or check == 450:
-                    current = date_selected
-                    if date_selected == 1 or date_selected == 2 or date_selected == 3 or date_selected == 4:
-                        pass
-                    else:
-                        date_selected -= 4
-                elif check == curses.KEY_DOWN or check == 456:
-                    if days_in_month == 31:
-                        if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 31:
-                            pass
-                        else:
-                            date_selected += 4
-                    elif days_in_month == 30:
-                        if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 27:
-                            pass
-                        else:
-                            date_selected += 4
-                    elif days_in_month == 29:
-                        if date_selected == 28 or date_selected == 29 or date_selected == 26 or date_selected == 27:
-                            pass
-                        else:
-                            date_selected += 4
-                    elif days_in_month == 28:
-                        if date_selected == 28 or date_selected == 25 or date_selected == 26 or date_selected == 27:
-                            pass
-                        else:
-                            date_selected += 4
-                elif check == 27:
-                    editwin2.clear()
-                    return ""
-                elif check == 10:
-                    editwin2.clear()
-                    return selected_day
-                elif check == 338:
-                    if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
-                        pass
-                    else:
-                        add_month += 1
-                        date_selected = 1
-                elif check == 339:
-                    if starting_year == datetime_year and starting_month == datetime_month:
-                        pass
-                    else:
-                        add_month -= 1
-                        date_selected = 1
+                return ""
+            elif check == 10:
+                editwin2.clear()
+                return selected_day
+            elif check == 338:
+                if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
+                    pass
+                else:
+                    add_month += 1
+                    date_selected = 1
+            elif check == 339:
+                if starting_year == datetime_year and starting_month == datetime_month:
+                    pass
+                else:
+                    add_month -= 1
+                    date_selected = 1
 
-            editwin2.attroff(curses.color_pair(1))
-            editwin2.refresh()
+        editwin2.attroff(curses.color_pair(1))
+        editwin2.refresh()
 
     def make_user_input_window(self,y,x):
         editwin = curses.newwin(1,30,y,x)
@@ -615,7 +567,7 @@ class TUI():
         editwin2.refresh()
 
     def look_at_specific_unit(self):
-        self.print_menu(self.TUI_list, self.highlight_main_list[self.highlight_index], [0,0],[0,0])
+        self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
         self.make_text_appear(21,68,"┌────────┐",12)
         self.make_text_appear(22,68,"|",12)
         self.make_text_appear(22,69," B",12,2)
@@ -717,6 +669,8 @@ class TUI():
         editwin.attroff(curses.color_pair(2))
         return editwin.getch()
 
+    def make_special_search(self):
+        pass
 
     def main(self):
         # Clear screen
@@ -736,14 +690,14 @@ class TUI():
         list_den2 = [[3,1],[3,2],[3,3],[3,4],[3,5]]
         list_den3 = [[5,1],[6,1],[7,1],[8,1],[9,1],[10,1],[11,1],[12,1],[13,1],[14,1],[15,1],[16,1],[17,1],[18,1],[19,1],[20,1]]
         list_den4 = [[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"F"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"],[22,38,"V"]],[[22,4,"S"],[22,14,"N"]],[[22,4,"S"],[22,14,"N"],[22,24,"D"]]]
-        list_den5 = ["x", " ", " "]
-        
         
         while True:
-            TUI_list = self.construct_TUI(list_den5)
+            TUI_list = self.construct_TUI(self.highlight_main_list)
             x = 4
             y = 10
             self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
+            if self.exeption == 1:
+                pass
             #string_input = stdscr.getstr(21, 70)
             if self.new_reg_u_input == True:
                 self.get_user_input()
@@ -757,13 +711,10 @@ class TUI():
                 curses.noecho()
                 self.stdscr.refresh()
                 key = self.stdscr.getch()
-
             if key == 49:
                 self.menu_select = 0
-                list_den5 = ["x", " ", " "]
                 self.exeption = 0
                 idx = 0
-                self.highlight_index = 0
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("employee")
                 """leng = 0
@@ -779,7 +730,6 @@ class TUI():
             elif key == 50:
                 self.menu_select = 1
                 idx = 1
-                self.highlight_index = 1
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("worktrip")
                 """leng = 0
@@ -795,7 +745,6 @@ class TUI():
             elif key == 51:
                 self.menu_select = 2
                 idx = 2
-                self.highlight_index = 2
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("destination")
                 """leng = 0
@@ -811,7 +760,6 @@ class TUI():
             elif key == 52:
                 self.menu_select = 3
                 idx = 3
-                self.highlight_index = 3
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("airplane")
                 """leng = 0
@@ -857,8 +805,8 @@ class TUI():
                 self.check_specifcly = True
             if idx == 0:
                 if key == 102:
-                    buffer_str = list_den5.pop()
-                    list_den5.insert(0,buffer_str)
+                    buffer_str = self.highlight_main_list.pop()
+                    self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
                         self.exeption += 1
                     else:
@@ -869,6 +817,7 @@ class TUI():
                 self.stdscr.attroff(curses.color_pair(1))
                 self.stdscr.refresh()
                 time.sleep(1)"""
+
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
         h, w = self.stdscr.getmaxyx()

@@ -10,7 +10,9 @@ class EmployeeLL(LL_functions):
     #def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
         """Creates a new employee and saves to database."""      
         new_emp = Employee(*personal_identity, registration_date='')
+
         registration_str = new_emp.get_registration_str()
+        print(registration_str)
         self.save_object_to_DB("employee",registration_str)
 
     def change_employee(self,registered_identity):

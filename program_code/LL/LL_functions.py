@@ -1,16 +1,8 @@
 from DB.DATA_API import *
 
 class LL_functions():
-    #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
-    def save_object_to_DB(self, keyword,object_instance):
-        '''Saves new object to database. \n
-        \n Returns True if operation successful.
-        keyword: employee,airplane,destination or worktrip as string
-        \n 
-        object_instance: Instance of employee, airplane, destination or worktrip as string. 
-        '''
-        file_type = ""
 
+    def file_type(keyword):
         if keyword == "employee":
             file_type = EmployeeFile
 
@@ -25,6 +17,35 @@ class LL_functions():
 
         else:
             return f"There is no such object type as {keyword}. Change keyword - should be string."
+
+        return file_type
+
+    #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
+    def save_object_to_DB(self, keyword,object_instance):
+        '''Saves new object to database. \n
+        \n Returns True if operation successful.
+        keyword: employee,airplane,destination or worktrip as string
+        \n 
+        object_instance: Instance of employee, airplane, destination or worktrip as string. 
+        '''
+        new_file = ""
+
+        new_file = file_type(keyword)
+
+        # if keyword == "employee":
+        #     file_type = EmployeeFile
+p
+        # elif keyword == "destination":
+        #     file_type = DestinationFile
+
+        # elif keyword == "airplane":
+        #     file_type = AirplaneFile
+
+        # elif keyword == "worktrip":
+        #     file_type = WorkTripFile
+
+        # else:
+        #     return f"There is no such object type as {keyword}. Change keyword - should be string."
 
         save_obj = file_type(data_to_append=object_instance)
         save_obj.start()
@@ -47,7 +68,6 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-  
         if keyword == "employee":
             new_instance = EmployeeFile()               #create new instance of employee
         elif keyword == "worktrip":
