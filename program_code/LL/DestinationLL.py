@@ -6,11 +6,11 @@ class DestinationLL(LL_functions):
 
     def create_destination(self,destination_identity):
         """Creates a new destination and saves to database."""
-             
-        destination,country,flight_time,distance,contact,emerg_number,airport = destination_identity
-        new_dest = Destination(destination,country,flight_time,distance,contact,emerg_number,airport)
+        new_dest = Destination(*destination_identity)
 
-        self.save_object_to_DB("destination",str(new_dest))
+        registration_str = new_dest.get_registration_str()
+
+        self.save_object_to_DB("destination",registration_str)
 
     #  def create_destination(self,dest_id,destination,country,flight_time,distance,contact,emerg_number,airport):
     #     new_destination = Destination(dest_id,destination,country,flight_time,distance,contact,emerg_number,airport)

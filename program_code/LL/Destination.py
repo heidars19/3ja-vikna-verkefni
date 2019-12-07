@@ -1,5 +1,5 @@
 class Destination():
-
+                    
     def __init__(self, _id, destination, country, flight_time, distance, contact, emerg_number, airport, registration_date=''):
         self._id = _id
         self.destination = destination
