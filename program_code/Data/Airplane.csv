@@ -46,3 +46,4 @@ id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date
 45,TF-TEST,NANTES146,Fokker,555,Skvis,2019-12-07 12:46:15.382225
 46,TF-TEST,NANTES146,Fokker,555,Skvis,2019-12-07 12:50:31.023052
 47,TF-TEST,NANTES146,Fokker,555,Skvis,2019-12-07 12:51:04.245336
+48,TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100,2019-12-07 18:10:04.660339
