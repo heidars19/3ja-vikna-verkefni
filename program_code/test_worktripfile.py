@@ -14,8 +14,8 @@ def main ():
     # print()
     
     # #Append data to a file - check
-    # new_instance = WorkTripFile(data_to_append="NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321")
-    # new_instance.start()
+    new_instance = WorkTripFile(data_to_append="NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321")
+    new_instance.start()
     
     # # Finds line number of a given search parameter - check
     # new_instance = WorkTripFile(fieldname="id", searchparam="22")
@@ -24,8 +24,8 @@ def main ():
     # print()
     
     # Changes a line - check
-    new_instance = WorkTripFile(line_to_replace="31,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321,2019-12-07 13:55:18.999874", replace_with="34,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321,2019-12-07 13:55:26.679896")
-    new_instance.start()   
+    # new_instance = WorkTripFile(line_to_replace="31,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321,2019-12-07 13:55:18.999874", replace_with="34,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321,2019-12-07 13:55:26.679896")
+    # new_instance.start()   
     
     # # Change a line at a certain line number - check
     # new_instance = WorkTripFile(line_to_replace=6, replace_with="15,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321")

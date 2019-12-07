@@ -66,7 +66,7 @@ class FileHandlr :
         '''
         self._filestream = self.open_file()
 
-        if self._filestream == self.UNKNOWN_ERROR or self._filestream == self.FILENOTFOUND:
+        if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
             return self._filestream # Extend error from opening the file
 
         try:
@@ -75,7 +75,7 @@ class FileHandlr :
                 if int(line['id']) > self._id :
                     self._id = int(line['id'])
         except:
-            return self.UNKNOWN_ERROR
+            return FileHandlr.UNKNOWN_ERROR
         finally:
             self._filestream.close()
         
@@ -112,7 +112,7 @@ class FileHandlr :
             data_string = str(self._id) + ',' + data_string
 
         self._filestream = self.open_file('a')
-        if self._filestream == self.UNKNOWN_ERROR:
+        if self._filestream == FileHandlr.UNKNOWN_ERROR:
             return self._filestream # Extend error from opening the file
         try :
             if self._filestream.tell() == 0: 
@@ -156,9 +156,9 @@ class FileHandlr :
             f =  open(self._filename, mode, encoding='UTF-8')
             return f
         except FileNotFoundError:
-            return self.FILENOTFOUND
+            return FileHandlr.FILENOTFOUND
         except :
-            return self.UNKNOWN_ERROR
+            return FileHandlr.UNKNOWN_ERROR
 
 
     def read_filestream_into_list(self):
@@ -167,7 +167,7 @@ class FileHandlr :
         Closes the file after reading it.
         '''
         self._filestream = self.open_file()
-        if self._filestream == self.UNKNOWN_ERROR or self._filestream == self.FILENOTFOUND:
+        if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
             return self._filestream # Extend error from opening the file
         try :
             data_list = []
@@ -184,22 +184,23 @@ class FileHandlr :
     def change_line_in_file(self):
         filename2 = self._filename +".bak"
 
-        with open(self._filename, 'r', encoding='utf-8') as file_original:
-            with open(filename2, 'w+', encoding='utf-8') as file_bak:
-                if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
-                    for linenumber, line in enumerate(file_original): # Reads 1 file line by line into another file
-                        if linenumber == self._line_to_replace :
-                            file_bak.write(self._replace_with + '\n')
-                        else :
-                            file_bak.write(line)
-                else :
-                    self._line_to_replace = self._line_to_replace + '\n' # Have to add newline, so LL we can accept normal strings
 
-                    for line in file_original:
-                        if line == self._line_to_replace :
-                            file_bak.write(self._replace_with + '\n')
-                        else :
-                            file_bak.write(line)
+            with open(self._filename, 'r', encoding='utf-8') as file_original:
+                with open(filename2, 'w+', encoding='utf-8') as file_bak:
+                    if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
+                        for linenumber, line in enumerate(file_original): # Reads 1 file line by line into another file
+                            if linenumber == self._line_to_replace :
+                                file_bak.write(self._replace_with + '\n')
+                            else :
+                                file_bak.write(line)
+                    else :
+                        self._line_to_replace = self._line_to_replace + '\n' # Have to add newline, so LL we can accept normal strings
+
+                        for line in file_original:
+                            if line == self._line_to_replace :
+                                file_bak.write(self._replace_with + '\n')
+                            else :
+                                file_bak.write(line)
 
 
         with open(filename2, 'r', encoding='utf-8') as file_bak:
@@ -209,4 +210,3 @@ class FileHandlr :
         
         if os.path.exists(filename2): # Checks if .bak file exists and removes it if it does
             os.remove(filename2)
-
