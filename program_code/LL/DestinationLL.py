@@ -9,15 +9,17 @@ class DestinationLL(LL_functions):
              
         new_dest = Destination(*destination_identity,registration_date='')
         registration_str = new_dest.get_registration_str()
-        print(registration_str)
-        save = self.save_object_to_DB("destination",registration_str)
-        return save
+
+        return_value = self.save_object_to_DB("destination",registration_str)
+        return return_value
 
 
     def change_destination(self, new_info):
-        new_id, new_destination, new_country, new_flight_time, new_distance, new_contact, new_emerg_number, new_airport = new_info
-        updated_plain = Airplane(new_id, new_destination, new_country, new_flight_time, new_distance, new_contact, new_emerg_number, new_airport)
+        new_id, new_destination, new_country, new_flight_time, new_distance, new_contact, new_emerg_number, new_airport, new_reg_date = new_info
         
-        line_in_db = AirplaneFile(fieldname="plane_id",searchparam=new_id)
-        PlaneFilehandler = AirplaneFile(line_to_replace=line_in_db, replace_with=str(updated_plane))
-        PlaneFilehandler.start()
+        new_dest = Destination(*new_info)
+        registration_str = new_dest.get_changes_registration_str()
+        print(registration_str)
+        return_value = self.change_object_in_DB("destination", registration_str, new_id) # Bring 'id' seperately, so next function can find line number
+        #print(return_value)
+        return return_value

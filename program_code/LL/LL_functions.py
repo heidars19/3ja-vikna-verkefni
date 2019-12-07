@@ -18,6 +18,9 @@ class LL_functions():
         elif keyword == "worktrip":
             file_type = WorkTripFile
 
+        elif keyword == "worktripold":
+            file_type = WorkTripFileOld
+
         else:
             return f"There is no such object type as {keyword}. Change keyword - should be string."
 
@@ -34,25 +37,32 @@ class LL_functions():
 
         file_name = self.file_type(keyword)
         save_obj = file_name(data_to_append=object_instance)
+
         run_save = save_obj.start()
       
         return run_save
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
-    def change_object_in_DB(self,keyword,object_instance):
+    def change_object_in_DB(self, keyword, new_string, string_id):
         '''Changes information about object in Database. \n
                 keyword: employee, destination, airplane, worktrip \n
         '''
 
         file_name = self.file_type(keyword)
 
-        new_file = file_name(fieldname="id",searchparam=object_instance._id) #looks for id and returns line number
+        new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number
         line_number = new_file.start()
+        print(line_number)
 
-        update_line = file_name(line_to_replace=line_number,replace_with=object_instance)
-        update = update_line.start()
+        update_line = file_name(line_to_replace=line_number,replace_with=new_string)
+        return_value = update_line.start()
+        print(return_value)
+        print(new_string)
+#        print(return_value)
 
-        return update
+
+
+        return return_value
 
 
     def get_updated_list_from_DB(self,keyword):

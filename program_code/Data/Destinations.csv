@@ -10,9 +10,6 @@ id,destination,country,flight_time,distance,contact,emerg_number,airport,registr
 10,Kulusuk,Greenland,1:00:55,1.343,Hraði Brunann,328738975,2019-12-05 21:37:25.097389
 11,Kulusuk,Greenland,1:00:55,1.343,Hraði Brunann,328738975,2019-12-05 21:40:35.5306177
 12,Köbenhavn,Denmark,2:30:10,2.100,Rasmus Rasmussen,0219933884,Kastrup,2019-12-07 13:02:41.118787
-<<<<<<< HEAD
 13,Kulusuk,Greenland,1:00:55,1.343,Hraði Brunann,328738975,2019-12-07 20:25:00.758086
 14,Kulusuk,Greenland,1:00:55,1.343,Hraði Brunann,328738975,2019-12-07 20:25:07.287524
-=======
-13,Vancouver,Canada,6:30:10,2.100, John Philips,0219933884,BC_airport,2019-12-07 20:27:41.653571
->>>>>>> 37c6a246ee83b6254daaea42ded3e2c4e7cb0727
+15,Paris,France,6:30:10,2.100,John Philips,0219933884,BC_airport,2019-12-07 21:39:33.300255

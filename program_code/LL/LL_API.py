@@ -46,7 +46,7 @@ class LL_API:
             run_change = ch_air.change_airplane(changed_object)
 
         elif keyword == 'destination':
-            ch_emp = DestinationLL()
+            ch_dest = DestinationLL()
             run_change = ch_dest.change_destination(changed_object)
 
         elif keyword == 'worktrip':
