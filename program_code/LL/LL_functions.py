@@ -33,9 +33,11 @@ class LL_functions():
         '''
         print("kominn í save")
         file_name = self.file_type(keyword)
+        print(file_name)
         save_obj = file_name(data_to_append=object_instance)
-        save_obj.start()
-
+        run_save = save_obj.start()
+        print(run_save)
+        return run_save
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
     def change_object_in_DB(self,keyword,object_instance):
