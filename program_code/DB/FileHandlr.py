@@ -6,6 +6,9 @@ import os
 class FileHandlr :
     ''' Abstract class for filehandling '''
 
+    FILENOTFOUND = -404
+    UNKNOWN_ERROR = -1
+
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
     
@@ -39,10 +42,6 @@ class FileHandlr :
 
     def start(self) :
         if self._data_to_append :
-            if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
-                return_value = FileHandlr.find_next_id(self)
-                if return_value <= 0 :
-                    return return_value
             FileHandlr.append_data_to_file(self)
         
         elif self._line_to_replace : 
@@ -63,23 +62,28 @@ class FileHandlr :
         ''' 
         Finds the highest current id and sets self._id as that\n
         \n
-        Returns -1 on error, 0 if empty file
+        Returns id, 0 if empty file or error number on error
         '''
         self._filestream = self.open_file()
-        if not self._filestream :
-            return -1 # Error opening file
 
-        reader = csv.DictReader(self._filestream, delimiter=',')
-        for line in reader: 
-            if int(line['id']) > self._id :
-                self._id = int(line['id'])
-        self._filestream.close()
+        if self._filestream == UNKNOWN_ERROR or self._filestream == FILENOTFOUND:
+            return self._filestream # Extend error from opening the file
+
+        try:
+            reader = csv.DictReader(self._filestream, delimiter=',')
+            for line in reader: 
+                if int(line['id']) > self._id :
+                    self._id = int(line['id'])
+        except:
+            return UNKNOWN_ERROR
+        finally:
+            self._filestream.close()
         
         if self._id > 0 :
             self._id += 1 # Increases current highest id by 1
             return self._id 
         else :
-            return 0 # Empty file
+            return 0 # Empty file (or no id column)
 
 
     def get_header(self):
@@ -92,22 +96,32 @@ class FileHandlr :
         Appends data to file, creates a new file if none exists, and adds a header. 
 
         Accepts a list with 1 line or 1 string
-        '''
-        
-            
+        ''' 
         if isinstance(self._data_to_append, list) : 
             data_string = ",".join(self._data_to_append) # Changes a list to comma seperated string
         else :
             data_string = self._data_to_append
             
+        # To prevent 'id' creation when adding a file into the archived WorkTripFileOld
+        if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
+            return_value = FileHandlr.find_next_id(self)
+            if return_value <= 0 : 
+                return return_value # Extend error from find_next_id
+
         if self._id > 0 : # If line needs id, add it
             data_string = str(self._id) + ',' + data_string
 
-        with open(self._filename, 'a', encoding='utf-8') as f:
-            if f.tell() == 0: 
+        self._filestream = self.open_file('a')
+        if self._filestream == UNKNOWN_ERROR:
+            return self._filestream # Extend error from opening the file
+        try :
+            if self._filestream.tell() == 0: 
                 # File is empty or we just created it, so we add a header
-                f.write(self._header + '\n')
-            f.write(data_string + ',' + str(datetime.datetime.now()) + '\n') # Append data to file
+                self._filestream.write(self._header + '\n')
+            self._filestream.write(data_string + ',' + str(datetime.datetime.now()) + '\n') # Append data to file
+            return 1 # Equals to true
+        except : # Unknown error
+            return -1
 
 
     def does_line_exists(self): 
@@ -115,29 +129,36 @@ class FileHandlr :
         Checks if line exists in a file, returns line number, returns 0 if not found, returns -1 on error 
         '''
         self._filestream = self.open_file()
-        if not self._filestream :
-            return -1 # Error opening file
 
-        reader = csv.DictReader(self._filestream, delimiter=',')
+        try :
+            if self._filestream <= 0 :
+                return self._filestream
         
-        for line_number, line in enumerate(reader): 
-            if line[self._fieldname] == self._searchparam :
-                self._filestream.close()
-                return line_number+1 # Add 1 because this func doesn't count the header
-        self._filestream.close()
-        return 0
+        except TypeError: # Filestream is not integer, so must be file object
+            reader = csv.DictReader(self._filestream, delimiter=',')
+            for line_number, line in enumerate(reader): 
+                if line[self._fieldname] == self._searchparam : 
+                    self._filestream.close()
+                    return line_number + 1 # Add 1 because this func doesn't count the header
+            self._filestream.close()
+            return 0 # Didn't find line
+        
+        except : # Something else went wrong
+            return -1
 
 
-    def open_file(self):
+    def open_file(self, mode='r'):
         ''' 
         Opens a file and returns a filestream, or None if error.
         Does not close the file!
         '''
         try :
-            f =  open(self._filename, 'r', encoding='UTF-8')
+            f =  open(self._filename, mode, encoding='UTF-8')
             return f
+        except FileNotFoundError:
+            return FILENOTFOUND
         except :
-            return None
+            return UNKNOWN_ERROR
 
 
     def read_filestream_into_list(self):
@@ -146,13 +167,18 @@ class FileHandlr :
         Closes the file after reading it.
         '''
         self._filestream = self.open_file()
-        if not self._filestream:
-            return None
-        data_list = []
-        for line in self._filestream :
-            data_list.append(line.strip())
-        self._filestream.close() # Closes file after grabbing data from it
-        self._data_list = data_list
+        if self._filestream == UNKNOWN_ERROR or self._filestream == FILENOTFOUND:
+            return self._filestream # Extend error from opening the file
+        try :
+            data_list = []
+            for line in self._filestream :
+                data_list.append(line.strip())
+            self._filestream.close() # Closes file after grabbing data from it
+            self._data_list = data_list
+            return 1
+        except : # Something went wrong
+            self._filestream.close()
+            return -1
 
 
     def change_line_in_file(self):
