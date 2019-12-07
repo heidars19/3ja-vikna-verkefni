@@ -42,11 +42,13 @@ class LL_functions():
       
         return run_save
 
-    #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
+
     def change_object_in_DB(self, keyword, new_string, string_id):
-        '''Changes information about object in Database. \n
-                keyword: employee, destination, airplane, worktrip \n
         '''
+        Changes information about object in Database. \n
+        keyword: employee, destination, airplane, worktrip, worktripold \n
+        '''
+        
         file_name = self.file_type(keyword)
 
         new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number

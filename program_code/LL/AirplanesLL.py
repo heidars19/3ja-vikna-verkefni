@@ -42,20 +42,19 @@ class AirplanesLL(LL_functions):
         return all_planes_list
 
 
-    # def create_plane(self, plane_id, plane_type, manufacturer, model, name, capacity):
-    #     new_plane = Airplane(plane_id, plane_type, manufacturer, model, name, capacity)
+    # def create_plane(self, plane_id, plane_type, manufacturer, model, name):
+    #     new_plane = Airplane(plane_id, plane_type, manufacturer, model, name)
     #     log_plain = AirplaneFile(data_to_append=str(new_plane))
     #     status = log_plain.start()
     #     return status
 
 
-    def change_plane(self, new_info):
-        new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity = new_info
-        updated_plain = Airplane(new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, new_capacity)
+    def change_airplane(self, new_info):
+        new_id, new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, registration_date = new_info
         
-        line_in_db = AirplaneFile(fieldname="plane_id",searchparam=new_plane_id)
+        new_dest = Airplanes(*new_info)
+        registration_str = new_dest.get_changes_registration_str()
 
-        PlaneFilehandler = AirplaneFile(line_to_replace=line_in_db, replace_with=str(updated_plane))
-        PlaneFilehandler.start()
-    
-    
+        return_value = self.change_object_in_DB("airplane", registration_str, new_id) # Bring 'id' seperately, so next function can find line number
+
+        return return_value

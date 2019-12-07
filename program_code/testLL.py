@@ -31,13 +31,16 @@ def main():
 
   #CHANGE
   
-  new_instance = LL_API()
-  return_value = new_instance.change("destination",('13','Milano', 'Italy','6:30:10','2.100','John Philips','0219933884','BC_airport','2019-12-07 21:39:33.300255'))
-  return_msg(return_value, f"changing a new destination, code:{return_value}")
-
   # new_instance = LL_API()
-  # return_value = new_instance.change("employee",('','5665552222','Breytt_Lára','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax','2019-12-07 19:53:33.572752')
-  # print("Return value: {}".format(return_value))
+  # return_value = new_instance.change("destination",('13','Milano', 'Italy','6:30:10','2.100','John Philips','0219933884','BC_airport','2019-12-07 21:39:33.300255'))
+  # return_value = new_instance.change("employee",('20','2001933874', 'Gömul Lára','Bústaðarvegi 6','8922773','gamla@geit.org','Pilot','Captain','F1Fighters','2019-12-07 21:39:33.300255'))
+  # return_value = new_instance.change("airplane",('56','TF-EOC', 'NAFokker80','Fokker','F800','Heiðar er Bestur','2019-12-07 20:18:43.536857'))
+  # return_value = new_instance.change("worktrip",('13','Milano', 'Italy','6:30:10','2.100','John Philips','0219933884','BC_airport','2019-12-07 21:39:33.300255'))
+
+
+  return_msg(return_value, f"changing, code:{return_value}")
+
+
 
   return
 

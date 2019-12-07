@@ -7,21 +7,28 @@ from LL.LL_functions import *
 class EmployeeLL(LL_functions):
 
     def create_employee(self,personal_identity):
-        """Creates a new employee and saves to database. \n
-    def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
-    """
+        """
+        Creates a new employee and saves to database. \n
+        def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
+        """
         new_emp = Employee(*personal_identity, registration_date='')
         registration_str = new_emp.get_registration_str()
-        save = self.save_object_to_DB("employee",registration_str)
-        return save
+
+        return_value = self.save_object_to_DB("employee",registration_str)
+        return return_value
 
     def change_employee(self,changed_identity):
-        """Changes information about employee, except ssn, name or creation date."""
+        """
+        Changes information about employee, except ssn, name or creation date.
+        def change_employee(id,ssn,name,address,mobile,email,role,rank,licence,registration_date)
+        """
+        new_id,new_ssn,new_name,new_address,new_mobile,new_email,new_role,new_rank,new_licence,registration_date = changed_identity
 
         changed_emp = Employee(*changed_identity)
         changed_str = changed_emp.get_changes_registration_str()
-        save = self.save_object_to_DB("employee", changed_str)
-        return save
+
+        return_value = self.change_object_in_DB("employee", changed_str, new_id)  # Bring 'id' seperately, so next function can find line number
+        return return_value
 
 
     #def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
