@@ -4,7 +4,7 @@ from DB.DATA_API import *
 
 def main ():
 
-    # # Reads a file and returns a list - check
+    # Reads a file and returns a list - check
     # new_instance = WorkTripFileOld()
     # datalist = new_instance.start()
     # header = new_instance.get_header()

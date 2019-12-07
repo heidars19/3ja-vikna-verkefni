@@ -3,9 +3,9 @@ from DB.FileHandlr import FileHandlr
 class WorkTripFileOld (FileHandlr) :
     ''' 
     Filehandler for WorkTripOld table.\n
-\n
+    \n
     class WorkTripFileOld(data_to_append: [string or list]..., fieldname: [string]..., searchparam: [string or integer], line_to_replace: [string]..., replace_with: [string]... )    \n
-\n
+    \n
     Usage:\n
     Call class constructor with variable name. \n
     Append data \n
@@ -21,7 +21,6 @@ class WorkTripFileOld (FileHandlr) :
     Find data, returns line number, 0 if not found and -1 if error\n
     MakeNewInstance = WorkTripFileOld(fieldname=..., searchparam=...)
     '''
-  
 
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
 
