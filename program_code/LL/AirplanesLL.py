@@ -1,4 +1,4 @@
-from LL.Airplanes import Airplane
+from LL.Airplanes import *
 from DB.DATA_API import *
 from LL.LL_functions import *
 import string
@@ -9,9 +9,10 @@ class AirplanesLL(LL_functions):
     def create_airplane(self,airplane_identity):
         '''Creates a new airplane and saves to database'''
         
-        new_plane = Airplane(*airplane_identity, registration_date='')
+        new_plane = Airplanes(*airplane_identity, registration_date='')
         registration_str = new_plane.get_registration_str()
         
+        print(registration_str)
         self.save_object_to_DB("airplane",registration_str)
 
     def filter_available(self, all_planes):

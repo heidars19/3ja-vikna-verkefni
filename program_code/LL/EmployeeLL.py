@@ -12,6 +12,8 @@ class EmployeeLL(LL_functions):
 
         new_emp = Employee(*personal_identity, registration_date='')
         registration_str = new_emp.get_registration_str()
+
+        print("EmployeeLL")
         self.save_object_to_DB("employee",registration_str)
 
     def change_employee(self,registered_identity):
