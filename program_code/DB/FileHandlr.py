@@ -9,7 +9,7 @@ class FileHandlr :
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
     
-    STAFF_TABLE = "Data/Crew.csv"
+    STAFF_TABLE = "Data/Employee.csv"
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
     
     DESTINATION_TABLE = "Data/Destinations.csv"
@@ -20,6 +20,7 @@ class FileHandlr :
 
     WORKTRIP_OLD_TABLE = "Data/Worktrips_old.csv"
     WORKTRIP_OLD_TABLE_HEADER = 'id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,registration_date'
+    
     
     def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
     
@@ -34,13 +35,14 @@ class FileHandlr :
         self._line_number = None
         self._data_list = None
         self._id = 0
-  
-  
+
+
     def start(self) :
         if self._data_to_append :
-            return_value = FileHandlr.find_next_id(self)
-            if return_value <= 0 :
-                return return_value
+            if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
+                return_value = FileHandlr.find_next_id(self)
+                if return_value <= 0 :
+                    return return_value
             FileHandlr.append_data_to_file(self)
         
         elif self._line_to_replace : 
@@ -55,7 +57,6 @@ class FileHandlr :
             return self._data_list
 
         return
-
 
 
     def find_next_id(self): 

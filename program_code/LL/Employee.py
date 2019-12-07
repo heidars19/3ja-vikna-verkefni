@@ -3,11 +3,11 @@ from DB.DATA_API import *
 class Employee:
     """This class represents the Employees of Nan Air and keeps track of their information."""
 
-    def __init__(self,ssn,name,address,mobile,email,role,rank,licence,registration_date="", emp_id =""): 
+    def __init__(self,_id,ssn,name,address,mobile,email,role,rank,licence,registration_date=""): 
         from datetime import date
         #today = date.today()
 
-        self.emp_id = emp_id
+        self._id = _id
         self.__ssn = ssn
         self.__name = name
         self.address = address
@@ -18,12 +18,11 @@ class Employee:
         self.licence = licence
         self.__registration_date = registration_date
 
+    def get_registration_str(self):
+        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence}'
 
-    def __str__(self): #Runs when using the str() method
-        return f'{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
-
-    #def __repr__(self):
-     #   return Employee({self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__creationdate})
+    def get_changes_registration_str(self):
+        return f'{self._id},{self.__ssn},{self.__name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
 
     #name getterar fyrir privat breytur
     @property 
@@ -33,9 +32,7 @@ class Employee:
     def name(self):
         return self.__name
 
-#    # @property
-#   def creationdate(self):
-#   return self.__creation_date
+
 
     #name setter fyrir privat breytur
     # @ssn.setter 
@@ -60,15 +57,15 @@ class Employee:
     # def save_employee(self):
     #     '''Save new employee to database'''
     #     print(self)
-    #     log_emp = StaffFile(data_to_append=str(self))
+    #     log_emp = EmployeeFile(data_to_append=str(self))
     #     log_emp.start()
 
     # def change_employee(self):
     #     '''Changes personal information about employee, except ssn, name and creation_date'''
 
-    #     new_file = StaffFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in StaffFile and returns line number
+    #     new_file = EmployeeFile(fieldname="ssn",searchparam=self.ssn) #Looks for ssn in EmployeeFile and returns line number
     #     line_number = new_file.start()
-    #     update_line = StaffFile(line_to_replace=line_number,replace_with=str(self))
+    #     update_line = EmployeeFile(line_to_replace=line_number,replace_with=str(self))
     #     update_line.start()
         
     def error_check(self):

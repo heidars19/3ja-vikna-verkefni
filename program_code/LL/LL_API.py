@@ -2,31 +2,41 @@ from LL.WorktripLL import *
 from LL.DestinationLL import *
 from LL.EmployeeLL import *
 from LL.AirplanesLL import *
+from LL.LL_functions import *
 
 class LL_API:
 
-#create("employee",(ssn,name,address,mobile,email,role,rank,licence))
-    def create(self,keyword,user_input):    
+#From UI: create("employee",(ssn,name,address,mobile,email,role,rank,licence))
+    def create(self, keyword,user_input):    
         '''Creates new object and saves to Database. \n
         keyword: employee,airplane,destination or worktrip
         \n
-        user_input: user input for corresponding item
+        user_input: user input for corresponding item as tuple
         '''
         if keyword == 'employee':
             cr_emp = EmployeeLL()
             cr_emp.create_employee(user_input)
 
         elif keyword == 'airplane':
-            cr_air == AirplanesLL()
+            cr_air = AirplanesLL()
             cr_air.create_airplane(user_input)
 
         elif keyword == 'destination':
-            cr_dest == DestinationLL()
+            cr_dest = DestinationLL()
             cr_dest.create_destination(user_input)
 
         elif keyword =='worktrip':
-            cr_trip == WorktripLL()
+            cr_trip = WorktripLL()
             cr_trip.create_worktrip(user_input)   
+
+
+#    def change(self,keyword,user_input):
+        
+#         #ssn,name,address,mobile,email,role,rank,licence,registration_date = data_info
+
+#         if user_input == 'employee':
+#             ch_emp == EmployeeLL()
+#             ch_emp.chan
 
 def get_list(self,keyword):
         '''Gets updated list from database. \n
@@ -42,13 +52,12 @@ def get_list(self,keyword):
 
 
 
-
-
-
-
-
-
-
+def testmain():
+    new = LL_API()
+   
+#    new.create('airplane', ('32','rass','re re','re 31','er','asdf@gmail.com')) #airplane nyskraning test
+#    new.create('employee', ('0','4455668855','aparassgat Helga','Hehe 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
+    new.create('destination',('11','asdf','Greenland','1:00:55','1.343','Hraði Brunann','328738975','flugvolllur'))
 
 
 
@@ -74,17 +83,17 @@ def get_list(self,keyword):
 
 # def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
 #     """Changes information about employee, except ssn, name or creation date."""
-#     #old_info = StaffFile(fieldname="ssn",searchparam=ssn)
+#     #old_info = EmployeeFile(fieldname="ssn",searchparam=ssn)
 #     new_info = Employee(ssn,name,address,mobile,email,role,rank,licence)
 
 #     EmployeeLL.change_info(old_info,new_info)
 
-#     #old_info = StaffFile(fieldname="ssn",searchparam=ssn)
+#     #old_info = EmployeeFile(fieldname="ssn",searchparam=ssn)
 #     line_number = old_info.run_me()
 
 #     data_string = ",".join([ssn,name,address,mobile,email,role,rank,licence])
 
-#     new_info = StaffFile(line_to_replace=line_number,replace_with=data_string)
+#     new_info = EmployeeFile(line_to_replace=line_number,replace_with=data_string)
 #     new_info.run_me()
 
 
