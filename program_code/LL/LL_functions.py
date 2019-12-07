@@ -55,14 +55,9 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-        if keyword == "employee":
-            new_instance = EmployeeFile()               #create new instance of employee
-        elif keyword == "worktrip":
-            new_instance = WorkTripFile()               #create new instance of worktrip
-        elif keyword == "destination":
-            new_instance = DestinationFile()               #create new instance of destionation           
-        elif keyword == "airplane":
-            new_instance = AirplaneFile()               #create new instance of airplane
+        file_name = self.file_type(keyword)
+
+        new_instance = file_name()
 
         updated_list = new_instance.start() 
         new_list = []
