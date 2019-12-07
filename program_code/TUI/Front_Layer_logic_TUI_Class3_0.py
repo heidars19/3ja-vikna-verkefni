@@ -1,7 +1,8 @@
 #import User_interface
-from LL.LL_API_sigurgeir import *
+"""from LL.LL_API_sigurgeir import *
 from LL.LL_API_eythor import *
-from LL.LL_API_offi import *
+from LL.LL_API_offi import *"""
+from LL.LL_API import *
 import os
 #import Front_layer_TUI
 import locale
@@ -28,7 +29,7 @@ class TUI():
         self.highlight_main_list = ["x", " ", " "]
         self.list_line_index = 0
         self.check_specifcly = False
-        self.new_instance_API2 = LL_API_offii()
+        self.new_instance_API2 = LL_API()
         self.next_section = 0
         self.item_list = self.new_instance_API2.get_list("employee")
         self.header_len = []
