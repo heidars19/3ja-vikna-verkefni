@@ -19,7 +19,7 @@ class DestinationLL(LL_functions):
         
         new_dest = Destination(*new_info)
         registration_str = new_dest.get_changes_registration_str()
-        print(registration_str)
+
         return_value = self.change_object_in_DB("destination", registration_str, new_id) # Bring 'id' seperately, so next function can find line number
-        #print(return_value)
+
         return return_value

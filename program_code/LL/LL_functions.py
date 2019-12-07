@@ -47,20 +47,13 @@ class LL_functions():
         '''Changes information about object in Database. \n
                 keyword: employee, destination, airplane, worktrip \n
         '''
-
         file_name = self.file_type(keyword)
 
         new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number
         line_number = new_file.start()
-        print(line_number)
 
         update_line = file_name(line_to_replace=line_number,replace_with=new_string)
         return_value = update_line.start()
-        print(return_value)
-        print(new_string)
-#        print(return_value)
-
-
 
         return return_value
 
