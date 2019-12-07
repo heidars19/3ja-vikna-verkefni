@@ -31,12 +31,11 @@ class LL_functions():
         \n 
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
         '''
-        print("kominn í save")
+
         file_name = self.file_type(keyword)
-        print(file_name)
         save_obj = file_name(data_to_append=object_instance)
         run_save = save_obj.start()
-        print(run_save)
+      
         return run_save
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
@@ -44,13 +43,16 @@ class LL_functions():
         '''Changes information about object in Database. \n
                 keyword: employee, destination, airplane, worktrip \n
         '''
+
         file_name = self.file_type(keyword)
 
         new_file = file_name(fieldname="id",searchparam=object_instance._id) #looks for id and returns line number
         line_number = new_file.start()
 
         update_line = file_name(line_to_replace=line_number,replace_with=object_instance)
-        update_line.start()
+        update = update_line.start()
+
+        return update
 
 
     def get_updated_list_from_DB(self,keyword):
