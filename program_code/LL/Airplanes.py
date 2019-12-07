@@ -12,7 +12,7 @@ class Airplane():
         return f'Airplane({self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name},{self.registration_date})'
 
     def get_registration_str(self):
-        return f'{self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name}'
+        return f'{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name}'
 
     def get_changes_registration_str(self):
         return f'{self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name},{self.registration_date}'
