@@ -12,7 +12,11 @@ class EmployeeLL(LL_functions):
 
         new_emp = Employee(*personal_identity, registration_date='')
         registration_str = new_emp.get_registration_str()
-        self.save_object_to_DB("employee",registration_str)
+
+        print("EmployeeLL")
+        save = self.save_object_to_DB("employee",registration_str)
+        return save
+
 
     def change_employee(self,registered_identity):
         """Changes information about employee, except ssn, name or creation date."""

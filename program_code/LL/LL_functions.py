@@ -31,11 +31,13 @@ class LL_functions():
         \n 
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
         '''
-    
+        print("kominn í save")
         file_name = self.file_type(keyword)
+        print(file_name)
         save_obj = file_name(data_to_append=object_instance)
-        save_obj.start()
-
+        run_save = save_obj.start()
+        print(run_save)
+        return run_save
 
     #Example: change_object_in_DB(employee,emp1,ssn,emp1_ssn)
     def change_object_in_DB(self,keyword,object_instance):
@@ -58,10 +60,9 @@ class LL_functions():
         file_name = self.file_type(keyword)
 
         new_instance = file_name()
-
         updated_list = new_instance.start() 
         new_list = []
-        for x in updated_list:
-            new_list.append(x.split(','))
+        for i in updated_list:
+            new_list.append(i.split(','))
 
         return new_list
