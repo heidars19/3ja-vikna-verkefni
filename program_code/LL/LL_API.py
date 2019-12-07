@@ -11,7 +11,7 @@ class LL_API:
         '''Creates new object and saves to Database. \n
         keyword: employee,airplane,destination or worktrip
         \n
-        user_input: user input for corresponding item as tuple
+        user_input: user input for corresponding item as tuple. No id or registration date.
         '''
         if keyword == 'employee':
             cr_emp = EmployeeLL()
@@ -31,7 +31,29 @@ class LL_API:
 
         return run_create
 
-         
+    def change(self,keyword,changed_object):
+        '''Changes object in Database. \n
+        keyword[str]: employee,airplane,destination or worktrip
+        \n
+        changed_object[tuple]: Changed object, including id and registration date.
+        '''
+        if keyword == 'employee':
+            ch_emp = EmployeeLL()
+            run_change = ch_emp.change_employee(changed_object)
+
+        elif keyword == 'airplane':
+            ch_air = AirplanesLL()
+            run_change = ch_air.change_airplane(changed_object)
+
+        elif keyword == 'destination':
+            ch_emp = DestinationLL()
+            run_change = ch_dest.change_destination(changed_object)
+
+        elif keyword == 'worktrip':
+            ch_work = WorktripLL()
+            run_change = ch_work.change_worktrip(changed_object)
+
+        return run_change
 
 
     def get_list(self,keyword):
@@ -41,12 +63,8 @@ class LL_API:
             updated_list = []
             
             new_instance = LL_functions()
-            updated_list =new_instance.get_updated_list_from_DB(keyword)
+            updated_list = new_instance.get_updated_list_from_DB(keyword)
             return updated_list
-            
-
-
-
 
 def testmain():
     new = LL_API()
