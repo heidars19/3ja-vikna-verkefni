@@ -8,10 +8,10 @@ class AirplanesLL(LL_functions):
     def create_airplane(self,airplane_identity):
         """
         Creates a new employee and saves to database. \n
-        airplane_identity = (plane_id, plane_type, manufacturer,model,name)
+        airplane_identity = ('',plane_id, plane_type, manufacturer,model,name)
         """
 
-        new_plane = Airplanes(*airplane_identity, registration_date='')
+        new_plane = Airplanes(*airplane_identity)
         registration_str = new_plane.get_registration_str()
         
         return_value = self.save_object_to_DB("airplane",registration_str)
@@ -23,7 +23,6 @@ class AirplanesLL(LL_functions):
         changed_identity = (id,plane_id, plane_type, manufacturer,model,name,registration_date)
         """
 
-        
         changed_plane = Airplanes(*changed_identity)
         changed_str = changed_plane.get_changes_registration_str()
         return_value = self.change_object_in_DB("airplane", changed_str, changed_plane._id) # Bring 'id' seperately, so next function can find line number

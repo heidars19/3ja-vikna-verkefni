@@ -74,7 +74,7 @@ class TUI():
         self._header = (\
         ("Kennitala","Nafn","Heimilisfang","Síma númer","Email","Starfsheiti","Titill"),\
         ("Brottför","Áfangastaður","Dagsetning","Flugvél"),\
-        ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
+        ("Nafn","Land","Tengiliður","Sími","Flug Völlur"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
@@ -101,6 +101,7 @@ class TUI():
         exeptions = ["", "Pilot", "Cabincrew"]
         self.index_len = []
         self.header_len = []
+        self.select_len = 0
         for i in range(len(self.item_list[0])):
             longest = 0
             for x in range(0+self.next_section,len(self.item_list)+self.next_section):
@@ -120,11 +121,15 @@ class TUI():
                                 if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
+                                if x == 3:
+                                    self.header_len.append(0)
                     else:
                         for x in range(len(self.item_list[i])):
                             if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                 new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                 self.header_len.append(self.index_len[x])
+                            if x == 3:
+                                    self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
@@ -134,7 +139,7 @@ class TUI():
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x != 0:
+                        if x != 0 and x != 3 and x != 4:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
@@ -144,6 +149,7 @@ class TUI():
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
+                self.select_len += 1
             except:
                 for i in range(15-len(new_list)):
                     new_list.append("")
@@ -716,6 +722,7 @@ class TUI():
             if key == 49:
                 self.menu_select = 0
                 self.exeption = 0
+                self.next_section = 0
                 idx = 0
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("employee")
@@ -731,6 +738,7 @@ class TUI():
                     leng = 0"""
             elif key == 50:
                 self.menu_select = 1
+                self.next_section = 0
                 idx = 1
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("worktrip")
@@ -746,6 +754,7 @@ class TUI():
                     leng = 0"""
             elif key == 51:
                 self.menu_select = 2
+                self.next_section = 0
                 idx = 2
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("destination")
@@ -761,6 +770,7 @@ class TUI():
                     leng = 0"""
             elif key == 52:
                 self.menu_select = 3
+                self.next_section = 0
                 idx = 3
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("airplane")
@@ -777,21 +787,27 @@ class TUI():
             elif key == curses.KEY_LEFT:
                 if self.next_section == 0:
                     self.next_section = 0
+                    self.list_line_index = 0
+                    idz = 0
                 else:
                     self.next_section -= 15
+                    self.list_line_index = 0
+                    idz = 0
             elif key == curses.KEY_RIGHT:
-                if self.next_section + 15 < len(self.item_list):
+                if self.next_section < len(self.item_list) - 15:
                     self.next_section += 15
+                    self.list_line_index = 0
+                    idz = 0
                 
             elif key == curses.KEY_UP or key == 450:
                 if idz == 0:
-                    idz = 14
+                    idz = self.select_len-1
                     self.list_line_index = 14
                 else:
                     idz -= 1
                     self.list_line_index -= 1
             elif key == curses.KEY_DOWN or key == 456:
-                if idz == 14:
+                if idz == self.select_len-1:
                     idz = 0
                     self.list_line_index = 0
                 else:

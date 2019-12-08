@@ -7,10 +7,10 @@ class DestinationLL(LL_functions):
     def create_destination(self,destination_identity):
         """
         Creates a new destination and saves to database.\n
-        destination_identity = (destination,country,flight_time,distance,contact,emergency_number,airport)
+        destination_identity = ('',destination,country,flight_time,distance,contact,emergency_number,airport)
         """
              
-        new_dest = Destination(*destination_identity,registration_date='')
+        new_dest = Destination(*destination_identity)
         registration_str = new_dest.get_registration_str()
 
         return_value = self.save_object_to_DB("destination",registration_str)
