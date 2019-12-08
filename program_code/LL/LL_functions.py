@@ -73,3 +73,63 @@ class LL_functions():
             new_list.append(i.split(','))
 
         return new_list
+
+    
+    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True):
+        """
+        Keyword = employee,worktrip, airplane, destination \n
+        row_names = filtered word from header \n
+        searchparam = parameter to look for in row\n
+        match = True if looking for excact macth \n
+        match = False if looking for data containing specific string \n
+        """
+
+        file_name = self.file_type(keyword)
+
+        new_instance = file_name()
+        get_list = new_instance.start() 
+        header = new_instance.get_header().split(',')
+
+        words_list = row_names
+        index_list = []
+        
+        filtered_list = []
+
+        for index, value in enumerate(header):
+            for word in words_list:
+                if value == word:
+                    index_list.append(index)
+
+        if match:    #Looks for excact match
+            for line in get_list[1:]:
+
+                line_list = line.split(',')
+                for index in index_list:
+                    if searchparam == line_list[index]:
+                        if line not in filtered_list:
+                            filtered_list.append(line_list[index])
+
+        else:   #Checks if value contains searchparameter
+            for line in get_list[1:]:
+                line_list = line.split(',')
+                for index in index_list:
+                    if searchparam in line_list[index]:
+                        if line not in filtered_list:
+                            filtered_list.append(line_list[index])
+
+
+        return filtered_list
+
+
+                    
+                
+
+
+
+
+
+                
+
+
+
+                

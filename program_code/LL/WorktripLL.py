@@ -18,12 +18,38 @@ class WorktripLL(LL_functions):
         return return_value
     
 
-    def get_emp_dest_date(self,date):
+
+
+
+    def get_emp_dest_date(self, keyword,date):
         """
-        Gets list of employees enrolled in a worktrip at specified date, and their destinations.\n
+        Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
         Date format: YYYY-MM-DD
         """
 
+        row_names = ['departure','arrival']
+
+        new_list = LL_functions()
+        filtered_list = new_list.get_filtered_list_from_DB(keyword,row_names,date,False)
+
+        return filtered_list
+
+           
+#  def filter_planes(planes_list=[], a_header=''):
+#         header = planes_list[0]
+#         a_header_index = int
+#         for index, value in enumerate(header):
+#             if value == a_header:
+#                 a_header_index = index
+            
+#         types = []
         
+#         for a_list in planes_list[1:]:
+#             if a_list[a_header_index] not in types:
+#                 types.append(a_list[a_header_index])
+
+        return types
+
+
         
 
