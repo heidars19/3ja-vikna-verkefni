@@ -9,7 +9,7 @@ class EmployeeLL(LL_functions):
     def create_employee(self,personal_identity):
         """
         Creates a new employee and saves to database. \n
-        def create_employee(self,ssn,name,address,mobile,email,role,rank,licence):
+        personal_identity = (ssn,name,address,mobile,email,role,rank,licence)
         """
         new_emp = Employee(*personal_identity, registration_date='')
         registration_str = new_emp.get_registration_str()
@@ -19,15 +19,14 @@ class EmployeeLL(LL_functions):
 
     def change_employee(self,changed_identity):
         """
-        Changes information about employee, except ssn, name or creation date.
-        def change_employee(id,ssn,name,address,mobile,email,role,rank,licence,registration_date)
+        Changes information about employee, except ssn, name or degistration date.
+        changed_identity = (id,ssn,name,address,mobile,email,role,rank,licence,registration_date)
         """
-        new_id,new_ssn,new_name,new_address,new_mobile,new_email,new_role,new_rank,new_licence,registration_date = changed_identity
 
         changed_emp = Employee(*changed_identity)
         changed_str = changed_emp.get_changes_registration_str()
 
-        return_value = self.change_object_in_DB("employee", changed_str, new_id)  # Bring 'id' seperately, so next function can find line number
+        return_value = self.change_object_in_DB("employee", changed_str, changed_emp._id)  # Bring 'id' seperately, so next function can find line number
         return return_value
 
 

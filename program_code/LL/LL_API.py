@@ -55,7 +55,6 @@ class LL_API:
 
         return run_change
 
-
     def get_list(self,keyword):
             '''Gets updated list from database. \n
                 keyword: employee,airplane,destination or worktrip
