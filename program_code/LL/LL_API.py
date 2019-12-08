@@ -64,9 +64,15 @@ class LL_API:
                 emp_by_date: Returns list of employees and destinations by specific date.
             '''
 
-            if list_type == emp_by_date:
+            if list_type == "emp_by_date":
+                new_instance = WorktripLL()
+                emp_by_date_list = new_instance.get_emp_dest_date(date)
                 
+                return emp_by_date_list
 
+            
+                
+            else:
             updated_list = []
             new_instance = LL_functions()
             updated_list = new_instance.get_updated_list_from_DB(keyword)
