@@ -18,7 +18,6 @@ class AirplanesLL(LL_functions):
         return return_value
 
     def change_airplane(self, new_info):
-        #new_id, new_plane_id, new_plane_type, new_manufacturer, new_model, new_name, registration_date = new_info
         
         changed_plane = Airplanes(*new_info)
         changed_str = changed_plane.get_changes_registration_str()
