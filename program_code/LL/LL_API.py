@@ -55,12 +55,19 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword):
-            '''Gets updated list from database. \n
-                keyword: employee,airplane,destination or worktrip
+    def get_list(self,keyword,list_type="",date = ""):
+            '''\nGets updated list from database. keyword[str]: employee,airplane,destination or worktrip \n
+                \n
+                To get specific lists for worktrips (keyword = worktrip):\n
+                list_type: \n
+                "": Returns complete list of worktrips. \n
+                emp_by_date: Returns list of employees and destinations by specific date.
             '''
+
+            if list_type == emp_by_date:
+                
+
             updated_list = []
-            
             new_instance = LL_functions()
             updated_list = new_instance.get_updated_list_from_DB(keyword)
             updated_list.pop(0)

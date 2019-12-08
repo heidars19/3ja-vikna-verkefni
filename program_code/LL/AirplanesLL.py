@@ -8,10 +8,10 @@ class AirplanesLL(LL_functions):
     def create_airplane(self,airplane_identity):
         """
         Creates a new employee and saves to database. \n
-        airplane_identity = (plane_id, plane_type, manufacturer,model,name)
+        airplane_identity = ('',plane_id, plane_type, manufacturer,model,name)
         """
 
-        new_plane = Airplanes(*airplane_identity, registration_date='')
+        new_plane = Airplanes(*airplane_identity)
         registration_str = new_plane.get_registration_str()
         
         return_value = self.save_object_to_DB("airplane",registration_str)

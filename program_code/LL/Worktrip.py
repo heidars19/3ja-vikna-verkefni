@@ -24,8 +24,10 @@ class Worktrip:
         self.__registration_date = registration_date
 
 
-    def get_registration_str(self)
+    def get_registration_str(self):
         return f'{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status}'
 
-    def get_add_employees_str(self)
+    def get_add_employees_str(self):
         return f'{self._id},{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status},{self.registration_date}'
+
+    
