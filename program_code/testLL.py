@@ -44,12 +44,9 @@ def main():
   # new_list = new_instance.get_list('employee')
   # new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
- # print(new_list)
+  # print(new_list)
 
   return
-
-
-
   
 if __name__ == "__main__":
     main()
