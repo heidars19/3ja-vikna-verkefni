@@ -1,4 +1,4 @@
-id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,registration_date
+id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
 1,NA5638,NA5639,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,28,157,167,321,321
 2,NA3525,NA3525,Longyearbyen,Keflavik,2019-12-20T11:45:00,2019-12-20T15:45:00,,,,,,
 3,NA9228,NA3525,Keflavik,Longyearbyen,2019-12-22T06:16:00,2019-12-22T10:16:00,,,,,,
