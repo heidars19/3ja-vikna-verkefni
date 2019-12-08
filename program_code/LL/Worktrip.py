@@ -8,8 +8,8 @@ class Worktrip:
         #today = date.today()
 
         self._id = _id
-        self.flight_number_out = flight_number_out
-        self.flight_number_home = flight_number_home
+        self.flight_number_out = flight_number_out          #Calculated in WorktripLL
+        self.flight_number_home = flight_number_home        #Calculated in worktripLL
         self.departing_from = departing_from                #Departure location
         self.arriving_at = arriving_at                      #Destination location 
         self.departure = departure                          #Departure time
@@ -29,7 +29,3 @@ class Worktrip:
 
     def get_add_employees_str(self)
         return f'{self._id},{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status},{self.registration_date}'
-
-
-    # def __str__(self): #Runs when using the str() method
-    #     return f'{self.worktrip_id},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2}'
