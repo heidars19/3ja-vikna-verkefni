@@ -7,6 +7,7 @@ class FileHandlr :
     ''' Abstract class for filehandling '''
 
     # Return constants
+    WRONG_FORMAT = -5 # Value error
     FILENOTFOUND = -404
     UNKNOWN_ERROR = -1
     UNSUCCESSFUL = 0 # No error, but search yealded no results
@@ -55,6 +56,8 @@ class FileHandlr :
             return self._line_number
 
         else :
+            if str(type(self)) == "<class 'DB.WorkTripFile.WorkTripFile'>":
+                FileHandlr.archive_old_worktrips(self)
             return_value = FileHandlr.read_filestream_into_list(self)
             if isinstance(self._data_list, list) :
                 return self._data_list
@@ -62,6 +65,72 @@ class FileHandlr :
                 return return_value
 
         return FileHandlr.UNKNOWN_ERROR
+
+
+
+    def remove_file(file_to_remove) :
+
+        try :
+            if os.path.exists(file_to_remove): # Checks if .bak file exists and removes it if it does
+                try :
+                    os.remove(file_to_remove)
+                    return FileHandlr.SUCCESS # Success
+                except:
+                    return FileHandlr.UNKNOWN_ERROR
+            else :
+                FileHandlr.FILENOTFOUND
+        except :
+            return FileHandlr.UNKNOWN_ERROR
+
+            
+
+    def archive_old_worktrips(self) :
+
+        now_time = datetime.datetime.now() # Gets currents timestamp
+        BACKUP_FILE = self._filename + ".bak"
+        archive_filename = self._filename.split('.')
+        ARCHIVE_FILE = archive_filename[0] + '_old.' + archive_filename[1]
+
+        try :
+            with open(self._filename, 'r', encoding='utf-8') as read_from_file:
+                with open(BACKUP_FILE, 'w+', encoding='utf-8') as bak_file:
+                    with open(ARCHIVE_FILE, 'a', encoding='utf-8') as archive_file:
+
+                        list_line = []
+                        for line in read_from_file :
+                            list_line = line.strip().split(',')
+                            if list_line[0] == 'id' : # If this is header line, jump to next iteration
+                                bak_file.write(line) # Copies over header
+                                continue
+                            # list_line[5] should be the date column, change index number if not
+                            try :
+                                line_date = datetime.datetime.strptime(list_line[5], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
+                            except ValueError :
+                                # Date in file has wrong format
+                                return FileHandlr.WRONG_FORMAT
+                            if now_time > line_date + datetime.timedelta(hours = 1): # Worktrip is over 1 hour after landing in Iceland
+                                archive_file.write(line) # Archives old worktrips
+                            else:
+                                bak_file.write(line) # Writes future worktrips into a new file
+
+                            """Nú er til .bak skrá sem þarf að yfirskrifa "Worktrips.csv" þeger keyrslu líkur"""   
+        except FileNotFoundError:
+            return FileHandlr.FILENOTFOUND 
+        except :
+            return FileHandlr.UNKNOWN_ERROR
+
+
+        try :
+            with open(BACKUP_FILE, 'r', encoding='utf-8') as file_original:
+                with open(self._filename, 'w+', encoding='utf-8') as file_bak:
+                    for line in file_original:
+                        file_bak.write(line)
+        except :
+            return FileHandlr.UNKNOWN_ERROR
+
+
+        return FileHandlr.remove_file(BACKUP_FILE)
+
 
 
     def find_next_id(self): 
@@ -196,24 +265,11 @@ class FileHandlr :
         # Then removes the temporary .bak file
         # Breaks loops on error before removing any file
 
-        def remove_file(filename) :
 
-            try :
-                if os.path.exists(filename2): # Checks if .bak file exists and removes it if it does
-                    try :
-                        os.remove(filename2)
-                        return FileHandlr.SUCCESS # Success
-                    except:
-                        return FileHandlr.UNKNOWN_ERROR
-                else :
-                    FileHandlr.FILENOTFOUND
-            except :
-                return FileHandlr.UNKNOWN_ERROR
-
-        filename2 = self._filename +".bak"
+        BACKUP_FILE = self._filename +".bak"
         try :
             with open(self._filename, 'r', encoding='utf-8') as file_original:
-                with open(filename2, 'w+', encoding='utf-8') as file_bak:
+                with open(BACKUP_FILE, 'w+', encoding='utf-8') as file_bak:
                     if isinstance(self._line_to_replace, int) : # If line_to_replace is a line number (int)
                         for linenumber, line in enumerate(file_original): # Reads 1 file line by line into another file
                             if linenumber == self._line_to_replace :
@@ -232,13 +288,13 @@ class FileHandlr :
             return FileHandlr.UNKNOWN_ERROR
 
         try :
-            with open(filename2, 'r', encoding='utf-8') as file_bak:
+            with open(BACKUP_FILE, 'r', encoding='utf-8') as file_bak:
                 with open(self._filename, 'w+', encoding='utf-8') as file_original:
                     for line in file_bak:
                         file_original.write(line)
         except :
             return FileHandlr.UNKNOWN_ERROR
 
-        return remove_file(filename2)
+        return FileHandlr.remove_file(BACKUP_FILE)
 
 

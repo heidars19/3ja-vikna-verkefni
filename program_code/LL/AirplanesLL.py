@@ -34,20 +34,20 @@ class AirplanesLL(LL_functions):
     # def filter_available(self, all_planes):
     #     pass
 
-    # def filter_planes(planes_list=[], a_header=''):
-    #     header = planes_list[0]
-    #     a_header_index = int
-    #     for index, value in enumerate(header):
-    #         if value == a_header:
-    #             a_header_index = index
+    def filter_planes(planes_list=[], a_header=''):
+        header = planes_list[0]
+        a_header_index = int
+        for index, value in enumerate(header):
+            if value == a_header:
+                a_header_index = index
             
-    #     types = []
+        types = []
         
-    #     for a_list in planes_list[1:]:
-    #         if a_list[a_header_index] not in types:
-    #             types.append(a_list[a_header_index])
+        for a_list in planes_list[1:]:
+            if a_list[a_header_index] not in types:
+                types.append(a_list[a_header_index])
 
-    #     return types
+        return types
 
     # def get_plane_list():        
     #     PlaneFilehandler = AirplaneFile()
