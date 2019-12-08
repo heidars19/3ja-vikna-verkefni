@@ -72,7 +72,7 @@ class TUI():
 
     def construct_header(self):
         self._header = (\
-        ("Kennitala","Nafn","Síma númer","Email","Starfsheiti"),\
+        ("Kennitala","Nafn","Heimilisfang","Síma númer","Email","Starfsheiti","Titill"),\
         ("Brottför","Áfangastaður","Dagsetning","Flugvél"),\
         ("Nafn","Land","FlugVöllur","Tengiliður","Sími"),\
         ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
@@ -80,7 +80,8 @@ class TUI():
         for i in range(len(self._header[self.menu_select])):
             try:
                 if self.menu_select == 0:
-                    header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                    if i != 2 and i != 6:
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
                 else:
                     header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
             except :
@@ -111,39 +112,38 @@ class TUI():
             self.index_len.append(longest)
         for i in range(0+self.next_section,15+self.next_section):
             try:
-                if i != 0:
-                    new_string = ""
-                    if self.menu_select == 0:
-                        if self.exeption != 0:
-                            if exeptions[self.exeption] in self.item_list[i]:
-                                for x in range(len(self.item_list[i])):
-                                    if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
-                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                        self.header_len.append(self.index_len[x])
-                        else:
+                new_string = ""
+                if self.menu_select == 0:
+                    if self.exeption != 0:
+                        if exeptions[self.exeption] in self.item_list[i]:
                             for x in range(len(self.item_list[i])):
                                 if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
-                        new_list.append(new_string)
-                    elif self.menu_select == 1:
+                    else:
                         for x in range(len(self.item_list[i])):
-                            if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
+                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                 new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                 self.header_len.append(self.index_len[x])
-                        new_list.append(new_string)
-                    elif self.menu_select == 2:
-                        for x in range(len(self.item_list[i])):
-                            if x != 0:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                self.header_len.append(self.index_len[x])
-                        new_list.append(new_string)
-                    elif self.menu_select == 3:
-                        for x in range(len(self.item_list[i])):
-                            if x != 0:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                self.header_len.append(self.index_len[x])
-                        new_list.append(new_string)
+                    new_list.append(new_string)
+                elif self.menu_select == 1:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            self.header_len.append(self.index_len[x])
+                    new_list.append(new_string)
+                elif self.menu_select == 2:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            self.header_len.append(self.index_len[x])
+                    new_list.append(new_string)
+                elif self.menu_select == 3:
+                    for x in range(len(self.item_list[i])):
+                        if x != 0:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            self.header_len.append(self.index_len[x])
+                    new_list.append(new_string)
             except:
                 for i in range(15-len(new_list)):
                     new_list.append("")
@@ -368,7 +368,7 @@ class TUI():
                 licence = self.make_user_input_window(16,67)
             else:
                 licence = ""
-            self.new_instance_API2.create("employee","",kt,name,address,gsm,email,job_title,rank,licence)
+            self.new_instance_API2.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
             self.item_list = self.new_instance_API2.get_list("employee")
         if self.menu_select == 1:
@@ -580,8 +580,8 @@ class TUI():
             self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][3],49)
             self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][4],49)
             self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][5],49)
-            self.make_text_appear(9,53,"",49)
-            self.make_text_appear(12,53,"",49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index][6],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index][7],49)
             self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
@@ -620,18 +620,19 @@ class TUI():
     def change_user(self,index,y_position,extra_len):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index][index+1]) + extra_len)
         if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index+1]) + extra_len)
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]+1) + extra_len)
         else:
             variable_x = self.item_list[self.list_line_index][index+1]
         return variable_x
 
     def change_user_menu(self):
         if self.menu_select == 0:
-            name = self.change_user(0,5,0)
-            starf = self.change_user(1,9,0)
-            rettindi = self.change_user(2,12,0)
-            stada = self.change_user(3,16,0)
-            afangastadur = self.change_user(4,5,49)
+            name = self.change_user(1,9,0)
+            address = self.change_user(2,12,0)
+            phone = self.change_user(3,16,0)
+            email = self.change_user(4,5,49)
+            job_title = self.change_user(5,9,49)
+            rank = self.change_user(6,12,49)
 
         if self.menu_select == 1:
             blah = self.change_user(0,5,0)
