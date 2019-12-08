@@ -716,6 +716,7 @@ class TUI():
             if key == 49:
                 self.menu_select = 0
                 self.exeption = 0
+                self.next_section = 0
                 idx = 0
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("employee")
@@ -731,6 +732,7 @@ class TUI():
                     leng = 0"""
             elif key == 50:
                 self.menu_select = 1
+                self.next_section = 0
                 idx = 1
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("worktrip")
@@ -746,6 +748,7 @@ class TUI():
                     leng = 0"""
             elif key == 51:
                 self.menu_select = 2
+                self.next_section = 0
                 idx = 2
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("destination")
@@ -761,6 +764,7 @@ class TUI():
                     leng = 0"""
             elif key == 52:
                 self.menu_select = 3
+                self.next_section = 0
                 idx = 3
                 idz = 0
                 self.item_list = self.new_instance_API2.get_list("airplane")
