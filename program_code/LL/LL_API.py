@@ -69,16 +69,14 @@ class LL_API:
                 emp_by_date_list = new_instance.get_emp_dest_date(date)
                 
                 return emp_by_date_list
-
-            
                 
-            else:
-            updated_list = []
-            new_instance = LL_functions()
-            updated_list = new_instance.get_updated_list_from_DB(keyword)
-            updated_list.pop(0)
+                else:
+                    updated_list = []
+                    new_instance = LL_functions()
+                    updated_list = new_instance.get_updated_list_from_DB(keyword)
+                    updated_list.pop(0)
             
-            return updated_list
+                    return updated_list
 
 def testmain():
     new = LL_API()
