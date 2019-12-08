@@ -55,17 +55,36 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword):
+    def get_list(self,keyword,list_type="",searchparam = ""):
             '''Gets updated list from database. \n
-                keyword: employee,airplane,destination or worktrip
+               keyword[str]: employee,airplane,destination,worktrip \n
+                \n
+                To get filtered lists:\n
+                keyword: "filtered"
+                list_type: \n
+                emp_by_date: Returns list of employees and destinations by specific date.
+                plane_licence: Returns list of unique types of registered airplanes.
             '''
-            updated_list = []
-            
-            new_instance = LL_functions()
-            updated_list = new_instance.get_updated_list_from_DB(keyword)
-            updated_list.pop(0)
-            
-            return updated_list
+
+            if list_type == "emp_by_date":
+                new_instance = WorktripLL()
+                emp_by_date_list = new_instance.get_emp_dest_date(keyword,searchparam)
+                
+                return emp_by_date_list
+
+            elif list_type == "plane_licences":
+                new_instance = AirplanesLL()
+                plane_licence = new_instance.filter_planes()
+
+                return plane_licence
+                
+            else:
+                updated_list = []
+                new_instance = LL_functions()
+                updated_list = new_instance.get_updated_list_from_DB(keyword)
+                updated_list.pop(0)
+        
+                return updated_list
 
 def testmain():
     new = LL_API()
