@@ -103,7 +103,7 @@ class TUI():
         self.header_len = []
         for i in range(len(self.item_list[0])):
             longest = 0
-            for x in range(len(self.item_list)):
+            for x in range(0+self.next_section,len(self.item_list)+self.next_section):
                 try:
                     if len(self.item_list[x][i]) > longest:
                         longest = len(self.item_list[x][i])
@@ -775,15 +775,14 @@ class TUI():
                     time.sleep(1)
                     leng = 0"""
             elif key == curses.KEY_LEFT:
-                if idy == 0:
-                    idy = 4
+                if self.next_section == 0:
+                    self.next_section = 0
                 else:
-                    idy -= 1
+                    self.next_section -= 15
             elif key == curses.KEY_RIGHT:
-                if idy == 4:
-                    idy = 0
-                else:
-                    idy += 1
+                if self.next_section + 15 < len(self.item_list):
+                    self.next_section += 15
+                
             elif key == curses.KEY_UP or key == 450:
                 if idz == 0:
                     idz = 14
