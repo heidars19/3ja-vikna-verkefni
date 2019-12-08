@@ -63,6 +63,8 @@ class LL_API:
             
             new_instance = LL_functions()
             updated_list = new_instance.get_updated_list_from_DB(keyword)
+            updated_list.pop(0)
+            
             return updated_list
 
 def testmain():

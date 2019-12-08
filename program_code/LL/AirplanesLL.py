@@ -17,9 +17,14 @@ class AirplanesLL(LL_functions):
         return_value = self.save_object_to_DB("airplane",registration_str)
         return return_value
 
-    def change_airplane(self, new_info):
+    def change_airplane(self, changed_identity):
+        """
+        Changes information about airplane, except id or registration date.
+        changed_identity = (id,plane_id, plane_type, manufacturer,model,name,registration_date)
+        """
+
         
-        changed_plane = Airplanes(*new_info)
+        changed_plane = Airplanes(*changed_identity)
         changed_str = changed_plane.get_changes_registration_str()
         return_value = self.change_object_in_DB("airplane", changed_str, changed_plane._id) # Bring 'id' seperately, so next function can find line number
 
