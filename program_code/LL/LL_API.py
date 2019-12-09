@@ -74,16 +74,8 @@ class LL_API:
                 
                 #Get list of worktrips at specific date
                 new_instance = WorktripLL()
-                emp_by_date_list = new_instance.get_emp_by_date(keyword,list_type,searchparam)
-
-                new_instance = EmployeeLL()
-                if list_type == "working_employees":
-                    new_instance.working_employees(emp_by_date_list)
-
-                if list_type == "available_employees":
-                    new_instance.available_employees(emp_by_date_list)
-            
-                return emp_by_date_list
+                get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
+                return get_emp_dest_date
             
 
             elif list_type == "plane_licences":
