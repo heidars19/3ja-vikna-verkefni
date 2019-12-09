@@ -118,14 +118,14 @@ class TUI():
                     if self.exeption != 0:
                         if exeptions[self.exeption] in self.item_list[i]:
                             for x in range(len(self.item_list[i])):
-                                if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                                if x not in [0,3,7,8,9]:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
                                 if x == 3:
                                     self.header_len.append(0)
                     else:
                         for x in range(len(self.item_list[i])):
-                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                            if x not in [0,3,7,8,9]:
                                 new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                 self.header_len.append(self.index_len[x])
                             if x == 3:
@@ -133,13 +133,13 @@ class TUI():
                     new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
+                        if x not in [0,1,5,7,8,9,10,11,12,13]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 3 and x != 4:
+                        if x not in [0,3,4]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
@@ -325,6 +325,41 @@ class TUI():
                 else:
                     return text_string_2
 
+    def make_plane_licence_dropdown(self,y,x):
+        """This method gets all airplane licences and creates a drop down menu for the user"""
+        position_y = 0
+        #plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
+        plane_licence_list = ["hello","world","long"]
+        editwin = curses.newwin(len(plane_licence_list),30,y,x)
+        editwin.keypad(1)
+        while True:
+            editwin.refresh()
+            for i in range(len(plane_licence_list)):
+                if position_y == i:
+                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(2))
+                else:
+                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(1))
+            button_press = editwin.getch()
+            if button_press == curses.KEY_UP or button_press == 450:
+                if position_y == 0:
+                    position_y = len(plane_licence_list)-1
+                else:
+                    position_y -= 1
+            elif button_press == curses.KEY_DOWN or button_press == 456:
+                if position_y == len(plane_licence_list)-1:
+                    position_y = 0
+                else:
+                    position_y += 1
+            elif button_press == 10:
+                for i in range(len(plane_licence_list)):
+                    self.licence_drop_down(editwin,"         ",i,curses.color_pair(2))
+                return plane_licence_list[position_y]
+
+    def licence_drop_down(self,editwin,licence_string,y,color_pair):
+        editwin.attron(color_pair)
+        editwin.addstr(y,0,licence_string)
+        editwin.attroff(color_pair)
+        editwin.refresh()
 
     def drop_down(self,editwin,text_string_1,text_string_2,position_y):
         if position_y == 0:
@@ -371,7 +406,9 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                licence = self.make_user_input_window(16,67)
+                licence = self.make_plane_licence_dropdown(16,67)
+                self.make_text_appear(16,67,licence,30,2)
+                time.sleep(1)
             else:
                 licence = ""
             self.new_instance_API2.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
@@ -802,7 +839,7 @@ class TUI():
             elif key == curses.KEY_UP or key == 450:
                 if idz == 0:
                     idz = self.select_len-1
-                    self.list_line_index = 14
+                    self.list_line_index = self.select_len-1
                 else:
                     idz -= 1
                     self.list_line_index -= 1
@@ -825,6 +862,7 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
+
                         self.exeption += 1
                     else:
                         self.exeption = 0
