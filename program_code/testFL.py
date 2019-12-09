@@ -6,11 +6,11 @@ try:
     from curses import wrapper, color_pair
 except:
     print("type 'pip3 install windows.curses' in terminal to get the needed extesion")
-    import calendar
-    def start(stdscr):
-        new_tui = TUI(stdscr)
-        new_tui.main()
+import calendar
+def start(stdscr):
+    new_tui = TUI(stdscr)
+    new_tui.main()
 
-    wrapper(start)
+wrapper(start)
 
 
