@@ -889,7 +889,7 @@ class TUI():
                         leng += len(self.item_list[i][x]) +1 
                     time.sleep(1)
                     leng = 0"""
-            elif key == curses.KEY_LEFT:
+            elif key == curses.KEY_LEFT or key == 452:
                 if self.next_section == 0:
                     self.next_section = 0
                     self.list_line_index = 0
@@ -898,7 +898,7 @@ class TUI():
                     self.next_section -= 15
                     self.list_line_index = 0
                     idz = 0
-            elif key == curses.KEY_RIGHT:
+            elif key == curses.KEY_RIGHT or key == 454:
                 if self.next_section < len(self.item_list) - 15:
                     self.next_section += 15
                     self.list_line_index = 0
