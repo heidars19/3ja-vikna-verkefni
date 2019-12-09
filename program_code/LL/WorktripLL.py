@@ -32,12 +32,12 @@ class WorktripLL(LL_functions):
 
         if list_type == 'working_employees':
             employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date,False) #trim = false. Returns employees working on specified date.
-
+            return employee_list
          
         elif list_type == 'available_employees':
-           employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date, False,False,True) #trim = true. Returns employees available on specified date.
-
-        return employee_list
+            employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date, False,False,True) #trim = true. Returns employees available on specified date.
+            return employee_list
+        
 
            
 #  def filter_planes(planes_list=[], a_header=''):
