@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 from LL.LL_API_eythor import *
-=======
->>>>>>> 1247d17b7d85dc8d64bf43af2fe854f511be070d
 from LL.EmployeeLL import *
 from LL.Employee import *
 from LL.LL_API import *
@@ -42,19 +39,30 @@ def main():
 
   #GET_LIST
   
-  new_instance = LL_API()
-  # new_list = new_instance.get_list('employee')
-  new_list = new_instance.get_list('airplane')
+<<<<<<< HEAD
+  #new_instance = LL_API()
+  #new_list = new_instance.get_list('employee')
+  #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-<<<<<<< HEAD
-  new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-9')
-=======
-  # new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-20')
->>>>>>> 1247d17b7d85dc8d64bf43af2fe854f511be070d
-  print(new_list)
+  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  # print(new_list)
 
+
+  new_instance = EmployeeLL()
+  new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
+  print(new_list)
+=======
+  new_instance = LL_API()
+  # new_list = new_instance.get_list('employee')
+  #new_list = new_instance.get_list('airplane')
+  # new_list = new_instance.get_list('destination')
+  # new_list = new_instance.get_list('worktrip')
+  new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-19')
+  
+>>>>>>> 4259ffa622189a916ce745d89d7dde4a04af4938
   return
+
   
 if __name__ == "__main__":
     main()
