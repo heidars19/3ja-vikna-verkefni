@@ -11,6 +11,7 @@ import time
 import datetime
 #import dateutil.parser
 import calendar
+from LL.Errorcheck import *
 
 #from LL.LL_API_eythor import *
 from curses import wrapper, color_pair
@@ -34,6 +35,7 @@ class TUI():
         self.item_list = self.instance_API.get_list("employee")
         self.header_len = []
         self.index_len = []
+        self.errorcheck = ErrorCheck()
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         if self.new_registration == True:
@@ -420,18 +422,47 @@ class TUI():
         self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
-            """while True:"""
-            kt = self.make_user_input_window(5,15,1)
-            """check,error_msg = Errorcheck.check_ssn(kt.strip())
-            if check == True:
-                break
-            else:
-                self.make_text_appear(5,15,error_msg,30)
-                time.sleep(1)"""
+            while True:
+                ssn = self.make_user_input_window(5,15,1,1).strip()
+                self.errorcheck.set_ssn(ssn)
+                error_msg = self.errorcheck.check_ssn()
+                if error_msg == True:
+                    self.make_text_appear(5,15,ssn,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,15,error_msg,30,2)
+                    time.sleep(1)
             name = self.make_user_input_window(9,10)
-            address = self.make_user_input_window(12,17)
-            gsm = self.make_user_input_window(16,10,1)
-            email = self.make_user_input_window(5,62)
+            while True:
+                address = self.make_user_input_window(12,17)
+                self.errorcheck.set_address(address)
+                error_msg = self.errorcheck.check_address()
+                if error_msg == True:
+                    self.make_text_appear(12,17,address,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,15,error_msg,30,2)
+                    time.sleep(1)
+            while True:
+                gsm = self.make_user_input_window(16,10,1)
+                self.errorcheck.set_cellphone(gsm)
+                error_msg = self.errorcheck.check_cellphone()
+                if error_msg == True:
+                    self.make_text_appear(16,10,gsm,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,15,error_msg,30,2)
+                    time.sleep(1)
+            while True:
+                email = self.make_user_input_window(5,62)
+                self.errorcheck.set_mail(email)
+                error_msg = self.errorcheck.check_mail()
+                if error_msg == True:
+                    self.make_text_appear(16,10,email,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,15,error_msg,30,2)
+                    time.sleep(1)
             job_title = self.make_drop_down_menu(9,67,"Pilot","Cabincrew")
             self.make_text_appear(9,67,job_title,30,2)
             self.make_text_appear(10,53,"",30)
@@ -450,7 +481,7 @@ class TUI():
                 time.sleep(1)
             else:
                 licence = ""
-            self.instance_API.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
+            self.instance_API.create("employee",("",ssn,name,address,gsm,email,job_title,rank,licence))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("employee")
         if self.menu_select == 1:
@@ -613,13 +644,15 @@ class TUI():
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
 
-    def make_user_input_window(self,y,x, only_num = 0):
+    def make_user_input_window(self,y,x, only_num = 0, ssn = 0):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
         #editwin.encoding
         data = ""
         while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
+            if ssn == 1 and len(data) == 10:
+                break
             ch = editwin.getch()
             if ch== 10:
                 break
@@ -631,10 +664,10 @@ class TUI():
                 if ch >=48 and ch <= 57:
                     data += chr(ch)
             else:
-                if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
-                or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
-                or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
-                or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
+                if (ch >=ord("0") and ch <= ord("9")) or (ch >=ord("@") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
+                or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
+                or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
+                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") or ch == 222: #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()

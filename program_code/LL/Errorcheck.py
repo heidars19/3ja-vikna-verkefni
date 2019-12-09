@@ -5,7 +5,7 @@ import datetime
 class ErrorCheck:
     
     
-    ERROR_KENNITALA = 'Kennitala ranglega slegin inn!'
+    ERROR_KENNITALA = 'Ólögleg kennitala!'
     ERROR_EMAIL = 'Netfang ranglega slegið inn!'
     ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
     ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
