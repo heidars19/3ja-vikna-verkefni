@@ -107,7 +107,7 @@ class LL_functions():
                 for index in index_list:
                     if searchparam == line_list[index]:
                         if line not in filtered_list:
-                            filtered_list.append(line_list[index])
+                            filtered_list.append(line)
 
         else:   #Checks if value contains searchparameter
             for line in get_list[1:]:
@@ -115,7 +115,7 @@ class LL_functions():
                 for index in index_list:
                     if searchparam in line_list[index]:
                         if line not in filtered_list:
-                            filtered_list.append(line_list[index])
+                            filtered_list.append(line)
 
 
         return filtered_list
