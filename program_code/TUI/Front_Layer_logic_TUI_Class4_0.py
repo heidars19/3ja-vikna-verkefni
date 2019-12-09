@@ -224,7 +224,7 @@ class TUI():
         return body_template
 
     
-    def box_frame(self,length, vertical='top'):
+    def box_frame(length, vertical='top'):
         '''
         Send in total length
         '''
@@ -256,17 +256,17 @@ class TUI():
     MENU_OPTION_LENGTH = 12 
 
 
-    def construct_footer(self,x_list):
-        top_box1 = box_frame(MENU_BOX_1_LENGTH)
-        top_box2 = box_frame(MENU_BOX_2_LENGTH)
-        top_box3 = box_frame(MENU_BOX_3_LENGTH)
-        top_box4 = box_frame(MENU_BOX_4_LENGTH)
-        top_box5 = box_frame(MENU_BOX_5_LENGTH)
-        bot_box1 = box_frame(MENU_BOX_1_LENGTH,"not top")
-        bot_box2 = box_frame(MENU_BOX_2_LENGTH,"not top")
-        bot_box3 = box_frame(MENU_BOX_3_LENGTH,"not top")
-        bot_box4 = box_frame(MENU_BOX_4_LENGTH,"not top")
-        bot_box5 = box_frame(MENU_BOX_5_LENGTH,"not top")
+    def construct_footer(self, x_list):
+        top_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH)
+        top_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH)
+        top_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH)
+        top_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH)
+        top_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH)
+        bot_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH,"not top")
+        bot_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH,"not top")
+        bot_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH,"not top")
+        bot_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH,"not top")
+        bot_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH,"not top")
         check_box_left = " ("
         check_box_right = ")"
         check_box_x = x_list
@@ -274,30 +274,30 @@ class TUI():
         empty_string1 = "     "
         empty_string2 = "         "
         Flokka_listi = [[
-        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_1),
-        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_2),
-        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_3),
+        " {:<{lengd:}}".format(self.MENU_OPTION_1, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_2, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_3, lengd = self.MENU_OPTION_LENGTH),
         ],
         [
-        " {:<{lengd:}}".format("",lengd = MENU_OPTION_LENGTH + 3),
+        " {:<{lengd:}}".format("",lengd = self.MENU_OPTION_LENGTH + 3),
         ]
         ]
         footer = (
         (
         (top_box1,top_box2,top_box3,top_box4, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
-        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,MENU_BUTTON_4, check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_4, check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
         ),
         (bot_box1,bot_box2,bot_box3,bot_box4,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
         ),
         (
         (top_box1,top_box2,top_box3,top_box5, one_space_string + Flokka_listi[1][0]),
-        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,MENU_BUTTON_5,one_space_string + Flokka_listi[1][0]
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_5,one_space_string + Flokka_listi[1][0]
         ),
         (bot_box1,bot_box2,bot_box3,bot_box5,one_space_string + Flokka_listi[1][0])
         ),
         (
         (top_box1,top_box2,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
-        (MENU_BUTTON_1,MENU_BUTTON_2,\
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,\
         "{:^{lengd:}}".format("",lengd = 9),\
         "{:^{lengd:}}".format("",lengd = 9) ,
         empty_string1 + Flokka_listi[1][0]
@@ -306,7 +306,7 @@ class TUI():
         ),
         (
         (top_box1,top_box2,top_box3,empty_string2, one_space_string + Flokka_listi[1][0]),
-        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,\
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,\
         "{:^{lengd:}}".format("",lengd = 9) ,
         one_space_string + Flokka_listi[1][0]
         ),

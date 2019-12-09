@@ -223,13 +223,49 @@ class TUI():
         self.new_registration = False
         return body_template
 
+    def box_frame(length, vertical='top'):
+        '''
+        Send in total length
+        '''
+        line = '─'
+        if vertical == 'top' :
+            left_corner = '┌'
+            right_corner = '┐'
+        else :
+            left_corner = '└'
+            right_corner = '┘'
+        return left_corner + line*(length-2) + right_corner
+
+
+    MENU_BUTTON_1 = '| Skoða |'
+    MENU_BUTTON_2 = '| Nýskrá |'
+    MENU_BUTTON_3 = '|Dagsetning|'
+    MENU_BUTTON_4 = '| Flokka |'
+    MENU_BUTTON_5 = '| Vika  |'
+
+    MENU_BOX_1_LENGTH = len(MENU_BUTTON_1)
+    MENU_BOX_2_LENGTH = len(MENU_BUTTON_2)
+    MENU_BOX_3_LENGTH = len(MENU_BUTTON_3)
+    MENU_BOX_4_LENGTH = len(MENU_BUTTON_4)
+    MENU_BOX_5_LENGTH = len(MENU_BUTTON_5)
+
+    MENU_OPTION_1 = 'Allir'
+    MENU_OPTION_2 = 'Flugmenn'
+    MENU_OPTION_3 = 'Flugþjónar'
+    MENU_OPTION_LENGTH = 12 
+
+
     def construct_footer(self, x_list):
-        top_box = "┌───────┐"
-        top_box2 = "┌──────────┐"
-        top_box3 = "┌────────┐"
-        bot_box = "└───────┘"
-        bot_box2 = "└──────────┘"
-        bot_box3 = "└────────┘"
+        top_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH)
+        top_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH)
+        top_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH)
+        top_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH)
+        top_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH)
+        bot_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH,"not top")
+        bot_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH,"not top")
+        bot_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH,"not top")
+        bot_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH,"not top")
+        bot_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH,"not top")
         check_box_left = " ("
         check_box_right = ")"
         check_box_x = x_list
@@ -237,58 +273,43 @@ class TUI():
         empty_string1 = "     "
         empty_string2 = "         "
         Flokka_listi = [[
-        " {:<{lengd:}}".format("Allir",lengd = 12),
-        " {:<{lengd:}}".format("Flugmenn",lengd = 12),
-        " {:<{lengd:}}".format("Flugþjónar",lengd = 12),
+        " {:<{lengd:}}".format(self.MENU_OPTION_1, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_2, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_3, lengd = self.MENU_OPTION_LENGTH),
         ],
         [
-        " {:<{lengd:}}".format("",lengd = 15),
+        " {:<{lengd:}}".format("",lengd = self.MENU_OPTION_LENGTH + 3),
         ]
         ]
         footer = (
         (
-        (top_box,top_box3,top_box2,top_box3, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Flokka |",lengd = 10),
-        check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
+        (top_box1,top_box2,top_box3,top_box4, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_4, check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box3,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
+        (bot_box1,bot_box2,bot_box3,bot_box4,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
         ),
         (
-        (top_box,top_box3,top_box2,top_box, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Vika  |",lengd = 9),
-        one_space_string + Flokka_listi[1][0]
+        (top_box1,top_box2,top_box3,top_box5, one_space_string + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_5,one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,bot_box5,one_space_string + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
+        (top_box1,top_box2,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,\
         "{:^{lengd:}}".format("",lengd = 9),\
         "{:^{lengd:}}".format("",lengd = 9) ,
         empty_string1 + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
+        (bot_box1,bot_box2,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,top_box2,empty_string2, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
+        (top_box1,top_box2,top_box3,empty_string2, one_space_string + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,\
         "{:^{lengd:}}".format("",lengd = 9) ,
         one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,empty_string2,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,empty_string2,one_space_string + Flokka_listi[1][0])
         )
         )
         
@@ -328,11 +349,17 @@ class TUI():
     def make_plane_licence_dropdown(self,y,x):
         """This method gets all airplane licences and creates a drop down menu for the user"""
         position_y = 0
-        #plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
-        plane_licence_list = ["hello","world","long"]
-        editwin = curses.newwin(len(plane_licence_list),30,y,x)
+        plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
+        #plane_licence_list = ["hello","world","long"]
+        editwin = curses.newwin(len(plane_licence_list),20,y,x)
+        editwin2 = curses.newwin(1,30,16,67)
         editwin.keypad(1)
         while True:
+            editwin2.clear()
+            editwin2.attron(curses.color_pair(2))
+            editwin2.addstr(0,0,plane_licence_list[position_y])
+            editwin2.attroff(curses.color_pair(2))
+            editwin2.refresh()
             editwin.refresh()
             for i in range(len(plane_licence_list)):
                 if position_y == i:
@@ -352,7 +379,7 @@ class TUI():
                     position_y += 1
             elif button_press == 10:
                 for i in range(len(plane_licence_list)):
-                    self.licence_drop_down(editwin,"         ",i,curses.color_pair(2))
+                    self.licence_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 return plane_licence_list[position_y]
 
     def licence_drop_down(self,editwin,licence_string,y,color_pair):
@@ -379,6 +406,7 @@ class TUI():
 
     def get_user_input(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
+        self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
             """while True:"""
@@ -406,7 +434,7 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                licence = self.make_plane_licence_dropdown(16,67)
+                licence = self.make_plane_licence_dropdown(5,80)
                 self.make_text_appear(16,67,licence,30,2)
                 time.sleep(1)
             else:
@@ -612,6 +640,7 @@ class TUI():
 
     def look_at_specific_unit(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
+        self.make_text_appear(3,2,"",100)
         self.make_text_appear(21,68,"┌────────┐",12)
         self.make_text_appear(22,68,"|",12)
         self.make_text_appear(22,69," B",12,2)
