@@ -126,6 +126,7 @@ class TUI():
                                     self.header_len.append(self.index_len[x])
                                 if x == 3:
                                     self.header_len.append(0)
+                            new_list.append(new_string)
                     else:
                         for x in range(len(self.item_list[i])):
                             if x not in [0,3,7,8,9]:
@@ -133,7 +134,7 @@ class TUI():
                                 self.header_len.append(self.index_len[x])
                             if x == 3:
                                     self.header_len.append(0)
-                    new_list.append(new_string)
+                        new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,1,5,7,8,9,10,11,12,13]:
@@ -668,10 +669,10 @@ class TUI():
             self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
             self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
             self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
-            if self.item_list[self.list_line_index+self.next_section][7] == "":
-                self.make_text_appear(16,53,"",49)
-            else:
+            if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
                 self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][8],49)
+            else:
+                self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
             self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
@@ -714,6 +715,16 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
 
+    def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
+        if check == 8:
+            variable_x = self.make_drop_down_menu(y_position,6+extra_len+len(self._header[self.menu_select][index]),text_string1,text_string2)
+            self.make_text_appear(y_position,6+extra_len+len(self._header[self.menu_select][index]),variable_x,30)
+            self.make_text_appear(y_position+1,6+extra_len+len(self._header[self.menu_select][index]),"",30)
+        else:
+            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+        return variable_x
+
     def change_user_menu(self):
         if self.menu_select == 0:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -722,9 +733,15 @@ class TUI():
             address = self.change_user(2,12,0)
             phone = self.change_user(3,16,0,1)
             email = self.change_user(4,5,49)
-            job_title = self.change_user(5,9,49)
-            rank = self.change_user(6,12,49)
-            self.new_instance_API2.change("employee",(_id,name,address,phone,email,job_title,rank))
+            job_title = self.item_list[self.list_line_index+self.next_section][6]
+            if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
+                rank = self.change_user_dropdown(6,12,49,"Captain","Co-Pilot")
+                license = self.change_user(7,16,49)
+            else:
+                rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
+                license = ""
+            self.new_instance_API2.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.item_list = self.new_instance_API2.get_list("employee")
 
         if self.menu_select == 1:
             _id = self.item_list[0]
