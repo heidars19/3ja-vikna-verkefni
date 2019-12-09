@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
 2,NA3525,NA3525,Longyearbyen,Keflavik,2019-12-20T11:45:00,2019-12-20 15:45,,,,,,,
 3,NA9228,NA3525,Keflavik,Longyearbyen,2019-12-22T06:16:00,2019-12-20 10:45,,,,,,,
@@ -13,19 +12,3 @@ id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arr
 16,NA9939,NA3525,Keflavik,Tingwall,2019-12-21T10:23:00,2019-12-20 16:00,,,,,,,
 17,NA7661,NA3525,Tingwall,Keflavik,2019-12-21T13:23:00,2019-12-20 17:00,,,,,,,
 19,NA4579,NA3525,Tingwall,Keflavik,2019-12-24T12:39:00,2019-12-9 19:00,,,,,,,
-=======
-id,flight_number_out,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,registration_date
-2,NA3525,Longyearbyen,Keflavik,2019-12-20T11:45:00,2019-12-20 15:45,,,,,,,
-3,NA9228,Keflavik,Longyearbyen,2019-12-22T06:16:00,2019-12-20 10:45,,,,,,,
-5,NA2275,Keflavik,Nuuk,2019-12-21T06:21:00,2019-12-20 21:00,,,,,,,
-7,NA8734,Keflavik,Nuuk,2019-12-24T05:24:00,2019-12-20 22:00,,,,,,,
-22,NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20 12:00,321321,321321,28,157,167,321,321
-11,NA1172,Keflavik,Kulusuk,2019-12-24T06:15:00,2019-12-20 15:00,,,,,,,
-12,NA2312,Kulusuk,Keflavik,2019-12-24T09:15:00,2019-12-20 15:00,,,,,,,
-13,NA5319,Thorshavn,Keflavik,2019-12-24T11:18:00,2019-12-20 18:00,,,,,,,
-14,NA9444,Keflavik,Thorshavn,2019-12-26T09:27:00,2019-12-20 14:00,,,,,,,
-31,NA8669,Thorshavn,Keflavik,2019-12-26T11:27:00,2019-12-20 15:00,,,,,,654,654654
-16,NA9939,Keflavik,Tingwall,2019-12-21T10:23:00,2019-12-20 16:00,,,,,,,
-17,NA7661,Tingwall,Keflavik,2019-12-21T13:23:00,2019-12-20 17:00,,,,,,,
-19,NA4579,Tingwall,Keflavik,2019-12-24T12:39:00,2019-12-9 19:00,,,,,,,
->>>>>>> ea21689f3615270ad85f2ed04018e48ad0672e74
