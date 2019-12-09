@@ -1,3 +1,6 @@
+"""import TUI.User_interface
+import time
+time.sleep(1)"""
 from TUI.Front_Layer_logic_TUI_Class3_0 import TUI
 from curses import wrapper, color_pair
 import calendar
