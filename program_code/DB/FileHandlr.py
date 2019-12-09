@@ -14,7 +14,7 @@ class FileHandlr :
     SUCCESS = 1
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
-    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
+    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,capacity,name,registration_date'
     
     STAFF_TABLE = "Data/Employee.csv"
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
