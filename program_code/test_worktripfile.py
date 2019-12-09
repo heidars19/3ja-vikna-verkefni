@@ -4,14 +4,15 @@ from DB.DATA_API import *
 
 def main ():
 
-    # # Reads a file and returns a list - check
-    # new_instance = WorkTripFile()
-    # datalist = new_instance.start()
-    # header = new_instance.get_header()
-    # print(header)
-    # print()
-    # # print(datalist)
-    # print()
+    # Reads a file and returns a list - check
+    new_instance = WorkTripFile()
+    datalist = new_instance.start()
+    header = new_instance.get_header()
+    print(header)
+    print()
+    if isinstance(datalist, int):
+        print(datalist)
+    print()
     
     # #Append data to a file - check
     # new_instance = WorkTripFile(data_to_append="NA5638,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-20T10:45:00,321321,321321,321323213211,321321321,3213213,321,321,321")

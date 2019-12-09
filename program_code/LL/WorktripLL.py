@@ -33,10 +33,7 @@ class WorktripLL(LL_functions):
         if list_type == 'working_employees':
             employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date,False) #trim = false. Returns employees working on specified date.
 
-            # for line in starfsmannalisti 
-            # employee_list = LL_functions()
-            # row_names = ['arriving_at','captain','copilot','fsm','fa1','fa2']
-
+         
         elif list_type == 'available_employees':
            employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date, False,False,True) #trim = true. Returns employees available on specified date.
 

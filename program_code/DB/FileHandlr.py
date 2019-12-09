@@ -14,7 +14,7 @@ class FileHandlr :
     SUCCESS = 1
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
-    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,capacity,registration_date'
+    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,capacity,name,registration_date'
     
     STAFF_TABLE = "Data/Employee.csv"
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
@@ -82,7 +82,17 @@ class FileHandlr :
         except :
             return FileHandlr.UNKNOWN_ERROR
 
-            
+
+    def write_back(self, BACKUP_FILE) :
+        try :
+            with open(BACKUP_FILE, 'r', encoding='utf-8') as file_bak:
+                with open(self._filename, 'w+', encoding='utf-8') as file_original:
+                    for line in file_bak:
+                        file_original.write(line)
+        except :
+            return FileHandlr.UNKNOWN_ERROR
+        return FileHandlr.SUCCESS
+
 
     def archive_old_worktrips(self) :
 
@@ -102,34 +112,26 @@ class FileHandlr :
                             if list_line[0] == 'id' : # If this is header line, jump to next iteration
                                 bak_file.write(line) # Copies over header
                                 continue
-                            # list_line[5] should be the date column, change index number if not
+                            # list_line[6] should be the date column, change index number if not
                             try :
-                                line_date = datetime.datetime.strptime(list_line[5], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
+                                line_date = datetime.datetime.strptime(list_line[6], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
                             except ValueError :
                                 # Date in file has wrong format
                                 return FileHandlr.WRONG_FORMAT
                             if now_time > line_date + datetime.timedelta(hours = 1): # Worktrip is over 1 hour after landing in Iceland
                                 archive_file.write(line) # Archives old worktrips
                             else:
-                                bak_file.write(line) # Writes future worktrips into a new file
-
-                            """Nú er til .bak skrá sem þarf að yfirskrifa "Worktrips.csv" þeger keyrslu líkur"""   
+                                bak_file.write(line) # Writes future worktrips into a new file 
         except FileNotFoundError:
             return FileHandlr.FILENOTFOUND 
         except :
             return FileHandlr.UNKNOWN_ERROR
 
-
-        try :
-            with open(BACKUP_FILE, 'r', encoding='utf-8') as file_original:
-                with open(self._filename, 'w+', encoding='utf-8') as file_bak:
-                    for line in file_original:
-                        file_bak.write(line)
-        except :
-            return FileHandlr.UNKNOWN_ERROR
-
-
-        return FileHandlr.remove_file(BACKUP_FILE)
+        catch_return = self.write_back(BACKUP_FILE)  # Write back over original file
+        if catch_return == FileHandlr.SUCCESS:
+            return FileHandlr.remove_file(BACKUP_FILE)  # Remove backup file
+        else :
+            return catch_return
 
 
 
@@ -287,14 +289,11 @@ class FileHandlr :
         except :
             return FileHandlr.UNKNOWN_ERROR
 
-        try :
-            with open(BACKUP_FILE, 'r', encoding='utf-8') as file_bak:
-                with open(self._filename, 'w+', encoding='utf-8') as file_original:
-                    for line in file_bak:
-                        file_original.write(line)
-        except :
-            return FileHandlr.UNKNOWN_ERROR
+        catch_return = self.write_back(BACKUP_FILE)  # Write back over original file
+        if catch_return == FileHandlr.SUCCESS:
+            return FileHandlr.remove_file(BACKUP_FILE)  # Remove backup file
+        else :
+            return catch_return
 
-        return FileHandlr.remove_file(BACKUP_FILE)
 
 
