@@ -31,11 +31,11 @@ class WorktripLL(LL_functions):
         new_list = LL_functions()
         employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date,False) #trim = false. Returns employees working on specified date.
 
-        if list_type == 'working_employees':
+        # if list_type == 'working_employees':
            
          
-        elif list_type == 'available_employees':
-        #    employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date, False,False,True) #trim = true. Returns employees available on specified date.
+        # elif list_type == 'available_employees':
+        # #    employee_list = new_list.get_filtered_list_from_DB(keyword,row_names,date, False,False,True) #trim = true. Returns employees available on specified date.
 
         return employee_list
 

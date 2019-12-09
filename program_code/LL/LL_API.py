@@ -70,7 +70,7 @@ class LL_API:
                 keyword = 'airplane', list_type = 'plane_licences" Returns list of unique types of registered airplanes.
             '''
 
-            if list_type == "working_employees" or "available_employees":
+            if list_type == "working_employees" or list_type == "available_employees":
                 new_instance = WorktripLL()
                 emp_by_date_list = new_instance.get_emp_by_date(keyword,list_type,searchparam)
             

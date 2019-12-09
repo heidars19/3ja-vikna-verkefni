@@ -64,6 +64,7 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
+            
         file_name = self.file_type(keyword)
 
         new_instance = file_name()

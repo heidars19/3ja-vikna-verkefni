@@ -1,9 +1,6 @@
-from LL.LL_API_eythor import *
 from LL.EmployeeLL import *
 from LL.Employee import *
 from LL.LL_API import *
-
-
 
 def return_msg(msg, keyword):
   if msg == 1:
@@ -42,8 +39,8 @@ def main():
   #GET_LIST
   
   new_instance = LL_API()
-  new_list = new_instance.get_list('employee')
-  # new_list = new_instance.get_list('airplane')
+  # new_list = new_instance.get_list('employee')
+  new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   # new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-20')
