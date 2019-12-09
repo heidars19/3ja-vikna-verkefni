@@ -53,7 +53,7 @@ class WorktripLL(LL_functions):
 #             if a_list[a_header_index] not in types:
 #                 types.append(a_list[a_header_index])
 
-        return types
+#        return types
 
 
         
