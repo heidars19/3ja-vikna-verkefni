@@ -118,14 +118,14 @@ class TUI():
                     if self.exeption != 0:
                         if exeptions[self.exeption] in self.item_list[i]:
                             for x in range(len(self.item_list[i])):
-                                if x not in [0,3,7,8,9]:
+                                if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
                                 if x == 3:
                                     self.header_len.append(0)
                     else:
                         for x in range(len(self.item_list[i])):
-                            if x not in [0,3,7,8,9]:
+                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
                                 new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                 self.header_len.append(self.index_len[x])
                             if x == 3:
@@ -133,13 +133,13 @@ class TUI():
                     new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
-                        if x not in [0,1,5,7,8,9,10,11,12,13]:
+                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x not in [0,3,4]:
+                        if x != 0 and x != 3 and x != 4:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
@@ -223,6 +223,7 @@ class TUI():
         self.new_registration = False
         return body_template
 
+    
     def box_frame(length, vertical='top'):
         '''
         Send in total length
@@ -322,6 +323,7 @@ class TUI():
         )
         return footer_template
 
+
     def make_drop_down_menu(self,y,x,text_string_1,text_string_2):
         position_y = 0
         editwin = curses.newwin(2,30,y,x)
@@ -346,47 +348,6 @@ class TUI():
                 else:
                     return text_string_2
 
-    def make_plane_licence_dropdown(self,y,x):
-        """This method gets all airplane licences and creates a drop down menu for the user"""
-        position_y = 0
-        plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
-        #plane_licence_list = ["hello","world","long"]
-        editwin = curses.newwin(len(plane_licence_list),20,y,x)
-        editwin2 = curses.newwin(1,30,16,67)
-        editwin.keypad(1)
-        while True:
-            editwin2.clear()
-            editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,plane_licence_list[position_y])
-            editwin2.attroff(curses.color_pair(2))
-            editwin2.refresh()
-            editwin.refresh()
-            for i in range(len(plane_licence_list)):
-                if position_y == i:
-                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(2))
-                else:
-                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(1))
-            button_press = editwin.getch()
-            if button_press == curses.KEY_UP or button_press == 450:
-                if position_y == 0:
-                    position_y = len(plane_licence_list)-1
-                else:
-                    position_y -= 1
-            elif button_press == curses.KEY_DOWN or button_press == 456:
-                if position_y == len(plane_licence_list)-1:
-                    position_y = 0
-                else:
-                    position_y += 1
-            elif button_press == 10:
-                for i in range(len(plane_licence_list)):
-                    self.licence_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
-                return plane_licence_list[position_y]
-
-    def licence_drop_down(self,editwin,licence_string,y,color_pair):
-        editwin.attron(color_pair)
-        editwin.addstr(y,0,licence_string)
-        editwin.attroff(color_pair)
-        editwin.refresh()
 
     def drop_down(self,editwin,text_string_1,text_string_2,position_y):
         if position_y == 0:
@@ -406,7 +367,6 @@ class TUI():
 
     def get_user_input(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
-        self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
             """while True:"""
@@ -434,9 +394,7 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                licence = self.make_plane_licence_dropdown(5,80)
-                self.make_text_appear(16,67,licence,30,2)
-                time.sleep(1)
+                licence = self.make_user_input_window(16,67)
             else:
                 licence = ""
             self.new_instance_API2.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
@@ -640,7 +598,6 @@ class TUI():
 
     def look_at_specific_unit(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
-        self.make_text_appear(3,2,"",100)
         self.make_text_appear(21,68,"┌────────┐",12)
         self.make_text_appear(22,68,"|",12)
         self.make_text_appear(22,69," B",12,2)
@@ -666,23 +623,23 @@ class TUI():
             self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 3:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index][6],49)
             self.make_text_appear(16,53,"",49)
 
         action = self.stdscr.getch()
@@ -690,11 +647,11 @@ class TUI():
             self.change_user_menu()
     
     def change_user(self,index,y_position,extra_len):
-        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index][index+1]) + extra_len)
         if check == 8:
             variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]+1) + extra_len)
         else:
-            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+            variable_x = self.item_list[self.list_line_index][index+1]
         return variable_x
 
     def change_user_menu(self):
@@ -891,7 +848,6 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
-
                         self.exeption += 1
                     else:
                         self.exeption = 0

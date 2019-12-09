@@ -16,18 +16,8 @@ class WorktripLL(LL_functions):
 
 
     def staffing(self, changed_identity):
-        staffed_worktrip = Worktrip(*staffing_info)
-        staffed_str = staffed_worktrip.get_
+        staffed_worktrip = Worktrip(*changed_identity)
+        staffed_str = staffed_worktrip.get_changes_registration_str()
 
-    def change_employee(self,changed_identity):
-        """
-        Changes information about employee, except ssn, name or degistration date.
-        changed_identity = (id,ssn,name,address,mobile,email,role,rank,licence,registration_date)
-        """
-
-        changed_emp = Employee(*changed_identity)
-        changed_str = changed_emp.get_changes_registration_str()
-    
-        return_value = self.change_object_in_DB("employee", changed_str, changed_emp._id)  # Bring 'id' seperately, so next function can find line number
+        return_value = self.change_object_in_DB("worktrip", staffed_str, staffed_worktrip._id)
         return return_value
-    
