@@ -64,6 +64,7 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
+            
         file_name = self.file_type(keyword)
 
         new_instance = file_name()
@@ -75,13 +76,14 @@ class LL_functions():
         return new_list
 
     
-    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True, return_column=False):
+    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True, return_column=False,trim = False):
         """
         Keyword = employee,worktrip, airplane, destination \n
         row_names = filtered word from header \n
         searchparam = parameter to look for in row\n
         match = True if looking for excact macth \n
         match = False if looking for data containing specific string \n
+        trim = True if trimming lines from original list. \n
         """
 
         file_name = self.file_type(keyword)
@@ -93,35 +95,50 @@ class LL_functions():
         words_list = row_names
         index_list = []
         
-        filtered_list = []
-
+        filtered_list = [] #list of items with searchparam specified
+        trimmed_list = []  #list of items with except searchparam specified
 
         for index, value in enumerate(header): #finding index of searchparam in headerlist
             for word in words_list:
                 if value == word:
                     index_list.append(index)
+            
 
-            for line in get_list[1:]:
-                line_list = line.split(',')
-                for index in index_list:
-                    
-                    if match:    #Looks for excact match
-                        if searchparam == line_list[index]:
-                            if return_column:
-                                filter_list.append(line_list[index])
-                            else:                            
-                                if line not in filtered_list:
-                                    filtered_list.append(line)
+        for line in get_list[1:]:
+            line_list = line.split(',')
+            for index in index_list:
+                
+                if match: #Looks for excact match
+                    if searchparam == line_list[index]:
+                        if return_column:
+                            filter_list.append(line_list[index])
+                        else:                            
+                            if line not in filtered_list:
+                                filtered_list.append(line)
+                    # else:
+                    #     if return_column:
+                    #         trimmed_list.append(line_list[index])
+                    #     else:                            
+                    #         if line not in trimmed_list:
+                    #             trimmed_list.append(line)
 
-                    else:   #Checks if value contains searchparameter
-                                if searchparam in line_list[index]:
-                                    if return_column:
+                else:   #Checks if value contains searchparameter
+                            if searchparam in line_list[index]:
+                                if return_column:
                                         filtered_list.append(line_list[index])
-                                    else:
-                                        if line not in filtered_list:
-                                            filtered_list.append(line)
-
-
+                                else:
+                                    if line not in filtered_list:
+                                            filtered_list.append(line) 
+                            # else:
+                            #     if return_column:
+                            #             trimmed_list.append(line_list[index])
+                            #     else:
+                            #         if line not in trimmed_list:
+            
+                            #             trimmed_list.append(line) 
+        # if trim:
+        #     return trimmed_list
+        # else:                     
         return filtered_list
 
 

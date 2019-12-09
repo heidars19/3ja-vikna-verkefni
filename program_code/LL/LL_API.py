@@ -59,18 +59,23 @@ class LL_API:
             '''Gets updated list from database. \n
                keyword[str]: employee,airplane,destination,worktrip \n
                 \n
-                To get filtered lists:\n
-                keyword: "filtered"
-                list_type: \n
-                emp_by_date: Returns list of employees and destinations by specific date.
-                plane_licence: Returns list of unique types of registered airplanes.
+           
+                TO GET LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
+                keyword = 'worktrip', list_type = 'working_employees', searchparam = 'YYYY-MM-DD' \n
+
+                TO GET LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
+                keyword = 'worktrip', list_type = 'available_employees', searchparam = 'YYYY-MM-DD' \n
+                
+                TO GET LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
+                keyword = 'airplane', list_type = 'plane_licences" Returns list of unique types of registered airplanes.
             '''
 
-            if list_type == "emp_by_date":
+            if list_type == "working_employees" or list_type == "available_employees":
                 new_instance = WorktripLL()
-                emp_by_date_list = new_instance.get_emp_dest_date(keyword,searchparam)
-                
+                emp_by_date_list = new_instance.get_emp_by_date(keyword,list_type,searchparam)
+            
                 return emp_by_date_list
+            
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
