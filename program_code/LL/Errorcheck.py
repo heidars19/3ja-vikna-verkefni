@@ -1,99 +1,145 @@
 from textwrap import wrap
 import datetime
 
-ERROR_KENNITALA = 'Kennitala ranglega slegin inn!'
-ERROR_EMAIL = 'Netfang ranglega slegið inn!'
-ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
-ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
+
+class ErrorCheck:
+    
+    
+    ERROR_KENNITALA = 'Kennitala ranglega slegin inn!'
+    ERROR_EMAIL = 'Netfang ranglega slegið inn!'
+    ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
+    ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
+    
+    def __init__(self, e_mail=None, ssn=None, address=None, cellphone=None):
+        self.__email = e_mail
+        self.__ssn = ssn
+        self.__address = address
+        self.__cellphone = cellphone
+            
+    def set_mail(self, e_mail) :
+        self.__email = e_mail
+        
+    def set_ssn(self, ssn) :   
+        self.__ssn = ssn
+        
+    def set_address(self, address) :    
+        self.__address = address
+        
+    def set_cellphone(self, cellphone) :    
+        self.__cellphone = cellphone
 
 
+    def check_ssn(self):
+        '''
+        Checks if ssn (kennitala) is valid, returns True or an error string.
+        '''
+        now = datetime.datetime.now()
+        if not self.__ssn.isdigit() :
+            return self.ERROR_KENNITALA
+        
+        if len(self.__ssn) == 10:
+            try:
+                ssn_list = wrap (self.__ssn, 2)
+                ssn_list = [int(n) for n in ssn_list]
+                if ssn_list[0] < 1 or ssn_list[0] > 31:
+                    return self.ERROR_KENNITALA
+                if ssn_list[1] < 1 or ssn_list[1] > 12:
+                    return self.ERROR_KENNITALA
+                if ssn_list[4]%10==0:
+                    birthyear = ssn_list[2]+2000
+                if ssn_list[4]%10==9:
+                    birthyear = ssn_list[2]+1900
+                if birthyear > now.year  or birthyear < 1903:
+                    return self.ERROR_KENNITALA
+                if  ssn_list[4]%10 != 0 and ssn_list[4]%10 != 9:
+                    return self.ERROR_KENNITALA
+                return True
+            except:
+                return self.ERROR_KENNITALA
+        else:
+            return self.ERROR_KENNITALA
 
-def check_ssn(ssn):
-    '''
-    Checks if ssn (kennitala) is valid, returns True or an error string.
-    '''
-    now = datetime.datetime.now()
-    if not ssn.isdigit() :
-        return ERROR_KENNITALA
-    if len(ssn) == 10:
-        try:
-            ssn_list = wrap (ssn, 2)
-            ssn_list = [int(n) for n in ssn_list]
-            if ssn_list[0] < 1 or ssn_list[0] > 31:
-                return ERROR_KENNITALA
-            if ssn_list[1] < 1 or ssn_list[1] > 12:
-                return ERROR_KENNITALA
-            if ssn_list[4]%10==0:
-                birthyear = ssn_list[2]+2000
-            if ssn_list[4]%10==9:
-                birthyear = ssn_list[2]+1900
-            if birthyear > now.year  or birthyear < 1903:
-                return ERROR_KENNITALA
-            if  ssn_list[4]%10 != 0 and ssn_list[4]%10 != 9:
-                return ERROR_KENNITALA
+
+    def check_address(self):
+        '''
+        Checks if address is valid, returns True or an error string.
+        '''
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.éýúíóðáæþÉÝÚÍÓÐÁÆÞ ")
+        for character in self.__address:
+            if character not in allowed_chars:
+                return self.ERROR_ADDRESS
+            
+        if len(self.__address) < 2 :
+            return self.ERROR_ADDRESS
+        return True 
+
+
+    def check_mail(self):
+        '''
+        Checks if e-mail is valid, returns True or an error string.
+        '''
+        email_list = self.__email.split ('@')
+        if len(email_list) != 2 :
+            return self.ERROR_EMAIL
+        
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
+        for character in email_list[1] :
+            if character not in allowed_chars:
+                return self.ERROR_EMAIL
+            
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.!#$%&'*+/=?^_`{|}~")
+        for character in email_list[0] :
+            if character not in allowed_chars:
+                return self.ERROR_EMAIL
+            
+        email_list[1] = email_list[1].split('.')
+        if len(email_list[1]) >= 2 and len(email_list[1][1]) > 1:
             return True
-        except:
-            return ERROR_KENNITALA
-    else:
-        return ERROR_KENNITALA
-
-
-def check_address(address):
-    '''
-    Checks if address is valid, returns True or an error string.
-    '''
-    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.éýúíóðáæþÉÝÚÍÓÐÁÆÞ ")
-    for character in address:
-        if character not in allowed_chars:
-            return ERROR_ADDRESS
-    if len(address) < 2 :
-        return ERROR_ADDRESS
-    return True 
-
-
-def check_mail(email):
-    '''
-    Checks if e-mail is valid, returns True or an error string.
-    '''
-    email_list = email.split ('@')
-    if len(email_list) != 2 :
-        return ERROR_EMAIL
-    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
-    for character in email_list[1] :
-        if character not in allowed_chars:
-            return ERROR_EMAIL
-    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.!#$%&'*+/=?^_`{|}~")
-    for character in email_list[0] :
-        if character not in allowed_chars:
-            return ERROR_EMAIL
-    email_list[1] = email_list[1].split('.')
-    if len(email_list[1]) >= 2 and len(email_list[1][1]) > 1:
+        else:
+            return self.ERROR_EMAIL
+        
+        
+    def check_cellphone(self):
+        '''
+        Checks if phone number is valid, returns True or an error string.
+        '''
+        if len(self.__cellphone) < 7:
+            return self.ERROR_CELLPHONE
+        
+        if not self.__cellphone.isdigit():
+            return self.ERROR_CELLPHONE
+        
         return True
-    else:
-        return ERROR_EMAIL
-    
-    
-def check_cellphone(cellphone):
-    '''
-    Checks if phone number is valid, returns True or an error string.
-    '''
-    if len(cellphone) < 7:
-        return ERROR_CELLPHONE
-    if not cellphone.isdigit():
-        return ERROR_CELLPHONE
-    return True
 
 
 
 def main():
-    check = check_mail("heidar@fss.is")
-    print(f"E-mail: {check}")    
-    check = check_ssn("2001765449")
-    print(f"Kennitala: {check}")    
-    check = check_address("Hænsnagarður 6")
-    print(f"Address: {check}")    
-    check = check_cellphone("8221448")
-    print(f"Cellphone: {check}")
+    
+    check = ErrorCheck()    
+    
+    check.set_ssn("2001765459")
+    result = check.check_ssn()
+    # print(f"Kennitala: {result}")  
+         
+    check.set_mail("heidars19@ru.is")
+    result = check.check_mail()
+    # print(f"E-mail: {result}")    
+
+    check.set_address("Hænsnagarður 6")
+    result = check.check_address()
+    # print(f"Address: {result}")  
+       
+  
+    check.set_cellphone("2001765459")
+    result = check.check_cellphone()
+    # print(f"Sími: {result}") 
+    
+    # check = check_ssn("2001765449")
+    # print(f"Kennitala: {check}")    
+    # check = check_address("Hænsnagarður 6")
+    # print(f"Address: {check}")    
+    # check = check_cellphone("8221448")
+    # print(f"Cellphone: {check}")
 
     return
     

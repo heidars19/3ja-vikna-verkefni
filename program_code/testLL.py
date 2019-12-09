@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+from LL.LL_API_eythor import *
+=======
+>>>>>>> 1247d17b7d85dc8d64bf43af2fe854f511be070d
 from LL.EmployeeLL import *
 from LL.Employee import *
 from LL.LL_API import *
@@ -43,7 +47,11 @@ def main():
   new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
+<<<<<<< HEAD
+  new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-9')
+=======
   # new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-20')
+>>>>>>> 1247d17b7d85dc8d64bf43af2fe854f511be070d
   print(new_list)
 
   return
