@@ -76,7 +76,7 @@ class AirplanesLL(LL_functions):
     def create_airplane(self,airplane_identity):
         """
         Creates a new employee and saves to database. \n
-        airplane_identity = ('',plane_id, plane_type, manufacturer,model,name)
+        airplane_identity = ('',plane_id, plane_type, manufacturer,capacity,name)
         """
 
         new_plane = Airplanes(*airplane_identity)
@@ -88,7 +88,7 @@ class AirplanesLL(LL_functions):
     def change_airplane(self, changed_identity):
         """
         Changes information about airplane, except id or registration date.
-        changed_identity = (id,plane_id, plane_type, manufacturer,model,name,registration_date)
+        changed_identity = (id,plane_id, plane_type, manufacturer,capacity,name,registration_date)
         """
 
         changed_plane = Airplanes(*changed_identity)
@@ -134,8 +134,8 @@ class AirplanesLL(LL_functions):
     #     return all_planes_list
 
 
-    # def create_plane(self, plane_id, plane_type, manufacturer, model, name):
-    #     new_plane = Airplane(plane_id, plane_type, manufacturer, model, name)
+    # def create_plane(self, plane_id, plane_type, manufacturer, capacity, name):
+    #     new_plane = Airplane(plane_id, plane_type, manufacturer, capacity, name)
     #     log_plain = AirplaneFile(data_to_append=str(new_plane))
     #     status = log_plain.start()
     #     return status

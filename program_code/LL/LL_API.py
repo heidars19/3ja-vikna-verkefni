@@ -298,15 +298,15 @@ def testmain():
 
 # def get_airplane_types():
 #     all_planes = Airplane.get_airplane_list()
-#     filtered_planes =Airplane.filter_planes(all_planes, model)
+#     filtered_planes =Airplane.filter_planes(all_planes, capacity)
 #     return filtered_planes
 
 # def get_all_airplanes():
 #     all_planes = get_all_planes()
 #     return all_planes
 
-# def create_airplane(planeID, planeType, manufacturer, model, name, capacity):
-#     save_airplane(planeID, planeType, manufacturer, model, name, capacity)
+# def create_airplane(planeID, planeType, manufacturer, capacity, name, capacity):
+#     save_airplane(planeID, planeType, manufacturer, capacity, name, capacity)
     
     
 # #if __name__ == "__main__":
