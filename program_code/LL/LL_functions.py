@@ -126,23 +126,25 @@ class LL_functions():
         return filtered_list
 
 
-    def filter_by_header_index(self, index_list, db_str_list,a_list = False):
+    def filter_by_header_index(self, index_list, db_items):
         '''
         index_list = list of iteams that needs to be filtered from a string to a new list
         db_str_list = line from database that need to be filtered
         '''
     
         index_sorted_list = []
-        for line in db_str_list:
+        for item in db_items:
             tmp_list2 = []
-            if a_list == False:
-                tmp_list = line.split(',')
+            
+            if type(item) == str:
+                tmp_list = item.split(',')
                 for index in index_list:
                     tmp_list2.append(tmp_list[index])
-            if a_list == True:
-                for a_list in db_str_list:
+            
+            if type(item) == list:
+                for a_list in db_items:
                     for index in index_list:
-                        tmp_list2.append(db_str_list[index])
+                        tmp_list2.append(a_list[index])
             index_sorted_list.append(tmp_list2)
 
 
