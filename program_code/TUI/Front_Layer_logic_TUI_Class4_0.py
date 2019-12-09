@@ -223,13 +223,50 @@ class TUI():
         self.new_registration = False
         return body_template
 
-    def construct_footer(self, x_list):
-        top_box = "┌───────┐"
-        top_box2 = "┌──────────┐"
-        top_box3 = "┌────────┐"
-        bot_box = "└───────┘"
-        bot_box2 = "└──────────┘"
-        bot_box3 = "└────────┘"
+    
+    def box_frame(self,length, vertical='top'):
+        '''
+        Send in total length
+        '''
+        line = '─'
+        if vertical == 'top' :
+            left_corner = '┌'
+            right_corner = '┐'
+        else :
+            left_corner = '└'
+            right_corner = '┘'
+        return left_corner + line*(length-2) + right_corner
+
+
+    MENU_BUTTON_1 = '| Skoða |'
+    MENU_BUTTON_2 = '| Nýskrá |'
+    MENU_BUTTON_3 = '|Dagsetning|'
+    MENU_BUTTON_4 = '| Flokka |'
+    MENU_BUTTON_5 = '| Vika  |'
+
+    MENU_BOX_1_LENGTH = len(MENU_BUTTON_1)
+    MENU_BOX_2_LENGTH = len(MENU_BUTTON_2)
+    MENU_BOX_3_LENGTH = len(MENU_BUTTON_3)
+    MENU_BOX_4_LENGTH = len(MENU_BUTTON_4)
+    MENU_BOX_5_LENGTH = len(MENU_BUTTON_5)
+
+    MENU_OPTION_1 = 'Allir'
+    MENU_OPTION_2 = 'Flugmenn'
+    MENU_OPTION_3 = 'Flugþjónar'
+    MENU_OPTION_LENGTH = 12 
+
+
+    def construct_footer(self,x_list):
+        top_box1 = box_frame(MENU_BOX_1_LENGTH)
+        top_box2 = box_frame(MENU_BOX_2_LENGTH)
+        top_box3 = box_frame(MENU_BOX_3_LENGTH)
+        top_box4 = box_frame(MENU_BOX_4_LENGTH)
+        top_box5 = box_frame(MENU_BOX_5_LENGTH)
+        bot_box1 = box_frame(MENU_BOX_1_LENGTH,"not top")
+        bot_box2 = box_frame(MENU_BOX_2_LENGTH,"not top")
+        bot_box3 = box_frame(MENU_BOX_3_LENGTH,"not top")
+        bot_box4 = box_frame(MENU_BOX_4_LENGTH,"not top")
+        bot_box5 = box_frame(MENU_BOX_5_LENGTH,"not top")
         check_box_left = " ("
         check_box_right = ")"
         check_box_x = x_list
@@ -237,58 +274,43 @@ class TUI():
         empty_string1 = "     "
         empty_string2 = "         "
         Flokka_listi = [[
-        " {:<{lengd:}}".format("Allir",lengd = 12),
-        " {:<{lengd:}}".format("Flugmenn",lengd = 12),
-        " {:<{lengd:}}".format("Flugþjónar",lengd = 12),
+        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_1),
+        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_2),
+        " {:<{MENU_OPTION_LENGTH:}}".format(MENU_OPTION_3),
         ],
         [
-        " {:<{lengd:}}".format("",lengd = 15),
+        " {:<{lengd:}}".format("",lengd = MENU_OPTION_LENGTH + 3),
         ]
         ]
         footer = (
         (
-        (top_box,top_box3,top_box2,top_box3, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Flokka |",lengd = 10),
-        check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
+        (top_box1,top_box2,top_box3,top_box4, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
+        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,MENU_BUTTON_4, check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box3,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
+        (bot_box1,bot_box2,bot_box3,bot_box4,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
         ),
         (
-        (top_box,top_box3,top_box2,top_box, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Vika  |",lengd = 9),
-        one_space_string + Flokka_listi[1][0]
+        (top_box1,top_box2,top_box3,top_box5, one_space_string + Flokka_listi[1][0]),
+        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,MENU_BUTTON_5,one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,bot_box5,one_space_string + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
+        (top_box1,top_box2,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
+        (MENU_BUTTON_1,MENU_BUTTON_2,\
         "{:^{lengd:}}".format("",lengd = 9),\
         "{:^{lengd:}}".format("",lengd = 9) ,
         empty_string1 + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
+        (bot_box1,bot_box2,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,top_box2,empty_string2, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
+        (top_box1,top_box2,top_box3,empty_string2, one_space_string + Flokka_listi[1][0]),
+        (MENU_BUTTON_1,MENU_BUTTON_2,MENU_BUTTON_3,\
         "{:^{lengd:}}".format("",lengd = 9) ,
         one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,empty_string2,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,empty_string2,one_space_string + Flokka_listi[1][0])
         )
         )
         
@@ -300,6 +322,7 @@ class TUI():
         (("╚════════════════════════════════════════════════════════════════════════════════════════════════════════╝"))
         )
         return footer_template
+
 
     def make_drop_down_menu(self,y,x,text_string_1,text_string_2):
         position_y = 0
@@ -600,23 +623,23 @@ class TUI():
             self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 3:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index][0],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index][1],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index][2],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index][3],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index][4],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index][5],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index][6],49)
             self.make_text_appear(16,53,"",49)
 
         action = self.stdscr.getch()
@@ -624,11 +647,11 @@ class TUI():
             self.change_user_menu()
     
     def change_user(self,index,y_position,extra_len):
-        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index][index+1]) + extra_len)
         if check == 8:
             variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]+1) + extra_len)
         else:
-            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+            variable_x = self.item_list[self.list_line_index][index+1]
         return variable_x
 
     def change_user_menu(self):
@@ -802,7 +825,7 @@ class TUI():
             elif key == curses.KEY_UP or key == 450:
                 if idz == 0:
                     idz = self.select_len-1
-                    self.list_line_index = 14
+                    self.list_line_index = self.select_len-1
                 else:
                     idz -= 1
                     self.list_line_index -= 1
