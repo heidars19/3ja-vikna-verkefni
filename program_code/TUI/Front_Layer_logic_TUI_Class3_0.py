@@ -70,17 +70,20 @@ class TUI():
         (("╠════════════════════╩════════════════════╩════════════════════╩════════════════════╝                    ║")))
         return main_menu_template
 
-    def construct_header(self):
+    def construct_header(self):#("Nafn áfangastaðar:","Land:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
         self._header = (\
-        ("Kennitala","Nafn","Heimilisfang","Síma númer","Email","Starfsheiti","Titill"),\
+        ("Kennitala","Nafn","Heimilisfang","Sími","Email","Starfsheiti","Titill","Leyfi"),\
         ("Brottför","Áfangastaður","Dagsetning","Flugvél"),\
-        ("Nafn","Land","Tengiliður","Sími","Flug Völlur"),\
-        ("Nafn","Tegund","Sæti","Staða","Áfangastaður","Flugnr.","Aflögufær"))
+        ("Áfangastaður","Land","Flugtími","Fjarlægð frá Íslandi","Tengiliður","Sími","Flug Völlur"),\
+        ("Plane_id","Plane_type","Framleiðandi","Sætafjöldi","Nafn"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
             try:
                 if self.menu_select == 0:
-                    if i != 2 and i != 6:
+                    if i not in [2,6,7]:
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                elif self.menu_select == 2:
+                    if i not in [2,3]:
                         header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
                 else:
                     header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
@@ -118,34 +121,37 @@ class TUI():
                     if self.exeption != 0:
                         if exeptions[self.exeption] in self.item_list[i]:
                             for x in range(len(self.item_list[i])):
-                                if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                                if x not in [0,3,7,8,9]:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
                                 if x == 3:
                                     self.header_len.append(0)
+                            new_list.append(new_string)
                     else:
                         for x in range(len(self.item_list[i])):
-                            if x != 0 and x != 9 and x != 8 and x != 7 and x != 3:
+                            if x not in [0,3,7,8,9]:
                                 new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                 self.header_len.append(self.index_len[x])
                             if x == 3:
                                     self.header_len.append(0)
-                    new_list.append(new_string)
+                        new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 13 and x != 12 and x != 11 and x != 10 and x != 1 and x != 5 and x != 7 and x != 8 and x != 9:
+                        if x not in [0,1,5,7,8,9,10,11,12,13]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x != 0 and x != 3 and x != 4:
+                        if x not in [0,3,4]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
+                        if x in [3,4]:
+                            self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 3:
                     for x in range(len(self.item_list[i])):
-                        if x != 0:
+                        if x not in [0,6]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
@@ -183,17 +189,17 @@ class TUI():
         return body_template
 
     def construct_body_new_registration(self):
-        registration_list = (
-            ("Kennitala:","Nafn:","Heimilsfang:","Gsm sími:", "Netfang:","Starfstitill:","Starfsstaða:"),
+        self.registration_list = (
+            ("Kennitala:","Nafn:","Heimilsfang:","Sími:", "Netfang:","Starfstitill:","Starfsstaða:"),
             ("Dagsetning:","Brottfaratími út:","Flugvél:","Upphafsstaður:","Áfangastaður:"),
-            ("Nafn áfangastaðar:","Land:", "Flugvöllur:","Flugtími:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:"),
-            ("Nafn:","Framleiðandi:","Tengund:","Fjöldi sæta:"),
+            ("Nafn áfangastaðar:","Land:","Flugtími:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
+            ("Plane_id:","Plane_type:","Framleiðandi:","Sætafjöldi:","Nafn:"),
             )
         new_list = []
         exeptions = ["", "Flugmaður", "Flugþjónn"]
         new_string = ""
-        for i in range(len(registration_list[self.menu_select])):
-            new_string += "{:<{lengd:}}".format(registration_list[self.menu_select][i],lengd = 49)
+        for i in range(len(self.registration_list[self.menu_select])):
+            new_string += "{:<{lengd:}}".format(self.registration_list[self.menu_select][i],lengd = 49)
             new_list.append(new_string)
             new_string = ""
         for i in range(8-len(new_list)):
@@ -223,13 +229,49 @@ class TUI():
         self.new_registration = False
         return body_template
 
+    def box_frame(length, vertical='top'):
+        '''
+        Send in total length
+        '''
+        line = '─'
+        if vertical == 'top' :
+            left_corner = '┌'
+            right_corner = '┐'
+        else :
+            left_corner = '└'
+            right_corner = '┘'
+        return left_corner + line*(length-2) + right_corner
+
+
+    MENU_BUTTON_1 = '| Skoða |'
+    MENU_BUTTON_2 = '| Nýskrá |'
+    MENU_BUTTON_3 = '|Dagsetning|'
+    MENU_BUTTON_4 = '| Flokka |'
+    MENU_BUTTON_5 = '| Vika  |'
+
+    MENU_BOX_1_LENGTH = len(MENU_BUTTON_1)
+    MENU_BOX_2_LENGTH = len(MENU_BUTTON_2)
+    MENU_BOX_3_LENGTH = len(MENU_BUTTON_3)
+    MENU_BOX_4_LENGTH = len(MENU_BUTTON_4)
+    MENU_BOX_5_LENGTH = len(MENU_BUTTON_5)
+
+    MENU_OPTION_1 = 'Allir'
+    MENU_OPTION_2 = 'Flugmenn'
+    MENU_OPTION_3 = 'Flugþjónar'
+    MENU_OPTION_LENGTH = 12 
+
+
     def construct_footer(self, x_list):
-        top_box = "┌───────┐"
-        top_box2 = "┌──────────┐"
-        top_box3 = "┌────────┐"
-        bot_box = "└───────┘"
-        bot_box2 = "└──────────┘"
-        bot_box3 = "└────────┘"
+        top_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH)
+        top_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH)
+        top_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH)
+        top_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH)
+        top_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH)
+        bot_box1 = TUI.box_frame(self.MENU_BOX_1_LENGTH,"not top")
+        bot_box2 = TUI.box_frame(self.MENU_BOX_2_LENGTH,"not top")
+        bot_box3 = TUI.box_frame(self.MENU_BOX_3_LENGTH,"not top")
+        bot_box4 = TUI.box_frame(self.MENU_BOX_4_LENGTH,"not top")
+        bot_box5 = TUI.box_frame(self.MENU_BOX_5_LENGTH,"not top")
         check_box_left = " ("
         check_box_right = ")"
         check_box_x = x_list
@@ -237,58 +279,43 @@ class TUI():
         empty_string1 = "     "
         empty_string2 = "         "
         Flokka_listi = [[
-        " {:<{lengd:}}".format("Allir",lengd = 12),
-        " {:<{lengd:}}".format("Flugmenn",lengd = 12),
-        " {:<{lengd:}}".format("Flugþjónar",lengd = 12),
+        " {:<{lengd:}}".format(self.MENU_OPTION_1, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_2, lengd = self.MENU_OPTION_LENGTH),
+        " {:<{lengd:}}".format(self.MENU_OPTION_3, lengd = self.MENU_OPTION_LENGTH),
         ],
         [
-        " {:<{lengd:}}".format("",lengd = 15),
+        " {:<{lengd:}}".format("",lengd = self.MENU_OPTION_LENGTH + 3),
         ]
         ]
         footer = (
         (
-        (top_box,top_box3,top_box2,top_box3, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Flokka |",lengd = 10),
-        check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
+        (top_box1,top_box2,top_box3,top_box4, check_box_left + check_box_x[0] + check_box_right + Flokka_listi[0][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_4, check_box_left + check_box_x[1] + check_box_right + Flokka_listi[0][1]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box3,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
+        (bot_box1,bot_box2,bot_box3,bot_box4,check_box_left + check_box_x[2] + check_box_right + Flokka_listi[0][2])
         ),
         (
-        (top_box,top_box3,top_box2,top_box, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
-        "{:^{lengd:}}".format("| Vika  |",lengd = 9),
-        one_space_string + Flokka_listi[1][0]
+        (top_box1,top_box2,top_box3,top_box5, one_space_string + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,self.MENU_BUTTON_5,one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,bot_box,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,bot_box5,one_space_string + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
+        (top_box1,top_box2,empty_string2,empty_string2, empty_string1 + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,\
         "{:^{lengd:}}".format("",lengd = 9),\
         "{:^{lengd:}}".format("",lengd = 9) ,
         empty_string1 + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
+        (bot_box1,bot_box2,empty_string2,empty_string2,empty_string1 + Flokka_listi[1][0])
         ),
         (
-        (top_box,top_box3,top_box2,empty_string2, one_space_string + Flokka_listi[1][0]),
-        (
-        "{:^{lengd:}}".format("| Skoða |",lengd = 9),\
-        "{:^{lengd:}}".format("| Nýskrá |",lengd = 10),\
-        "{:^{lengd:}}".format("|Dagsetning|",lengd = 12),\
+        (top_box1,top_box2,top_box3,empty_string2, one_space_string + Flokka_listi[1][0]),
+        (self.MENU_BUTTON_1,self.MENU_BUTTON_2,self.MENU_BUTTON_3,\
         "{:^{lengd:}}".format("",lengd = 9) ,
         one_space_string + Flokka_listi[1][0]
         ),
-        (bot_box,bot_box3,bot_box2,empty_string2,one_space_string + Flokka_listi[1][0])
+        (bot_box1,bot_box2,bot_box3,empty_string2,one_space_string + Flokka_listi[1][0])
         )
         )
         
@@ -325,6 +352,47 @@ class TUI():
                 else:
                     return text_string_2
 
+    def make_plane_licence_dropdown(self,y,x):
+        """This method gets all airplane licences and creates a drop down menu for the user"""
+        position_y = 0
+        plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
+        #plane_licence_list = ["hello","world","long"]
+        editwin = curses.newwin(len(plane_licence_list),20,y,x)
+        editwin2 = curses.newwin(1,30,16,67)
+        editwin.keypad(1)
+        while True:
+            editwin2.clear()
+            editwin2.attron(curses.color_pair(2))
+            editwin2.addstr(0,0,plane_licence_list[position_y])
+            editwin2.attroff(curses.color_pair(2))
+            editwin2.refresh()
+            editwin.refresh()
+            for i in range(len(plane_licence_list)):
+                if position_y == i:
+                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(2))
+                else:
+                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(1))
+            button_press = editwin.getch()
+            if button_press == curses.KEY_UP or button_press == 450:
+                if position_y == 0:
+                    position_y = len(plane_licence_list)-1
+                else:
+                    position_y -= 1
+            elif button_press == curses.KEY_DOWN or button_press == 456:
+                if position_y == len(plane_licence_list)-1:
+                    position_y = 0
+                else:
+                    position_y += 1
+            elif button_press == 10:
+                for i in range(len(plane_licence_list)):
+                    self.licence_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
+                return plane_licence_list[position_y]
+
+    def licence_drop_down(self,editwin,licence_string,y,color_pair):
+        editwin.attron(color_pair)
+        editwin.addstr(y,0,licence_string)
+        editwin.attroff(color_pair)
+        editwin.refresh()
 
     def drop_down(self,editwin,text_string_1,text_string_2,position_y):
         if position_y == 0:
@@ -344,10 +412,12 @@ class TUI():
 
     def get_user_input(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
+        curses.curs_set(0)
+        self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
             """while True:"""
-            kt = self.make_user_input_window(5,15)
+            kt = self.make_user_input_window(5,15,1)
             """check,error_msg = Errorcheck.check_ssn(kt.strip())
             if check == True:
                 break
@@ -356,7 +426,7 @@ class TUI():
                 time.sleep(1)"""
             name = self.make_user_input_window(9,10)
             address = self.make_user_input_window(12,17)
-            gsm = self.make_user_input_window(16,14)
+            gsm = self.make_user_input_window(16,10,1)
             email = self.make_user_input_window(5,62)
             job_title = self.make_drop_down_menu(9,67,"Pilot","Cabincrew")
             self.make_text_appear(9,67,job_title,30,2)
@@ -371,7 +441,9 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                licence = self.make_user_input_window(16,67)
+                licence = self.make_plane_licence_dropdown(5,80)
+                self.make_text_appear(16,67,licence,30,2)
+                time.sleep(1)
             else:
                 licence = ""
             self.new_instance_API2.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
@@ -384,29 +456,33 @@ class TUI():
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(16,19,"KEF",30,2)
             self.make_text_appear(5,16,date,30,2)
-            self.make_text_appear(10,22,"xx:xx",30,3)
+            self.make_text_appear(10,16,"Dæmi: 23:59",30,3)
             curses.curs_set(1)
             departure_time_out = self.make_user_input_window(9,22)
+            self.make_text_appear(10,16,"",30,3)
             airplane = self.make_user_input_window(12,13)
+            airplane = self.make_plane_licence_dropdown(12,13)
             destination = self.make_user_input_window(5,67)
             le = (date,departure_time_out,airplane,destination)
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
         if self.menu_select == 2:
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
-            airport = self.make_user_input_window(12,16)
-            fly_time = self.make_user_input_window(16,14)
-            distance_from_iceland = self.make_user_input_window(5,75)
-            name_of_contact = self.make_user_input_window(9,70)
-            contacts_phone = self.make_user_input_window(12,70)
-            le = (destination_name,country,airport,fly_time,distance_from_iceland,name_of_contact,contacts_phone)
+            flight_time = self.make_user_input_window(12,14)
+            distance_from_iceland = self.make_user_input_window(16,26)
+            name_of_contact = self.make_user_input_window(5,70)
+            contacts_phone = self.make_user_input_window(9,70)
+            airport = self.make_user_input_window(12,65)
+            le = (destination_name,country,airport,distance_from_iceland,name_of_contact,contacts_phone)
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
         if self.menu_select == 3:
-            name = self.make_user_input_window(5,10)
-            producer = self.make_user_input_window(9,18)
-            product_id = self.make_user_input_window(12,13)
-            num_of_seats = self.make_user_input_window(16,17)
-            le = (name,producer,product_id,num_of_seats)
+            _id = ""
+            plane_id = self.make_user_input_window(5,14)
+            plane_type = self.make_user_input_window(9,16)
+            manufacturer = self.make_user_input_window(12,18)
+            model = self.make_user_input_window(16,11)
+            name = self.make_user_input_window(5,59)
+            self.new_instance_API2.create("airplane",(_id,plane_id,plane_type,manufacturer,model,name))
             self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
         self.new_reg_u_input = False
         time.sleep(1)
@@ -533,7 +609,7 @@ class TUI():
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
 
-    def make_user_input_window(self,y,x):
+    def make_user_input_window(self,y,x, only_num = 0):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
@@ -543,15 +619,19 @@ class TUI():
             ch = editwin.getch()
             if ch== 10:
                 break
-            if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
-            or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
-            or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
-            or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
-                data += chr(ch)
             elif ch == 8 or ch == 127:
                 data = data[:-1]
             elif data == 27:
                 wrapper(main)
+            if only_num == 1:
+                if ch >=48 and ch <= 57:
+                    data += chr(ch)
+            else:
+                if (ch >=48 and ch <= 57) or (ch >=64 and ch <= 90) or (ch >=97 and ch <= 121)\
+                or ch == 240 or ch == 230 or ch == 254 or ch == 46 or ch == 237 or ch == 205\
+                or ch == 243 or ch == 211 or ch == 221 or ch == 253 or ch == 233 or ch == 201 \
+                or ch == 250 or ch == 218 or ch == 225 or ch == 193 or ch == 32 or ch == ord(":"): #This defines all the chrs this custom input accepts
+                    data += chr(ch)
             editwin.clear()
             editwin.refresh()
             editwin.addstr(0,0,data)
@@ -575,6 +655,7 @@ class TUI():
 
     def look_at_specific_unit(self):
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
+        self.make_text_appear(3,2,"",100)
         self.make_text_appear(21,68,"┌────────┐",12)
         self.make_text_appear(22,68,"|",12)
         self.make_text_appear(22,69," B",12,2)
@@ -588,7 +669,10 @@ class TUI():
             self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
             self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
             self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
-            self.make_text_appear(16,53,"",49)
+            if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
+                self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][8],49)
+            else:
+                self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
             self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
@@ -600,47 +684,67 @@ class TUI():
             self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
 
         if self.menu_select == 2:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
-            self.make_text_appear(9,53,"",49)
-            self.make_text_appear(12,53,"",49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
+            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
             self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 3:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
+            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
+            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
+            self.make_text_appear(9,53,"",49)
+            self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
 
         action = self.stdscr.getch()
         if action == ord("b"):
             self.change_user_menu()
     
-    def change_user(self,index,y_position,extra_len):
+    def change_user(self,index,y_position,extra_len, only_num = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
         if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]+1) + extra_len)
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num)
+        else:
+            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+        return variable_x
+
+    def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
+        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
+        if check == 8:
+            variable_x = self.make_drop_down_menu(y_position,6+extra_len+len(self._header[self.menu_select][index]),text_string1,text_string2)
+            self.make_text_appear(y_position,6+extra_len+len(self._header[self.menu_select][index]),variable_x,30)
+            self.make_text_appear(y_position+1,6+extra_len+len(self._header[self.menu_select][index]),"",30)
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
 
     def change_user_menu(self):
         if self.menu_select == 0:
+            _id = self.item_list[self.list_line_index+self.next_section][0]
+            ssn = self.item_list[self.list_line_index+self.next_section][1]
             name = self.change_user(1,9,0)
             address = self.change_user(2,12,0)
-            phone = self.change_user(3,16,0)
+            phone = self.change_user(3,16,0,1)
             email = self.change_user(4,5,49)
-            job_title = self.change_user(5,9,49)
-            rank = self.change_user(6,12,49)
+            job_title = self.item_list[self.list_line_index+self.next_section][6]
+            if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
+                rank = self.change_user_dropdown(6,12,49,"Captain","Co-Pilot")
+                license = self.change_user(7,16,49)
+            else:
+                rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
+                license = ""
+            self.new_instance_API2.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.item_list = self.new_instance_API2.get_list("employee")
 
         if self.menu_select == 1:
+            _id = self.item_list[0]
             blah = self.change_user(0,5,0)
             blah = self.change_user(1,9,0)
             blah = self.change_user(2,12,0)
@@ -651,22 +755,23 @@ class TUI():
             blah = self.change_user(7,16,49)
 
         if self.menu_select == 2:
-            blah = self.change_user(0,5,0)
-            blah = self.change_user(1,9,0)
-            blah = self.change_user(2,12,0)
-            blah = self.change_user(3,16,0)
-            blah = self.change_user(4,5,49)
-            blah = self.change_user(5,9,49)
-            blah = self.change_user(6,12,49)
+            _id = self.item_list[0]
+            name = self.change_user(0,5,0)
+            country = self.change_user(1,9,0)
+            flight_time = self.change_user(2,12,0)
+            distance_from_iceland = self.change_user(3,16,0)
+            emergency_contact = self.change_user(4,5,49)
+            emergency_contact_phonenr = self.change_user(5,9,49,1)
+            airport = self.change_user(6,12,49)
 
         if self.menu_select == 3:
-            blah = self.change_user(0,5,0)
-            blah = self.change_user(1,9,0)
-            blah = self.change_user(2,12,0)
-            blah = self.change_user(3,16,0)
-            blah = self.change_user(4,5,49)
-            blah = self.change_user(5,9,49)
-            blah = self.change_user(6,12,49)
+            _id = self.item_list[0]
+            plane_id = self.change_user(1,5,0)
+            plane_type = self.change_user(2,9,0)
+            manufacturer = self.change_user(3,12,0)
+            seat_amount = self.change_user(4,16,0)
+            name = self.change_user(5,5,49)
+
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
@@ -688,7 +793,7 @@ class TUI():
         curses.init_color(curses.COLOR_GREEN,1000,0,0)
         curses.init_pair(1,curses.COLOR_GREEN,curses.COLOR_BLACK)
         curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
-        curses.init_pair(3,curses.COLOR_MAGENTA, curses.COLOR_BLACK)
+        curses.init_pair(3,curses.COLOR_WHITE, curses.COLOR_BLACK)
         
         # This raises ZeroDivisionError when i == 10.
         idx = 0
@@ -784,7 +889,7 @@ class TUI():
                         leng += len(self.item_list[i][x]) +1 
                     time.sleep(1)
                     leng = 0"""
-            elif key == curses.KEY_LEFT:
+            elif key == curses.KEY_LEFT or key == 452:
                 if self.next_section == 0:
                     self.next_section = 0
                     self.list_line_index = 0
@@ -793,7 +898,7 @@ class TUI():
                     self.next_section -= 15
                     self.list_line_index = 0
                     idz = 0
-            elif key == curses.KEY_RIGHT:
+            elif key == curses.KEY_RIGHT or key == 454:
                 if self.next_section < len(self.item_list) - 15:
                     self.next_section += 15
                     self.list_line_index = 0
@@ -802,7 +907,7 @@ class TUI():
             elif key == curses.KEY_UP or key == 450:
                 if idz == 0:
                     idz = self.select_len-1
-                    self.list_line_index = 14
+                    self.list_line_index = self.select_len-1
                 else:
                     idz -= 1
                     self.list_line_index -= 1
@@ -825,6 +930,7 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
+
                         self.exeption += 1
                     else:
                         self.exeption = 0
