@@ -64,7 +64,6 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-            
         file_name = self.file_type(keyword)
 
         new_instance = file_name()
@@ -75,74 +74,73 @@ class LL_functions():
 
         return new_list
 
+
+    def find_index_from_header(self, keyword, row_names=[]):
+        print (keyword)
+        file_name = self.file_type(keyword)
+        new_instance = file_name()
+        header = new_instance.get_header().split(',') #getting header list of database
+
+        words_list = row_names
+        index_list = []
     
-    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True, return_column=False,trim = False):
+        for index, value in enumerate(header): #finding index of searchparam in headerlist
+            for word in words_list:
+                if value == word:
+                    index_list.append(int(index))
+        return index_list
+
+    def get_filtered_list_from_DB(self, keyword,index_list,searchparam="",match=True, return_column=False):
         """
         Keyword = employee,worktrip, airplane, destination \n
         row_names = filtered word from header \n
         searchparam = parameter to look for in row\n
         match = True if looking for excact macth \n
         match = False if looking for data containing specific string \n
-        trim = True if trimming lines from original list. \n
         """
-
-        file_name = self.file_type(keyword)
-
+        file_name =  self.file_type(keyword)
         new_instance = file_name()
         get_list = new_instance.start() 
-        header = new_instance.get_header().split(',') #getting header list of database
 
-        words_list = row_names
-        index_list = []
         
-        filtered_list = [] #list of items with searchparam specified
-        trimmed_list = []  #list of items with except searchparam specified
-
-        for index, value in enumerate(header): #finding index of searchparam in headerlist
-            for word in words_list:
-                if value == word:
-                    index_list.append(index)
-            
-
+        filtered_list = []
         for line in get_list[1:]:
             line_list = line.split(',')
             for index in index_list:
                 
-                if match: #Looks for excact match
+                if match:    #Looks for excact match
                     if searchparam == line_list[index]:
                         if return_column:
                             filter_list.append(line_list[index])
                         else:                            
                             if line not in filtered_list:
                                 filtered_list.append(line)
-                    # else:
-                    #     if return_column:
-                    #         trimmed_list.append(line_list[index])
-                    #     else:                            
-                    #         if line not in trimmed_list:
-                    #             trimmed_list.append(line)
 
                 else:   #Checks if value contains searchparameter
-                            if searchparam in line_list[index]:
-                                if return_column:
-                                        filtered_list.append(line_list[index])
-                                else:
-                                    if line not in filtered_list:
-                                            filtered_list.append(line) 
-                            # else:
-                            #     if return_column:
-                            #             trimmed_list.append(line_list[index])
-                            #     else:
-                            #         if line not in trimmed_list:
-            
-                            #             trimmed_list.append(line) 
-        # if trim:
-        #     return trimmed_list
-        # else:                     
+                    if searchparam in line_list[index]:
+                        if return_column:
+                            filtered_list.append(line_list[index])
+                        else:
+                            if line not in filtered_list:
+                                filtered_list.append(line)
         return filtered_list
 
 
-                    
+    def filter_by_header_index(self, index_list, db_str_list):
+        '''
+        index_list = list of iteams that needs to be filtered from a string to a new list
+        db_str_list = line from database that need to be filtered
+        '''
+    
+        index_sorted_list = []
+        for line in db_str_list:
+            tmp_list = line.split(',')
+            tmp_list2 = []
+            for index in index_list:
+                tmp_list2.append(tmp_list[index])
+            index_sorted_list.append(tmp_list2)
+        return index_sorted_list
+
                 
 
 

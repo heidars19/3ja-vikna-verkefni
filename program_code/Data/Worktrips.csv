@@ -1,4 +1,4 @@
 id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
 1,NA3525,NA3525,Keflavik,Köben,2019-12-20T11:45:00,2019-12-20 15:45,1,1,2,3,4,5,staffed,2019-12-05 20:45:18.095017
-2,NA9228,NA3525,Keflavik,Stockholm,2019-12-20T06:16:00,2019-12-20 10:45,2,6,7,8,9,10,staffed,2019-12-05 20:45:18.095017
+2,NA9228,NA3525,Keflavik,Stockholm,2019-12-19T06:16:00,2019-12-20 10:45,2,6,7,8,9,10,staffed,2019-12-05 20:45:18.095017
 3,NA2275,NA3525,Keflavik,Nuuk,2019-12-19T06:21:00,2019-12-19 22:00,3,11,12,13,14,15,staffed,2019-12-05 20:45:18.095017

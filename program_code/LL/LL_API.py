@@ -72,9 +72,8 @@ class LL_API:
 
             if list_type == "working_employees" or list_type == "available_employees":
                 new_instance = WorktripLL()
-                emp_by_date_list = new_instance.get_emp_by_date(keyword,list_type,searchparam)
-            
-                return emp_by_date_list
+                get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
+                return get_emp_dest_date
             
 
             elif list_type == "plane_licences":
