@@ -861,6 +861,7 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
+                        
                         self.exeption += 1
                     else:
                         self.exeption = 0
