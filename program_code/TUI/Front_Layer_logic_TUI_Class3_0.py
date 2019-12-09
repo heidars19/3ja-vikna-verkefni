@@ -326,8 +326,9 @@ class TUI():
                     return text_string_2
 
     def make_plane_licence_dropdown(self,y,x):
+        """This method gets all airplane licences and creates a drop down menu for the user"""
         position_y = 0
-        #plane_licence_list = self.new_instance_API2.get_list("model",list_type = "plane_licences")
+        #plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
         plane_licence_list = ["hello","world","long"]
         editwin = curses.newwin(len(plane_licence_list),30,y,x)
         editwin.keypad(1)
@@ -861,7 +862,7 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
-                        
+
                         self.exeption += 1
                     else:
                         self.exeption = 0
