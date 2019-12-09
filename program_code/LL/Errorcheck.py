@@ -1,17 +1,20 @@
 from textwrap import wrap
 import datetime
-import string
 
-ERROR_KENNITALA = 'Kennitala ekki lögleg!'
-ERROR_EMAIL = 'Invalid e-mail address!'
-ERROR_ADDRESS = 'Vinsamlega skráið heimilisfang starfsmanns!'
-ERROR_CELLPHONE = "Lengd símanúmers er að lámarki 7 stafir!"
+ERROR_KENNITALA = 'Kennitala ranglega slegin inn!'
+ERROR_EMAIL = 'Netfang ranglega slegið inn!'
+ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
+ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
 
 
-#10 stafa númer
+
 def check_ssn(ssn):
+    '''
+    Checks if ssn (kennitala) is valid, returns True or an error string.
+    '''
     now = datetime.datetime.now()
-    
+    if not ssn.isdigit() :
+        return ERROR_KENNITALA
     if len(ssn) == 10:
         try:
             ssn_list = wrap (ssn, 2)
@@ -34,52 +37,66 @@ def check_ssn(ssn):
     else:
         return ERROR_KENNITALA
 
-#Strengur og númer
+
 def check_address(address):
-    if address == "":
+    '''
+    Checks if address is valid, returns True or an error string.
+    '''
+    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.éýúíóðáæþÉÝÚÍÓÐÁÆÞ ")
+    for character in address:
+        if character not in allowed_chars:
+            return ERROR_ADDRESS
+    if len(address) < 2 :
         return ERROR_ADDRESS
+    return True 
 
 
-#strengur@strengur.strengur
 def check_mail(email):
+    '''
+    Checks if e-mail is valid, returns True or an error string.
+    '''
     email_list = email.split ('@')
     if len(email_list) != 2 :
         return ERROR_EMAIL
-    for character in email_list[0] :
-        if character not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_`{|}~."
-            return ERROR_EMAIL
+    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.")
     for character in email_list[1] :
-        if character not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-."
+        if character not in allowed_chars:
             return ERROR_EMAIL
-    
+    allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.!#$%&'*+/=?^_`{|}~")
+    for character in email_list[0] :
+        if character not in allowed_chars:
+            return ERROR_EMAIL
     email_list[1] = email_list[1].split('.')
-
     if len(email_list[1]) >= 2 and len(email_list[1][1]) > 1:
         return True
     else:
         return ERROR_EMAIL
     
-#7 stafa tala XXXXXXX
+    
 def check_cellphone(cellphone):
-    if len(cellphone) > 7:
-        return True
-    else:
+    '''
+    Checks if phone number is valid, returns True or an error string.
+    '''
+    if len(cellphone) < 7:
         return ERROR_CELLPHONE
+    if not cellphone.isdigit():
+        return ERROR_CELLPHONE
+    return True
 
 
 
 def main():
     check = check_mail("heidar@fss.is")
-    print(check)
-    
-    
-    
-    
-    pass
+    print(f"E-mail: {check}")    
+    check = check_ssn("2001765449")
+    print(f"Kennitala: {check}")    
+    check = check_address("Hænsnagarður 6")
+    print(f"Address: {check}")    
+    check = check_cellphone("8221448")
+    print(f"Cellphone: {check}")
+
+    return
     
 
 if __name__ == "__main__":
     main()
-
-
-
