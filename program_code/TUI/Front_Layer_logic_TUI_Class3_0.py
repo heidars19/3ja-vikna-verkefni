@@ -29,9 +29,9 @@ class TUI():
         self.highlight_main_list = ["x", " ", " "]
         self.list_line_index = 0
         self.check_specifcly = False
-        self.new_instance_API2 = LL_API()
+        self.instance_API = LL_API()
         self.next_section = 0
-        self.item_list = self.new_instance_API2.get_list("employee")
+        self.item_list = self.instance_API.get_list("employee")
         self.header_len = []
         self.index_len = []
     def construct_TUI(self,x_list):
@@ -73,7 +73,7 @@ class TUI():
     def construct_header(self):#("Nafn áfangastaðar:","Land:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
         self._header = (\
         ("Kennitala","Nafn","Heimilisfang","Sími","Email","Starfsheiti","Titill","Leyfi"),\
-        ("Brottför","Áfangastaður","Dagsetning","Flugvél"),\
+        ("Flunúmer út","Flugnúmer heim","Brottför","Áfangastaður","Brottfara tími","Komu tími","Flugvél","Captain","Copilot","Fsm","Fa1","Fa2","Staða"),\
         ("Áfangastaður","Land","Flugtími","Fjarlægð frá Íslandi","Tengiliður","Sími","Flug Völlur"),\
         ("Plane_id","Plane_type","Framleiðandi","Sætafjöldi","Nafn"))
         header_string = ""
@@ -81,6 +81,9 @@ class TUI():
             try:
                 if self.menu_select == 0:
                     if i not in [2,6,7]:
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                elif self.menu_select == 1:
+                    if i not in [0,1,7,8,9,10,11]:
                         header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
                 elif self.menu_select == 2:
                     if i not in [2,3]:
@@ -101,7 +104,7 @@ class TUI():
 
     def construct_body_lists(self):
         new_list = []
-        exeptions = ["", "Pilot", "Cabincrew"]
+        exceptions = ["", "Pilot", "Cabincrew"]
         self.index_len = []
         self.header_len = []
         self.select_len = 0
@@ -119,12 +122,12 @@ class TUI():
                 new_string = ""
                 if self.menu_select == 0:
                     if self.exeption != 0:
-                        if exeptions[self.exeption] in self.item_list[i]:
+                        if exceptions[self.exeption] in self.item_list[i]:
                             for x in range(len(self.item_list[i])):
                                 if x not in [0,3,7,8,9]:
                                     new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                                     self.header_len.append(self.index_len[x])
-                                if x == 3:
+                                else:
                                     self.header_len.append(0)
                             new_list.append(new_string)
                     else:
@@ -137,13 +140,15 @@ class TUI():
                         new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
-                        if x not in [0,1,5,7,8,9,10,11,12,13]:
+                        if x not in [0,1,2,8,9,10,11,12,14]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
+                        elif x != 0:
+                            self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x not in [0,3,4]:
+                        if x not in [0,3,4,8]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                         if x in [3,4]:
@@ -196,7 +201,6 @@ class TUI():
             ("Plane_id:","Plane_type:","Framleiðandi:","Sætafjöldi:","Nafn:"),
             )
         new_list = []
-        exeptions = ["", "Flugmaður", "Flugþjónn"]
         new_string = ""
         for i in range(len(self.registration_list[self.menu_select])):
             new_string += "{:<{lengd:}}".format(self.registration_list[self.menu_select][i],lengd = 49)
@@ -355,7 +359,7 @@ class TUI():
     def make_plane_licence_dropdown(self,y,x):
         """This method gets all airplane licences and creates a drop down menu for the user"""
         position_y = 0
-        plane_licence_list = self.new_instance_API2.get_list("airplane","plane_licences")
+        plane_licence_list = self.instance_API.get_list("airplane","plane_licences")
         #plane_licence_list = ["hello","world","long"]
         editwin = curses.newwin(len(plane_licence_list),20,y,x)
         editwin2 = curses.newwin(1,30,16,67)
@@ -446,9 +450,9 @@ class TUI():
                 time.sleep(1)
             else:
                 licence = ""
-            self.new_instance_API2.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
+            self.instance_API.create("employee",("",kt,name,address,gsm,email,job_title,rank,licence))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
-            self.item_list = self.new_instance_API2.get_list("employee")
+            self.item_list = self.instance_API.get_list("employee")
         if self.menu_select == 1:
             curses.curs_set(0)
             time.sleep(1)
@@ -482,7 +486,7 @@ class TUI():
             manufacturer = self.make_user_input_window(12,18)
             model = self.make_user_input_window(16,11)
             name = self.make_user_input_window(5,59)
-            self.new_instance_API2.create("airplane",(_id,plane_id,plane_type,manufacturer,model,name))
+            self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,model,name))
             self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
         self.new_reg_u_input = False
         time.sleep(1)
@@ -674,14 +678,23 @@ class TUI():
             else:
                 self.make_text_appear(16,53,"",49)
         if self.menu_select == 1:
-            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][0],49)
-            self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
-            self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
-            self.make_text_appear(16,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
-            self.make_text_appear(5,53,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
-            self.make_text_appear(9,53,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
-            self.make_text_appear(12,53,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
-            self.make_text_appear(16,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
+            self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
+            self.make_text_appear(7,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
+            self.make_text_appear(9,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
+            self.make_text_appear(11,4,self._header[self.menu_select][3] + ": " +self.item_list[self.list_line_index+self.next_section][4],49)
+            self.make_text_appear(12,4,"",49)
+            self.make_text_appear(13,4,self._header[self.menu_select][4] + ": " +self.item_list[self.list_line_index+self.next_section][5],49)
+            self.make_text_appear(15,4,self._header[self.menu_select][5] + ": " +self.item_list[self.list_line_index+self.next_section][6],49)
+            self.make_text_appear(16,4,"",49)
+            self.make_text_appear(17,4,self._header[self.menu_select][6] + ": " +self.item_list[self.list_line_index+self.next_section][7],49)
+            self.make_text_appear(5,53,self._header[self.menu_select][7] + ": " +self.item_list[self.list_line_index+self.next_section][8],49)
+            self.make_text_appear(7,53,self._header[self.menu_select][8] + ": " +self.item_list[self.list_line_index+self.next_section][9],49)
+            self.make_text_appear(9,53,self._header[self.menu_select][9] + ": " +self.item_list[self.list_line_index+self.next_section][10],49)
+            self.make_text_appear(11,53,self._header[self.menu_select][10] + ": " +self.item_list[self.list_line_index+self.next_section][11],49)
+            self.make_text_appear(12,53,"",49)
+            self.make_text_appear(13,53,self._header[self.menu_select][11] + ": " +self.item_list[self.list_line_index+self.next_section][12],49)
+            self.make_text_appear(15,53,self._header[self.menu_select][12] + ": " +self.item_list[self.list_line_index+self.next_section][13],49)
+            self.make_text_appear(16,53,"",49)
 
         if self.menu_select == 2:
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
@@ -740,22 +753,28 @@ class TUI():
             else:
                 rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
                 license = ""
-            self.new_instance_API2.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
-            self.item_list = self.new_instance_API2.get_list("employee")
+            self.instance_API.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.item_list = self.instance_API.get_list("employee")
 
         if self.menu_select == 1:
-            _id = self.item_list[0]
-            blah = self.change_user(0,5,0)
-            blah = self.change_user(1,9,0)
-            blah = self.change_user(2,12,0)
-            blah = self.change_user(3,16,0)
-            blah = self.change_user(4,5,49)
-            blah = self.change_user(5,9,49)
-            blah = self.change_user(6,12,49)
-            blah = self.change_user(7,16,49)
+            #change_user(self,index,y_position,extra_len, only_num = 0):
+            _id = self.item_list[self.list_line_index+self.next_section][0]
+            flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
+            flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
+            departing_from = self.item_list[self.list_line_index+self.next_section][3]
+            arriving_at = self.change_user(3,11,0)
+            departure = self.change_user(4,13,0)
+            arrival = self.change_user(5,15,0)
+            aircraft_id = self.change_user(6,17,0)
+            captain = self.change_user(7,5,49)
+            copilot = self.change_user(8,7,49)
+            fsm = self.change_user(9,9,49)
+            fa1 = self.change_user(10,11,49)
+            fa2 = self.change_user(11,13,49)
+            
 
         if self.menu_select == 2:
-            _id = self.item_list[0]
+            _id = self.item_list[self.list_line_index+self.next_section][0]
             name = self.change_user(0,5,0)
             country = self.change_user(1,9,0)
             flight_time = self.change_user(2,12,0)
@@ -765,7 +784,7 @@ class TUI():
             airport = self.change_user(6,12,49)
 
         if self.menu_select == 3:
-            _id = self.item_list[0]
+            _id = self.item_list[self.list_line_index+self.next_section][0]
             plane_id = self.change_user(1,5,0)
             plane_type = self.change_user(2,9,0)
             manufacturer = self.change_user(3,12,0)
@@ -830,7 +849,7 @@ class TUI():
                 self.next_section = 0
                 idx = 0
                 idz = 0
-                self.item_list = self.new_instance_API2.get_list("employee")
+                self.item_list = self.instance_API.get_list("employee")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
@@ -846,7 +865,7 @@ class TUI():
                 self.next_section = 0
                 idx = 1
                 idz = 0
-                self.item_list = self.new_instance_API2.get_list("worktrip")
+                self.item_list = self.instance_API.get_list("worktrip")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
@@ -862,7 +881,7 @@ class TUI():
                 self.next_section = 0
                 idx = 2
                 idz = 0
-                self.item_list = self.new_instance_API2.get_list("destination")
+                self.item_list = self.instance_API.get_list("destination")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
@@ -878,7 +897,7 @@ class TUI():
                 self.next_section = 0
                 idx = 3
                 idz = 0
-                self.item_list = self.new_instance_API2.get_list("airplane")
+                self.item_list = self.instance_API.get_list("airplane")
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
@@ -980,5 +999,8 @@ class TUI():
 def start(stdscr):
     new_tui = TUI(stdscr)
     new_tui.main()
-
+#ég er flottur
+#ég er flottari gaur
+#ég er flottastur gaur
+#ég er ennþá flottastastur gaur
 #wrapper(start)
