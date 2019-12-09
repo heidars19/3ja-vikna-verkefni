@@ -46,10 +46,11 @@ def main():
   # new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-20')
+  new_list = new_instance.get_list('airplane',"plane_licences")
   print(new_list)
 
   return
   
 if __name__ == "__main__":
     main()
+

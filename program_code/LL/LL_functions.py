@@ -75,7 +75,7 @@ class LL_functions():
         return new_list
 
     
-    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True):
+    def get_filtered_list_from_DB(self,keyword,row_names=[],searchparam="",match=True, return_column=False):
         """
         Keyword = employee,worktrip, airplane, destination \n
         row_names = filtered word from header \n
@@ -88,34 +88,38 @@ class LL_functions():
 
         new_instance = file_name()
         get_list = new_instance.start() 
-        header = new_instance.get_header().split(',')
+        header = new_instance.get_header().split(',') #getting header list of database
 
         words_list = row_names
         index_list = []
         
         filtered_list = []
 
-        for index, value in enumerate(header):
+
+        for index, value in enumerate(header): #finding index of searchparam in headerlist
             for word in words_list:
                 if value == word:
                     index_list.append(index)
 
-        if match:    #Looks for excact match
-            for line in get_list[1:]:
-
-                line_list = line.split(',')
-                for index in index_list:
-                    if searchparam == line_list[index]:
-                        if line not in filtered_list:
-                            filtered_list.append(line)
-
-        else:   #Checks if value contains searchparameter
             for line in get_list[1:]:
                 line_list = line.split(',')
                 for index in index_list:
-                    if searchparam in line_list[index]:
-                        if line not in filtered_list:
-                            filtered_list.append(line)
+                    
+                    if match:    #Looks for excact match
+                        if searchparam == line_list[index]:
+                            if return_column:
+                                filter_list.append(line_list[index])
+                            else:                            
+                                if line not in filtered_list:
+                                    filtered_list.append(line)
+
+                    else:   #Checks if value contains searchparameter
+                                if searchparam in line_list[index]:
+                                    if return_column:
+                                        filtered_list.append(line_list[index])
+                                    else:
+                                        if line not in filtered_list:
+                                            filtered_list.append(line)
 
 
         return filtered_list

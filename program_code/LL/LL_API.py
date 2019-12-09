@@ -74,7 +74,7 @@ class LL_API:
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
-                plane_licence = new_instance.filter_planes()
+                plane_licence = new_instance.get_plance_licence(keyword, list_type)
 
                 return plane_licence
                 
