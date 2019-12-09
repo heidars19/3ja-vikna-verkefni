@@ -38,15 +38,20 @@ def main():
 
   #GET_LIST
   
-  new_instance = LL_API()
-  # new_list = new_instance.get_list('employee')
-  new_list = new_instance.get_list('airplane')
+  #new_instance = LL_API()
+  #new_list = new_instance.get_list('employee')
+  #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"emp_by_date",'2019-12-20')
-  print(new_list)
+  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  # print(new_list)
 
+
+  new_instance = EmployeeLL()
+  new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
+  print(new_list)
   return
+
   
 if __name__ == "__main__":
     main()

@@ -71,8 +71,17 @@ class LL_API:
             '''
 
             if list_type == "working_employees" or list_type == "available_employees":
+                
+                #Get list of worktrips at specific date
                 new_instance = WorktripLL()
                 emp_by_date_list = new_instance.get_emp_by_date(keyword,list_type,searchparam)
+
+                new_instance = EmployeeLL()
+                if list_type == "working_employees":
+                    new_instance.working_employees(emp_by_date_list)
+
+                if list_type == "available_employees":
+                    new_instance.available_employees(emp_by_date_list)
             
                 return emp_by_date_list
             
