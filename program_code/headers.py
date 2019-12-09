@@ -1,5 +1,5 @@
     AIRPLANE_TABLE = "Data/Airplane.csv"
-    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,model,name,registration_date'
+    AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,capacity,name,registration_date'
     
     STAFF_TABLE = "Data/Crew.csv"
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
