@@ -39,7 +39,6 @@ def main():
 
   #GET_LIST
   
-<<<<<<< HEAD
   #new_instance = LL_API()
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
@@ -49,18 +48,22 @@ def main():
   # print(new_list)
 
 
-  new_instance = EmployeeLL()
-  new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
-  print(new_list)
-=======
+
+
   new_instance = LL_API()
   # new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-19')
-  
->>>>>>> 4259ffa622189a916ce745d89d7dde4a04af4938
+  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
+  print(new_list)
+
+
+  # new_instance = EmployeeLL()
+  # new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
+  # print(new_list)
+
+
   return
 
   

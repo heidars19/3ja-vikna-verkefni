@@ -32,24 +32,8 @@ class WorktripLL(LL_functions):
         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
         return destination_staffmember_list
 
-#self, keyword,index_list,searchparam="",match=True, return_column=False
-        return filtered_list
-
            
-#  def filter_planes(planes_list=[], a_header=''):
-#         header = planes_list[0]
-#         a_header_index = int
-#         for index, value in enumerate(header):
-#             if value == a_header:
-#                 a_header_index = index
-            
-#         types = []
-        
-#         for a_list in planes_list[1:]:
-#             if a_list[a_header_index] not in types:
-#                 types.append(a_list[a_header_index])
 
-        return types
 
 
         

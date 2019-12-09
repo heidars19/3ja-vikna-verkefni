@@ -72,17 +72,28 @@ class LL_API:
 
             if list_type == "working_employees" or list_type == "available_employees":
                 
+                employee_list = []
                 #Get list of worktrips at specific date
                 new_instance = WorktripLL()
                 get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
-                return get_emp_dest_date
-            
+               # return get_emp_dest_date
+
+                new_instance = EmployeeLL()
+
+                if list_type == "working_employees":
+                        employee_list = new_instance.working_employees(get_emp_dest_date)
+                        
+
+                elif list_type == "available_employees":
+                        employee_list = new_instance.available_employees(get_emp_dest_date)
+
+                return employee_list
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plance_licence(keyword, list_type)
 
-                return plane_licence
+                return plane_licenced
                 
             else:
                 updated_list = []

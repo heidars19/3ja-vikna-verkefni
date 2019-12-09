@@ -126,7 +126,7 @@ class LL_functions():
         return filtered_list
 
 
-    def filter_by_header_index(self, index_list, db_str_list):
+    def filter_by_header_index(self, index_list, db_str_list,a_list = False):
         '''
         index_list = list of iteams that needs to be filtered from a string to a new list
         db_str_list = line from database that need to be filtered
@@ -134,11 +134,19 @@ class LL_functions():
     
         index_sorted_list = []
         for line in db_str_list:
-            tmp_list = line.split(',')
             tmp_list2 = []
-            for index in index_list:
-                tmp_list2.append(tmp_list[index])
+            if a_list == False:
+                tmp_list = line.split(',')
+                for index in index_list:
+                    tmp_list2.append(tmp_list[index])
+            if a_list == True:
+                for a_list in db_str_list:
+                    for index in index_list:
+                        tmp_list2.append(db_str_list[index])
             index_sorted_list.append(tmp_list2)
+
+
+            
         return index_sorted_list
 
                 
