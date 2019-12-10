@@ -21,12 +21,12 @@ def main():
   #-----------------------------KEYRSLUTEST------------------------------"
  
   #CREATE
-  new_instance = LL_API()
+#  new_instance = LL_API()
   # return_value = new_instance.create("employee",('','5665552222','Eyþór Óli','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax'))
   # return_value = new_instance.create("destination", ('','Toronto', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
   # return_value = new_instance.create("airplane", ('',"TF-TEST","NANTES146","Fokker","555","Skvis"))
-  return_value = new_instance.create("worktrip",('','','','','15','2019-12-20 06:45:00','','5')) # dest_id, departure_time, airplane_id
-  return_msg(return_value, f"creating a new object, code:{return_value}")
+#  return_value = new_instance.create("worktrip",('','','','','15','2019-12-20 06:45:00','','5')) # dest_id, departure_time, airplane_id
+#  return_msg(return_value, f"creating a new object, code:{return_value}")
 
   #CHANGE
   
@@ -39,14 +39,14 @@ def main():
 
   #GET_LIST
   
-  #new_instance = LL_API()
+  new_instance = LL_API()
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
-  #new_list = new_instance.get_list('airplane','plane_licences') 
-  # print(new_list)
+#  new_list = new_instance.get_list('airplane','plane_licences') 
+  #print(new_list)
 
 
 
@@ -56,8 +56,8 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
-  # print(new_list)
+  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
+  print(new_list)
 
 
   # new_instance = EmployeeLL()

@@ -76,5 +76,5 @@ class EmployeeLL(LL_functions):
 
         available_employees_list.pop(0)
 
-        return available_employees_list
+        return filtered_available_employees
 
