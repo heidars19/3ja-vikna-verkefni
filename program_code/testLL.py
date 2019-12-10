@@ -39,24 +39,34 @@ def main():
 
   #GET_LIST
   
-  #new_instance = LL_API()
+  new_instance = LL_API()
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  new_list = new_instance.get_list('airplane','plane_licences') 
   # print(new_list)
 
 
 
 
+<<<<<<< HEAD
   # new_instance = LL_API()
+=======
+#  new_instance = LL_API()
+>>>>>>> 282fd2472f9e4f5e37c0a0a67ab7a54efdf5b0ca
   # new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
+<<<<<<< HEAD
   # new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
   # print(new_list)
+=======
+#  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
+  print(new_list)
+>>>>>>> 282fd2472f9e4f5e37c0a0a67ab7a54efdf5b0ca
 
 
   # new_instance = EmployeeLL()

@@ -76,7 +76,7 @@ class LL_functions():
 
 
     def find_index_from_header(self, keyword, row_names=[]):
-        print (keyword)
+    
         file_name = self.file_type(keyword)
         new_instance = file_name()
         header = new_instance.get_header().split(',') #getting header list of database
