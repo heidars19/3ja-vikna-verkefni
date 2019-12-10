@@ -1,7 +1,8 @@
 from LL.LL_API_eythor import *
 from LL.EmployeeLL import *
 from LL.Employee import *
-from LL.LL_API import *
+from LL.WorktripLL_sigurgeir import *
+from LL.LL_API_sigurgeir import LL_API
 
 def return_msg(msg, keyword):
   if msg == 1:
@@ -38,16 +39,18 @@ def main():
   # return_msg(return_value, f"changing, code:{return_value}")
 
   #GET_LIST
-  
-  new_instance = LL_API ()
+  h
+  new_instance = LL_API()
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-20')
   #new_list = new_instance.get_list('airplane','plane_licences') 
-  new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  #print(new_list)
+  #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', id='14')
+  
+  print(new_list)
 
 
 
@@ -58,9 +61,8 @@ def main():
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
-  #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', _id='14')
   
-  print(new_list)
+
 
   # new_instance = EmployeeLL()
   # new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
