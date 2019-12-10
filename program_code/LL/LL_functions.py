@@ -1,4 +1,7 @@
 from DB.DATA_API import *
+from datetime import datetime
+from datetime import timedelta
+
 
 class LL_functions():
 
@@ -48,7 +51,6 @@ class LL_functions():
         Changes information about object in Database. \n
         keyword: employee, destination, airplane, worktrip, worktripold \n
         '''
-        
         file_name = self.file_type(keyword)
 
         new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number
@@ -75,8 +77,7 @@ class LL_functions():
         return new_list
 
 
-    def find_index_from_header(self, keyword, row_names=[]):
-    
+    def find_index_from_header(self, keyword, row_names=[]): 
         file_name = self.file_type(keyword)
         new_instance = file_name()
         header = new_instance.get_header().split(',') #getting header list of database
@@ -89,6 +90,7 @@ class LL_functions():
                 if value == word:
                     index_list.append(int(index))
         return index_list
+
 
     def get_filtered_list_from_DB(self, keyword,index_list,searchparam="",match=True, return_column=False):
         """
@@ -130,8 +132,7 @@ class LL_functions():
         '''
         index_list = list of iteams that needs to be filtered from a string to a new list
         db_str_list = line from database that need to be filtered
-        '''
-    
+        ''' 
         index_sorted_list = []
         for item in db_items:
             tmp_list = []
@@ -146,12 +147,17 @@ class LL_functions():
                 for index in index_list:
                     tmp_list2.append(item[index])
             index_sorted_list.append(tmp_list2)
-
-
-            
+ 
         return index_sorted_list
 
                 
+    def create_date_list(self, date_str, day_to_add, step=1):
+        date_list = []
+        date_object = datetime.strptime(date_str, '%Y-%m-%d').date()
+        for dates in range (int(day_to_add)):
+            date_list.append(str(date_object))
+            date_object += timedelta(days=step)
+        return date_list
 
 
 

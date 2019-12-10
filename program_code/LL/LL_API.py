@@ -7,7 +7,7 @@ from LL.LL_functions import *
 class LL_API:
 
 #From UI: create("employee",(ssn,name,address,mobile,email,role,rank,licence))
-    def create(self, keyword,user_input):    
+    def create(self, keyword,user_input, ):    
         '''Creates new object and saves to Database. \n
         keyword: employee,airplane,destination or worktrip
         \n
@@ -55,7 +55,7 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = ""):
+    def get_list(self,keyword,list_type="",searchparam = "", _id=''):
             '''Gets updated list from database. \n
                keyword[str]: employee,airplane,destination,worktrip \n
                 \n
@@ -94,7 +94,13 @@ class LL_API:
                 plane_licence = new_instance.get_plance_licence(keyword, list_type)
 
                 return plane_licence
-                
+            
+            elif list_type == "workschedule":
+                new_instance = WorktripLL()
+                workschedule = new_instance.get_workschedule( searchparam,_id ) #searchparam is the date, the _id is the staffmemebers id.
+                return workschedule
+
+
             else:
                 updated_list = []
                 new_instance = LL_functions()

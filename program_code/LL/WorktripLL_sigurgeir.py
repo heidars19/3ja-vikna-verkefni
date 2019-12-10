@@ -24,11 +24,13 @@ class WorktripLL(LL_functions):
 
 
      
-    def get_workschedule(self, keyword, date, _id):
+    def get_workschedule(self, date, _id):
         """
-        Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
-        Date format: YYYY-MM-DD
+        Gets list with info about trips a employee is booked. Returns from where the flight is, to what location
+        and when the flight is. 
+        Keyword = 
         """
+        keyword = worktrip
         date_list = self.create_date_list(date,7)
         
 
@@ -51,7 +53,6 @@ class WorktripLL(LL_functions):
             staff = [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]
             
             if _id in staff:
-                print(staff)
                 staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
         
         return staffmember_trips

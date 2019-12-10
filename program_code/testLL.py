@@ -45,12 +45,8 @@ def main():
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
-<<<<<<< HEAD
   #new_list = new_instance.get_list('airplane','plane_licences') 
-  new_list = new_instance.get_list('worktrip', 'get_workschedule', '2019-12-20', '')
-=======
-  new_list = new_instance.get_list('airplane','plane_licences') 
->>>>>>> 1c104f60be4c8645f78b07651bedf760187451a5
+  new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   #print(new_list)
 
 
@@ -61,13 +57,10 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-<<<<<<< HEAD
-  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
-=======
-  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
->>>>>>> 1c104f60be4c8645f78b07651bedf760187451a5
+  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
+  #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', _id='14')
+  
   print(new_list)
-
 
   # new_instance = EmployeeLL()
   # new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])

@@ -141,3 +141,37 @@ class WorktripLL(LL_functions):
         staff_index_list = self.find_index_from_header(keyword, row_names)
         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
         return destination_staffmember_list
+
+
+    def get_workschedule(self, date, _id):
+        """
+        Gets list with info about trips a employee is booked. Returns from where the flight is, to what location
+        and when the flight is. 
+        Keyword = 
+        """
+        keyword = 'worktrip'
+        date_list = self.create_date_list(date,7)
+        
+
+
+        row_names = ['departure']
+        index_list = self.find_index_from_header(keyword, row_names)
+        trips = []
+        for a_date in date_list:
+            filtered_list = []
+            filtered_list = self.get_filtered_list_from_DB(keyword,index_list,a_date,match=False)
+            trips.extend(filtered_list)
+        
+        
+        staffmember_trips = []
+
+        
+        for trip in trips:    
+            trip_info = trip.split(',')
+            new_trip = Worktrip(*trip_info)
+            staff = [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]
+            
+            if _id in staff:
+                staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
+        
+        return staffmember_trips

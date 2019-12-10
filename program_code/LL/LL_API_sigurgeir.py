@@ -91,7 +91,7 @@ class LL_API:
 
             elif list_type == "workschedule":
                 new_instance = WorktripLL()
-                workschedule = new_instance.get_workschedule(keyword, searchparam,_id )
+                workschedule = new_instance.get_workschedule( searchparam,_id ) #searchparam is the date, the _id is the staffmemebers id.
                 return workschedule
 
             elif list_type == "plane_licences":

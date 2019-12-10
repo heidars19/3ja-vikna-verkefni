@@ -39,7 +39,7 @@ def main():
   # return_msg(return_value, f"changing, code:{return_value}")
 
   #GET_LIST
-  
+  h
   new_instance = LL_API()
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
