@@ -434,7 +434,7 @@ class TUI():
                     time.sleep(1)
             
             while True:
-                name = self.make_user_input_window(9,10)
+                name = self.make_user_input_window(9,10, name = 1)
                 self.errorcheck.set_name(name)
                 error_msg = self.errorcheck.check_name()
                 if error_msg == True:
@@ -504,7 +504,7 @@ class TUI():
             self.make_text_appear(10,16,"Dæmi: 23:59",30,3)
             curses.curs_set(1)
             while True:
-                departure_time_out = self.make_user_input_window(9,22)
+                departure_time_out = self.make_user_input_window(9,22, clock = 1)
                 self.errorcheck.set_clock(departure_time_out)
                 error_msg = self.errorcheck.check_clock()
                 if error_msg == True:
@@ -664,7 +664,7 @@ class TUI():
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
 
-    def make_user_input_window(self,y,x, only_num = 0, ssn = 0):
+    def make_user_input_window(self,y,x, only_num = 0, ssn = 0, clock = 0, name = 0):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
@@ -672,6 +672,8 @@ class TUI():
         data = ""
         while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
             if ssn == 1 and len(data) == 10:
+                break
+            if len(data) == 30:
                 break
             ch = editwin.getch()
             if ch== 10:
@@ -683,11 +685,22 @@ class TUI():
             if only_num == 1:
                 if ch >=48 and ch <= 57:
                     data += chr(ch)
+            elif clock == 1:
+                if (ch >= ord("0") and ch <= ord("9")) or ch == ord(":"):
+                    data += chr(ch)
+            elif name == 1:
+                if  (ch >=ord("A") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
+                or ch == ord("é") or ch == ord("É")  or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
+                or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
+                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ")  \
+                or ch == ord(" "): #This defines all the chrs this custom input accepts
+                    data += chr(ch)
             else:
                 if (ch >=ord("0") and ch <= ord("9")) or (ch >=ord("@") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
                 or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
-                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") or ch == ord(":"): #This defines all the chrs this custom input accepts
+                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") \
+                or ch == ord(":") or ch == ord(" "): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()
