@@ -673,7 +673,7 @@ class TUI():
         while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
             if ssn == 1 and len(data) == 10:
                 break
-            if len(data) == 30:
+            if len(data) == 29:
                 break
             ch = editwin.getch()
             if ch== 10:
