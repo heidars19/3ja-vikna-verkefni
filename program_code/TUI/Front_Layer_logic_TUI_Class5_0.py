@@ -112,46 +112,29 @@ class TUI():
         self.index_len = []
         self.header_len = []
         self.select_len = 0
-        for i in range(len(self.item_list[0])):
-            longest = 0
-            for x in range(0+self.next_section,len(self.item_list)+self.next_section):
-                try:
-                    if len(self.item_list[x][i]) > longest:
-                        longest = len(self.item_list[x][i])
-                except:
-                    continue
-            self.index_len.append(longest)
+        try:
+            for i in range(len(self.item_list[0])):
+                longest = 0
+                for x in range(0+self.next_section,len(self.item_list)+self.next_section):
+                    try:
+                        if len(self.item_list[x][i]) > longest:
+                            longest = len(self.item_list[x][i])
+                    except:
+                        continue
+                self.index_len.append(longest)
+        except:
+            pass
         for i in range(0+self.next_section,15+self.next_section):
             try:
                 new_string = ""
                 if self.menu_select == 0:
-                    if self.exeption != 0:
-                        if self.exeption2 != 0:
-                            if exceptions[self.exeption] in self.item_list[i] and rank_exception[self.exeption-1][self.exeption2-1] in self.item_list[i]:
-                                for x in range(len(self.item_list[i])):
-                                    if x not in [0,3,5,8,9]:
-                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                        self.header_len.append(self.index_len[x])
-                                    if x == 3 or x == 5:
-                                        self.header_len.append(0)
-                            new_list.append(new_string)
-                        else:
-                            if exceptions[self.exeption] in self.item_list[i]:
-                                for x in range(len(self.item_list[i])):
-                                    if x not in [0,3,5,8,9]:
-                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                        self.header_len.append(self.index_len[x])
-                                    if x == 3 or x == 5:
-                                        self.header_len.append(0)
-                            new_list.append(new_string)
-                    else:
-                        for x in range(len(self.item_list[i])):
-                            if x not in [0,3,5,8,9]:
-                                new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                self.header_len.append(self.index_len[x])
-                            if x == 3 or x == 5:
-                                    self.header_len.append(0)
-                        new_list.append(new_string)
+                    for x in range(len(self.item_list[i])):
+                        if x not in [0,3,5,8,9]:
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            self.header_len.append(self.index_len[x])
+                        if x == 3 or x == 5:
+                                self.header_len.append(0)
+                    new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,1,2,8,9,10,11,12,14]:
@@ -178,7 +161,6 @@ class TUI():
             except:
                 for i in range(15-len(new_list)):
                     new_list.append("")
-        
         for i in range(15-len(new_list)):
             new_list.append("{:^{lengd:}}".format("", lengd = 100))
         for i in range(len(new_list)):
@@ -1034,21 +1016,69 @@ class TUI():
                 self.new_reg_u_input = True
             elif key == ord("s"):
                 self.check_specifcly = True
-            if idx == 0:
-                if key == 102:
+            elif self.menu_select == 0:
+                self.item_list = self.instance_API.get_list("employee")
+                if key == ord("f"):
+                    self.list_line_index = 0
+                    idz = 0
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
                         self.exeption += 1
                     else:
                         self.exeption = 0
+                    if self.exeption == 1:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Pilot" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
+                    if self.exeption == 2:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Cabincrew" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
                 elif self.exeption == 1 and key == ord("l"):
-                    self.make_plane_license_dropdown(10,110,1)
+                    self.list_line_index = 0
+                    idz = 0
+                    license = self.make_plane_license_dropdown(10,110,1)
+                    buffer_list = []
+                    for i in range(len(self.item_list)):
+                        if license in self.item_list[i]:
+                            buffer_list.append(self.item_list[i])
+                    self.item_list = buffer_list
                 elif (self.exeption == 1 or self.exeption == 2) and key == ord("t"):
+                    self.list_line_index = 0
+                    idz = 0
                     if self.exeption2 != 2:
                         self.exeption2 += 1
                     else:
                         self.exeption2 = 0
+                    if self.exeption == 1 and self.exeption2 == 1:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Captain" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
+                    if self.exeption == 1 and self.exeption2 == 2:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Co-Pilot" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
+                    if self.exeption == 2 and self.exeption2 == 1:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Flight Service Manager" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
+                    if self.exeption == 2 and self.exeption2 == 2:
+                        buffer_list = []
+                        for i in range(len(self.item_list)):
+                            if "Flight Attendant" in self.item_list[i]:
+                                buffer_list.append(self.item_list[i])
+                        self.item_list = buffer_list
                 """self.stdscr.clear()
                 self.stdscr.attron(curses.color_pair(1))
                 self.stdscr.addstr(0,0,str(key))
