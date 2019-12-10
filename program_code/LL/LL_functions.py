@@ -134,6 +134,7 @@ class LL_functions():
     
         index_sorted_list = []
         for item in db_items:
+            tmp_list = []
             tmp_list2 = []
             
             if type(item) == str:
@@ -142,9 +143,8 @@ class LL_functions():
                     tmp_list2.append(tmp_list[index])
             
             if type(item) == list:
-                for a_list in db_items:
-                    for index in index_list:
-                        tmp_list2.append(a_list[index])
+                for index in index_list:
+                    tmp_list2.append(item[index])
             index_sorted_list.append(tmp_list2)
 
 
