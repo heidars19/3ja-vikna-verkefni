@@ -1,4 +1,5 @@
 id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
+<<<<<<< HEAD
 1,NA3525,NA3525,Keflavik,Köben,2019-12-20T11:45:00,2019-12-20 15:45,1,1,2,3,4,5,staffed,2019-12-05 20:45:18.095017
 2,NA9228,NA3525,Keflavik,Stockholm,2019-12-19T06:16:00,2019-12-20 10:45,2,6,7,8,9,10,staffed,2019-12-05 20:45:18.095017
 3,NA2275,NA3525,Keflavik,Nuuk,2019-12-19T06:21:00,2019-12-19 22:00,3,11,12,18,14,15,staffed,2019-12-05 20:45:18.095017
@@ -13,3 +14,10 @@ id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arr
 12,NA2275,NA3525,Keflavik,shaihai,2019-12-30T06:21:00,2019-12-22 22:00,3,12,12,20,14,15,staffed,2019-12-05 20:45:18.095017
 13,NA2275,NA3525,Keflavik,chicago,2019-12-31T06:21:00,2019-12-22 22:00,3,1,12,2,14,15,staffed,2019-12-05 20:45:18.095017
 14,NA2275,NA3525,Keflavik,djupivogur,2019-12-30T06:21:00,2019-12-22 22:00,3,13,12,13,14,15,staffed,2019-12-05 20:45:18.095017
+=======
+1,NA156,NA157,Köben,2019-12-20 11:45,2019-12-20 15:45,1,1,2,3,4,5,staffed,,
+2,NA9228,NA3525,Keflavik,Stockholm,2019-12-19 06:16:00,2019-12-20 10:45,2,6,7,8,9,10,staffed,2019-12-05 20:45:18.095017
+3,NA150,NA151,Keflavik,Nuuk,2019-12-20 06:21:00,2019-12-19 22:00,3,11,12,13,14,15,staffed,
+4,NA152,NA153,Keflavík,15,2019-12-20 11:45,2019-12-20 21:45,5,,,,,,,2019-12-10 17:20:51.802571
+5,NA154,NA155,Keflavík,15,2019-12-20 11:45,2019-12-20 21:45,5,,,,,,,2019-12-10 17:33:00.970412
+>>>>>>> 1c104f60be4c8645f78b07651bedf760187451a5

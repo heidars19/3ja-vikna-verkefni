@@ -2,8 +2,103 @@ from LL.Worktrip import *
 from DB.DATA_API import *
 from LL.LL_functions import *
 import string
+import datetime
+from datetime import timedelta
 
 class WorktripLL(LL_functions):
+
+    FLUGFELAG = 'NA' # Fyrir flugnúmer
+    
+
+
+    def get_line_from_list(self, incoming_list, id_number, index_list) :
+        '''
+        List from database, id number for the line, and list of indexes for values you need\n
+        Returns a list with indexed values as elements
+        '''
+        temp_list = []
+        for line in incoming_list:
+            if line[0] == id_number :
+                for index in index_list :
+                    temp_list.append(line[int(index)])
+                return (temp_list)
+        return 0 # Found nothing
+
+    def calc_arrival_time(self, duration, start_time) :
+        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[0] = min
+        round_trip_duration = datetime.timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + datetime.timedelta(hours=1)
+        end_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
+        return datetime.datetime.strftime(end_time,"%Y-%m-%d %H:%M" )
+
+
+    def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
+
+        departing_from = 'Keflavík'
+
+        index_list = self.find_index_from_header('destination',['flight_time','destination_code'])
+        destination_list = self.get_updated_list_from_DB("destination")
+
+        result = self.get_line_from_list(destination_list, dest_id, index_list) # Filters out values from a specific line
+        flight_time, destination_code = tuple(result)
+        # print(destination_code)
+        arrival_time = self.calc_arrival_time(flight_time, departure_time)
+
+        other_flights_same_day = self.get_flightnumber(destination_code, departure_time)
+
+        temp_worktrip_string = ['','', '', departing_from, dest_id, departure_time, arrival_time, aircraft_id]
+
+        other_flights_same_day.append(temp_worktrip_string) # Add current worktrip to the list from DB
+
+        index_list = self.find_index_from_header('worktrip',['departure'])
+        total_flights_list = sorted(other_flights_same_day, key = lambda x: x[index_list[0]]) 
+
+        final_list_of_flights = self.add_flightnumbers(total_flights_list, destination_code)
+
+        # final_worktrip_string = ['','flight_number_out', 'flight_number_home', departing_from, dest_id, departure_time, arrival_time, aircraft_id]
+
+        return final_list_of_flights
+
+
+
+    def add_flightnumbers (self, work_list, destination_code) :
+        '''  
+        Final process of flight codes. Injects them into worktrip list.
+        '''
+        result_list = []
+        f_number = 0
+
+        for i, element in enumerate(work_list) :
+            flight_id_out = self.FLUGFELAG + destination_code + str(f_number)
+            flight_id_home = self.FLUGFELAG + destination_code + str(f_number+1)
+            f_number += 2
+            element[1] = flight_id_out
+            element[2] = flight_id_home
+            result_list.append(tuple(element))
+
+        return result_list
+
+        
+
+    def get_flightnumber(self, destination_code, departure_time) :
+        '''  
+        Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers\n
+        if needed    
+        '''
+
+        worktrip_full_list = []
+        worktrip_full_list = self.get_updated_list_from_DB("worktrip")   # Get a list
+
+        index_list = self.find_index_from_header('worktrip', ['departure', 'destination_code'])
+        check_time = departure_time.split(' ') # Fá bara dags
+        filtered_list = self.get_filtered_list_from_DB('worktrip', index_list, check_time[0], match=False)
+
+        temp_list = []
+        for line in filtered_list:
+            temp_list.append(line.split(','))
+        return temp_list
+        
+                    
+
 
     def create_worktrip(self,worktrip_identity):
         """
@@ -11,15 +106,23 @@ class WorktripLL(LL_functions):
         worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
             aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
         """
-        # Need this from TUI - destination,date,aircraft_id
+        # Need this from TUI - destination_id,date,aircraft_id
         # arriving_at,departure,aircraft_id
 
-        #worktrip_list = calculate_worktrip_list(*worktrip_identity)
+        worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
+ 
+        for element in worktrip_list:
+            if element[0] == '' : 
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_registration_str()
 
-        new_worktrip = Worktrip(*worktrip_list)
-        registration_str = new_worktrip.get_registration_str()
+                return_value = self.save_object_to_DB("worktrip",registration_str)
 
-        return_value = self.save_object_to_DB("worktrip",registration_str)
+            else : # Previously registered data, so we must fine line and overwrite it
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_changes_registration_str()
+
+                return_value = self.change_object_in_DB("worktrip",registration_str, element[0])
         return return_value
 
 
@@ -38,129 +141,3 @@ class WorktripLL(LL_functions):
         staff_index_list = self.find_index_from_header(keyword, row_names)
         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
         return destination_staffmember_list
-
-           
-#--------------------------------------------------------------------------
-
-
-#     def calculate_worktrip_list(self, arriving_at, departure, aircraft_id):
-#         # flight_number_out,flight_number_home,departing_from,departure,arrival,\
-#         # ,captain,copilot,fsm,fa1,fa2,staffing_status
-
-#         # arriving_at,destination_code,aircraft_id
-
-#         # Get destination code and destination, also flight_time to calculate arrival time
-#         # id,destination,country,flight_time,distance,contact,emerg_number,airport,destination_code,registration_date
-#         index_list = self.find_index_from_header('destionation',['destination_code','flight_time'])
-#         destination_list = self.get_updated_list_from_DB("Destination")
-
-#         dest_code, flight_time = self.get_line_from_list(destination_list, aircraft_id, index_list) # Filters out values from a specific line
-        
-        
-#         filtered_list = self.get_filtered_list_from_DB("worktrip",index_list,date)
-
-#         self.filter_by_header_index(staff_index_list, filtered_list)
-
-# #   "worktrip"
-
-        
-#         # # destination_code   
-#         # destination_list = get_updated_list_from_DB("Destination")     #  Gets list from database
-#         # destination_code = process_list(destination_list, destination_id, self.DEST_CODE_INDEX)   # Gets destination_code from a list   
-
-
-#         return
-
-
-#     # Constants representing index in worktrip list
-#     FLUGFELAG = "NA"
-#     DEST_CODE_INDEX = 0
-#     DEST_ID_INDEX = 0
-#     WORKTRIP_DATE_INDEX = 0
-#     FLIGHT_ID_OUT = 0
-#     FLIGHT_ID_HOME = 0
-
-
-#     def add_flightnumbers (self, destination_code, work_list) :
-#         '''  
-#         Final process of flight codes. Injects them into worktrip list,\n
-#         then writes lines into database.
-#         '''
-#         result_list = []
-#         for i, element in enumerate(work_list, step=2) :
-#             flight_id_out = self.FLUGFELAG + destination_code + str(i)
-#             flight_id_home = self.FLUGFELAG + destination_code + str(i+1)
-#             element[self.FLIGHT_ID_OUT] = flight_id_out
-#             element[self.FLIGHT_ID_HOME] = flight_id_home
-#             if int(element[0]) > 0 : # Overwrite lines in database
-#                 new_instance = WorkTripFileOld(fieldname="id", searchparam=element[0])
-#                 line_number = new_instance.start()
-#                 new_instance = WorkTripFileOld(line_to_replace=line_number, replace_with=element)
-#                 line_number = new_instance.start()
-#             else :  # Append a new line into database
-#                 new_instance = WorkTripFileOld(data_to_append=element)
-#                 line_number = new_instance.start()
-
-
-#     def process_list_by_index(self, working_list, data_filter, element_index) :
-#         ''' 
-#         Collects elements of a list with where 'data_filter' corresponds to 'element_index'\n
-#         Returns a list
-#         '''
-#         new_list = []
-#         for element in working_list :
-#             if data_filter == element[element_index] :
-#                 new_list.append(element)
-#         return new_list
-
-        
-#     def process_list(self, incoming_list, id_num='0', index_to_return='0'):
-#         ''' 
-#         Finds an element of a list with id == 'id_num'\n
-#         Returns a list
-#         ''' 
-#         for element in incoming_list:
-#             if element[0] == id_num :
-#                 return element[index_to_return]   # When id is found, return the value at given index 
-#         return 0 # Didn't find, or error
-        
-
-#     def get_flightnumber(self, worktrip) :
-#         '''  
-#         Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers\n
-#         if needed    
-#         '''
-#         destination_id = worktrip[self.DEST_ID_INDEX] 
-#         worktrip_date = worktrip[self.WORKTRIP_DATE_INDEX] 
-
-
-        
-#         # destination_code   
-#         destination_list = get_updated_list_from_DB("Destination")     #  Gets list from database
-#         destination_code = process_list(destination_list, destination_id, self.DEST_CODE_INDEX)   # Gets destination_code from a list            
-        
-        
-#         #------------------- Last number in flightnumber -----------------------------#
-
-#         worktrip_full_list = []
-#         worktrip_full_list = get_updated_list_from_DB("Worktrips")   # Get a list
-#         workingy_list = process_list_by_index(worktrip_full_list, worktrip_date, self.WORKTRIP_DATE_INDEX) # Filters list by date
-#         same_day_list = process_list_by_index(workingy_list, destination_id, self.DEST_ID_INDEX) # Filters list by destination
-        
-#         if len(self, same_day_list) == 0 :
-#             worktrip_number = 0 # No other trips this day, so write directly to DB
-#             new_instance = WorkTripFileOld(data_to_append=element)
-#             line_number = new_instance.start()      
-#         else :        
-#             # More trips this day
-#             same_day_list.append(worktrip) # Add current worktrip to the list from DB
-            
-#             work_list = sorted(same_day_list, key = lambda x: x[-1]) # Sort by last element (maybe???)
-#             add_flightnumbers(destination_code, work_list)  # Processes flight number and injects them into list, write in database
-#         return 
-        
-                    
-
-
-            
-
