@@ -372,7 +372,7 @@ class TUI():
                 else:
                     return text_string_2
 
-    def make_plane_license_dropdown(self,y,x):
+    def make_plane_license_dropdown(self,y,x,create = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
         plane_license_list = self.instance_API.get_list("airplane","plane_licenses")
@@ -381,13 +381,14 @@ class TUI():
         editwin2 = curses.newwin(1,30,16,67)
         editwin.keypad(1)
         while True:
-            editwin2.clear()
-            editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,plane_license_list[position_y])
-            editwin2.attroff(curses.color_pair(2))
-            editwin2.refresh()
+            if create == 0:
+                editwin2.clear()
+                editwin2.attron(curses.color_pair(2))
+                editwin2.addstr(0,0,plane_license_list[position_y])
+                editwin2.attroff(curses.color_pair(2))
+                editwin2.refresh()
             editwin.refresh()
-            for i in range(len(plane_license_list)):
+            for i in range(len(plane_license_list[0])):
                 if position_y == i:
                     self.license_drop_down(editwin,plane_license_list[i],i,curses.color_pair(2))
                 else:
@@ -1038,7 +1039,7 @@ class TUI():
                     else:
                         self.exeption = 0
                 elif self.exeption == 1 and key == ord("l"):
-                    self.make_plane_license_dropdown(15,80)
+                    self.make_plane_license_dropdown(15,110,1)
                 elif self.exeption == 1 and key == ord("t"):
                     if self.exeption2 != 2:
                         self.exeption2 += 1
