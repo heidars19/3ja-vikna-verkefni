@@ -72,7 +72,7 @@ class EmployeeLL(LL_functions):
 
         row_names = ['id', 'name' ,'role' ,'rank']    #return columns
         employee_index_list = self.find_index_from_header('employee', row_names)
-        filtered_available_employees = self.filter_by_header_index(employee_index_list, available_employees_list, True)
+        filtered_available_employees = self.filter_by_header_index(employee_index_list, available_employees_list)
 
         available_employees_list.pop(0)
 

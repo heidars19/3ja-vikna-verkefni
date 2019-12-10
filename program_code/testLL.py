@@ -51,12 +51,11 @@ def main():
 
 
 
-#  new_instance = LL_API()
   # new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-#  new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
+  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19')
   print(new_list)
 
 
