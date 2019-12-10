@@ -20,7 +20,7 @@ class FileHandlr :
     STAFF_TABLE_HEADER = 'id,ssn,name,address,mobile,email,role,rank,licence,registration_date'
     
     DESTINATION_TABLE = "Data/Destinations.csv"
-    DESTINATION_TABLE_HEADER = 'id,destination,country,flight_time,distance,contact,emerg_number,airport,registration_date'
+    DESTINATION_TABLE_HEADER = 'id,destination,country,flight_time,distance,contact,emerg_number,airport,destination_code,registration_date'
     
     WORKTRIP_TABLE = "Data/Worktrips.csv"
     WORKTRIP_TABLE_HEADER = 'id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date'
