@@ -1,4 +1,4 @@
-id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,registration_date
+id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
 1,NA5638,KEF,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-6-20 10:45,321321,321321,28,157,167,321,321
 4,NA9997,KEF,Longyearbyen,Keflavik,2019-12-22T11:16:00,2019-4-20 10:45,,,,,,,
 15,NA5638,KEF,Keflavik,Longyearbyen,2019-12-20T06:45:00,2019-12-2 12:00,321321,321321,28,157,167,321,321

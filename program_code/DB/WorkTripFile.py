@@ -22,7 +22,7 @@ class WorkTripFile (FileHandlr) :
     MakeNewInstance = WorkTripFile(fieldname=..., searchparam=...)
     '''
 
-    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
+    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None, header=False ) :
 
         self._filename = FileHandlr.WORKTRIP_TABLE
         self._header = FileHandlr.WORKTRIP_TABLE_HEADER

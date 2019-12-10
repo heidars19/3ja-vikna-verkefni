@@ -15,7 +15,7 @@ def main ():
     # print()
     
     #Append data to a file - check
-    new_instance = AirplaneFile(data_to_append="TF-EOC,NAFokker80,Fokker,F800,Heiðar er Bestur,100")
+    new_instance = AirplaneFile(data_to_append="TF-EOC,NAFokker80,Fokker,800,Heiðar er Bestur")
     new_instance.start()
     
     # Finds line number of a given search parameter - check

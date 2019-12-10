@@ -22,7 +22,7 @@ class DestinationFile (FileHandlr) :
     MakeNewInstance = DestinationFile(fieldname=..., searchparam=...)
     '''
 
-    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
+    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None , header=False) :
 
         self._filename = FileHandlr.DESTINATION_TABLE
         self._header = FileHandlr.DESTINATION_TABLE_HEADER

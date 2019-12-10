@@ -29,7 +29,7 @@ class FileHandlr :
     WORKTRIP_OLD_TABLE_HEADER = 'id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date'
     
     
-    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None ) :
+    def __init__ (self, data_to_append=None, fieldname=None, searchparam=None, line_to_replace=None, replace_with=None, header=False ) :
     
         self._filename = ''
         self._header = ''
@@ -42,6 +42,7 @@ class FileHandlr :
         self._line_number = None
         self._data_list = None
         self._id = 0
+        self._header = header
 
 
     def start(self) :
