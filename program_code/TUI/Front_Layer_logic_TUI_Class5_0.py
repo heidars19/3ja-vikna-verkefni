@@ -145,7 +145,7 @@ class TUI():
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
-                        if x not in [0,3,4,8]:
+                        if x not in [0,3,4,8,9]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
                             self.header_len.append(self.index_len[x])
                         if x in [3,4]:
@@ -512,10 +512,10 @@ class TUI():
                     time.sleep(1)
             self.make_text_appear(10,16,"",30,3)
             airplane = self.make_user_input_window(12,13)
-            airplane = self.make_plane_license_dropdown(12,13)
+            #airplane = self.make_plane_license_dropdown(12,13)
             departure = "KEF"
             destination = self.make_user_input_window(5,67)
-            self.instance_API.create("destination",(date + " " + departure_time_out,airplane,destination))
+            self.instance_API.create("worktrip",(date + " " + departure_time_out,airplane,destination))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
         if self.menu_select == 2:
             destination_name = self.make_user_input_window(5,23)
@@ -525,7 +525,7 @@ class TUI():
             name_of_contact = self.make_user_input_window(5,70)
             contacts_phone = self.make_user_input_window(9,70)
             airport = self.make_user_input_window(12,65)
-            le = (destination_name,country,airport,distance_from_iceland,name_of_contact,contacts_phone)
+            self.instance_API.create("destination",(destination_name,country,airport,distance_from_iceland,name_of_contact,contacts_phone))
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
         if self.menu_select == 3:
             _id = ""
