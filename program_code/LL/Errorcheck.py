@@ -6,9 +6,9 @@ class ErrorCheck:
     
     
     ERROR_KENNITALA = 'Ólögleg kennitala!'
-    ERROR_EMAIL = 'Netfang ranglega slegið inn!'
-    ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
-    ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
+    ERROR_EMAIL = 'Ólöglegt netfang'
+    ERROR_ADDRESS = 'Ólögleg heimilisfang'
+    ERROR_CELLPHONE = "Ólögleg símanúmer"
     ERROR_CLOCK = "Ólöglegur tími"
     ERROR_NAME = "Ólöglegt nafn"
     
