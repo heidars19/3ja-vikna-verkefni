@@ -512,7 +512,7 @@ class TUI():
                     time.sleep(1)
             self.make_text_appear(10,16,"",30,3)
             airplane = self.make_user_input_window(12,13)
-            #airplane = self.make_plane_license_dropdown(12,13)
+            #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             destination = self.make_user_input_window(5,67)
             self.instance_API.create("worktrip",(date + " " + departure_time_out,airplane,destination))
@@ -800,6 +800,51 @@ class TUI():
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
+    
+    def change_user_dropdown_list(self,index,y,x,object_list):
+        check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
+        if check == 8:
+            variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list)
+        else:
+            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+        return variable_x
+
+    def make_list_dropdown(self,y,x,object_list):
+        """This method gets all airplane licenses and creates a drop down menu for the user"""
+        position_y = 0
+        #plane_license_list = ["hello","world","long"]
+        editwin = curses.newwin(len(object_list),20,5,110)
+        editwin2 = curses.newwin(1,30,y,x)
+        editwin.keypad(1)
+        curses.curs_set(0)
+        while True:
+            editwin2.clear()
+            editwin2.attron(curses.color_pair(2))
+            editwin2.addstr(0,0,object_list[position_y][1])
+            editwin2.attroff(curses.color_pair(2))
+            editwin2.refresh()
+            editwin.refresh()
+            for i in range(len(object_list)):
+                if position_y == i:
+                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(2))
+                else:
+                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(1))
+            button_press = editwin.getch()
+            if button_press == curses.KEY_UP or button_press == 450:
+                if position_y == 0:
+                    position_y = len(object_list)-1
+                else:
+                    position_y -= 1
+            elif button_press == curses.KEY_DOWN or button_press == 456:
+                if position_y == len(object_list)-1:
+                    position_y = 0
+                else:
+                    position_y += 1
+            elif button_press == 10:
+                for i in range(len(object_list)):
+                    self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
+                curses.curs_set(1)
+                return object_list[position_y][1]
 
     def change_user_menu(self):
         if self.menu_select == 0:
@@ -829,11 +874,32 @@ class TUI():
             departure = self.change_user(4,13,0)
             arrival = self.change_user(5,15,0)
             aircraft_id = self.change_user(6,17,0)
-            captain = self.change_user(7,5,49)
-            copilot = self.change_user(8,7,49)
-            fsm = self.change_user(9,9,49)
-            fa1 = self.change_user(10,11,49)
-            fa2 = self.change_user(11,13,49)
+            new_list = self.instance_API.get_list('worktrip',"available_employees",departure[0:10])
+            temp_list = []
+            for i in range(len(new_list)):
+                if "Captain" in new_list[i]:
+                    temp_list.append(new_list[i])
+            captain = self.change_user_dropdown_list(7,5,49,temp_list)
+            temp_list = []
+            for i in range(len(new_list)):
+                if "Co-Pilot" in new_list[i]:
+                    temp_list.append(new_list[i])
+            copilot = self.change_user_dropdown_list(8,7,49,temp_list)
+            temp_list = []
+            for i in range(len(new_list)):
+                if "Flight Service Manager" in new_list[i]:
+                    temp_list.append(new_list[i])
+            fsm = self.change_user_dropdown_list(9,9,49,temp_list)
+            temp_list = []
+            for i in range(len(new_list)):
+                if "Flight Attendant" in new_list[i]:
+                    temp_list.append(new_list[i])
+            fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
+            for i in range(len(temp_list)):
+                    if fa1 in temp_list[i]:
+                        temp_list.pop(i)
+                        break
+            fa2 = self.change_user(11,13,49,temp_list)
             
 
         if self.menu_select == 2:
