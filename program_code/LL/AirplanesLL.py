@@ -29,7 +29,7 @@ class AirplanesLL(LL_functions):
 
         return return_value
 
-    def get_plance_licence(self, keyword,date):
+    def get_plance_licence(self, keyword,date=""):
         """
         Gets list of plane types
         """
@@ -39,7 +39,8 @@ class AirplanesLL(LL_functions):
         return_column = True
 
         new_list = LL_functions()
-        filtered_list = list(set(new_list.get_filtered_list_from_DB(keyword,row_names, searchparam, match, return_column)))
+        index_list = self.find_index_from_header('airplane', row_names)
+        filtered_list = list(set(new_list.get_filtered_list_from_DB(keyword,index_list, searchparam, match, return_column)))
         return filtered_list
 
     # def filter_planes(planes_list=[], a_header=''):
