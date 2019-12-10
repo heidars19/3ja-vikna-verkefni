@@ -6,15 +6,19 @@ class ErrorCheck:
     
     
     ERROR_KENNITALA = 'Ólögleg kennitala!'
-    ERROR_EMAIL = 'Netfang ranglega slegið inn!'
-    ERROR_ADDRESS = 'Heimilisfang ranglega slegið inn'
-    ERROR_CELLPHONE = "Símanúmer ranglega slegið inn!"
+    ERROR_EMAIL = 'Ólöglegt netfang'
+    ERROR_ADDRESS = 'Ólögleg heimilisfang'
+    ERROR_CELLPHONE = "Ólögleg símanúmer"
+    ERROR_CLOCK = "Ólöglegur tími"
+    ERROR_NAME = "Ólöglegt nafn"
     
-    def __init__(self, e_mail=None, ssn=None, address=None, cellphone=None):
+    def __init__(self, e_mail=None, ssn=None, address=None, cellphone=None, clock=None, name=None):
         self.__email = e_mail
         self.__ssn = ssn
         self.__address = address
         self.__cellphone = cellphone
+        self.__clock = clock
+        self.__name = name
             
     def set_mail(self, e_mail) :
         self.__email = e_mail
@@ -27,6 +31,12 @@ class ErrorCheck:
         
     def set_cellphone(self, cellphone) :    
         self.__cellphone = cellphone
+    
+    def set_clock(self,clock):
+        self.__clock = clock
+
+    def set_name(self,name):
+        self.__name = name
 
 
     def check_ssn(self):
@@ -49,8 +59,10 @@ class ErrorCheck:
                     birthyear = ssn_list[2]+2000
                 if ssn_list[4]%10==9:
                     birthyear = ssn_list[2]+1900
-                if birthyear > now.year  or birthyear < 1903:
-                    return self.ERROR_KENNITALA
+                if birthyear > now.year:
+                    return "Back to the future?"
+                if birthyear < 1903:
+                    return "When i was young in 1900...."
                 if  ssn_list[4]%10 != 0 and ssn_list[4]%10 != 9:
                     return self.ERROR_KENNITALA
                 return True
@@ -110,9 +122,27 @@ class ErrorCheck:
             return self.ERROR_CELLPHONE
         
         return True
-
-
-
+    
+    def check_clock(self):
+        try:
+            hours = int(self.__clock[0:2])
+            _dot = self.__clock[2:3]
+            minutes = int(self.__clock[3:5])
+            if hours > 23 or hours < 0:
+                return self.ERROR_CLOCK
+            if _dot != ":":
+                return self.ERROR_CLOCK
+            if minutes > 59 or minutes < 0:
+                return self.ERROR_CLOCK
+            return True
+        except:
+            return self.ERROR_CLOCK
+        
+    def check_name(self):
+        for i in self.__name:
+            if i.isdigit():
+                return self.ERROR_NAME
+        return True
 def main():
     
     check = ErrorCheck()    
@@ -133,6 +163,14 @@ def main():
     check.set_cellphone("2001765459")
     result = check.check_cellphone()
     # print(f"Sími: {result}") 
+
+    check.set_clock("24:59")
+    result = check.check_clock()
+    print(f"Clock: {result}")
+
+    check.set_name("Ófeigur Atli")
+    result = check.check_name()
+    print(f"name: {result}")
     
     # check = check_ssn("2001765449")
     # print(f"Kennitala: {check}")    

@@ -24,6 +24,7 @@ class TUI():
     def __init__(self,stdscr):
         self.menu_select = 0
         self.exeption = 0
+        self.exeption2 = 0
         self.new_registration = False
         self.stdscr = stdscr
         self.new_reg_u_input = False
@@ -107,6 +108,7 @@ class TUI():
     def construct_body_lists(self):
         new_list = []
         exceptions = ["", "Pilot", "Cabincrew"]
+        rank_exception = [["Captain", "Co-Pilot"],["Flight Service Manager","Flight Attendant"]]
         self.index_len = []
         self.header_len = []
         self.select_len = 0
@@ -124,13 +126,25 @@ class TUI():
                 new_string = ""
                 if self.menu_select == 0:
                     if self.exeption != 0:
-                        if exceptions[self.exeption] in self.item_list[i]:
-                            for x in range(len(self.item_list[i])):
-                                if x not in [0,3,7,8,9]:
-                                    new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
-                                    self.header_len.append(self.index_len[x])
+                        if self.exeption2 != 0:
+                            if exceptions[self.exeption] in self.item_list[i] and rank_exception[self.exeption-1][self.exeption2-1] in self.item_list[i]:
+                                for x in range(len(self.item_list[i])):
+                                    if x not in [0,3,7,8,9]:
+                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                        self.header_len.append(self.index_len[x])
                                 else:
                                     self.header_len.append(0)
+                            else:
+                                self.header_len.append(0)
+                            new_list.append(new_string)
+                        else:
+                            if exceptions[self.exeption] in self.item_list[i]:
+                                for x in range(len(self.item_list[i])):
+                                    if x not in [0,3,7,8,9]:
+                                        new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                                        self.header_len.append(self.index_len[x])
+                                    else:
+                                        self.header_len.append(0)
                             new_list.append(new_string)
                     else:
                         for x in range(len(self.item_list[i])):
@@ -358,45 +372,46 @@ class TUI():
                 else:
                     return text_string_2
 
-    def make_plane_licence_dropdown(self,y,x):
-        """This method gets all airplane licences and creates a drop down menu for the user"""
+    def make_plane_license_dropdown(self,y,x,create = 0):
+        """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        plane_licence_list = self.instance_API.get_list("airplane","plane_licences")
-        #plane_licence_list = ["hello","world","long"]
-        editwin = curses.newwin(len(plane_licence_list),20,y,x)
+        plane_license_list = self.instance_API.get_list("airplane","plane_licenses")
+        #plane_license_list = ["hello","world","long"]
+        editwin = curses.newwin(len(plane_license_list),20,y,x)
         editwin2 = curses.newwin(1,30,16,67)
         editwin.keypad(1)
         while True:
-            editwin2.clear()
-            editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,plane_licence_list[position_y])
-            editwin2.attroff(curses.color_pair(2))
-            editwin2.refresh()
+            if create == 0:
+                editwin2.clear()
+                editwin2.attron(curses.color_pair(2))
+                editwin2.addstr(0,0,plane_license_list[position_y])
+                editwin2.attroff(curses.color_pair(2))
+                editwin2.refresh()
             editwin.refresh()
-            for i in range(len(plane_licence_list)):
+            for i in range(len(plane_license_list[0])):
                 if position_y == i:
-                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,plane_license_list[i],i,curses.color_pair(2))
                 else:
-                    self.licence_drop_down(editwin,plane_licence_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,plane_license_list[i],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
-                    position_y = len(plane_licence_list)-1
+                    position_y = len(plane_license_list)-1
                 else:
                     position_y -= 1
             elif button_press == curses.KEY_DOWN or button_press == 456:
-                if position_y == len(plane_licence_list)-1:
+                if position_y == len(plane_license_list)-1:
                     position_y = 0
                 else:
                     position_y += 1
             elif button_press == 10:
-                for i in range(len(plane_licence_list)):
-                    self.licence_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
-                return plane_licence_list[position_y]
+                for i in range(len(plane_license_list)):
+                    self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
+                return plane_license_list[position_y]
 
-    def licence_drop_down(self,editwin,licence_string,y,color_pair):
+    def license_drop_down(self,editwin,license_string,y,color_pair):
         editwin.attron(color_pair)
-        editwin.addstr(y,0,licence_string)
+        editwin.addstr(y,0,license_string)
         editwin.attroff(color_pair)
         editwin.refresh()
 
@@ -432,7 +447,17 @@ class TUI():
                 else:
                     self.make_text_appear(5,15,error_msg,30,2)
                     time.sleep(1)
-            name = self.make_user_input_window(9,10)
+            
+            while True:
+                name = self.make_user_input_window(9,10, name = 1)
+                self.errorcheck.set_name(name)
+                error_msg = self.errorcheck.check_name()
+                if error_msg == True:
+                    self.make_text_appear(9,10,name,30,2)
+                    break
+                else:
+                    self.make_text_appear(9,10,error_msg,30,2)
+                    time.sleep(1)
             while True:
                 address = self.make_user_input_window(12,17)
                 self.errorcheck.set_address(address)
@@ -441,7 +466,7 @@ class TUI():
                     self.make_text_appear(12,17,address,30,2)
                     break
                 else:
-                    self.make_text_appear(5,15,error_msg,30,2)
+                    self.make_text_appear(12,17,error_msg,30,2)
                     time.sleep(1)
             while True:
                 gsm = self.make_user_input_window(16,10,1)
@@ -451,17 +476,17 @@ class TUI():
                     self.make_text_appear(16,10,gsm,30,2)
                     break
                 else:
-                    self.make_text_appear(5,15,error_msg,30,2)
+                    self.make_text_appear(16,10,error_msg,30,2)
                     time.sleep(1)
             while True:
                 email = self.make_user_input_window(5,62)
                 self.errorcheck.set_mail(email)
                 error_msg = self.errorcheck.check_mail()
                 if error_msg == True:
-                    self.make_text_appear(16,10,email,30,2)
+                    self.make_text_appear(5,62,email,30,2)
                     break
                 else:
-                    self.make_text_appear(5,15,error_msg,30,2)
+                    self.make_text_appear(5,62,error_msg,30,2)
                     time.sleep(1)
             job_title = self.make_drop_down_menu(9,67,"Pilot","Cabincrew")
             self.make_text_appear(9,67,job_title,30,2)
@@ -476,12 +501,12 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                licence = self.make_plane_licence_dropdown(5,80)
-                self.make_text_appear(16,67,licence,30,2)
+                license = self.make_plane_license_dropdown(6,80)
+                self.make_text_appear(16,67,license,30,2)
                 time.sleep(1)
             else:
-                licence = ""
-            self.instance_API.create("employee",("",ssn,name,address,gsm,email,job_title,rank,licence))
+                license = ""
+            self.instance_API.create("employee",("",ssn,name,address,gsm,email,job_title,rank,license))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("employee")
         if self.menu_select == 1:
@@ -493,10 +518,20 @@ class TUI():
             self.make_text_appear(5,16,date,30,2)
             self.make_text_appear(10,16,"Dæmi: 23:59",30,3)
             curses.curs_set(1)
-            departure_time_out = self.make_user_input_window(9,22)
+            while True:
+                departure_time_out = self.make_user_input_window(9,22, clock = 1)
+                self.errorcheck.set_clock(departure_time_out)
+                error_msg = self.errorcheck.check_clock()
+                if error_msg == True:
+                    self.make_text_appear(9,22,departure_time_out,30,2)
+                    break
+                else:
+                    self.make_text_appear(9,22,error_msg,30,2)
+                    time.sleep(1)
             self.make_text_appear(10,16,"",30,3)
             airplane = self.make_user_input_window(12,13)
-            airplane = self.make_plane_licence_dropdown(12,13)
+            airplane = self.make_plane_license_dropdown(12,13)
+            departure = "KEF"
             destination = self.make_user_input_window(5,67)
             le = (date,departure_time_out,airplane,destination)
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
@@ -644,7 +679,7 @@ class TUI():
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
 
-    def make_user_input_window(self,y,x, only_num = 0, ssn = 0):
+    def make_user_input_window(self,y,x, only_num = 0, ssn = 0, clock = 0, name = 0):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
@@ -652,6 +687,8 @@ class TUI():
         data = ""
         while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
             if ssn == 1 and len(data) == 10:
+                break
+            if len(data) == 29:
                 break
             ch = editwin.getch()
             if ch== 10:
@@ -663,11 +700,22 @@ class TUI():
             if only_num == 1:
                 if ch >=48 and ch <= 57:
                     data += chr(ch)
+            elif clock == 1:
+                if (ch >= ord("0") and ch <= ord("9")) or ch == ord(":"):
+                    data += chr(ch)
+            elif name == 1:
+                if  (ch >=ord("A") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
+                or ch == ord("é") or ch == ord("É")  or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
+                or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
+                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ")  \
+                or ch == ord(" "): #This defines all the chrs this custom input accepts
+                    data += chr(ch)
             else:
                 if (ch >=ord("0") and ch <= ord("9")) or (ch >=ord("@") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
                 or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
-                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") or ch == 222: #This defines all the chrs this custom input accepts
+                or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") \
+                or ch == ord(":") or ch == ord(" "): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()
@@ -862,7 +910,12 @@ class TUI():
             y = 10
             self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
             if self.exeption == 1:
-                pass
+                self.make_text_appear(21,65,"Flokka eftir ",20)
+                self.make_text_appear(21,78,"L",2,2)
+                self.make_text_appear(21,79,"eyfum",10)
+                self.make_text_appear(22,65,"Flokka eftir ",20)
+                self.make_text_appear(22,78,"T",2,2)
+                self.make_text_appear(22,79,"itil",10)
             #string_input = stdscr.getstr(21, 70)
             if self.new_reg_u_input == True:
                 self.get_user_input()
@@ -982,10 +1035,16 @@ class TUI():
                     buffer_str = self.highlight_main_list.pop()
                     self.highlight_main_list.insert(0,buffer_str)
                     if self.exeption != 2:
-
                         self.exeption += 1
                     else:
                         self.exeption = 0
+                elif self.exeption == 1 and key == ord("l"):
+                    self.make_plane_license_dropdown(15,110,1)
+                elif self.exeption == 1 and key == ord("t"):
+                    if self.exeption2 != 2:
+                        self.exeption2 += 1
+                    else:
+                        self.exeption2 = 0
                 """self.stdscr.clear()
                 self.stdscr.attron(curses.color_pair(1))
                 self.stdscr.addstr(0,0,str(key))

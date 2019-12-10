@@ -93,7 +93,7 @@ class LL_API:
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plance_licence(keyword, list_type)
 
-                return plane_licenced
+                return plane_licence
                 
             else:
                 updated_list = []
