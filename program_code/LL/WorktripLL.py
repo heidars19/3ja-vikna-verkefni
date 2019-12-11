@@ -73,7 +73,7 @@ class WorktripLL(LL_functions):
 
         index_list = self.find_index_from_header('worktrip', ['departure', 'destination_code'])
         check_time = departure_time.split(' ') # Fá bara dags
-        filtered_list = self.get_filtered_list_from_DB('worktrip', index_list, check_time[0], match=False)
+        filtered_list = self.get_filtered_list_from_DB('worktrip', index_list, check_time[0], exact_match=False)
 
         temp_list = []
         for line in filtered_list:
@@ -118,7 +118,7 @@ class WorktripLL(LL_functions):
 
         row_names = ['departure','arrival']
         index_list = self.find_index_from_header(keyword, row_names)
-        filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,match=False)
+        filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,exact_match=False)
 
         row_names = ['arriving_at', 'captain' ,'copilot' ,'fsm' ,'fa1' ,'fa2']
         staff_index_list = self.find_index_from_header(keyword, row_names)
@@ -142,7 +142,7 @@ class WorktripLL(LL_functions):
         trips = []
         for a_date in date_list:
             filtered_list = []
-            filtered_list = self.get_filtered_list_from_DB(keyword,index_list,a_date,match=False)
+            filtered_list = self.get_filtered_list_from_DB(keyword,index_list,a_date,exact_match=False)
             trips.extend(filtered_list)
         
         
