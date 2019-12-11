@@ -53,6 +53,18 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
+<<<<<<< HEAD
+  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
+  # new_list = new_instance.get_list('airplane','plane_licences') 
+  new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-10', '11')
+  #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  # print(new_list)
+  # new_list = new_instance.get_list('airplane','plane_licences') 
+  # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  print(new_list)
+=======
   #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   #new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   #new_list = new_instance.get_list('airplane','plane_licences') 
@@ -63,6 +75,7 @@ def main():
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   #print(new_list)
+>>>>>>> d5cdbbb72738f14a945ce7650eb0a0d38da36fd7
 
 
   # new_list = new_instance.get_list('employee')
