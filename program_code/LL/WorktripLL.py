@@ -170,4 +170,19 @@ class WorktripLL(LL_functions):
         
         return staffmember_trips
    
-  
+    # def worktrip_readable(self):
+    #       worktrip_list = []
+    #       destination_names = []
+          
+
+    #       worktrip_list = self.get_updated_list_from_DB('worktrip')
+    #       destination_list = self.get_updated_list_from_DB('destination')
+
+    #       for worktrip in worktrip_list:
+    #         worktrip_info = worktrip_list.split(',')
+    #         worktrip = Worktrip(*worktrip_info)
+
+    #         items_to_read = [worktrip.arriving_at, worktrip.aircraft_id,worktrip, worktrip.captain,worktrip.copilot,worktrip.fsm, worktrip.fa1,worktrip.fa2]
+                
+   
+
