@@ -825,15 +825,15 @@ class TUI():
         while True:
             editwin2.clear()
             editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,object_list[position_y])
+            editwin2.addstr(0,0,object_list[position_y][2])
             editwin2.attroff(curses.color_pair(2))
             editwin2.refresh()
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
                 else:
-                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -849,7 +849,7 @@ class TUI():
                 for i in range(len(object_list)):
                     self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 curses.curs_set(1)
-                return object_list[position_y]
+                return object_list[position_y][2]
 
     def change_user_menu(self):
         if self.menu_select == 0:
@@ -880,7 +880,7 @@ class TUI():
             arrival = self.change_user(5,15,0)
             aircraft_id = self.change_user(6,17,0)
             departure_split = departure.split(" ")
-            temp_list = self.instance_API.get_list("worktrip","available_employees",departure_split[0], rank = "Captain", a_license = "Fokker232")
+            temp_list = self.instance_API.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
             captain = self.change_user_dropdown_list(7,5,49,temp_list)
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Co-Pilot", a_license = aircraft_id)
             copilot = self.change_user_dropdown_list(8,7,49,temp_list)
@@ -912,7 +912,7 @@ class TUI():
             manufacturer = self.change_user(3,12,0)
             seat_amount = self.change_user(4,16,0)
             name = self.change_user(5,5,49)
-
+            
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
@@ -1073,8 +1073,23 @@ class TUI():
             elif key == ord("n"):
                 self.new_registration = True
                 self.new_reg_u_input = True
-            elif key == ord("s"):
+            elif key == ord("s") or key == 10:
                 self.check_specifcly = True
+            elif key == ord("d"):
+                while True:
+                    self.make_text_appear(21,23,"L",2,2)
+                    self.make_text_appear(21,24,"ausir",11)
+                    self.make_text_appear(22,23,"U",2,2)
+                    self.make_text_appear(22,24,"ppteknir",11)
+                    self.make_text_appear(23,23,"Esc",12,2)
+                    option = self.stdscr.getch()
+                    if option == 27:
+                        break
+                    elif option == ord("l") or option == ord("u"):
+                        date = self.calendar_screen()
+                        if option == ord("l"):
+                            pass
+                        
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
                 if key == ord("f"):
