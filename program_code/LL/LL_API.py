@@ -75,7 +75,7 @@ class LL_API:
                 keyword = '', list_type = 'work_schedule'\n
 
                 LIST OF WORKTRIPS BY DATE \n
-                keyword = '', list_type = 'worktrips_by_date\n
+                keyword = '', list_type = 'worktrips_by_date', searchparam = 'YYYY-MM-DD'\n
 
                 DESTINATION ID \n
                 keyword = '', list_type = "destination_id" \n
