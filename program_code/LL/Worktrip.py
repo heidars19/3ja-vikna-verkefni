@@ -25,12 +25,21 @@ class Worktrip:
 
 
     def get_registration_str(self):
+        '''Returns string to use when object is first registered to Database'''
+
         return f'{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status}'
 
     def get_changes_registration_str(self):
+        '''Returns string to use when object is changed in Database'''
+
         return f'{self._id},{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status},{self.__registration_date}'
 
     def search_instance(self,searchparam, field_to_search, field_to_return=''):
+        '''\nTakes in searchparameter to look up in specified column. Returns value in same row, but different column\n
+            searchparam [string]: Look up value\n
+            field_to_search [string]: Header of look up value\n
+            field_to_return [string]: Header of return value\n
+            '''
         if searchparam in field_to_search:
             if field_to_return:
                 return [field_to_return]

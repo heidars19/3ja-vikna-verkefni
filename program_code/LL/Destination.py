@@ -14,15 +14,23 @@ class Destination():
 
 
     def __repr__(self):
-        return f'Destination({self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
+        return f'Destination({self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport})'
 
     def get_registration_str(self):
+        '''Returns string to use when object is first registered to Database'''
         return f'{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport}'
 
     def get_changes_registration_str(self):
+        '''Returns string to use when object is changed in Database'''
         return f'{self._id},{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport},{self.registration_date}'
 
     def search_instance(self,searchparam, field_to_search, field_to_return=''):
+        '''\nTakes in searchparameter to look up in specified column. Returns value in same row, but different column\n
+            searchparam [string]: Look up value\n
+            field_to_search [string]: Header of look up value\n
+            field_to_return [string]: Header of return value\n
+            '''
+
         if searchparam in field_to_search:
             if field_to_return:
                 return [field_to_return]
