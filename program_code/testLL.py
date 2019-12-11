@@ -1,4 +1,4 @@
-from LL.LL_API_eythor import *
+from LL.LL_API import *
 from LL.EmployeeLL import *
 from LL.Employee import *
 from LL.LL_API import *
@@ -44,10 +44,11 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   #new_list = new_instance.get_list('airplane','plane_licences') 
-  new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  #print(new_list)
+  #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Copilot')
+  
 
 
 

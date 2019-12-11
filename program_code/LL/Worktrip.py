@@ -30,4 +30,9 @@ class Worktrip:
     def get_changes_registration_str(self):
         return f'{self._id},{self.flight_number_out},{self.flight_number_home},{self.departing_from},{self.arriving_at},{self.departure},{self.arrival},{self.aircraft_id},{self.captain},{self.copilot},{self.fsm},{self.fa1},{self.fa2},{self.staffing_status},{self.__registration_date}'
 
-    
+    def search_instance(self,searchparam, field_to_search, field_to_return=''):
+        if searchparam in field_to_search:
+            if field_to_return:
+                return [field_to_return]
+            else:
+                self.get_changes_registration_str()

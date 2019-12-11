@@ -175,3 +175,7 @@ class WorktripLL(LL_functions):
                 staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
         
         return staffmember_trips
+
+    def search_instance(self,searchparam, field_to_search, field_to_return):
+        if searchparam in field_to_search:
+            print (field_to_return)
