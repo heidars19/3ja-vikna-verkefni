@@ -4,13 +4,13 @@ from LL.LL_functions import *
 import string
 import datetime
 from datetime import timedelta
+from datetime import datetime
+from datetime import timedelta
 
 class WorktripLL(LL_functions):
 
     FLUGFELAG = 'NA' # Fyrir flugnúmer
     
-
-
 
     def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
 
@@ -61,7 +61,6 @@ class WorktripLL(LL_functions):
         return result_list
 
         
-
     def get_flightnumber(self, destination_code, departure_time) :
         '''  
         Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers\n
@@ -89,8 +88,6 @@ class WorktripLL(LL_functions):
         worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
             aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
         """
-        # Need this from TUI - destination_id,date,aircraft_id
-        # arriving_at,departure,aircraft_id
 
         worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
  
@@ -134,8 +131,6 @@ class WorktripLL(LL_functions):
         """
         keyword = 'worktrip'
         date_list = self.create_date_list(date,7)
-        
-
 
         row_names = ['departure']
         index_list = self.find_index_from_header(keyword, row_names)
@@ -145,9 +140,7 @@ class WorktripLL(LL_functions):
             filtered_list = self.get_filtered_list_from_DB(keyword,index_list,a_date,exact_match=False)
             trips.extend(filtered_list)
         
-        
         staffmember_trips = []
-
         
         for trip in trips:    
             trip_info = trip.split(',')
@@ -158,5 +151,5 @@ class WorktripLL(LL_functions):
                 staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
         
         return staffmember_trips
-
    
+  
