@@ -216,7 +216,21 @@ class LL_functions():
             
 
                 
+    def check_overlapping_time(self, date_time, days=0, hours=0, minutes=0):
+        '''
+        Returns False if date_time overlaps with a timestamp in the list. days, hours and minutes are margins you can add.
+        '''
+        if len(date_time) < 17:
+            date_time += ':00'
 
+        worktrip_list_from_db = self.get_updated_list_from_DB('worktrip')
+
+        early_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M:%S") - timedelta(days=days, hours=hours, minutes=minutes)
+        late_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M:%S") + timedelta(days=days, hours=hours, minutes=minutes)
+        for line in worktrip_list_from_db:
+            if line[5] > early_time and line[5] < late_time:
+                return False
+        return True
 
 
                 
