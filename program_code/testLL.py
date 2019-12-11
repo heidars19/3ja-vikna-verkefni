@@ -25,8 +25,8 @@ def main():
 
   #CREATE
 
-  """Destination"""
-  return_value = new_instance.create("destination", ('','Test', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
+  # """Destination"""
+  # return_value = new_instance.create("destination", ('','Test', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
 
   
   # return_value = new_instance.create("employee",('','5665552222','Eyþór Óli','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax'))
@@ -51,12 +51,12 @@ def main():
   # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   # new_list = new_instance.get_list('airplane','plane_licences') 
   # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   # print(new_list)
   # new_list = new_instance.get_list('airplane','plane_licences') 
   # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
-  # print(new_list)
+  print(new_list)
 
 
   # new_list = new_instance.get_list('employee')
