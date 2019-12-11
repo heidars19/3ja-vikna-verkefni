@@ -4,31 +4,12 @@ from datetime import timedelta
 
 
 class LL_functions():
-
-    def file_type(self,keyword):
-
-        file_type = ""
-
-        if keyword == "employee":
-            file_type = EmployeeFile
-
-        elif keyword == "destination":
-            file_type = DestinationFile
-
-        elif keyword == "airplane":
-            file_type = AirplaneFile
-
-        elif keyword == "worktrip":
-            file_type = WorkTripFile
-
-        elif keyword == "worktripold":
-            file_type = WorkTripFileOld
-
-        else:
-            return f"There is no such object type as {keyword}. Change keyword - should be string."
-
-        return file_type
-
+    '''
+    
+    '''
+    
+    data_api = DATA_API()
+    
     #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
     def save_object_to_DB(self, keyword,object_instance):
         '''Saves new object to database. \n
@@ -38,12 +19,11 @@ class LL_functions():
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
         '''
 
-        file_name = self.file_type(keyword)
-        save_obj = file_name(data_to_append=object_instance)
+        self.data_api.set_data(keyword, data_to_append=object_instance)
 
-        run_save = save_obj.start()
+        return_value = self.data_api.start()
         
-        return run_save
+        return return_value
 
 
     def change_object_in_DB(self, keyword, new_string, string_id):
@@ -51,13 +31,11 @@ class LL_functions():
         Changes information about object in Database. \n
         keyword: employee, destination, airplane, worktrip, worktripold \n
         '''
-        file_name = self.file_type(keyword)
+        self.data_api.set_data(keyword, fieldname="id",searchparam=string_id) #looks for id and returns line number
+        line_number = self.data_api.start()
 
-        new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number
-        line_number = new_file.start()
-
-        update_line = file_name(line_to_replace=line_number,replace_with=new_string)
-        return_value = update_line.start()
+        self.data_api.set_data(keyword, line_to_replace=line_number,replace_with=new_string)
+        return_value = self.data_api.start()
 
         return return_value
 
@@ -66,21 +44,18 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-        file_name = self.file_type(keyword)
+        self.data_api.set_data(keyword)
 
-        new_instance = file_name()
-        updated_list = new_instance.start() 
+        updated_list = self.data_api.start()
         new_list = []
         for i in updated_list:
             new_list.append(i.split(','))
-
         return new_list
-
-
+    
+        
     def find_index_from_header(self, keyword, row_names=[]): 
-        file_name = self.file_type(keyword)
-        new_instance = file_name()
-        header = new_instance.get_header().split(',') #getting header list of database
+        self.data_api.set_data(keyword, header=True)
+        header = self.data_api.start().split(',') #getting header list of database
 
         words_list = row_names
         index_list = []
@@ -100,9 +75,8 @@ class LL_functions():
         match = True if looking for excact macth \n
         match = False if looking for data containing specific string \n
         """
-        file_name =  self.file_type(keyword)
-        new_instance = file_name()
-        get_list = new_instance.start() 
+        self.data_api.set_data(keyword)
+        get_list = self.data_api.start() 
 
         
         filtered_list = []
@@ -160,8 +134,67 @@ class LL_functions():
         return date_list
 
 
+    def get_line_from_list(self, incoming_list, id_number, index_list) :
+        '''
+        List from database, id number for the line, and list of indexes for values you need\n
+        Returns a list with indexed values as elements
+        '''
+        temp_list = []
+        for line in incoming_list:
+            if line[0] == id_number :
+                for index in index_list :
+                    temp_list.append(line[int(index)])
+                return (temp_list)
+        return 0 # Found nothing
+    
+    
+    def calc_arrival_time(self, duration, start_time, layover=1) :
+        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[0] = min
+        round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
+        end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
+        return end_time
+    
+    
+    def get_available_planes(self, date_time, dest_id):
+        
+        destination_list_from_db = self.get_updated_list_from_DB('destination')
+        index_list = self.find_index_from_header('destination',['flight_time'])
+        # Get flight time from dest_id
+        result = self.get_line_from_list(destination_list_from_db, dest_id, index_list) # Filters out values from a specific line
+        flight_time = result[0]
+        temp_list = flight_time.split(':')
+        
+        start_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M")
+        end_time = self.calc_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
 
 
+        temp_airplane_list = self.get_updated_list_from_DB('airplane')
+        temp_airplane_list.pop(0)
+        
+        airplane_list_from_db = self.filter_by_header_index([0,2],temp_airplane_list )
+        worktrip_list_from_db = self.get_updated_list_from_DB('worktrip')
+        worktrip_list_from_db.pop(0)
+        
+        
+        unavailable_planes = []
+        for line in worktrip_list_from_db:
+            if len(line[5]) < 17: # This is just cause Database files had miscellaneous format...
+                line[5] += ':00'
+            if len(line[6]) < 17:
+                line[6] += ':00'
+
+            if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
+
+                unavailable_planes.append(line[7]) # Worktrips with overlapping time to your time
+
+        available_planes = []
+        for line in airplane_list_from_db:
+            if line[0] not in unavailable_planes:
+                available_planes.append(line)
+
+        
+        return available_planes
+            
 
                 
 

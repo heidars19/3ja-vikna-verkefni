@@ -55,7 +55,7 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = "", _id=''):
+    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license=''):
             '''Gets updated list from database. \n
                keyword[str]: employee,airplane,destination,worktrip \n
                 \n
@@ -77,7 +77,6 @@ class LL_API:
                 new_instance = WorktripLL()
                 get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
                # return get_emp_dest_date
-
                 new_instance = EmployeeLL()
 
                 if list_type == "working_employees":
@@ -85,9 +84,10 @@ class LL_API:
                         
 
                 elif list_type == "available_employees":
-                        employee_list = new_instance.available_employees(get_emp_dest_date)
-
+                        employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
+                        
                 return employee_list
+            
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()

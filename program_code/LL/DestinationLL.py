@@ -9,7 +9,8 @@ class DestinationLL(LL_functions):
         Creates a new destination and saves to database.\n
         destination_identity = ('',destination,country,flight_time,distance,contact,emergency_number,airport)
         """
-             
+        # new_dest = Destination(*destination_identity)
+        # TypeError: __init__() missing 2 required positional arguments: 'emerg_number' and 'airport'
         new_dest = Destination(*destination_identity)
         registration_str = new_dest.get_registration_str()
 

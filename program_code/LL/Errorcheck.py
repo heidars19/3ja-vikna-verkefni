@@ -143,6 +143,8 @@ class ErrorCheck:
             if i.isdigit():
                 return self.ERROR_NAME
         return True
+    
+    
 def main():
     
     check = ErrorCheck()    

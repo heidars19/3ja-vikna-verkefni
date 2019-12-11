@@ -419,6 +419,7 @@ class TUI():
         self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
+            _id = ""
             while True:
                 ssn = self.make_user_input_window(5,15,1,1).strip()
                 self.errorcheck.set_ssn(ssn)
@@ -488,12 +489,13 @@ class TUI():
                 time.sleep(1)
             else:
                 license = ""
-            self.instance_API.create("employee",("",ssn,name,address,gsm,email,job_title,rank,license))
+            self.instance_API.create("employee",(_id,ssn,name,address,gsm,email,job_title,rank,license))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("employee")
         if self.menu_select == 1:
             curses.curs_set(0)
             time.sleep(1)
+            _id = ""
             date = self.calendar_screen()
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(16,19,"KEF",30,2)
@@ -515,9 +517,10 @@ class TUI():
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             destination = self.make_user_input_window(5,67)
-            self.instance_API.create("worktrip",(date + " " + departure_time_out,airplane,destination))
+            self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
         if self.menu_select == 2:
+            _id = ""
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
             flight_time = self.make_user_input_window(12,14)
@@ -525,7 +528,7 @@ class TUI():
             name_of_contact = self.make_user_input_window(5,70)
             contacts_phone = self.make_user_input_window(9,70)
             airport = self.make_user_input_window(12,65)
-            self.instance_API.create("destination",("",destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
+            self.instance_API.create("destination",(_id,destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("destination")
         if self.menu_select == 3:
@@ -813,7 +816,6 @@ class TUI():
     def make_list_dropdown(self,y,x,object_list):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        #plane_license_list = ["hello","world","long"]
         editwin = curses.newwin(len(object_list),20,5,110)
         editwin2 = curses.newwin(1,30,y,x)
         editwin.keypad(1)
@@ -821,15 +823,15 @@ class TUI():
         while True:
             editwin2.clear()
             editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,object_list[position_y][1])
+            editwin2.addstr(0,0,object_list[position_y])
             editwin2.attroff(curses.color_pair(2))
             editwin2.refresh()
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(2))
                 else:
-                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
