@@ -13,6 +13,6 @@ try:
     wrapper(start)
 
 except ModuleNotFoundError:
-    print("type 'pip3 install windows.curses' in terminal to get the needed extesion")
+    print("ritaðu 'pip3 install windows.curses' í útstöðina til að flytja niður viðaukan") #tekið úr tölvuorðasafnið frá 1999
 
 

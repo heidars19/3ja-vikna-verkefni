@@ -192,7 +192,7 @@ class TUI():
     def construct_body_new_registration(self):
         self.registration_list = (
             ("Kennitala:","Nafn:","Heimilsfang:","Sími:", "Netfang:","Starfstitill:","Starfsstaða:"),
-            ("Dagsetning:","Brottfaratími út:","Flugvél:","Upphafsstaður:","Áfangastaður:"),
+            ("Dagsetning:","Brottfaratími út:","Upphafsstaður:","Áfangastaður:","Flugvél:"),
             ("Nafn áfangastaðar:","Land:","Flugtími:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
             ("Plane_id:","Plane_type:","Framleiðandi:","Sætafjöldi:","Nafn:"),
             )
@@ -498,7 +498,7 @@ class TUI():
             _id = ""
             date = self.calendar_screen()
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
-            self.make_text_appear(16,19,"KEF",30,2)
+            self.make_text_appear(12,19,"KEF",30,2)
             self.make_text_appear(5,16,date,30,2)
             self.make_text_appear(10,16,"Dæmi: 23:59",30,3)
             curses.curs_set(1)
@@ -513,10 +513,10 @@ class TUI():
                     self.make_text_appear(9,22,error_msg,30,2)
                     time.sleep(1)
             self.make_text_appear(10,16,"",30,3)
-            airplane = self.make_user_input_window(12,13)
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
-            destination = self.make_user_input_window(5,67)
+            destination = self.make_user_input_window(16,18)
+            airplane = self.make_user_input_window(5,62)
             self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("worktrip")
@@ -831,7 +831,7 @@ class TUI():
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(2))
                 else:
                     self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
             button_press = editwin.getch()
@@ -878,12 +878,18 @@ class TUI():
             arriving_at = self.change_user(3,11,0)
             departure = self.change_user(4,13,0)
             arrival = self.change_user(5,15,0)
-            aircraft_id = self.change_user(6,17,0)
             departure_split = departure.split(" ")
-            temp_list = self.instance_API.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
-            captain = self.change_user_dropdown_list(7,5,49,temp_list)
-            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Co-Pilot", a_license = aircraft_id)
-            copilot = self.change_user_dropdown_list(8,7,49,temp_list)
+            dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
+            temp_list = self.instance_API.get_available_planes(departure, dest_id)
+            aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list)
+
+            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0], rank='Captain', a_license=aircraft_id)
+            try:
+                captain = self.change_user_dropdown_list(7,5,49,temp_list)
+            except:
+                self.make_text_appear(5,62,"No captain with requiered license",35,2)
+            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0], role='Pilot', rank='Co-Pilot', a_license=aircraft_id)
+            copilot = self.change_user_dropdown_list(8,7,50,temp_list)
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
             fsm = self.change_user_dropdown_list(9,9,49,temp_list)
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
@@ -893,7 +899,6 @@ class TUI():
                         temp_list.pop(i)
                         break
             fa2 = self.change_user(11,13,49,temp_list)
-            
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1088,7 +1093,15 @@ class TUI():
                     elif option == ord("l") or option == ord("u"):
                         date = self.calendar_screen()
                         if option == ord("l"):
-                            pass
+                            self.item_list  = self.instance_API.get_list("worktrip", "available_employees",'2019-12-20', role='', rank='', a_license='')
+                        if option == ord("u"):
+                            self.item_list  = self.instance_API.get_list("worktrip", "working_employees", "2019-12-20", role='', rank='', a_license='')
+                        TUI_list = self.construct_TUI(self.highlight_main_list)
+                        x = 4
+                        y = 10
+                        self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
+                        while True:
+                            continue
                         
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
