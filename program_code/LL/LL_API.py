@@ -100,7 +100,7 @@ class LL_API:
 
             elif list_type == "available_planes":
                 new_instance = AirplanesLL()
-                available_planes = new_instance.get_available_planes(searchparam,_id)   #datetime and airplane id
+                available_planes = new_instance.get_available_planes(searchparam,_id) #datetime and airplane id
                 return available_planes
 
             elif list_type == "work_schedule":
