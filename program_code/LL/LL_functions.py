@@ -4,31 +4,12 @@ from datetime import timedelta
 
 
 class LL_functions():
-
-    def file_type(self,keyword):
-
-        file_type = ""
-
-        if keyword == "employee":
-            file_type = EmployeeFile
-
-        elif keyword == "destination":
-            file_type = DestinationFile
-
-        elif keyword == "airplane":
-            file_type = AirplaneFile
-
-        elif keyword == "worktrip":
-            file_type = WorkTripFile
-
-        elif keyword == "worktripold":
-            file_type = WorkTripFileOld
-
-        else:
-            return f"There is no such object type as {keyword}. Change keyword - should be string."
-
-        return file_type
-
+    '''
+    
+    '''
+    
+    data_api = DATA_API()
+    
     #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
     def save_object_to_DB(self, keyword,object_instance):
         '''Saves new object to database. \n
@@ -38,12 +19,11 @@ class LL_functions():
         object_instance: Instance of employee, airplane, destination or worktrip as string. 
         '''
 
-        file_name = self.file_type(keyword)
-        save_obj = file_name(data_to_append=object_instance)
+        self.data_api.set_data(keyword, data_to_append=object_instance)
 
-        run_save = save_obj.start()
+        return_value = self.data_api.start()
         
-        return run_save
+        return return_value
 
 
     def change_object_in_DB(self, keyword, new_string, string_id):
@@ -51,13 +31,11 @@ class LL_functions():
         Changes information about object in Database. \n
         keyword: employee, destination, airplane, worktrip, worktripold \n
         '''
-        file_name = self.file_type(keyword)
+        self.data_api.set_data(keyword, fieldname="id",searchparam=string_id) #looks for id and returns line number
+        line_number = self.data_api.start()
 
-        new_file = file_name(fieldname="id",searchparam=string_id) #looks for id and returns line number
-        line_number = new_file.start()
-
-        update_line = file_name(line_to_replace=line_number,replace_with=new_string)
-        return_value = update_line.start()
+        self.data_api.set_data(keyword, line_to_replace=line_number,replace_with=new_string)
+        return_value = self.data_api.start()
 
         return return_value
 
@@ -66,21 +44,18 @@ class LL_functions():
         '''Returns updated list from database \n
             keyword: employee, airplane, destionation or worktrip
             '''
-        file_name = self.file_type(keyword)
+        self.data_api.set_data(keyword)
 
-        new_instance = file_name()
-        updated_list = new_instance.start() 
+        updated_list = self.data_api.start()
         new_list = []
         for i in updated_list:
             new_list.append(i.split(','))
-
         return new_list
 
 
     def find_index_from_header(self, keyword, row_names=[]): 
-        file_name = self.file_type(keyword)
-        new_instance = file_name()
-        header = new_instance.get_header().split(',') #getting header list of database
+        self.data_api.set_data(keyword, header=True)
+        header = self.data_api.start().split(',') #getting header list of database
 
         words_list = row_names
         index_list = []
@@ -100,9 +75,8 @@ class LL_functions():
         match = True if looking for excact macth \n
         match = False if looking for data containing specific string \n
         """
-        file_name =  self.file_type(keyword)
-        new_instance = file_name()
-        get_list = new_instance.start() 
+        self.data_api.set_data(keyword)
+        get_list = self.data_api.start() 
 
         
         filtered_list = []

@@ -40,7 +40,6 @@ class FileHandlr :
         self._replace_with = replace_with
         self._filestream = None
         self._line_number = None
-        self._data_list = None
         self._id = 0
         self._header = header
 
@@ -60,11 +59,8 @@ class FileHandlr :
             if str(type(self)) == "<class 'DB.WorkTripFile.WorkTripFile'>":
                 FileHandlr.archive_old_worktrips(self)
             return_value = FileHandlr.read_filestream_into_list(self)
-            if isinstance(self._data_list, list) :
-                return self._data_list
-            else :
-                return return_value
-
+            return return_value
+        
         return FileHandlr.UNKNOWN_ERROR
 
 
@@ -252,8 +248,7 @@ class FileHandlr :
             for line in self._filestream :
                 data_list.append(line.strip())
             self._filestream.close() # Closes file after grabbing data from it
-            self._data_list = data_list
-            return FileHandlr.SUCCESS
+            return data_list
         except : # Something went wrong
             self._filestream.close()
             return FileHandlr.UNKNOWN_ERROR
