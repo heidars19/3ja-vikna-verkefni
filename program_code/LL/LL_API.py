@@ -74,6 +74,9 @@ class LL_API:
                 LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
                 keyword = '', list_type = 'work_schedule'\n
 
+                LIST OF WORKTRIPS BY DATE \n
+                keyword = '', list_type = 'worktrips_by_date\n
+
                 DESTINATION ID \n
                 keyword = '', list_type = "destination_id" \n
             '''
@@ -92,6 +95,13 @@ class LL_API:
                         employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
                         
                 return employee_list
+
+            elif list_type == "worktrips_by_date":
+
+                new_instance = WorktripLL()
+                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
+
+                return worktrips_by_date
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
