@@ -13,3 +13,7 @@ id,plane_id,plane_type,manufacturer,capacity,name,registration_date
 12,TF-STH,NAFokkerF28,Fokker,28,Narfi,2019-12-05 21:23:08.227855
 13,TF-EOC,NAFokker80,Fokker,800,Heiðar er Bestur,2019-12-10 21:24:20.770466
 14,TF-STH,NAFokkerF28,Fokker,F28,Narfi,2019-12-11 01:46:11.756134
+15,TF-Eythor,NANTES146,Fokker,555,Skvis,2019-12-11 14:44:43.403448
+16,TF-Eythor,NANTES146,Fokker,555,Skvis,2019-12-11 14:45:06.351234
+17,TF-Eythor,NANTES146,Fokker,555,Skvis,2019-12-11 14:46:54.099235
+18,TF-Eythor,NANTES146,Fokker,555,Skvis,2019-12-11 15:11:34.738774

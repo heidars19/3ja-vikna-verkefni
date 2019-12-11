@@ -28,3 +28,12 @@ class DestinationLL(LL_functions):
 
         return_value = self.change_object_in_DB("destination", changed_str, changed_dest._id) # Bring 'id' seperately, so next function can find line number
         return return_value
+
+    def get_destination_id(self,destination):
+
+        row_names = ['destination']
+        index_list = self.find_index_from_header('destination',row_names)
+
+
+        filtered_list = list(set(self.get_filtered_list_from_DB('destination',index_list, exact_match = True, return_column=True)
+        return filtered_list

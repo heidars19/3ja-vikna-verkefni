@@ -11,16 +11,13 @@ class LL_functions():
     data_api = DATA_API()
     
     #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
-    def save_object_to_DB(self, keyword,object_instance):
-        '''Saves new object to database. \n
-        \n Returns True if operation successful.
-        keyword: employee,airplane,destination or worktrip as string
-        \n 
-        object_instance: Instance of employee, airplane, destination or worktrip as string. 
+    def save_object_to_DB(self, keyword,comma_seperated_string_to_save):
         '''
-
-        self.data_api.set_data(keyword, data_to_append=object_instance)
-
+        Saves a new line to database. 
+        Returns True if operation successful. \n
+        keyword: 'employee','airplane','destination' or 'worktrip' 
+        '''
+        self.data_api.set_data(keyword, data_to_append=comma_seperated_string_to_save)
         return_value = self.data_api.start()
         
         return return_value
@@ -28,8 +25,8 @@ class LL_functions():
 
     def change_object_in_DB(self, keyword, new_string, string_id):
         '''
-        Changes information about object in Database. \n
-        keyword: employee, destination, airplane, worktrip, worktripold \n
+        Changes a line in the database with the given 'id'. \n
+        keyword: 'employee', 'destination', 'airplane', 'worktrip', 'worktripold' 
         '''
         self.data_api.set_data(keyword, fieldname="id",searchparam=string_id) #looks for id and returns line number
         line_number = self.data_api.start()
@@ -41,9 +38,10 @@ class LL_functions():
 
 
     def get_updated_list_from_DB(self,keyword):
-        '''Returns updated list from database \n
-            keyword: employee, airplane, destionation or worktrip
-            '''
+        '''
+        Returns a new list from database \n
+        keyword: 'employee', 'airplane', 'destionation', 'worktrip', 'worktripold' 
+        '''
         self.data_api.set_data(keyword)
 
         updated_list = self.data_api.start()
@@ -52,8 +50,22 @@ class LL_functions():
             new_list.append(i.split(','))
         return new_list
     
-        
+    # def get_filtered_list_from_DB(self, keyword='destination', index_list=['id','destination']) :
+    #     '''
+    #     Gives a filtered list from DB.\n
+    #     Keyword: employee, airplane, destionation or worktrip\n
+    #     index_list needs to be a list of header columns, in the format ['id','destination']
+    #     '''
+    #     db_items = new_instance.get_list('destination')
+    #     index_list = new_instance.find_index_from_header( 'destination', ['id','destination'])
+    #     return_value = new_instance.filter_by_header_index( index_list, db_items)
+    #     return return_value
+
+
     def find_index_from_header(self, keyword, row_names=[]): 
+        '''
+        Given keyword('employee', 'airplane', 'destionation' or 'worktrip') and a list of column names, will return a list of index numbers for those columns.
+        '''
         self.data_api.set_data(keyword, header=True)
         header = self.data_api.start().split(',') #getting header list of database
 
@@ -67,24 +79,23 @@ class LL_functions():
         return index_list
 
 
-    def get_filtered_list_from_DB(self, keyword,index_list,searchparam="",match=True, return_column=False):
+    def get_filtered_list_from_DB(self, keyword,index_list,searchparam="",exact_match=True, return_column=False):
         """
-        Keyword = employee,worktrip, airplane, destination \n
-        row_names = filtered word from header \n
+        Gets a list from database and filters out desired lines.\
+        Keyword = 'employee','worktrip', 'airplane' or 'destination' \n
+        index_list needs to be a list of header columns, in the format ['id','destination'] \n
         searchparam = parameter to look for in row\n
-        match = True if looking for excact macth \n
-        match = False if looking for data containing specific string \n
+        exact_match = False will compare partial strings \n
         """
         self.data_api.set_data(keyword)
         get_list = self.data_api.start() 
 
-        
         filtered_list = []
         for line in get_list[1:]:
             line_list = line.split(',')
             for index in index_list:
                 
-                if match:    #Looks for excact match
+                if exact_match:  
                     if searchparam == line_list[index]:
                         if return_column:
                             filter_list.append(line_list[index])
@@ -102,13 +113,13 @@ class LL_functions():
         return filtered_list
 
 
-    def filter_by_header_index(self, index_list, db_items):
+    def filter_by_header_index(self, index_list, list_of_comma_seperated_strings):
         '''
-        index_list = list of iteams that needs to be filtered from a string to a new list
-        db_str_list = line from database that need to be filtered
+        Will filter out indexed columns from a comma seperated string
+        index_list = list of indexes to keep in the format [0, 4, 6]
         ''' 
         index_sorted_list = []
-        for item in db_items:
+        for item in list_of_comma_seperated_strings:
             tmp_list = []
             tmp_list2 = []
             
@@ -126,6 +137,9 @@ class LL_functions():
 
                 
     def create_date_list(self, date_str, day_to_add, step=1):
+        '''
+        Returns a list of consecutive dates
+        '''
         date_list = []
         date_object = datetime.strptime(date_str, '%Y-%m-%d').date()
         for dates in range (int(day_to_add)):
@@ -134,13 +148,13 @@ class LL_functions():
         return date_list
 
 
-    def get_line_from_list(self, incoming_list, id_number, index_list) :
+    def get_line_from_list(self, list_of_comma_seperated_strings, id_number, index_list) :
         '''
         List from database, id number for the line, and list of indexes for values you need\n
         Returns a list with indexed values as elements
         '''
         temp_list = []
-        for line in incoming_list:
+        for line in list_of_comma_seperated_strings:
             if line[0] == id_number :
                 for index in index_list :
                     temp_list.append(line[int(index)])
@@ -148,24 +162,31 @@ class LL_functions():
         return 0 # Found nothing
     
     
-    def calc_arrival_time(self, duration, start_time, layover=1) :
-        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[0] = min
+    def calc_round_trip_arrival_time(self, duration, start_time, layover=1) :
+        '''
+        Given flight duration 1-way and departure time, will calculate when plane arrives back home.
+        '''
+        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[1] = min, skipping seconds
         round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
         end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
         return end_time
     
     
     def get_available_planes(self, date_time, dest_id):
-        
+        '''
+        Returns a list of available planes, given time of departure(date_time) and destination id (dest_id).\n
+        date_time format: '2019-12-9 14:35" - so seconds
+        '''        
         destination_list_from_db = self.get_updated_list_from_DB('destination')
         index_list = self.find_index_from_header('destination',['flight_time'])
-        # Get flight time from dest_id
+
+        # Get flight time duration of planned worktrip
         result = self.get_line_from_list(destination_list_from_db, dest_id, index_list) # Filters out values from a specific line
         flight_time = result[0]
         temp_list = flight_time.split(':')
         
         start_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M")
-        end_time = self.calc_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
+        end_time = self.calc_round_trip_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
 
 
         temp_airplane_list = self.get_updated_list_from_DB('airplane')
@@ -178,21 +199,19 @@ class LL_functions():
         
         unavailable_planes = []
         for line in worktrip_list_from_db:
-            if len(line[5]) < 17: # This is just cause Database files had miscellaneous format...
+            if len(line[5]) < 17: # Adding seconds cause Database files had miscellaneous format...
                 line[5] += ':00'
             if len(line[6]) < 17:
                 line[6] += ':00'
 
             if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
-
-                unavailable_planes.append(line[7]) # Worktrips with overlapping time to your time
+                unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
 
         available_planes = []
         for line in airplane_list_from_db:
             if line[0] not in unavailable_planes:
                 available_planes.append(line)
 
-        
         return available_planes
             
 
@@ -201,3 +220,4 @@ class LL_functions():
 
 
                 
+#Fall sem fær inn 1 destination og gefur id á því 

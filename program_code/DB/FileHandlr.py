@@ -1,10 +1,12 @@
 import csv
-import fileinput
 import datetime
 import os
 
 class FileHandlr :
-    ''' Abstract class for filehandling '''
+    ''' 
+    Abstract class for filehandling\n
+    Contains all the functionality for the filehandlers.
+    '''
 
     # Return constants
     WRONG_FORMAT = -5 # Value error
