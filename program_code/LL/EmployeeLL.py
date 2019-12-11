@@ -50,6 +50,10 @@ class EmployeeLL(LL_functions):
     def available_employees(self,work_trips_by_date, role='',rank='', a_license=''):
         """
         Returns list of available employees - id, name role and rank.
+        For captains: rank='Captain', a_license='Airplane Type'
+            copilots: role='Pilot', a_license='Airplane Type'
+            Flight Attendant: rank='Flight Attendant'
+            Cabin Crew: role='Cabincrew'
         """
 
         employee_list = self.get_updated_list_from_DB('employee')
@@ -69,22 +73,32 @@ class EmployeeLL(LL_functions):
         for line in employee_list:
             if line[0] not in total_sets:
                 available_employees_list.append(line)
-                qualified_staff = []
                
-                if rank: 
-                    for instance in available_employees_list:
-                        instance = Employee(*instance)
-                        check_staff = instance.search_instance(rank, instance.rank)
+        qualified_staff = []
+        for instance in available_employees_list:
+            instance = Employee(*instance)
+            if rank: 
+                check_staff = instance.search_instance(rank, instance.rank)
+                if check_staff:
+                    if a_license:
+                        check_staff = instance.search_instance(a_license, instance.licence)
                         if check_staff:
-                            if a_license:
-                                check_staff = instance.search_instance(a_license, instance.licence)
-                                if check_staff:
-                                    qualified_staff.append(check_staff)
-                            else:
-                                qualified_staff.append(check_staff)
-                elif role:
+                            qualified_staff.append(check_staff)
+                    else:
+                        qualified_staff.append(check_staff)
+            elif role:
+                check_staff = instance.search_instance(role, instance.role)
+                if check_staff:
+                    if a_license:
+                        check_staff = instance.search_instance(a_license, instance.licence)
+                        if check_staff:
+                            qualified_staff.append(check_staff)
+                    else:
+                        qualified_staff.append(check_staff)
                     
-                        
+
+            
+                
         return qualified_staff
 
         # row_names = ['id', 'name' ,'role' ,'rank']    #return columns

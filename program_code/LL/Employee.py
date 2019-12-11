@@ -88,6 +88,7 @@ class Employee:
             if field_to_return:
                 return [field_to_return]
             else:
-                self.get_changes_registration_str()
+                results = self.get_changes_registration_str()
+                return results
         else:
             return None

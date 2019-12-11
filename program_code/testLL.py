@@ -1,7 +1,7 @@
-from LL.LL_API import *
+from LL.LL_API import LL_API
 from LL.EmployeeLL import *
 from LL.Employee import *
-from LL.LL_API import *
+
 
 def return_msg(msg, keyword):
   if msg == 1:
@@ -44,10 +44,11 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  
   #new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Copilot')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   
 
 
@@ -61,7 +62,7 @@ def main():
   #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
   #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', _id='14')
   
-  print(new_list)
+  print('not working ', new_list)
 
   # new_instance = EmployeeLL()
   # new_list = new_instance.working_employees([['Köben','1','2','3','4','5'],['Stockholm','6','7','8','9','10']])
