@@ -159,6 +159,4 @@ class WorktripLL(LL_functions):
         
         return staffmember_trips
 
-    def search_instance(self,searchparam, field_to_search, field_to_return):
-        if searchparam in field_to_search:
-            print (field_to_return)
+   
