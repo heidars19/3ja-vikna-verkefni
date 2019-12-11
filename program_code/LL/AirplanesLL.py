@@ -2,6 +2,8 @@ from LL.Airplanes import *
 from DB.DATA_API import *
 from LL.LL_functions import *
 import string
+from datetime import datetime
+from datetime import timedelta
 
 class AirplanesLL(LL_functions):
 
@@ -40,11 +42,20 @@ class AirplanesLL(LL_functions):
         
         return filtered_list
 
+    def calc_round_trip_arrival_time(self, duration, start_time, layover=1) :
+        '''
+        Given flight duration 1-way and departure time, will calculate when plane arrives back home.
+        '''
+        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[1] = min, skipping seconds
+        round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
+        end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
+
+        return end_time
     
     def get_available_planes(self, date_time, dest_id):
         '''
         Returns a list of available planes, given time of departure(date_time) and destination id (dest_id).\n
-        date_time format: '2019-12-9 14:35" - so seconds
+        date_time format: '2019-12-9 14:35' - so seconds
         '''        
         destination_list_from_db = self.get_updated_list_from_DB('destination')
         index_list = self.find_index_from_header('destination',['flight_time'])
