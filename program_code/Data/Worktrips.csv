@@ -1,5 +1,5 @@
 id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
-1,NA1510,NA1511,Keflavik,Thorshavn,2019-12-20 11:44,2019-12-19 15:45:00,BOEING747,1,2,3,4,5,staffed,2019-12-05 20:45:18.095017
+1,NA1510,NA1511,Keflavik,Thorshavn,2019-12-20 11:44,2019-12-19 15:45:00,svanur,1,2,3,4,5,staffed,2019-12-05 20:45:18.095017
 2,NA152,NA153,Keflavik,Stockholm,2019-12-19 06:16:00,2019-12-19 10:45:00,2,6,7,8,9,10,staffed,2019-12-05 20:45:18.095017
 3,NA154,NA155,Keflavik,Nuuk,2019-12-19 14:21:00,2019-12-19 22:00:00,3,11,12,18,14,15,staffed,2019-12-05 20:45:18.095017
 4,NA2275,NA3525,Keflavik,Nuuk,2019-12-19 12:21:00,2019-12-19 22:00:00,9,11,12,13,14,15,staffed,2019-12-05 20:45:18.095017
@@ -19,3 +19,4 @@ id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arr
 18,NA152,NA153,Keflavík,15,2019-12-20 11:45:00,2019-12-20 21:45:00,5,,,,,,,2019-12-11 02:54:21.820675
 19,NA154,NA155,Keflavík,15,2019-12-20 11:45:00,2019-12-20 21:45:00,5,,,,,,,2019-12-11 02:54:43.060219
 20,NA150,NA151,Keflavík,15,2019-12-19 11:45:00,2019-12-19 21:45:00,5,,,,,,,2019-12-11 02:59:40.528374
+21,NA040,NA041,Keflavík,4,2019-12-16 23:00,2019-12-17 02:10,1,,,,,,,2019-12-11 21:23:10.128681

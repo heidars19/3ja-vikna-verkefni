@@ -84,15 +84,15 @@ class TUI():
             try:
                 if self.menu_select == 0:
                     if i not in [2,4,7]:
-                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
                 elif self.menu_select == 1:
                     if i not in [0,1,7,8,9,10,11]:
-                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/6))
                 elif self.menu_select == 2:
                     if i not in [2,3]:
-                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
                 else:
-                    header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = self.header_len[i] + 5)
+                    header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
             except :
                 continue
         if len(header_string) > 100:
@@ -130,7 +130,7 @@ class TUI():
                 if self.menu_select == 0:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,3,5,8,9]:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
                             self.header_len.append(self.index_len[x])
                         if x == 3 or x == 5:
                                 self.header_len.append(0)
@@ -138,7 +138,7 @@ class TUI():
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,1,2,8,9,10,11,12,14]:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:int(100/6)],lengd = int(100/6))
                             self.header_len.append(self.index_len[x])
                         elif x != 0:
                             self.header_len.append(0)
@@ -146,7 +146,7 @@ class TUI():
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,3,4,8,9]:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
                             self.header_len.append(self.index_len[x])
                         if x in [3,4]:
                             self.header_len.append(0)
@@ -154,7 +154,7 @@ class TUI():
                 elif self.menu_select == 3:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,6]:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x],lengd = self.index_len[x]+5)
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
                             self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
                 self.select_len += 1
@@ -670,12 +670,13 @@ class TUI():
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
 
-    def make_user_input_window(self,y,x, only_num = 0, ssn = 0, clock = 0, name = 0):
+    def make_user_input_window(self,y,x, only_num = 0, ssn = 0, clock = 0, name = 0,data = ""):
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
+        editwin.addstr(0,0,data)
         #editwin.encoding
-        data = ""
+        #data = ""
         while True: #This while loop was made to create a custom str input that accepts icelandic chrs, the built in str input for curses only does ascci
             if ssn == 1 and len(data) == 10:
                 break
@@ -825,8 +826,10 @@ class TUI():
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
         if check == 8:
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
+        elif check == 330:
             variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
-        else:
+        elif check in [10,456] or check == curses.KEY_DOWN:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
 
@@ -906,36 +909,37 @@ class TUI():
             self.item_list = self.instance_API.get_list("employee")
 
         if self.menu_select == 1:
-            #change_user(self,index,y_position,extra_len, only_num = 0):
-            _id = self.item_list[self.list_line_index+self.next_section][0]
-            flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
-            flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
-            departing_from = self.item_list[self.list_line_index+self.next_section][3]
-            arriving_at = self.change_user(3,11,0)
-            departure = self.change_user(4,13,0)
-            arrival = self.change_user(5,15,0)
-            departure_split = departure.split(" ")
-            dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
-            dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
-            temp_list = self.instance_API.get_list("airplane","available_planes",departure, dest_id)
-            aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=aircraft_id)
-            """try:"""
-
-            captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
-            """except:
-                self.make_text_appear(5,62,"No captain with requiered license",35,2)"""
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Co-Pilot', a_license=aircraft_id)
-            copilot = self.change_user_dropdown_list(8,7,50,temp_list)
-            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
-            fsm = self.change_user_dropdown_list(9,9,49,temp_list)
-            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
-            fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
-            for i in range(len(temp_list)):
-                    if fa1 in temp_list[i]:
-                        temp_list.pop(i)
-                        break
-            fa2 = self.change_user(11,13,49,temp_list)
+            while True:
+                #change_user(self,index,y_position,extra_len, only_num = 0):
+                _id = self.item_list[self.list_line_index+self.next_section][0]
+                flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
+                flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
+                departing_from = self.item_list[self.list_line_index+self.next_section][3]
+                arriving_at = self.change_user(3,11,0)
+                departure = self.change_user(4,13,0)
+                arrival = self.change_user(5,15,0)
+                departure_split = departure.split(" ")
+                dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
+                temp_list = self.instance_API.get_list("airplane","available_planes",departure, dest_id)
+                aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=aircraft_id)
+                try:
+                    captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus captain með laus réttindi",length = 100))
+                    time.sleep(5)
+                    break
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Co-Pilot', a_license=aircraft_id)
+                copilot = self.change_user_dropdown_list(8,7,50,temp_list)
+                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
+                fsm = self.change_user_dropdown_list(9,9,49,temp_list)
+                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
+                fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
+                for i in range(len(temp_list)):
+                        if fa1 in temp_list[i]:
+                            temp_list.pop(i)
+                            break
+                fa2 = self.change_user(11,13,49,temp_list)
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -958,7 +962,7 @@ class TUI():
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
-
+        editwin.keypad(1)
         editwin.attron(curses.color_pair(2))
         curses.curs_set(1)
         editwin.refresh()
