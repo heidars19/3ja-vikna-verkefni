@@ -76,8 +76,8 @@ class TUI():
     def construct_header(self):#("Nafn áfangastaðar:","Land:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
         self._header = (\
         ("Kennitala","Nafn","Heimilisfang","Sími","Email","Starfsheiti","Titill","Leyfi"),\
-        ("Flunúmer út","Flugnúmer heim","Brottför","Áfangastaður","Brottfara tími","Komu tími","Flugvél","Captain","Copilot","Fsm","Fa1","Fa2","Staða"),\
-        ("Áfangastaður","Land","Flugtími","Fjarlægð frá Íslandi","Tengiliður","Sími","Flug Völlur"),\
+        ("Flunúmer út","Flugnúmer heim","Brottför","Áfangastaður","Brottfarartími","Komutími","Flugvél","Captain","Copilot","Fsm","Fa1","Fa2","Staða"),\
+        ("Áfangastaður","Land","Flugtími","Fjarlægð frá Íslandi","Tengiliður","Sími","FlugVöllur"),\
         ("Plane_id","Plane_type","Framleiðandi","Sætafjöldi","Nafn"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
@@ -87,7 +87,7 @@ class TUI():
                         header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
                 elif self.menu_select == 1:
                     if i not in [0,1,7,8,9,10,11]:
-                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/6))
+                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/6)+2)
                 elif self.menu_select == 2:
                     if i not in [2,3]:
                         header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
@@ -138,7 +138,7 @@ class TUI():
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,1,2,8,9,10,11,12,14]:
-                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:int(100/6)],lengd = int(100/6))
+                            new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:int(100/6)],lengd = int(100/6)+2)
                             self.header_len.append(self.index_len[x])
                         elif x != 0:
                             self.header_len.append(0)
@@ -798,29 +798,30 @@ class TUI():
         if action == ord("b"):
             self.change_user_menu()
         if action == ord("v"):
-            date = self.calendar_screen()
-            for i in range(3):
-                self.make_text_appear(21+i,50,"",40)
-            staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
-            for i in range(15):
-                self.make_text_appear(5+i,3,"",100)
-            header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
-            z = 0
-            for i in range(len(header_list)):
-                if i != 3:
-                    self.make_text_appear(3,5+z,header_list[i],30)
-                else:
-                    self.make_text_appear(3,5+z,header_list[i],30,2)
-                z += 20
-            for i in range(len(staff_schedule)):
+            if self.menu_select == 0:
+                date = self.calendar_screen()
+                for i in range(3):
+                    self.make_text_appear(21+i,50,"",40)
+                staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
+                for i in range(15):
+                    self.make_text_appear(5+i,3,"",100)
+                header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
                 z = 0
-                for x in range(len(staff_schedule)):
-                    self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                for i in range(len(header_list)):
+                    if i != 3:
+                        self.make_text_appear(3,5+z,header_list[i],30)
+                    else:
+                        self.make_text_appear(3,5+z,header_list[i],30,2)
                     z += 20
-            while True:
-                check = self.stdscr.getch()
-                if check == 27:
-                    break
+                for i in range(len(staff_schedule)):
+                    z = 0
+                    for x in range(len(staff_schedule)):
+                        self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                        z += 20
+                while True:
+                    check = self.stdscr.getch()
+                    if check == 27:
+                        break
 
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
