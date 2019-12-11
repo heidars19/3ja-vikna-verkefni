@@ -519,13 +519,14 @@ class TUI():
             destination = self.make_user_input_window(5,67)
             self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("worktrip")
         if self.menu_select == 2:
             _id = ""
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
             flight_time = self.make_user_input_window(12,14)
             distance_from_iceland = self.make_user_input_window(16,26)
-            name_of_contact = self.make_user_input_window(5,70)
+            name_of_contact = self.make_user_input_window(5,70,name = 1)
             contacts_phone = self.make_user_input_window(9,70)
             airport = self.make_user_input_window(12,65)
             self.instance_API.create("destination",(_id,destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
@@ -536,10 +537,11 @@ class TUI():
             plane_id = self.make_user_input_window(5,14)
             plane_type = self.make_user_input_window(9,16)
             manufacturer = self.make_user_input_window(12,18)
-            model = self.make_user_input_window(16,11)
+            sætafjöldi = self.make_user_input_window(16,16)
             name = self.make_user_input_window(5,59)
-            self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,model,name))
+            self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,sætafjöldi,name))
             self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("airplane")
         self.new_reg_u_input = False
         time.sleep(1)
         time.sleep(2)
@@ -787,10 +789,10 @@ class TUI():
         if action == ord("b"):
             self.change_user_menu()
     
-    def change_user(self,index,y_position,extra_len, only_num = 0):
+    def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
         if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num)
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
@@ -853,9 +855,9 @@ class TUI():
         if self.menu_select == 0:
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
-            name = self.change_user(1,9,0)
+            name = self.change_user(1,9,0, name = 1)
             address = self.change_user(2,12,0)
-            phone = self.change_user(3,16,0,1)
+            phone = self.change_user(3,16,0,only_num = 1)
             email = self.change_user(4,5,49)
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
