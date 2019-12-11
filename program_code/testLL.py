@@ -20,16 +20,14 @@ def return_msg(msg, keyword):
 def main():
 
   #-----------------------------KEYRSLUTEST------------------------------"
+ 
 
   new_instance = LL_API()
 
   #CREATE
-
-  """Destination"""
-  return_value = new_instance.create("destination", ('','Test', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
-
   
   # return_value = new_instance.create("employee",('','5665552222','Eyþór Óli','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax'))
+  # return_value = new_instance.create("destination", ('','Toronto', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
   #return_value = new_instance.create("airplane", ('',"TF-Eythor","NANTES146","Fokker","555","Skvis"))
   # return_value = new_instance.create("worktrip",('','','','','15','2019-12-20 06:45:00','','5')) # dest_id, departure_time, airplane_id
   #return_msg(return_value, f"creating a new object, code:{return_value}")
@@ -43,29 +41,29 @@ def main():
 
   #GET_LIST
   
-  # new_list = new_instance.get_list('employee')
-  # new_list = new_instance.get_list('airplane')
+  #new_list = new_instance.get_list('employee')
+  #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
-  # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
-  # new_list = new_instance.get_list('airplane','plane_licences') 
+  #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  #new_list = new_instance.get_list('destination',"destination_id","Vancouver")
+  #new_list = new_instance.get_list('airplane','plane_licences') 
   # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-11-20", role='Pilot', rank='', a_license='Fokker232')
   # print(new_list)
-  # new_list = new_instance.get_list('airplane','plane_licences') 
-  # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
-  # print(new_list)
+  #new_list = new_instance.get_list('airplane','plane_licences') 
+  #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+print(new_list)
 
 
   # new_list = new_instance.get_list('employee')
-  # new_list = new_instance.get_list('airplane')
+  #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  # new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
-  # new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', _id='14')
-  # new_list = new_instance.get_list('airplane','plane_licences')
+  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
+  #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-12-11', _id='14')
+  #new_list = new_instance.get_list('airplane','plane_licences')
   #print(new_list)
   
   #print('not working ', new_list)
