@@ -515,11 +515,15 @@ class TUI():
             self.make_text_appear(10,16,"",30,3)
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
-            destination = self.make_user_input_window(16,18)
+            destinations = self.instance_API.get_list("destination")
+            #destination = self.make_user_input_window(16,18)
+            temp_list = []
+            for i in range(len(destinations)):
+                temp_list.append(destinations[i])
+            destination = self.make_list_dropdown(16,18,temp_list)
             dest_id = self.instance_API.get_list('destination',"destination_id",destination)
-            temp_list = self.instance_API.get_list("","available_planes",date +" "+ departure_time_out, dest_id)
-            aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list)
-            airplane = self.make_user_input_window(5,62)
+            temp_list = self.instance_API.get_list("airplane","available_planes",date +" "+ departure_time_out, dest_id)
+            airplane = self.make_list_dropdown(5,62,temp_list)
             self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("worktrip")
