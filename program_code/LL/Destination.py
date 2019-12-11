@@ -1,6 +1,6 @@
 class Destination():
                     
-    def __init__(self, _id, destination, country, flight_time, distance, contact, emerg_number, airport, registration_date=''):
+    def __init__(self, _id, destination, country, flight_time, distance, contact, emerg_number, airport, destination_code = "",registration_date=''):
         self._id = _id
         self.destination = destination
         self.country = country
@@ -9,6 +9,7 @@ class Destination():
         self.contact = contact
         self.emergency_number = emerg_number
         self.airport = airport
+        self.destination_code = ""
         self.registration_date = registration_date
 
 

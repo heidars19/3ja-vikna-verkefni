@@ -72,45 +72,41 @@ class LL_API:
                 keyword = '', list_type = 'plane_licences" \n
 
                 LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
-                keyword = '', list_type = '
+                keyword = '', list_type = 'work_schedule'
+
+                DESTINATION ID \n
+                keyword = '', list_type = 
             '''
 
-            if list_type == "working_employees" or list_type == "available_employees":
+            if list_type == "working_employees" or list_type == "available_employees": 
                 
                 employee_list = []
-                #Get list of worktrips at specific date
                 new_instance = WorktripLL()
                 get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
-               # return get_emp_dest_date
                 new_instance = EmployeeLL()
 
                 if list_type == "working_employees":
-                        employee_list = new_instance.working_employees(get_emp_dest_date)
-                        
+                        employee_list = new_instance.working_employees(get_emp_dest_date)       
 
                 elif list_type == "available_employees":
                         employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
                         
                 return employee_list
-            
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
-
                 return plane_licence
             
-            elif list_type == "workschedule":
+            elif list_type == "work_schedule":
                 new_instance = WorktripLL()
                 workschedule = new_instance.get_workschedule(searchparam,_id) #searchparam is the date, the _id is the staffmemebers id.
                 return workschedule
 
             elif list_type == "destination_id":
-                new_instance == DestinationLL()
+                new_instance = DestinationLL()
                 destination_id = new_instance.get_destination_id(searchparam)
                 return destination_id
-
-
 
             else:
                 updated_list = []
@@ -119,6 +115,7 @@ class LL_API:
                 updated_list.pop(0)
         
                 return updated_list
+
 
 def testmain():
     new = LL_API()
