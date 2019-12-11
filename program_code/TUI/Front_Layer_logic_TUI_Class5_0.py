@@ -516,7 +516,7 @@ class TUI():
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             temp_list = self.instance_API.get_list("destination")
-            destination = self.make_list_dropdown(16,18,temp_list,1)
+            destination = self.make_list_dropdown(16,18,temp_list,0)
             dest_id = self.instance_API.get_list('destination',"destination_id",destination)
             temp_list = self.instance_API.get_list("airplane","available_planes",date +" "+ departure_time_out, dest_id)
             airplane = self.make_list_dropdown(5,62,temp_list,1)
@@ -834,9 +834,9 @@ class TUI():
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i][0:19],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(2))
                 else:
-                    self.license_drop_down(editwin,object_list[i][0:19],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -888,7 +888,9 @@ class TUI():
             aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
             temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Captain', a_license=aircraft_id)
             """try:"""
-            captain = self.change_user_dropdown_list(7,5,49,temp_list)
+            self.make_text_appear(10,20,temp_list[0],50,2)
+            time.sleep(4)
+            captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
             """except:
                 self.make_text_appear(5,62,"No captain with requiered license",35,2)"""
             temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Co-Pilot', a_license=aircraft_id)
