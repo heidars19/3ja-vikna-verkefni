@@ -525,8 +525,9 @@ class TUI():
             name_of_contact = self.make_user_input_window(5,70)
             contacts_phone = self.make_user_input_window(9,70)
             airport = self.make_user_input_window(12,65)
-            self.instance_API.create("destination",(destination_name,country,airport,distance_from_iceland,name_of_contact,contacts_phone))
+            self.instance_API.create("destination",("",destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("destination")
         if self.menu_select == 3:
             _id = ""
             plane_id = self.make_user_input_window(5,14)
@@ -690,14 +691,14 @@ class TUI():
                 or ch == ord("é") or ch == ord("É")  or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
                 or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ")  \
-                or ch == ord(" "): #This defines all the chrs this custom input accepts
+                or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö"): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             else:
                 if (ch >=ord("0") and ch <= ord("9")) or (ch >=ord("@") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
                 or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
                 or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") \
-                or ch == ord(":") or ch == ord(" "): #This defines all the chrs this custom input accepts
+                or ch == ord(":") or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö"): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()
