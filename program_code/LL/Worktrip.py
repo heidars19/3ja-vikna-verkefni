@@ -13,14 +13,14 @@ class Worktrip:
         self.departing_from = departing_from                #Departure location
         self.arriving_at = arriving_at                      #Destination location 
         self.departure = departure                          #Departure time
-        self.arrival = arrival                              #Arrival time
+        self.arrival = arrival                              #Calculated in WorktripLL
         self.aircraft_id = aircraft_id         
         self.captain = captain                 
         self.copilot = copilot
         self.fsm = fsm                                      #Flight service manager
         self.fa1 = fa1                                      #Flight attendant 1
         self.fa2 = fa2                                      #Flight attendant 2
-        self.staffing_status = staffing_status
+        self.staffing_status = staffing_status              #Staffing_status = staffed if worktrip has employees
         self.__registration_date = registration_date
 
 
