@@ -1,9 +1,9 @@
 from DB.FileHandlr import FileHandlr
-from DB.AirplaneFile import AirplaneFile
-from DB.EmployeeFile import EmployeeFile
-from DB.DestinationFile import DestinationFile
-from DB.WorkTripFile import WorkTripFile
-from DB.WorkTripFileOld import WorkTripFileOld
+from DB_Models.AirplaneFile import AirplaneFile
+from DB_Models.EmployeeFile import EmployeeFile
+from DB_Models.DestinationFile import DestinationFile
+from DB_Models.WorkTripFile import WorkTripFile
+from DB_Models.WorkTripFileOld import WorkTripFileOld
 
 
 class DATA_API:
