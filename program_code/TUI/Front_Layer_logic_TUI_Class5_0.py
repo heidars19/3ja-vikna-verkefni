@@ -516,11 +516,10 @@ class TUI():
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             temp_list = self.instance_API.get_list("destination")
-            destination = self.make_list_dropdown(16,18,temp_list,0)
-            dest_id = self.instance_API.get_list('destination',"destination_id",destination)
-            temp_list = self.instance_API.get_list("airplane","available_planes",date +" "+ departure_time_out, dest_id)
-            airplane = self.make_list_dropdown(5,62,temp_list,1)
-            self.instance_API.create("worktrip",(dest_id,date + " " + departure_time_out,airplane))
+            destination = self.make_list_dropdown(16,18,temp_list,1,1)
+            temp_list = self.instance_API.get_list("airplane","available_planes",date +" "+ departure_time_out, destination[0])
+            airplane = self.make_list_dropdown(5,62,temp_list,1,1)
+            self.instance_API.create("worktrip",(destination[0],date + " " + departure_time_out,airplane[0]))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("worktrip")
         if self.menu_select == 2:
@@ -559,7 +558,8 @@ class TUI():
         add_year = 0
         datetime_year = datetime.date.today().year
         datetime_month = datetime.date.today().month
-        starting_month, starting_year = datetime_month,datetime_year
+        datetime_day = datetime.date.today().day
+        starting_day, starting_month, starting_year = datetime_day,datetime_month,datetime_year
         date_selected = 1
         years_added = 0
         while True:
@@ -737,6 +737,11 @@ class TUI():
         self.make_text_appear(22,69," B",12,2)
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
+        self.make_text_appear(21,79,"┌──────────────┐",17)
+        self.make_text_appear(22,79,"|",17)
+        self.make_text_appear(22,80," V",12,2)
+        self.make_text_appear(22,82,"innuyfirlit |",17)
+        self.make_text_appear(23,79,"└──────────────┘",17)
         if self.menu_select == 0:
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
             self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
@@ -791,6 +796,31 @@ class TUI():
         action = self.stdscr.getch()
         if action == ord("b"):
             self.change_user_menu()
+        if action == ord("v"):
+            date = self.calendar_screen()
+            for i in range(3):
+                self.make_text_appear(21+i,50,"",40)
+            staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
+            for i in range(15):
+                self.make_text_appear(5+i,3,"",100)
+            header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
+            z = 0
+            for i in range(len(header_list)):
+                if i != 3:
+                    self.make_text_appear(3,5+z,header_list[i],30)
+                else:
+                    self.make_text_appear(3,5+z,header_list[i],30,2)
+                z += 20
+            for i in range(len(staff_schedule)):
+                z = 0
+                for x in range(len(staff_schedule)):
+                    self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                    z += 20
+            while True:
+                check = self.stdscr.getch()
+                if check == 27:
+                    break
+
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
@@ -818,7 +848,7 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
 
-    def make_list_dropdown(self,y,x,object_list, index = 2):
+    def make_list_dropdown(self,y,x,object_list, index = 2, return_list = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
         editwin = curses.newwin(len(object_list),20,5,110)
@@ -852,7 +882,10 @@ class TUI():
                 for i in range(len(object_list)):
                     self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 curses.curs_set(1)
-                return object_list[position_y][index]
+                if return_list == 0:
+                    return object_list[position_y][index]
+                else:
+                    return object_list[position_y]
 
     def change_user_menu(self):
         if self.menu_select == 0:
@@ -886,10 +919,9 @@ class TUI():
             dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
             temp_list = self.instance_API.get_list("airplane","available_planes",departure, dest_id)
             aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Captain', a_license=aircraft_id)
+            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=aircraft_id)
             """try:"""
-            self.make_text_appear(10,20,temp_list[0],50,2)
-            time.sleep(4)
+
             captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
             """except:
                 self.make_text_appear(5,62,"No captain with requiered license",35,2)"""
@@ -1086,28 +1118,24 @@ class TUI():
             elif key == ord("s") or key == 10:
                 self.check_specifcly = True
             elif key == ord("d"):
-                while True:
-                    self.make_text_appear(21,23,"L",2,2)
-                    self.make_text_appear(21,24,"ausir",11)
-                    self.make_text_appear(22,23,"U",2,2)
-                    self.make_text_appear(22,24,"ppteknir",11)
-                    self.make_text_appear(23,23,"Esc",12,2)
-                    option = self.stdscr.getch()
-                    if option == 27:
-                        break
-                    elif option == ord("l") or option == ord("u"):
-                        date = self.calendar_screen()
-                        if option == ord("l"):
-                            self.item_list  = self.instance_API.get_list("worktrip", "available_employees",'2019-12-20', role='', rank='', a_license='')
-                        if option == ord("u"):
-                            self.item_list  = self.instance_API.get_list("worktrip", "working_employees", "2019-12-20", role='', rank='', a_license='')
-                        TUI_list = self.construct_TUI(self.highlight_main_list)
-                        x = 4
-                        y = 10
-                        self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
-                        while True:
-                            continue
-                        
+                if self.menu_select == 0:
+                    while True:
+                        self.make_text_appear(21,23,"L",2,2)
+                        self.make_text_appear(21,24,"ausir",11)
+                        self.make_text_appear(22,23,"U",2,2)
+                        self.make_text_appear(22,24,"ppteknir",11)
+                        self.make_text_appear(23,23,"Esc",12,2)
+                        option = self.stdscr.getch()
+                        if option == 27:
+                            break
+                        elif option == ord("l") or option == ord("u"):
+                            date = self.calendar_screen()
+                            if option == ord("l"):
+                                self.item_list  = self.instance_API.get_list("worktrip", "available_employees",date)
+                                break
+                            if option == ord("u"):
+                                self.item_list  = self.instance_API.get_list("worktrip", "working_employees",date)
+                                break
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
                 if key == ord("f"):
