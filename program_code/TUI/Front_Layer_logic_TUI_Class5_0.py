@@ -516,6 +516,9 @@ class TUI():
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             destination = self.make_user_input_window(16,18)
+            dest_id = self.instance_API.get_list('destination',"destination_id",destination)
+            temp_list = self.instance_API.get_list("","available_planes",date +" "+ departure_time_out, dest_id)
+            aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list)
             airplane = self.make_user_input_window(5,62)
             self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
