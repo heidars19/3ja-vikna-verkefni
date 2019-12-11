@@ -220,3 +220,4 @@ class LL_functions():
 
 
                 
+#Fall sem fær inn 1 destination og gefur id á því 

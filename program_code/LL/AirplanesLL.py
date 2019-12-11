@@ -34,10 +34,8 @@ class AirplanesLL(LL_functions):
         """
 
         row_names = ['plane_type']
-
-        new_list = LL_functions()
         index_list = self.find_index_from_header('airplane', row_names) 
 
-        filtered_list = list(set(new_list.get_filtered_list_from_DB('airplane',index_list, exact_match = False, return_column=True)))
+        filtered_list = list(set(self.get_filtered_list_from_DB('airplane',index_list, exact_match = False, return_column=True)))
         
         return filtered_list

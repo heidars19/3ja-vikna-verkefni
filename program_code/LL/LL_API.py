@@ -14,8 +14,8 @@ class LL_API:
         '''
 
         if keyword == 'employee':
-            cr_emp = EmployeeLL()
-            run_create = cr_emp.create_employee(user_input)
+            cr_emp = EmployeeLL() 
+            run_create = cr_emp.create_employee(user_input) 
 
         elif keyword == 'airplane':
             cr_air = AirplanesLL()
@@ -58,18 +58,21 @@ class LL_API:
 
     def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license=''):
             '''
-            Gets updated list from database. \n
+            Gets lists from database. \n
             keyword [string]: employee /airplane / destination / worktrip\n
                 \n
            
-                TO GET LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
+                LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
                 keyword = 'worktrip', list_type = 'working_employees', searchparam = 'YYYY-MM-DD' \n
 
-                TO GET LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
+                LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
                 keyword = 'worktrip', list_type = 'available_employees', searchparam = 'YYYY-MM-DD' \n
                 
-                TO GET LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
-                keyword = 'airplane', list_type = 'plane_licences" Returns list of unique types of registered airplanes.
+                LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
+                keyword = '', list_type = 'plane_licences" \n
+
+                LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
+                keyword = '', list_type = '
             '''
 
             if list_type == "working_employees" or list_type == "available_employees":
@@ -99,8 +102,14 @@ class LL_API:
             
             elif list_type == "workschedule":
                 new_instance = WorktripLL()
-                workschedule = new_instance.get_workschedule(searchparam,_id ) #searchparam is the date, the _id is the staffmemebers id.
+                workschedule = new_instance.get_workschedule(searchparam,_id) #searchparam is the date, the _id is the staffmemebers id.
                 return workschedule
+
+            elif list_type == "destination_id":
+                new_instance == DestinationLL()
+                destination_id = new_instance.get_destination_id(searchparam)
+                return destination_id
+
 
 
             else:
