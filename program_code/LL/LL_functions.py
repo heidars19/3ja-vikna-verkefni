@@ -4,8 +4,9 @@ from datetime import timedelta
 
 
 class LL_functions():
+
     '''
-    
+    Abstract class for LL classes. Functions that talk to DB. \n
     '''
     
     data_api = DATA_API()
@@ -68,13 +69,13 @@ class LL_functions():
 
 
     def get_filtered_list_from_DB(self, keyword,index_list,searchparam="",exact_match=True, return_column=False):
-        """
+        '''
         Gets a list from database and filters out desired lines.\
         Keyword = 'employee','worktrip', 'airplane' or 'destination' \n
         index_list needs to be a list of header columns, in the format ['id','destination'] \n
         searchparam = parameter to look for in row\n
         exact_match = False will compare partial strings \n
-        """
+        '''
         self.data_api.set_data(keyword)
         get_list = self.data_api.start() 
 

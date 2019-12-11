@@ -10,6 +10,31 @@ from datetime import timedelta
 class WorktripLL(LL_functions):
 
     FLUGFELAG = 'NA' # Fyrir flugnúmer
+
+    def create_worktrip(self,worktrip_identity):
+        """
+        Creates a new worktrip and saves to database. \n
+        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
+            aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
+        """
+
+        worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
+ 
+        for element in worktrip_list:
+            if element[0] == '' : 
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_registration_str()
+
+                return_value = self.save_object_to_DB("worktrip",registration_str)
+
+            else : # Previously registered data, so we must fine line and overwrite it
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_changes_registration_str()
+
+                return_value = self.change_object_in_DB("worktrip",registration_str, element[0])
+
+        return return_value
+
     
     def calc_arrival_time(self, duration, start_time, layover=1):
         '''
@@ -20,7 +45,7 @@ class WorktripLL(LL_functions):
         end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
 
         return end_time
-
+        
 
     def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
 
@@ -50,7 +75,6 @@ class WorktripLL(LL_functions):
         # final_worktrip_string = ['','flight_number_out', 'flight_number_home', departing_from, dest_id, departure_time, arrival_time, aircraft_id]
 
         return final_list_of_flights
-
 
 
     def add_flightnumbers (self, work_list, destination_code) :
@@ -89,34 +113,7 @@ class WorktripLL(LL_functions):
             temp_list.append(line.split(','))
         return temp_list
         
-                    
 
-
-    def create_worktrip(self,worktrip_identity):
-        """
-        Creates a new worktrip and saves to database. \n
-        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
-            aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
-        """
-
-        worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
- 
-        for element in worktrip_list:
-            if element[0] == '' : 
-                new_worktrip = Worktrip(*element)
-                registration_str = new_worktrip.get_registration_str()
-
-                return_value = self.save_object_to_DB("worktrip",registration_str)
-
-            else : # Previously registered data, so we must fine line and overwrite it
-                new_worktrip = Worktrip(*element)
-                registration_str = new_worktrip.get_changes_registration_str()
-
-                return_value = self.change_object_in_DB("worktrip",registration_str, element[0])
-        return return_value
-
-
-     
     def get_emp_dest_date(self, keyword,date):
         """
         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
