@@ -1,4 +1,4 @@
-from LL.LL_API import LL_API
+from LL.LL_API_sigurgeir import LL_API
 from LL.EmployeeLL import *
 from LL.Employee import *
 from DB.DATA_API import *
@@ -44,15 +44,15 @@ def main():
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
   #new_list = new_instance.get_list('destination')
-  # new_list = new_instance.get_list('worktrip')
+  #new_list = new_instance.get_list('worktrip')
   #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   #new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   #new_list = new_instance.get_list('airplane','plane_licences') 
-  # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-20', '')
+  #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   # print(new_list)
   #new_list = new_instance.get_list('airplane','plane_licences') 
-  #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-20', '14')
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
 
 
@@ -61,7 +61,7 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  new_list = new_instance.get_list('worktrip',"available_employees",'2019-11-11', '1')
+  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-11-11', '1')
   #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-01-01', _id='14')
   #new_list = new_instance.get_list('airplane','plane_licences')
   #print(new_list)
