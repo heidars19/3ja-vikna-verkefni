@@ -16,3 +16,10 @@ class Airplanes():
 
     def get_changes_registration_str(self):
         return f'{self._id},{self.plane_id},{self.plane_type},{self.manufacturer},{self.model},{self.name},{self.registration_date}'
+
+    def search_instance(self,searchparam, field_to_search, field_to_return=''):
+        if searchparam in field_to_search:
+            if field_to_return:
+                return [field_to_return]
+            else:
+                self.get_changes_registration_str()

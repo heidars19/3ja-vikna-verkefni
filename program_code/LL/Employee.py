@@ -83,5 +83,12 @@ class Employee:
 # print(newemp)
 
 
-
-
+    def search_instance(self,searchparam, field_to_search, field_to_return=''):
+        if searchparam in field_to_search:
+            if field_to_return:
+                return [field_to_return]
+            else:
+                results = self.get_changes_registration_str()
+                return results
+        else:
+            return None
