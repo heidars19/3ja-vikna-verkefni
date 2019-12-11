@@ -7,6 +7,7 @@ try:
     import calendar
     def start(stdscr):
         new_tui = TUI(stdscr)
+        
         new_tui.main()
 
     wrapper(start)

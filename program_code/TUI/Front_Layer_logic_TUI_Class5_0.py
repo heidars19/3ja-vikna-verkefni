@@ -419,6 +419,7 @@ class TUI():
         self.make_text_appear(3,2,"",100)
         curses.curs_set(1)
         if self.menu_select == 0:
+            _id = ""
             while True:
                 ssn = self.make_user_input_window(5,15,1,1).strip()
                 self.errorcheck.set_ssn(ssn)
@@ -488,12 +489,13 @@ class TUI():
                 time.sleep(1)
             else:
                 license = ""
-            self.instance_API.create("employee",("",ssn,name,address,gsm,email,job_title,rank,license))
+            self.instance_API.create("employee",(_id,ssn,name,address,gsm,email,job_title,rank,license))
             self.feedback_screen("{:^{length:}}".format("User has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("employee")
         if self.menu_select == 1:
             curses.curs_set(0)
             time.sleep(1)
+            _id = ""
             date = self.calendar_screen()
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(16,19,"KEF",30,2)
@@ -515,28 +517,31 @@ class TUI():
             #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             destination = self.make_user_input_window(5,67)
-            self.instance_API.create("worktrip",(date + " " + departure_time_out,airplane,destination))
+            self.instance_API.create("worktrip",(destination,date + " " + departure_time_out,airplane))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("worktrip")
         if self.menu_select == 2:
             _id = ""
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
             flight_time = self.make_user_input_window(12,14)
             distance_from_iceland = self.make_user_input_window(16,26)
-            name_of_contact = self.make_user_input_window(5,70)
+            name_of_contact = self.make_user_input_window(5,70,name = 1)
             contacts_phone = self.make_user_input_window(9,70)
-            airport = self.make_user_input_window(12,65) # '',destination,country,flight_time,distance,contact,emergency_number,airport
+            airport = self.make_user_input_window(12,65)
             self.instance_API.create("destination",(_id,destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("destination")
         if self.menu_select == 3:
             _id = ""
             plane_id = self.make_user_input_window(5,14)
             plane_type = self.make_user_input_window(9,16)
             manufacturer = self.make_user_input_window(12,18)
-            model = self.make_user_input_window(16,11)
+            sætafjöldi = self.make_user_input_window(16,16)
             name = self.make_user_input_window(5,59)
-            self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,model,name))
+            self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,sætafjöldi,name))
             self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
+            self.item_list = self.instance_API.get_list("airplane")
         self.new_reg_u_input = False
         time.sleep(1)
         time.sleep(2)
@@ -691,14 +696,14 @@ class TUI():
                 or ch == ord("é") or ch == ord("É")  or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
                 or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ")  \
-                or ch == ord(" "): #This defines all the chrs this custom input accepts
+                or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö"): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             else:
                 if (ch >=ord("0") and ch <= ord("9")) or (ch >=ord("@") and ch <= ord("Z")) or (ch >=ord("a") and ch <= ord("z"))\
                 or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
                 or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") \
-                or ch == ord(":") or ch == ord(" "): #This defines all the chrs this custom input accepts
+                or ch == ord(":") or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö"): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()
@@ -784,10 +789,10 @@ class TUI():
         if action == ord("b"):
             self.change_user_menu()
     
-    def change_user(self,index,y_position,extra_len, only_num = 0):
+    def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
         if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num)
+            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
@@ -813,7 +818,6 @@ class TUI():
     def make_list_dropdown(self,y,x,object_list):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        #plane_license_list = ["hello","world","long"]
         editwin = curses.newwin(len(object_list),20,5,110)
         editwin2 = curses.newwin(1,30,y,x)
         editwin.keypad(1)
@@ -821,15 +825,15 @@ class TUI():
         while True:
             editwin2.clear()
             editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,object_list[position_y][1])
+            editwin2.addstr(0,0,object_list[position_y])
             editwin2.attroff(curses.color_pair(2))
             editwin2.refresh()
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
                 else:
-                    self.license_drop_down(editwin,object_list[i][1],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -845,15 +849,15 @@ class TUI():
                 for i in range(len(object_list)):
                     self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 curses.curs_set(1)
-                return object_list[position_y][1]
+                return object_list[position_y]
 
     def change_user_menu(self):
         if self.menu_select == 0:
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
-            name = self.change_user(1,9,0)
+            name = self.change_user(1,9,0, name = 1)
             address = self.change_user(2,12,0)
-            phone = self.change_user(3,16,0,1)
+            phone = self.change_user(3,16,0,only_num = 1)
             email = self.change_user(4,5,49)
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
@@ -875,26 +879,14 @@ class TUI():
             departure = self.change_user(4,13,0)
             arrival = self.change_user(5,15,0)
             aircraft_id = self.change_user(6,17,0)
-            new_list = self.instance_API.get_list('worktrip',"available_employees",departure[0:10])
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Captain" in new_list[i]:
-                    temp_list.append(new_list[i])
+            departure_split = departure.split(" ")
+            temp_list = self.instance_API.get_list("worktrip","available_employees",departure_split[0], rank = "Captain", a_license = "Fokker232")
             captain = self.change_user_dropdown_list(7,5,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Co-Pilot" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Co-Pilot", a_license = aircraft_id)
             copilot = self.change_user_dropdown_list(8,7,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Flight Service Manager" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
             fsm = self.change_user_dropdown_list(9,9,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Flight Attendant" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
             fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
             for i in range(len(temp_list)):
                     if fa1 in temp_list[i]:
