@@ -831,7 +831,7 @@ class TUI():
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
                 else:
                     self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
             button_press = editwin.getch()
@@ -849,7 +849,7 @@ class TUI():
                 for i in range(len(object_list)):
                     self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 curses.curs_set(1)
-                return object_list[position_y][1]
+                return object_list[position_y]
 
     def change_user_menu(self):
         if self.menu_select == 0:
@@ -879,26 +879,14 @@ class TUI():
             departure = self.change_user(4,13,0)
             arrival = self.change_user(5,15,0)
             aircraft_id = self.change_user(6,17,0)
-            new_list = self.instance_API.get_list('worktrip',"available_employees",departure[0:10])
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Captain" in new_list[i]:
-                    temp_list.append(new_list[i])
+            departure_split = departure.split(" ")
+            temp_list = self.instance_API.get_list("worktrip","available_employees",departure_split[0], rank = "Captain", a_license = "Fokker232")
             captain = self.change_user_dropdown_list(7,5,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Co-Pilot" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Co-Pilot", a_license = aircraft_id)
             copilot = self.change_user_dropdown_list(8,7,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Flight Service Manager" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
             fsm = self.change_user_dropdown_list(9,9,49,temp_list)
-            temp_list = []
-            for i in range(len(new_list)):
-                if "Flight Attendant" in new_list[i]:
-                    temp_list.append(new_list[i])
+            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
             fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
             for i in range(len(temp_list)):
                     if fa1 in temp_list[i]:
