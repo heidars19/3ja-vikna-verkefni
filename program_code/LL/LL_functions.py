@@ -98,7 +98,7 @@ class LL_functions():
                 if exact_match:  
                     if searchparam == line_list[index]:
                         if return_column:
-                            filter_list.append(line_list[index])
+                            filtered_list.append(line_list[index])
                         else:                            
                             if line not in filtered_list:
                                 filtered_list.append(line)

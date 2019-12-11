@@ -3,6 +3,7 @@ from LL.EmployeeLL import *
 from LL.Employee import *
 from DB.DATA_API import *
 
+
 def return_msg(msg, keyword):
   if msg == 1:
     print("Success in {}".format(keyword))
@@ -45,8 +46,8 @@ def main():
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
-  new_list = new_instance.get_list('destination',"destination_id","Italy")
-  # new_list = new_instance.get_list('airplane','plane_licences') 
+  new_list = new_instance.get_list('destination',"destination_id","Vancouver")
+  #new_list = new_instance.get_list('airplane','plane_licences') 
   # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   # print(new_list)
@@ -54,9 +55,6 @@ def main():
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   print(new_list)
-
-
-
 
 
   # new_list = new_instance.get_list('employee')

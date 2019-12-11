@@ -9,8 +9,7 @@ class DestinationLL(LL_functions):
         Creates a new destination and saves to database.\n
         destination_identity = ('',destination,country,flight_time,distance,contact,emergency_number,airport)
         """
-        # new_dest = Destination(*destination_identity)
-        # TypeError: __init__() missing 2 required positional arguments: 'emerg_number' and 'airport'
+      
         new_dest = Destination(*destination_identity)
         registration_str = new_dest.get_registration_str()
 
@@ -30,10 +29,16 @@ class DestinationLL(LL_functions):
         return return_value
 
     def get_destination_id(self,destination):
+        """
+        Gets name of destination and returns their _id.
+        """
 
         row_names = ['destination']
         index_list = self.find_index_from_header('destination',row_names)
+        
+        destination_line = self.get_filtered_list_from_DB('destination',index_list,searchparam = destination, exact_match = True, return_column=False)
+        dest_id = destination_line[0].split(',')
 
-
-        filtered_list = list(set(self.get_filtered_list_from_DB('destination',index_list, exact_match = True, return_column=True)
-        return filtered_list
+        dest = Destination(*dest_id)
+        
+        return dest._id
