@@ -56,7 +56,7 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license=''):
+    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
             '''
             Gets lists from database. \n
             keyword [string]: employee /airplane / destination / worktrip\n
@@ -105,7 +105,7 @@ class LL_API:
 
             elif list_type == "work_schedule":
                 new_instance = WorktripLL()
-                workschedule = new_instance.get_workschedule(searchparam,_id) #searchparam is the date, the _id is the staffmemebers id.
+                workschedule = new_instance.get_workschedule(searchparam,_id,days) #searchparam is the date, the _id is the staffmemebers id.
                 return workschedule
 
             elif list_type == "destination_id":
