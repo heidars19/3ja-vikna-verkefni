@@ -42,16 +42,6 @@ class AirplanesLL(LL_functions):
         
         return filtered_list
 
-    def _arrival_time(self, duration, start_time, layover=1):
-        '''
-        Given flight duration 1-way and departure time, will calculate when plane arrives back home.
-        '''
-        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[1] = min, skipping seconds
-        round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
-        end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
-
-        return end_time
-
     def calc_round_trip_arrival_time(self, duration, start_time, layover=1) :
         '''
         Given flight duration 1-way and departure time, will calculate when plane arrives back home.
