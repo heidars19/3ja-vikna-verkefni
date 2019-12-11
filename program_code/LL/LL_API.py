@@ -35,7 +35,7 @@ class LL_API:
         '''
         \n Changes object in Database. Returns msg with success or error. \n
         keyword [string]: employee /airplane / destination / worktrip\n
-        changed_object [tuple]: User input for changed object with including id and registration date.
+        changed_object [tuple]: User input for changed object including id and registration date.
         '''
 
         if keyword == 'employee':
@@ -52,7 +52,7 @@ class LL_API:
 
         elif keyword == 'worktrip':
             ch_work = WorktripLL()
-            run_change = ch_work.change_worktrip(changed_object)
+            run_change = ch_work.add_employees_worktrip(changed_object)
 
         return run_change
 
@@ -72,10 +72,10 @@ class LL_API:
                 keyword = '', list_type = 'plane_licences" \n
 
                 LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
-                keyword = '', list_type = 'work_schedule'
+                keyword = '', list_type = 'work_schedule'\n
 
                 DESTINATION ID \n
-                keyword = '', list_type = 
+                keyword = '', list_type = "destination_id" \n
             '''
 
             if list_type == "working_employees" or list_type == "available_employees": 

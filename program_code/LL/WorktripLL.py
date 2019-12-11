@@ -35,6 +35,17 @@ class WorktripLL(LL_functions):
 
         return return_value
 
+    def add_employees_worktrip(self,worktrip_staffed):
+        """
+        Adds staff to worktrip.
+        """
+        staffed_worktrip = Worktrip(*worktrip_staffed)
+        changed_str = staffed_worktrip.get_changes_registration_str()
+        
+        add_employees = self.change_object_in_DB("worktrip",changed_str,staffed_worktrip._id)
+
+        return add_employees
+
     
     def calc_arrival_time(self, duration, start_time, layover=1):
         '''
@@ -59,7 +70,7 @@ class WorktripLL(LL_functions):
         # print(destination_code)
     
         arrival_time = self.calc_arrival_time(flight_time, departure_time)
-        arrival_time = datetime.datetime.strftime(arrival_time,"%Y-%m-%d %H:%M" )
+        arrival_time = datetime.strftime(arrival_time,"%Y-%m-%d %H:%M" )
 
         other_flights_same_day = self.get_flightnumber(destination_code, departure_time)
 
