@@ -11,25 +11,6 @@ class WorktripLL(LL_functions):
     
 
 
-    def get_line_from_list(self, incoming_list, id_number, index_list) :
-        '''
-        List from database, id number for the line, and list of indexes for values you need\n
-        Returns a list with indexed values as elements
-        '''
-        temp_list = []
-        for line in incoming_list:
-            if line[0] == id_number :
-                for index in index_list :
-                    temp_list.append(line[int(index)])
-                return (temp_list)
-        return 0 # Found nothing
-
-    def calc_arrival_time(self, duration, start_time) :
-        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[0] = min
-        round_trip_duration = datetime.timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + datetime.timedelta(hours=1)
-        end_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
-        return datetime.datetime.strftime(end_time,"%Y-%m-%d %H:%M" )
-
 
     def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
 
@@ -41,7 +22,9 @@ class WorktripLL(LL_functions):
         result = self.get_line_from_list(destination_list, dest_id, index_list) # Filters out values from a specific line
         flight_time, destination_code = tuple(result)
         # print(destination_code)
+    
         arrival_time = self.calc_arrival_time(flight_time, departure_time)
+        arrival_time = datetime.datetime.strftime(arrival_time,"%Y-%m-%d %H:%M" )
 
         other_flights_same_day = self.get_flightnumber(destination_code, departure_time)
 
