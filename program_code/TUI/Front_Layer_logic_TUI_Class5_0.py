@@ -825,15 +825,15 @@ class TUI():
         while True:
             editwin2.clear()
             editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,object_list[position_y])
+            editwin2.addstr(0,0,object_list[position_y][2])
             editwin2.attroff(curses.color_pair(2))
             editwin2.refresh()
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
                 else:
-                    self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][2],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -849,7 +849,7 @@ class TUI():
                 for i in range(len(object_list)):
                     self.license_drop_down(editwin,"{:^{length:}}".format("",length = 19),i,curses.color_pair(2))
                 curses.curs_set(1)
-                return object_list[position_y]
+                return object_list[position_y][2]
 
     def change_user_menu(self):
         if self.menu_select == 0:
@@ -880,7 +880,7 @@ class TUI():
             arrival = self.change_user(5,15,0)
             aircraft_id = self.change_user(6,17,0)
             departure_split = departure.split(" ")
-            temp_list = self.instance_API.get_list("worktrip","available_employees",departure_split[0], rank = "Captain", a_license = "Fokker232")
+            temp_list = self.instance_API.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
             captain = self.change_user_dropdown_list(7,5,49,temp_list)
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Co-Pilot", a_license = aircraft_id)
             copilot = self.change_user_dropdown_list(8,7,49,temp_list)
