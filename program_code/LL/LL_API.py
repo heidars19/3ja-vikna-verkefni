@@ -97,7 +97,12 @@ class LL_API:
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
                 return plane_licence
-            
+
+            elif list_type == "available_planes":
+                new_instance = AirplanesLL()
+                available_planes = new_instance.get_available_planes(searchparam,_id)   #datetime and airplane id
+                return available_planes
+
             elif list_type == "work_schedule":
                 new_instance = WorktripLL()
                 workschedule = new_instance.get_workschedule(searchparam,_id) #searchparam is the date, the _id is the staffmemebers id.
@@ -115,7 +120,6 @@ class LL_API:
                 updated_list.pop(0)
         
                 return updated_list
-
 
 def testmain():
     new = LL_API()

@@ -10,7 +10,6 @@ class LL_functions():
     
     data_api = DATA_API()
     
-    #Call this function from EmployeeLL,DestionationLL,... Example: save_object_to_DB("employee", str(emp))
     def save_object_to_DB(self, keyword,comma_seperated_string_to_save):
         '''
         Saves a new line to database. 
@@ -50,17 +49,6 @@ class LL_functions():
             new_list.append(i.split(','))
         return new_list
     
-    # def get_filtered_list_from_DB(self, keyword='destination', index_list=['id','destination']) :
-    #     '''
-    #     Gives a filtered list from DB.\n
-    #     Keyword: employee, airplane, destionation or worktrip\n
-    #     index_list needs to be a list of header columns, in the format ['id','destination']
-    #     '''
-    #     db_items = new_instance.get_list('destination')
-    #     index_list = new_instance.find_index_from_header( 'destination', ['id','destination'])
-    #     return_value = new_instance.filter_by_header_index( index_list, db_items)
-    #     return return_value
-
 
     def find_index_from_header(self, keyword, row_names=[]): 
         '''
@@ -172,47 +160,47 @@ class LL_functions():
         return end_time
     
     
-    def get_available_planes(self, date_time, dest_id):
-        '''
-        Returns a list of available planes, given time of departure(date_time) and destination id (dest_id).\n
-        date_time format: '2019-12-9 14:35" - so seconds
-        '''        
-        destination_list_from_db = self.get_updated_list_from_DB('destination')
-        index_list = self.find_index_from_header('destination',['flight_time'])
+    # def get_available_planes(self, date_time, dest_id):
+    #     '''
+    #     Returns a list of available planes, given time of departure(date_time) and destination id (dest_id).\n
+    #     date_time format: '2019-12-9 14:35" - so seconds
+    #     '''        
+    #     destination_list_from_db = self.get_updated_list_from_DB('destination')
+    #     index_list = self.find_index_from_header('destination',['flight_time'])
 
-        # Get flight time duration of planned worktrip
-        result = self.get_line_from_list(destination_list_from_db, dest_id, index_list) # Filters out values from a specific line
-        flight_time = result[0]
-        temp_list = flight_time.split(':')
+    #     # Get flight time duration of planned worktrip
+    #     result = self.get_line_from_list(destination_list_from_db, dest_id, index_list) # Filters out values from a specific line
+    #     flight_time = result[0]
+    #     temp_list = flight_time.split(':')
         
-        start_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M")
-        end_time = self.calc_round_trip_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
+    #     start_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M")
+    #     end_time = self.calc_round_trip_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
 
 
-        temp_airplane_list = self.get_updated_list_from_DB('airplane')
-        temp_airplane_list.pop(0)
+    #     temp_airplane_list = self.get_updated_list_from_DB('airplane')
+    #     temp_airplane_list.pop(0)
         
-        airplane_list_from_db = self.filter_by_header_index([0,2],temp_airplane_list )
-        worktrip_list_from_db = self.get_updated_list_from_DB('worktrip')
-        worktrip_list_from_db.pop(0)
+    #     airplane_list_from_db = self.filter_by_header_index([0,2],temp_airplane_list )
+    #     worktrip_list_from_db = self.get_updated_list_from_DB('worktrip')
+    #     worktrip_list_from_db.pop(0)
         
         
-        unavailable_planes = []
-        for line in worktrip_list_from_db:
-            if len(line[5]) < 17: # Adding seconds cause Database files had miscellaneous format...
-                line[5] += ':00'
-            if len(line[6]) < 17:
-                line[6] += ':00'
+    #     unavailable_planes = []
+    #     for line in worktrip_list_from_db:
+    #         if len(line[5]) < 17: # Adding seconds cause Database files had miscellaneous format...
+    #             line[5] += ':00'
+    #         if len(line[6]) < 17:
+    #             line[6] += ':00'
 
-            if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
-                unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
+    #         if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
+    #             unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
 
-        available_planes = []
-        for line in airplane_list_from_db:
-            if line[0] not in unavailable_planes:
-                available_planes.append(line)
+    #     available_planes = []
+    #     for line in airplane_list_from_db:
+    #         if line[0] not in unavailable_planes:
+    #             available_planes.append(line)
 
-        return available_planes
+    #     return available_planes
             
 
                 
