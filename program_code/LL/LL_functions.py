@@ -51,8 +51,8 @@ class LL_functions():
         for i in updated_list:
             new_list.append(i.split(','))
         return new_list
-
-
+    
+        
     def find_index_from_header(self, keyword, row_names=[]): 
         self.data_api.set_data(keyword, header=True)
         header = self.data_api.start().split(',') #getting header list of database

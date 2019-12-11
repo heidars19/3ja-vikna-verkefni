@@ -28,8 +28,15 @@ def main():
   # return_value = new_instance.create("worktrip",('15','2019-12-19 11:45','5')) # dest_id, departure_time, airplane_id
   # return_msg(return_value, f"creating a new object, code:{return_value}")
 
+  
   new_instance = LL_functions()
-  return_value = new_instance.get_available_planes('2019-12-19 11:45', '17')
+  new_instance = LL_API()
+  db_items = new_instance.get_list('destination')
+  index_list = new_instance.find_index_from_header( 'destination', ['id','destination'])
+  return_value = new_instance.filter_by_header_index( index_list, db_items)
+
+  # return_value = new_instance.get_filtered_list_from_DB('destination',[0,2])
+  # return_value = new_instance.get_available_planes('2019-12-19 11:45', '17')
   print(return_value) 
 
 
