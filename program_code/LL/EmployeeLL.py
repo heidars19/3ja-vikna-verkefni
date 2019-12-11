@@ -85,7 +85,7 @@ class EmployeeLL(LL_functions):
                         if check_staff:
                             qualified_staff.append(check_staff.split(','))
                     else:
-                        qualified_staff.append(check_staf.split(','))
+                        qualified_staff.append(check_staff.split(','))
             elif role:
                 check_staff = instance.search_instance(role, instance.role)
                 if check_staff:

@@ -25,6 +25,13 @@ def main():
   new_instance = LL_API()
 
   #CREATE
+<<<<<<< HEAD
+=======
+
+  # """Destination"""
+  # return_value = new_instance.create("destination", ('','Test', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
+
+>>>>>>> aed62dc1cda068201ba3ac9c850514e60db5c3d7
   
   # return_value = new_instance.create("employee",('','5665552222','Eyþór Óli','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax'))
   # return_value = new_instance.create("destination", ('','Toronto', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
@@ -45,6 +52,7 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
+<<<<<<< HEAD
   #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   #new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   #new_list = new_instance.get_list('airplane','plane_licences') 
@@ -55,6 +63,18 @@ def main():
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
 print(new_list)
+=======
+  # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
+  # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
+  # new_list = new_instance.get_list('airplane','plane_licences') 
+  # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  # print(new_list)
+  # new_list = new_instance.get_list('airplane','plane_licences') 
+  # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
+  # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  print(new_list)
+>>>>>>> aed62dc1cda068201ba3ac9c850514e60db5c3d7
 
 
   # new_list = new_instance.get_list('employee')
