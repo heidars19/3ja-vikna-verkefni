@@ -14,24 +14,25 @@ class EmployeeLL(LL_functions):
         new_emp = Employee(*personal_identity)
         registration_str = new_emp.get_registration_str()
 
-        return_value = self.save_object_to_DB("employee",registration_str)
-        return return_value
+        save = self.save_object_to_DB("employee",registration_str)
+        return save
 
     def change_employee(self,changed_identity):
         """
-        Changes information about employee, except ssn, name or degistration date.
+        \nChanges information about employee, except ssn, name or degistration date.\n
         changed_identity = (id,ssn,name,address,mobile,email,role,rank,licence,registration_date)
         """
 
         changed_emp = Employee(*changed_identity)
         changed_str = changed_emp.get_changes_registration_str()
 
-        return_value = self.change_object_in_DB("employee", changed_str, changed_emp._id)  # Bring 'id' seperately, so next function can find line number
-        return return_value
+        change = self.change_object_in_DB("employee", changed_str, changed_emp._id)  # Bring 'id' seperately, so next function can find line number
+        return change
 
     def working_employees(self,work_trips_by_date):
         """
-        Returns list of employees working on specific day, roles and destinations.
+        \nReturns list of employees working at specific date, their roles and destinations.\n
+        work_trips_by_date [list] : list of worktrips at specified date.
         """
 
         employee_list = self.get_updated_list_from_DB('employee')
@@ -49,8 +50,8 @@ class EmployeeLL(LL_functions):
 
     def available_employees(self,work_trips_by_date, role='',rank='', a_license=''):
         """
-        Returns list of available employees - id, name role and rank.
-        For captains: rank='Captain', a_license='Airplane Type'
+        \nReturns list of available employees - id, name role and rank.\n
+            captains: rank='Captain', a_license='Airplane Type'
             copilots: role='Pilot', a_license='Airplane Type'
             Flight Attendant: rank='Flight Attendant'
             Cabin Crew: role='Cabincrew'
@@ -95,15 +96,8 @@ class EmployeeLL(LL_functions):
                             qualified_staff.append(check_staff.split(','))
                     else:
                         qualified_staff.append(check_staff.split(','))
-                    
-         
-            
                 
         return qualified_staff
-
-        # row_names = ['id', 'name' ,'role' ,'rank']    #return columns
-        # employee_index_list = self.find_index_from_header('employee', row_names)
-        # filtered_available_employees = self.filter_by_header_index(employee_index_list, available_employees_list)
 
         available_employees_list.pop(0)
 
