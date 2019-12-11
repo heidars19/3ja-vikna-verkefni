@@ -14,3 +14,4 @@ id,destination,country,flight_time,distance,contact,emerg_number,airport,destina
 14,Kulusuk,Greenland,1:45:55,1.343,Hraði Brunann,328738975,Keflavik,14,2019-12-07 20:25:07.287524
 15,Paris,France,4:30:10,2.100,John Philips,0219933884,BC_airport,15,2019-12-07 21:39:33.300255
 16,Milano,Italy,5:30:10,2.100,John Philips,0219933884,BC_airport,16,2019-12-08 13:41:20.362544
+17,London,England,3:30,980,James Boon,2932239,Gatwick,2019-12-11 02:06:00.563700

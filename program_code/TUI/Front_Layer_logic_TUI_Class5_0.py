@@ -518,14 +518,15 @@ class TUI():
             self.instance_API.create("worktrip",(date + " " + departure_time_out,airplane,destination))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
         if self.menu_select == 2:
+            _id = ""
             destination_name = self.make_user_input_window(5,23)
             country = self.make_user_input_window(9,10)
             flight_time = self.make_user_input_window(12,14)
             distance_from_iceland = self.make_user_input_window(16,26)
             name_of_contact = self.make_user_input_window(5,70)
             contacts_phone = self.make_user_input_window(9,70)
-            airport = self.make_user_input_window(12,65)
-            self.instance_API.create("destination",(destination_name,country,airport,distance_from_iceland,name_of_contact,contacts_phone))
+            airport = self.make_user_input_window(12,65) # '',destination,country,flight_time,distance,contact,emergency_number,airport
+            self.instance_API.create("destination",(_id,destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
             self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
         if self.menu_select == 3:
             _id = ""
