@@ -810,7 +810,7 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
     
-    def change_user_dropdown_list(self,index,y,x,object_list,lel):
+    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2):
         check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
         if check == 8:
             variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel)
@@ -826,31 +826,17 @@ class TUI():
         editwin.keypad(1)
         curses.curs_set(0)
         while True:
-            if index != 100:
-                editwin2.clear()
-                editwin2.attron(curses.color_pair(2))
-                editwin2.addstr(0,0,object_list[position_y][index])
-                editwin2.attroff(curses.color_pair(2))
-                editwin2.refresh()
-                editwin.refresh()
-            else:
-                editwin2.clear()
-                editwin2.attron(curses.color_pair(2))
-                editwin2.addstr(0,0,object_list[position_y])
-                editwin2.attroff(curses.color_pair(2))
-                editwin2.refresh()
-                editwin.refresh()
+            editwin2.clear()
+            editwin2.attron(curses.color_pair(2))
+            editwin2.addstr(0,0,object_list[position_y][index])
+            editwin2.attroff(curses.color_pair(2))
+            editwin2.refresh()
+            editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    if index != 100:
-                        self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(2))
-                    else:
-                        self.license_drop_down(editwin,object_list[i],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i][0:19],i,curses.color_pair(2))
                 else:
-                    if index != 100:
-                        self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(1))
-                    else:
-                        self.license_drop_down(editwin,object_list[i],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][0:19],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -900,12 +886,12 @@ class TUI():
             dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
             temp_list = self.instance_API.get_list("airplane","available_planes",departure, dest_id)
             aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0], rank='Captain', a_license=aircraft_id)
+            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Captain', a_license=aircraft_id)
             """try:"""
-            captain = self.change_user_dropdown_list(7,5,49,temp_list,100)
+            captain = self.change_user_dropdown_list(7,5,49,temp_list)
             """except:
                 self.make_text_appear(5,62,"No captain with requiered license",35,2)"""
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0], role='Pilot', rank='Co-Pilot', a_license=aircraft_id)
+            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Co-Pilot', a_license=aircraft_id)
             copilot = self.change_user_dropdown_list(8,7,50,temp_list)
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
             fsm = self.change_user_dropdown_list(9,9,49,temp_list)
