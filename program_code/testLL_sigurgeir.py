@@ -43,7 +43,7 @@ def main():
   
   #new_list = new_instance.get_list('employee')
   #new_list = new_instance.get_list('airplane')
-  # new_list = new_instance.get_list('destination')
+  #new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
   #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   #new_list = new_instance.get_list('destination',"destination_id","Vancouver")
@@ -61,8 +61,8 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  #new_list = new_instance.get_list('worktrip',"available_employees",'2019-12-19', '1')
-  new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-01-01', _id='14')
+  new_list = new_instance.get_list('worktrip',"available_employees",'2019-11-11', '1')
+  #new_list = new_instance.get_list(keyword='worktrip', list_type= 'workschedule', searchparam='2019-01-01', _id='14')
   #new_list = new_instance.get_list('airplane','plane_licences')
   #print(new_list)
   

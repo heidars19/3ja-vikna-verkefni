@@ -8,7 +8,6 @@ class LL_functions():
     '''
     Abstract class for LL classes. Functions that talk to DB. \n
     '''
-    
     data_api = DATA_API()
     
     def save_object_to_DB(self, keyword,comma_seperated_string_to_save):
@@ -18,9 +17,9 @@ class LL_functions():
         keyword: 'employee','airplane','destination' or 'worktrip' 
         '''
         self.data_api.set_data(keyword, data_to_append=comma_seperated_string_to_save)
-        return_value = self.data_api.start()
+        save = self.data_api.start()
         
-        return return_value
+        return save
 
 
     def change_object_in_DB(self, keyword, new_string, string_id):
@@ -31,10 +30,10 @@ class LL_functions():
         self.data_api.set_data(keyword, fieldname="id",searchparam=string_id) #looks for id and returns line number
         line_number = self.data_api.start()
 
-        self.data_api.set_data(keyword, line_to_replace=line_number,replace_with=new_string)
-        return_value = self.data_api.start()
+        self.data_api.set_data(keyword, line_to_replace=line_number,replace_with=new_string) #line to replace and new_string to replace with
+        change = self.data_api.start()
 
-        return return_value
+        return change
 
 
     def get_updated_list_from_DB(self,keyword):
@@ -48,6 +47,7 @@ class LL_functions():
         new_list = []
         for i in updated_list:
             new_list.append(i.split(','))
+        
         return new_list
     
 
@@ -65,6 +65,7 @@ class LL_functions():
             for word in words_list:
                 if value == word:
                     index_list.append(int(index))
+        
         return index_list
 
 
@@ -134,6 +135,7 @@ class LL_functions():
         for dates in range (int(day_to_add)):
             date_list.append(str(date_object))
             date_object += timedelta(days=step)
+        
         return date_list
 
 
@@ -159,4 +161,3 @@ class LL_functions():
         round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
         end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
         return end_time
- 
