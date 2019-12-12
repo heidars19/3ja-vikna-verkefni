@@ -1270,8 +1270,22 @@ class TUI():
                                 self.skip_filter == True
                                 break
                 if self.menu_select == 1:
-                    date = self.calendar_screen()
-                    new_list = self.instance_API.get_list("worktrip","work_schedule",date,"", days = 1)
+                    date = self.calendar_screen(1)
+                    self.make_text_appear(21,23,"|",3)
+                    self.make_text_appear(21,24,"V",3,2)
+                    self.make_text_appear(21,25,"ikur     |",11)
+                    self.make_text_appear(22,23,"|",3,)
+                    self.make_text_appear(22,24,"D",3,2)
+                    self.make_text_appear(22,25,"ag       |",11)
+                    new_list = []
+                    while True:
+                        check = self.stdscr.getch()
+                        if check == ord("v"):
+                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=7)
+                            break
+                        elif check == ord("d"):
+                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
+                            break
                     if not new_list:
                         self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
                         time.sleep(3)
