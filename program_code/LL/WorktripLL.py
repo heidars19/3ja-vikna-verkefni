@@ -27,7 +27,7 @@ class WorktripLL(LL_functions):
 
                 return_value = self.save_object_to_DB("worktrip",registration_str)
 
-            else : # Previously registered data, so we must fine line and overwrite it
+            else : # Previously registered data, so we must find the line and overwrite it
                 new_worktrip = Worktrip(*element)
                 registration_str = new_worktrip.get_changes_registration_str()
 
@@ -66,7 +66,6 @@ class WorktripLL(LL_functions):
 
         result = self.get_line_from_list(destination_list, dest_id, index_list) # Filters out values from a specific line
         flight_time, destination_code = tuple(result)
-        # print(destination_code)
     
         arrival_time = self.calc_arrival_time(flight_time, departure_time)
         arrival_time = datetime.strftime(arrival_time,"%Y-%m-%d %H:%M" )
@@ -81,8 +80,6 @@ class WorktripLL(LL_functions):
         total_flights_list = sorted(other_flights_same_day, key = lambda x: x[index_list[0]]) 
 
         final_list_of_flights = self.add_flightnumbers(total_flights_list, destination_code)
-
-        # final_worktrip_string = ['','flight_number_out', 'flight_number_home', departing_from, dest_id, departure_time, arrival_time, aircraft_id]
 
         return final_list_of_flights
 
