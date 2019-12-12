@@ -955,7 +955,7 @@ class TUI():
                 arrival = true_data[self.list_line_index+self.next_section][6]
                 departure_split = departure.split(" ")
                 aircraft_id = true_data[self.list_line_index+self.next_section][7]
-                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=aircraft_id)
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
                 """try:"""
                 captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
                 """except:
