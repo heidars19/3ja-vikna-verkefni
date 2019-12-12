@@ -4,6 +4,29 @@ from LL.LL_functions import *
 
 class DestinationLL(LL_functions):
 
+        
+    def create_dest_code(self):
+        
+        full_list = self.get_updated_list_from_DB('destination')
+        full_list.pop(0)
+        
+        dest_code = 0
+        for line in full_list:
+            try:    
+                if int(line[8]) > dest_code :
+                    dest_code = int(line[8])
+            except :
+                continue
+                
+        added_zero = ''
+        if dest_code < 10:
+            added_zero = '0' 
+
+        destination_code = added_zero + str(dest_code + 1)
+
+        return destination_code   
+
+        
     def create_destination(self,destination_identity):
         """
         Creates a new destination and saves to database.\n
@@ -12,9 +35,16 @@ class DestinationLL(LL_functions):
       
         new_dest = Destination(*destination_identity)
         registration_str = new_dest.get_registration_str()
-
+        print(registration_str)
+        
+        new_dest.destination_code = self.create_dest_code()
+        
+        registration_str = new_dest.get_registration_str()
+        print(registration_str)
+ 
         return_value = self.save_object_to_DB("destination",registration_str)
         return return_value
+
 
     def change_destination(self, changed_identity):
         """
@@ -27,6 +57,7 @@ class DestinationLL(LL_functions):
 
         return_value = self.change_object_in_DB("destination", changed_str, changed_dest._id) # Bring 'id' seperately, so next function can find line number
         return return_value
+
 
     def get_destination_id(self,destination):
         """
@@ -42,6 +73,7 @@ class DestinationLL(LL_functions):
         dest = Destination(*dest_id)
         
         return dest._id
+
 
     def find_name_by_id(self, given_id):
         class_type = Destination
