@@ -53,7 +53,7 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
-  #new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-19')
+  new_list = new_instance.get_list('worktrip',"working_employees",'2017-12-19')
   # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   # new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-25', '23')
@@ -61,7 +61,7 @@ def main():
   #Work Schedule:  
   #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-28', '', days=1) #fær öll flug fyrir einn dag ákveðna dagsetningu
   #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-19') #fær flug fyrir öll flug áveðna viku
-  new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-28', _id='23') #fær flug fyrir ákveðinn starfsmann ákveðna viku
+  #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-28', _id='23') #fær flug fyrir ákveðinn starfsmann ákveðna viku
 
   #Worktrip translator:
   #new_list = new_instance.get_list(list_type='worktrip_readable', searchparam=("15",'NA156','NA157','Keflavík','15','2019-12-20 11:50:00','2019-12-20 21:45:00','5','3','2','7','11','15','staffed','2019-12-11 01:51:02.065347'))
@@ -70,6 +70,7 @@ def main():
   #new_list = new_instance.get_list ('employee', "pilot_licences", a_license='BOEING747')
 
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+
   # new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
