@@ -522,6 +522,10 @@ class TUI():
             self.instance_API.create("worktrip",(destination[0],date + " " + departure_time_out,airplane[0]))
             self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
             self.item_list = self.instance_API.get_list("worktrip")
+            buffer_list = []
+            for i in range(len(self.item_list)):
+                buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+            self.item_list = buffer_list
         if self.menu_select == 2:
             _id = ""
             destination_name = self.make_user_input_window(5,23)
@@ -752,8 +756,8 @@ class TUI():
         self.make_text_appear(22,69," B",12,2)
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
-        self.make_text_appear(21,79,"┌──────────────┐",17)
         if self.menu_select == 0:
+            self.make_text_appear(21,79,"┌──────────────┐",17)
             self.make_text_appear(22,79,"|",17)
             self.make_text_appear(22,80," V",12,2)
             self.make_text_appear(22,82,"innuyfirlit |",17)
@@ -837,19 +841,30 @@ class TUI():
                     if check == 27:
                         break
     
-    def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
-        check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
-        variable_x = ""
+    def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0, new_list = [], accept_new_list = 0):
         while True:
-            if check == 8 or check == 127:
-                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
-                break
-            elif check == 330:
-                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
-                break
-            elif check in [10,456] or check == curses.KEY_DOWN:
-                variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
-                break
+            check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
+            variable_x = ""
+            if accept_new_list == 0:
+                if check == 8 or check == 127:
+                    variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
+                    break
+                elif check == 330:
+                    variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
+                    break
+                elif check in [10,456] or check == curses.KEY_DOWN:
+                    variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+                    break
+            elif accept_new_list == 1:
+                if check == 8 or check == 127:
+                    variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
+                    break
+                elif check == 330:
+                    variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
+                    break
+                elif check in [10,456] or check == curses.KEY_DOWN:
+                    variable_x = new_list[self.list_line_index+self.next_section][index+1]
+                    break
         return variable_x
 
     def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
@@ -930,24 +945,23 @@ class TUI():
         if self.menu_select == 1:
             while True:
                 #change_user(self,index,y_position,extra_len, only_num = 0):
+                true_data = self.instance_API.get_list("worktrip")
                 _id = self.item_list[self.list_line_index+self.next_section][0]
                 flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
                 flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
                 departing_from = self.item_list[self.list_line_index+self.next_section][3]
-                arriving_at = self.change_user(3,11,0)
-                departure = self.change_user(4,13,0)
-                arrival = self.change_user(5,15,0)
+                arriving_at = true_data[self.list_line_index+self.next_section][4]
+                departure = true_data[self.list_line_index+self.next_section][5]
+                arrival = true_data[self.list_line_index+self.next_section][6]
                 departure_split = departure.split(" ")
-                dest_id = self.instance_API.get_list('destination',"destination_id",arriving_at)
-                temp_list = self.instance_API.get_list("airplane","available_planes",departure, dest_id)
-                aircraft_id = self.change_user_dropdown_list(6,17,0,temp_list,1)
-                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=aircraft_id)
-                try:
-                    captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
-                except:
+                aircraft_id = true_data[self.list_line_index+self.next_section][7]
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
+                """try:"""
+                captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
+                """except:
                     self.feedback_screen("{:^{length:}}".format("Enginn laus captain með réttindi á vélina",length = 100))
                     time.sleep(5)
-                    break
+                    break"""
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=aircraft_id)
                 for i in range(len(temp_list)):
                         if captain in temp_list[i]:
@@ -1071,6 +1085,10 @@ class TUI():
                 idx = 1
                 idz = 0
                 self.item_list = self.instance_API.get_list("worktrip")
+                buffer_list = []
+                for i in range(len(self.item_list)):
+                    buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+                self.item_list = buffer_list
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):

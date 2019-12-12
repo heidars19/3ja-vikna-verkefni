@@ -48,7 +48,7 @@ class EmployeeLL(LL_functions):
         return working_employees_list
 
 
-    def available_employees(self,work_trips_by_date, role='',rank='', a_license=''):
+    def available_employees(self,work_trips_by_date='', role='',rank='', a_license=''):
         """
         \nReturns list of available employees - id, name role and rank.\n
             captains: rank='Captain', a_license='Airplane Type'
@@ -98,8 +98,19 @@ class EmployeeLL(LL_functions):
                         qualified_staff.append(check_staff.split(','))
         return qualified_staff
 
-        available_employees_list.pop(0)
-        return available_employees_list
+
+    def find_pilot_with_license(self, a_licence):
+        pilot_list = []
+        employee_list = self.get_updated_list_from_DB('employee')
+        
+        for instance in employee_list:
+            instance = Employee(*instance)
+            if a_licence:
+                check_staff = instance.search_instance(a_licence, instance.licence)
+                if check_staff:
+                    pilot_list.append(check_staff.split(','))
+        
+        return pilot_list
 
 
 
