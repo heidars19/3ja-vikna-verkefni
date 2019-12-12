@@ -156,7 +156,10 @@ class FileHandlr :
             # return FileHandlr.UNKNOWN_ERROR
             pass
         finally:
-            self._filestream.close()
+            try:
+                self._filestream.close()
+            except:
+                pass
         
         if self._id >= 0 :
             self._id += 1 # Increases current highest id by 1
