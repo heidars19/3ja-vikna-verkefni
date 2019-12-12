@@ -43,7 +43,7 @@ class EmployeeLL(LL_functions):
 
             for line in employee_list:
                 if line[0] in work_trips_by_date[i]:
-                    working_employees_list.append(line[2]+','+line[6]+','+work_trips_by_date[i][0])
+                    working_employees_list.append([line[2],line[6],work_trips_by_date[i][0]])
         
         return working_employees_list
 

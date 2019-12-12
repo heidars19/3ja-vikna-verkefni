@@ -105,23 +105,31 @@ class LL_API:
                 
                 employee_list = []
                 new_instance = WorktripLL()
-                get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
+                get_emp_dest_date = new_instance.get_emp_dest_date(searchparam)
                 new_instance = EmployeeLL()
 
                 if list_type == "working_employees":
-                        employee_list = new_instance.working_employees(get_emp_dest_date)       
+                    employee_list = []
+                    employee_rank_dest_list = new_instance.working_employees(get_emp_dest_date)
+                    destination_inst = DestinationLL()
+
+                    for employee_info in employee_rank_dest_list:
+                                employeee, role, destination_id = employee_info
+                                destination_name = destination_inst.find_name_by_id(destination_id)
+                                employee_list.append([employeee, role, destination_name])        
 
                 elif list_type == "available_employees":
-                        employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
-                        
+                    employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
+                    
+                
                 return_value = employee_list
 
-            elif list_type == "worktrips_by_date":
+            # elif list_type == "worktrips_by_date":
 
-                new_instance = WorktripLL()
-                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
+            #     new_instance = WorktripLL()
+            #     worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
 
-                return_value = worktrips_by_date
+            #    return_value = worktrips_by_date
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
