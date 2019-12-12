@@ -106,4 +106,4 @@ class AirplanesLL(LL_functions):
             instance = class_type(*line_from_db)
 
             if instance._id == given_id:
-                return instance.name
+                return instance.plane_type
