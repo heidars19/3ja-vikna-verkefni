@@ -2,10 +2,8 @@ from LL.Worktrip import *
 from DB.DATA_API import *
 from LL.LL_functions import *
 import string
-import datetime
 from datetime import timedelta
 from datetime import datetime
-from datetime import timedelta
 
 class WorktripLL(LL_functions):
 
@@ -106,7 +104,6 @@ class WorktripLL(LL_functions):
         '''  
         Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers if needed    
         '''
-
         worktrip_full_list = []
         worktrip_full_list = self.get_updated_list_from_DB("worktrip")   # Get a list
 
@@ -118,28 +115,7 @@ class WorktripLL(LL_functions):
         for line in filtered_list:
             temp_list.append(line.split(','))
         return temp_list
-        
 
-#     def get_emp_dest_date(self, keyword,date):
-#         """
-#         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
-#         Date format: YYYY-MM-DD
-#         """
-
-#         row_names = ['departure','arrival']
-#         index_list = self.find_index_from_header(keyword, row_names)
-#         filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,exact_match=False)
-
-#         staff_row_names = ['captain' ,'copilot' ,'fsm' ,'fa1' ,'fa2']
-#         destinaton_row_names = ['arriving_at']
-
-#         staff_index_list = self.find_index_from_header(keyword, row_names)
-# #        destination_index_list = self.filter_by_header_index ()
-#         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
-
-#         return destination_staffmember_list
-
-    #######################################################################
 
     def get_emp_dest_date(self, date):
         """

@@ -1,0 +1,714 @@
+(['C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+  '2019\\3 Virkna Verkefni\\program_code\\testFL.py'],
+ ['C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+  '2019\\3 Virkna Verkefni\\program_code',
+  'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+  '2019\\3 Virkna Verkefni\\program_code'],
+ ['codecs'],
+ [],
+ [],
+ [],
+ False,
+ False,
+ '3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 19:29:22) [MSC v.1916 32 bit '
+ '(Intel)]',
+ [('testFL',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\testFL.py',
+   'PYSOURCE')],
+ [('ntpath',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\ntpath.py',
+   'PYMODULE'),
+  ('_strptime',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\_strptime.py',
+   'PYMODULE'),
+  ('datetime',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\datetime.py',
+   'PYMODULE'),
+  ('tracemalloc',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\tracemalloc.py',
+   'PYMODULE'),
+  ('stringprep',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\stringprep.py',
+   'PYMODULE'),
+  ('_py_abc',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\_py_abc.py',
+   'PYMODULE'),
+  ('typing',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\typing.py',
+   'PYMODULE'),
+  ('__future__',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\__future__.py',
+   'PYMODULE'),
+  ('difflib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\difflib.py',
+   'PYMODULE'),
+  ('ast',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\ast.py',
+   'PYMODULE'),
+  ('inspect',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\inspect.py',
+   'PYMODULE'),
+  ('cmd',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\cmd.py',
+   'PYMODULE'),
+  ('bdb',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\bdb.py',
+   'PYMODULE'),
+  ('opcode',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\opcode.py',
+   'PYMODULE'),
+  ('dis',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\dis.py',
+   'PYMODULE'),
+  ('codeop',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\codeop.py',
+   'PYMODULE'),
+  ('code',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\code.py',
+   'PYMODULE'),
+  ('glob',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\glob.py',
+   'PYMODULE'),
+  ('shlex',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\shlex.py',
+   'PYMODULE'),
+  ('runpy',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\runpy.py',
+   'PYMODULE'),
+  ('importlib._bootstrap',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\_bootstrap.py',
+   'PYMODULE'),
+  ('importlib._bootstrap_external',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\_bootstrap_external.py',
+   'PYMODULE'),
+  ('importlib.machinery',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\machinery.py',
+   'PYMODULE'),
+  ('importlib.util',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\util.py',
+   'PYMODULE'),
+  ('importlib.abc',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\abc.py',
+   'PYMODULE'),
+  ('importlib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\importlib\\__init__.py',
+   'PYMODULE'),
+  ('pkgutil',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pkgutil.py',
+   'PYMODULE'),
+  ('xml',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\__init__.py',
+   'PYMODULE'),
+  ('xml.sax.expatreader',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\expatreader.py',
+   'PYMODULE'),
+  ('xml.sax.saxutils',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\saxutils.py',
+   'PYMODULE'),
+  ('urllib.request',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\urllib\\request.py',
+   'PYMODULE'),
+  ('getpass',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\getpass.py',
+   'PYMODULE'),
+  ('nturl2path',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\nturl2path.py',
+   'PYMODULE'),
+  ('ftplib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\ftplib.py',
+   'PYMODULE'),
+  ('netrc',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\netrc.py',
+   'PYMODULE'),
+  ('http.cookiejar',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\http\\cookiejar.py',
+   'PYMODULE'),
+  ('urllib.response',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\urllib\\response.py',
+   'PYMODULE'),
+  ('urllib.error',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\urllib\\error.py',
+   'PYMODULE'),
+  ('xml.sax',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\__init__.py',
+   'PYMODULE'),
+  ('xml.sax.handler',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\handler.py',
+   'PYMODULE'),
+  ('xml.sax._exceptions',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\_exceptions.py',
+   'PYMODULE'),
+  ('xml.sax.xmlreader',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\sax\\xmlreader.py',
+   'PYMODULE'),
+  ('xml.parsers',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\parsers\\__init__.py',
+   'PYMODULE'),
+  ('xml.parsers.expat',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\xml\\parsers\\expat.py',
+   'PYMODULE'),
+  ('plistlib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\plistlib.py',
+   'PYMODULE'),
+  ('platform',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\platform.py',
+   'PYMODULE'),
+  ('token',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\token.py',
+   'PYMODULE'),
+  ('tokenize',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\tokenize.py',
+   'PYMODULE'),
+  ('urllib.parse',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\urllib\\parse.py',
+   'PYMODULE'),
+  ('tempfile',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\tempfile.py',
+   'PYMODULE'),
+  ('tty',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\tty.py',
+   'PYMODULE'),
+  ('pydoc_data',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pydoc_data\\__init__.py',
+   'PYMODULE'),
+  ('pydoc_data.topics',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pydoc_data\\topics.py',
+   'PYMODULE'),
+  ('html.entities',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\html\\entities.py',
+   'PYMODULE'),
+  ('html',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\html\\__init__.py',
+   'PYMODULE'),
+  ('ssl',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\ssl.py',
+   'PYMODULE'),
+  ('http.client',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\http\\client.py',
+   'PYMODULE'),
+  ('mimetypes',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\mimetypes.py',
+   'PYMODULE'),
+  ('socketserver',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\socketserver.py',
+   'PYMODULE'),
+  ('http',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\http\\__init__.py',
+   'PYMODULE'),
+  ('http.server',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\http\\server.py',
+   'PYMODULE'),
+  ('optparse',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\optparse.py',
+   'PYMODULE'),
+  ('uu',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\uu.py',
+   'PYMODULE'),
+  ('quopri',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\quopri.py',
+   'PYMODULE'),
+  ('email.feedparser',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\feedparser.py',
+   'PYMODULE'),
+  ('email.parser',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\parser.py',
+   'PYMODULE'),
+  ('email',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\__init__.py',
+   'PYMODULE'),
+  ('email._parseaddr',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\_parseaddr.py',
+   'PYMODULE'),
+  ('email.utils',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\utils.py',
+   'PYMODULE'),
+  ('email.errors',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\errors.py',
+   'PYMODULE'),
+  ('email.header',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\header.py',
+   'PYMODULE'),
+  ('email._policybase',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\_policybase.py',
+   'PYMODULE'),
+  ('email.base64mime',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\base64mime.py',
+   'PYMODULE'),
+  ('email.encoders',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\encoders.py',
+   'PYMODULE'),
+  ('email.charset',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\charset.py',
+   'PYMODULE'),
+  ('base64',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\base64.py',
+   'PYMODULE'),
+  ('email._encoded_words',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\_encoded_words.py',
+   'PYMODULE'),
+  ('hashlib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\hashlib.py',
+   'PYMODULE'),
+  ('bisect',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\bisect.py',
+   'PYMODULE'),
+  ('random',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\random.py',
+   'PYMODULE'),
+  ('email.generator',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\generator.py',
+   'PYMODULE'),
+  ('email.iterators',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\iterators.py',
+   'PYMODULE'),
+  ('urllib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\urllib\\__init__.py',
+   'PYMODULE'),
+  ('email._header_value_parser',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\_header_value_parser.py',
+   'PYMODULE'),
+  ('email.headerregistry',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\headerregistry.py',
+   'PYMODULE'),
+  ('email.quoprimime',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\quoprimime.py',
+   'PYMODULE'),
+  ('email.contentmanager',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\contentmanager.py',
+   'PYMODULE'),
+  ('email.policy',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\policy.py',
+   'PYMODULE'),
+  ('email.message',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\email\\message.py',
+   'PYMODULE'),
+  ('bz2',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\bz2.py',
+   'PYMODULE'),
+  ('lzma',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\lzma.py',
+   'PYMODULE'),
+  ('_compression',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\_compression.py',
+   'PYMODULE'),
+  ('gzip',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\gzip.py',
+   'PYMODULE'),
+  ('tarfile',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\tarfile.py',
+   'PYMODULE'),
+  ('py_compile',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\py_compile.py',
+   'PYMODULE'),
+  ('zipfile',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\zipfile.py',
+   'PYMODULE'),
+  ('shutil',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\shutil.py',
+   'PYMODULE'),
+  ('socket',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\socket.py',
+   'PYMODULE'),
+  ('webbrowser',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\webbrowser.py',
+   'PYMODULE'),
+  ('pydoc',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pydoc.py',
+   'PYMODULE'),
+  ('getopt',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\getopt.py',
+   'PYMODULE'),
+  ('pdb',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pdb.py',
+   'PYMODULE'),
+  ('unittest.util',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\util.py',
+   'PYMODULE'),
+  ('unittest.result',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\result.py',
+   'PYMODULE'),
+  ('string',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\string.py',
+   'PYMODULE'),
+  ('_compat_pickle',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\_compat_pickle.py',
+   'PYMODULE'),
+  ('pickle',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pickle.py',
+   'PYMODULE'),
+  ('logging',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\logging\\__init__.py',
+   'PYMODULE'),
+  ('pprint',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\pprint.py',
+   'PYMODULE'),
+  ('unittest.case',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\case.py',
+   'PYMODULE'),
+  ('unittest.suite',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\suite.py',
+   'PYMODULE'),
+  ('fnmatch',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\fnmatch.py',
+   'PYMODULE'),
+  ('unittest.loader',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\loader.py',
+   'PYMODULE'),
+  ('unittest.runner',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\runner.py',
+   'PYMODULE'),
+  ('unittest.main',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\main.py',
+   'PYMODULE'),
+  ('unittest.signals',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\signals.py',
+   'PYMODULE'),
+  ('unittest',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\unittest\\__init__.py',
+   'PYMODULE'),
+  ('struct',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\struct.py',
+   'PYMODULE'),
+  ('gettext',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\gettext.py',
+   'PYMODULE'),
+  ('copy',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\copy.py',
+   'PYMODULE'),
+  ('textwrap',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\textwrap.py',
+   'PYMODULE'),
+  ('argparse',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\argparse.py',
+   'PYMODULE'),
+  ('doctest',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\doctest.py',
+   'PYMODULE'),
+  ('stat',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\stat.py',
+   'PYMODULE'),
+  ('genericpath',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\genericpath.py',
+   'PYMODULE'),
+  ('posixpath',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\posixpath.py',
+   'PYMODULE'),
+  ('signal',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\signal.py',
+   'PYMODULE'),
+  ('contextlib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\contextlib.py',
+   'PYMODULE'),
+  ('_threading_local',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\_threading_local.py',
+   'PYMODULE'),
+  ('threading',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\threading.py',
+   'PYMODULE'),
+  ('selectors',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\selectors.py',
+   'PYMODULE'),
+  ('subprocess',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\subprocess.py',
+   'PYMODULE'),
+  ('os',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\os.py',
+   'PYMODULE'),
+  ('calendar',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\calendar.py',
+   'PYMODULE'),
+  ('curses',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\curses\\__init__.py',
+   'PYMODULE'),
+  ('curses.has_key',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\curses\\has_key.py',
+   'PYMODULE'),
+  ('TUI.Front_Layer_logic_TUI_Class5_0',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna '
+   'Verkefni\\program_code\\TUI\\Front_Layer_logic_TUI_Class5_0.py',
+   'PYMODULE'),
+  ('TUI', '-', 'PYMODULE'),
+  ('curses.textpad',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\curses\\textpad.py',
+   'PYMODULE'),
+  ('curses.ascii',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\curses\\ascii.py',
+   'PYMODULE'),
+  ('LL.Errorcheck',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\Errorcheck.py',
+   'PYMODULE'),
+  ('LL', '-', 'PYMODULE'),
+  ('LL.LL_API',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\LL_API.py',
+   'PYMODULE'),
+  ('LL.LL_functions',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\LL_functions.py',
+   'PYMODULE'),
+  ('DB.DATA_API',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB\\DATA_API.py',
+   'PYMODULE'),
+  ('DB', '-', 'PYMODULE'),
+  ('DB_Models.WorkTripFileOld',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB_Models\\WorkTripFileOld.py',
+   'PYMODULE'),
+  ('DB_Models', '-', 'PYMODULE'),
+  ('DB_Models.WorkTripFile',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB_Models\\WorkTripFile.py',
+   'PYMODULE'),
+  ('DB_Models.DestinationFile',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB_Models\\DestinationFile.py',
+   'PYMODULE'),
+  ('DB_Models.EmployeeFile',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB_Models\\EmployeeFile.py',
+   'PYMODULE'),
+  ('DB_Models.AirplaneFile',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB_Models\\AirplaneFile.py',
+   'PYMODULE'),
+  ('DB.FileHandlr',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\DB\\FileHandlr.py',
+   'PYMODULE'),
+  ('csv',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\csv.py',
+   'PYMODULE'),
+  ('LL.AirplanesLL',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\AirplanesLL.py',
+   'PYMODULE'),
+  ('LL.Airplanes',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\Airplanes.py',
+   'PYMODULE'),
+  ('LL.EmployeeLL',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\EmployeeLL.py',
+   'PYMODULE'),
+  ('LL.Employee',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\Employee.py',
+   'PYMODULE'),
+  ('LL.DestinationLL',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\DestinationLL.py',
+   'PYMODULE'),
+  ('LL.Destination',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\Destination.py',
+   'PYMODULE'),
+  ('LL.WorktripLL',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\WorktripLL.py',
+   'PYMODULE'),
+  ('LL.Worktrip',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\LL\\Worktrip.py',
+   'PYMODULE')],
+ [('VCRUNTIME140.dll',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('python37.dll',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\python37.dll',
+   'BINARY'),
+  ('_ssl',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\_ssl.pyd',
+   'EXTENSION'),
+  ('pyexpat',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\pyexpat.pyd',
+   'EXTENSION'),
+  ('unicodedata',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\unicodedata.pyd',
+   'EXTENSION'),
+  ('_hashlib',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\_hashlib.pyd',
+   'EXTENSION'),
+  ('_bz2',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
+  ('_lzma',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\_lzma.pyd',
+   'EXTENSION'),
+  ('_socket',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\_socket.pyd',
+   'EXTENSION'),
+  ('select',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\select.pyd',
+   'EXTENSION'),
+  ('_curses',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\lib\\site-packages\\_curses.cp37-win32.pyd',
+   'EXTENSION'),
+  ('libcrypto-1_1.dll',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\libcrypto-1_1.dll',
+   'BINARY'),
+  ('libssl-1_1.dll',
+   'c:\\users\\heidar\\onedrive - reykjavik '
+   'university\\documents\\python\\python37-32\\DLLs\\libssl-1_1.dll',
+   'BINARY')],
+ [],
+ [],
+ [('base_library.zip',
+   'C:\\Users\\heidar\\OneDrive - Reykjavik University\\Documents\\Haust '
+   '2019\\3 Virkna Verkefni\\program_code\\build\\testFL\\base_library.zip',
+   'DATA')],
+ [])
