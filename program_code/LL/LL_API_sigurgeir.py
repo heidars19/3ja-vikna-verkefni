@@ -114,7 +114,7 @@ class LL_API:
                 return destination_id
 
             elif list_type == "covert_id_to_names":
-                new_instance = De
+                new_instance = Dest
 
             else:
                 updated_list = []

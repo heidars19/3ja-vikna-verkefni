@@ -56,7 +56,7 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
+    def get_list(self,keyword='',list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
             '''
             Gets lists from database. \n
             keyword [string]: employee /airplane / destination / worktrip\n
@@ -124,8 +124,23 @@ class LL_API:
                 return destination_id
 
             elif list_type =="worktrip_readable":  #Display in TUI, get names of destinations and airplanes that are referenced with ID´s in Worktrip Database
-                new_instance = DestinationLL()
-                worktrip_readable = new_instance.worktrip_readable()
+                
+                airplane_inst = AirplanesLL()
+                destination_inst = DestinationLL()
+                employee_inst = EmployeeLL()
+
+                worktrip = Worktrip(*searchparam)
+
+                worktrip.aircraft_id = airplane_inst.find_name_by_id(worktrip.aircraft_id)
+                worktrip.arriving_at = destination_inst.find_name_by_id(worktrip.arriving_at)
+                worktrip.captain = employee_inst.find_name_by_id(worktrip.captain)
+                worktrip.copilot = employee_inst.find_name_by_id(worktrip.copilot)
+                worktrip.fsm = employee_inst.find_name_by_id(worktrip.fsm)
+                worktrip.fa1 = employee_inst.find_name_by_id(worktrip.fa1)
+                worktrip.fa2 = employee_inst.find_name_by_id(worktrip.fa2)
+
+                print (worktrip.get_changes_registration_str().split(','))
+                
 
             else:
                 updated_list = []

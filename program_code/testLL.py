@@ -56,19 +56,22 @@ def main():
   # new_list = new_instance.get_list('worktrip',"working_employees",'2019-12-20')
   # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   # new_list = new_instance.get_list('airplane','plane_licences') 
-<<<<<<< HEAD
   #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-25', '23')
-  new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-01', '', days=1)
+  
+  #Work Schedule test:  
+  # new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-01', '', days=1) #fær öll flug fyrir einn dag ákveðna dagsetningu
+  # new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-01') #fær flug fyrir öll flug áveðna viku
+  # new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-01', '1') #fær flug fyrir ákveðinn starfsmann ákveðna viku
 
-=======
-  #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-10', '11')
->>>>>>> 1107fc845d86f7167c30e47608678e45a61df8c9
+  #Worktrip translator:
+  new_list = new_instance.get_list(list_type='worktrip_readable', searchparam=(15,'NA156','NA157','Keflavík','15','2019-12-20 11:50:00','2019-12-20 21:45:00','5','3','2','7','11','15','18','2019-12-11 01:51:02.065347'))
+
+
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
   # print(new_list)
   # new_list = new_instance.get_list('airplane','plane_licences') 
   # new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
   # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
-  new_list = new_instance.get_list("","worktrips_by_date",'2019-12-19')
   print(new_list)
 
 
@@ -88,7 +91,7 @@ def main():
   # print(new_list)
 
 
-  return
+  return None
 
   
 if __name__ == "__main__":
