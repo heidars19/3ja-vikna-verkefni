@@ -1198,30 +1198,16 @@ class TUI():
                         self.make_text_appear(23,23,"|",12,1)
                         self.make_text_appear(23,24,"Esc     ",12,2)
                         self.make_text_appear(23,27,"       |",9,1)
-                        try:
-                            if option == 27:
+                        if option == 27:
+                            break
+                        elif option == ord("l") or option == ord("u"):
+                            date = self.calendar_screen()
+                            if option == ord("l"):
+                                self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
+                                break    
+                            if option == ord("u"):
+                                self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
                                 break
-                            elif option == ord("l") or option == ord("u"):
-                                while True:
-                                    option2 = self.stdscr.getch()
-                                    date = self.calendar_screen()
-                                    if option2 == ord("d"):
-                                        if option == ord("l"):
-                                            self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date,day =1)
-                                            break    
-                                        if option == ord("u"):
-                                            self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date,day =1)
-                                            break
-                                    if option2 == ord("v"):
-                                        if option == ord("l"):
-                                            self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
-                                            break    
-                                        if option == ord("u"):
-                                            self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
-                                            break
-                                break
-                        except:
-                            self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir skráðar",length = 100))
                 if self.menu_select == 1:
                     date = self.calendar_screen()
                     new_list = self.instance_API.get_list("worktrip","work_schedule",date,"", days = 1)
