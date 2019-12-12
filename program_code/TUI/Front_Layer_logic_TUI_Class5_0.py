@@ -839,12 +839,17 @@ class TUI():
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
-        if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
-        elif check == 330:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
-        elif check in [10,456] or check == curses.KEY_DOWN:
-            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+        variable_x = ""
+        while True:
+            if check == 8 or check == 127:
+                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
+                break
+            elif check == 330:
+                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
+                break
+            elif check in [10,456] or check == curses.KEY_DOWN:
+                variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+                break
         return variable_x
 
     def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
@@ -857,10 +862,10 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
     
-    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2):
+    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0):
         check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
         if check == 8:
-            variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel)
+            variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel,return_list = return_list)
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
@@ -948,20 +953,21 @@ class TUI():
                         if captain in temp_list[i]:
                             temp_list.pop(i)
                             break
-                copilot = self.change_user_dropdown_list(8,7,50,temp_list)
+                copilot = self.change_user_dropdown_list(8,7,50,temp_list,return_list = 1)
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
-                fsm = self.change_user_dropdown_list(9,9,49,temp_list)
+                fsm = self.change_user_dropdown_list(9,9,49,temp_list,return_list = 1)
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
                 for i in range(len(temp_list)):
                         if fsm in temp_list[i]:
                             temp_list.pop(i)
                             break
-                fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
+                fa1 = self.change_user_dropdown_list(10,11,49,temp_list,return_list = 1)
                 for i in range(len(temp_list)):
                         if fa1 in temp_list[i]:
                             temp_list.pop(i)
                             break
-                fa2 = self.change_user(11,13,49,temp_list)
+                fa2 = self.change_user(11,13,49,temp_list,return_list = 1)
+                self.instance_API.change("worktrip",(_id,captain[0],copilot[0],fsm[0],fa1[0],fa2[0]))
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1163,18 +1169,41 @@ class TUI():
                         self.make_text_appear(22,25,"ppteknir|",11)
                         self.make_text_appear(23,23,"|",12,1)
                         self.make_text_appear(23,24,"Esc     ",12,2)
-                        self.make_text_appear(23,27,"      |",12,1)
+                        self.make_text_appear(23,27,"      |",8,1)
                         option = self.stdscr.getch()
-                        if option == 27:
-                            break
-                        elif option == ord("l") or option == ord("u"):
-                            date = self.calendar_screen()
-                            if option == ord("l"):
-                                self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
-                                break    
-                            if option == ord("u"):
-                                self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
+                        self.make_text_appear(21,23,"|",3)
+                        self.make_text_appear(21,24,"V",3,2)
+                        self.make_text_appear(21,25,"ika      |",11)
+                        self.make_text_appear(22,23,"|",3,)
+                        self.make_text_appear(22,24,"D",3,2)
+                        self.make_text_appear(22,25,"agsetning|",11)
+                        self.make_text_appear(23,23,"|",12,1)
+                        self.make_text_appear(23,24,"Esc     ",12,2)
+                        self.make_text_appear(23,27,"       |",9,1)
+                        try:
+                            if option == 27:
                                 break
+                            elif option == ord("l") or option == ord("u"):
+                                while True:
+                                    option2 = self.stdscr.getch()
+                                    date = self.calendar_screen()
+                                    if option2 == ord("d"):
+                                        if option == ord("l"):
+                                            self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date,day =1)
+                                            break    
+                                        if option == ord("u"):
+                                            self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date,day =1)
+                                            break
+                                    if option2 == ord("v"):
+                                        if option == ord("l"):
+                                            self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
+                                            break    
+                                        if option == ord("u"):
+                                            self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
+                                            break
+                                break
+                        except:
+                            self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir skráðar",length = 100))
                 if self.menu_select == 1:
                     date = self.calendar_screen()
                     new_list = self.instance_API.get_list("worktrip","work_schedule",date,"", days = 1)
