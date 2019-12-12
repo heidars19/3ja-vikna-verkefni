@@ -63,10 +63,9 @@ class AirplanesLL(LL_functions):
         # Get flight time duration of planned worktrip
         result = self.get_line_from_list(destination_list_from_db, dest_id, index_list) # Filters out values from a specific line
         flight_time = result[0]
-        temp_list = flight_time.split(':')
         
         start_time = datetime.strptime(date_time, "%Y-%m-%d %H:%M")
-        end_time = self.calc_round_trip_arrival_time(flight_time, date_time, 2) # Plane is busy 1 exrta hour after landing home
+        end_time = self.calc_round_trip_arrival_time(flight_time, date_time, 2) # Plane is busy 1 extra hour after landing home
 
         temp_airplane_list = self.get_updated_list_from_DB('airplane')
         temp_airplane_list.pop(0)
@@ -99,6 +98,9 @@ class AirplanesLL(LL_functions):
             
 
     def find_name_by_id(self, given_id):
+        '''
+        Finds a corresponding name to an 'id' in the database
+        '''
         class_type = Airplanes
         db_list =  self.get_updated_list_from_DB('airplane')
         db_list.pop(0)
