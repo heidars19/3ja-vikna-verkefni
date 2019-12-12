@@ -116,7 +116,7 @@ class LL_API:
                     for employee_info in employee_rank_dest_list:
                                 employeee, role, destination_id = employee_info
                                 destination_name = destination_inst.find_name_by_id(destination_id)
-                                employee_list.append(["",employeee, role, destination_name])        
+                                employee_list.append(["",employeee, role,'', destination_name, ''])        
 
                 elif list_type == "available_employees":
                     employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)

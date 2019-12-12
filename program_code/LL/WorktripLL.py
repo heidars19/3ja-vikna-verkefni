@@ -156,7 +156,6 @@ class WorktripLL(LL_functions):
                         
             if date in new_trip.departure:
                 staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
-
         return staffmember_trips
 
 
