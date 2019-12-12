@@ -79,7 +79,6 @@ class LL_functions():
         '''
         self.data_api.set_data(keyword)
         get_list = self.data_api.start() 
-        print (get_list)
         filtered_list = []
         for line in get_list:
             line_list = line.split(',')

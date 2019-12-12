@@ -37,11 +37,15 @@ class Employee:
             field_to_search [string]: Header of look up value\n
             field_to_return [string]: Header of return value\n
             '''
-        if searchparam in field_to_search:
-            if field_to_return:
-                return [field_to_return]
-            else:
-                results = self.get_changes_registration_str()
-                return results
+        if type(searchparam) == list:
+            if searchparam in field_to_search:
+                if field_to_return:
+                    return [field_to_return]
+                else:
+                    self.get_changes_registration_str()
         else:
-            return None
+            if searchparam == field_to_search:
+                if field_to_return:
+                    return [field_to_return]
+                else:
+                    self.get_changes_registration_str()
