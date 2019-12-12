@@ -23,7 +23,7 @@ def main():
   #CREATE
   new_instance = LL_API()
   # return_value = new_instance.create("employee",('','5665552222','Eyþór Óli','Irmagata 31','0934958','lara@gmail.com','Pilot','Copilot','Airmax'))
-  return_value = new_instance.create("destination", ('','Toronto', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
+  # return_value = new_instance.create("destination", ('','Toronto', 'Canada','6:30:10','2.100','John Philips','0219933884','BC_airport'))
   # return_value = new_instance.create("airplane", ('',"TF-TEST","NANTES146","Fokker","555","Skvis"))
   # return_value = new_instance.create("worktrip",('15','2019-12-19 11:45','5')) # dest_id, departure_time, airplane_id
   # return_msg(return_value, f"creating a new object, code:{return_value}")
@@ -35,6 +35,7 @@ def main():
   # return_value = new_instance.filter_by_header_index( index_list, db_items)
 
   # return_value = new_instance.get_filtered_list_from_DB('destination',[0,2])
+  return_value = new_instance.get_list("airplane","available_planes",'2019-12-19 11:45', '2')
   # return_value = new_instance.get_available_planes('2019-12-19 11:45', '17')
   print(return_value) 
 
