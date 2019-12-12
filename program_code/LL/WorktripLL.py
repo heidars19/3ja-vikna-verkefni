@@ -178,13 +178,14 @@ class WorktripLL(LL_functions):
             worktrip_list = self.get_updated_list_from_DB('worktrip')       
         
         end_date = start_date + timedelta(days=days)
+        worktrip_list.pop(0)
         
         final_worktrip_list = []
         for line in worktrip_list:
             if len(line[5]) < 17 :
                 line[5] += ':00'
             
-            if datetime.strptime(line[5], '%Y-%m-%d %H:%M') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
+            if datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
                 final_worktrip_list.append(line)
         
         return final_worktrip_list
