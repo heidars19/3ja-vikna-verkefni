@@ -95,9 +95,9 @@ class AirplanesLL(LL_functions):
 
     def find_name_by_id(self, given_id):
         class_type = Airplanes
-        airplane_list =  self.get_updated_list_from_DB('airplane')
-        airplane_list.pop(0)
-        for line_from_db in airplane_list:
+        db_list =  self.get_updated_list_from_DB('airplane')
+        db_list.pop(0)
+        for line_from_db in db_list:
             instance = class_type(*line_from_db)
 
             if instance._id == given_id:

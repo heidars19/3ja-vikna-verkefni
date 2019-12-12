@@ -103,14 +103,22 @@ class EmployeeLL(LL_functions):
 
 
     def find_name_by_id(self, given_id):
-        if given_id:
+        if _id:
             class_type = Employee
-            airplane_list =  self.get_updated_list_from_DB('employee')
-            airplane_list.pop(0)
-            for line_from_db in airplane_list:
+            db_list =  self.get_updated_list_from_DB('employee')
+            db_list.pop(0)
+            staff_names = []
+            for line_from_db in db_list:
                 instance = class_type(*line_from_db)
+                if type(given_id) == str:
+                    if instance._id == given_id:
+                        return instance.name
+                elif type(given_id) == list:
+                    if instance._id in given_id:
+                        staff_names.append(instance.name)
+                    
+            return staff_names
 
-                if instance._id == given_id:
-                    return instance.name
+                    
         else:
             return given_id

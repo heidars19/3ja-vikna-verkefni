@@ -45,9 +45,9 @@ class DestinationLL(LL_functions):
 
     def find_name_by_id(self, given_id):
         class_type = Destination
-        airplane_list =  self.get_updated_list_from_DB('destination')
-        airplane_list.pop(0)
-        for line_from_db in airplane_list:
+        db_list =  self.get_updated_list_from_DB('destination')
+        db_list.pop(0)
+        for line_from_db in db_list:
             instance = class_type(*line_from_db)
 
             if instance._id == given_id:

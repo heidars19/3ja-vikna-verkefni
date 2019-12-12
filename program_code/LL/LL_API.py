@@ -79,6 +79,9 @@ class LL_API:
 
                 DESTINATION ID \n
                 keyword = '', list_type = "destination_id" \n
+
+                READABLE WORKTRIP INFO WITH NAMES NOT IDS \n
+                keyword = list_type = ""worktrip_readable", searchparam = (info that needs to be translated)
             '''
 
             if list_type == "working_employees" or list_type == "available_employees": 
@@ -131,13 +134,12 @@ class LL_API:
 
                 worktrip = Worktrip(*searchparam)
 
+                staff_ids = [worktrip.captain, worktrip.copilot, worktrip.fsm, worktrip.fa1, worktrip.fa2]
+
                 worktrip.aircraft_id = airplane_inst.find_name_by_id(worktrip.aircraft_id)
                 worktrip.arriving_at = destination_inst.find_name_by_id(worktrip.arriving_at)
-                worktrip.captain = employee_inst.find_name_by_id(worktrip.captain)
-                worktrip.copilot = employee_inst.find_name_by_id(worktrip.copilot)
-                worktrip.fsm = employee_inst.find_name_by_id(worktrip.fsm)
-                worktrip.fa1 = employee_inst.find_name_by_id(worktrip.fa1)
-                worktrip.fa2 = employee_inst.find_name_by_id(worktrip.fa2)
+                staff_names = employee_inst.find_name_by_id(staff_ids)
+                s
 
                 print (worktrip.get_changes_registration_str().split(','))
                 
