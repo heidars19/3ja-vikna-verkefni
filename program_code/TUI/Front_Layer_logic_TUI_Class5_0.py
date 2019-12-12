@@ -941,8 +941,26 @@ class TUI():
                 else:
                     self.make_text_appear(5,15,error_msg,30,2)
                     time.sleep(1)"""
-            address = self.change_user(2,12,0)
-            phone = self.change_user(3,16,0,only_num = 1)
+            while True:
+                address = self.change_user(2,12,0)
+                self.errorcheck.set_address(address)
+                error_msg = self.errorcheck.check_address()
+                if error_msg == True:
+                    self.make_text_appear(2,12,ssn,30,2)
+                    break
+                else:
+                    self.make_text_appear(2,12,error_msg,30,2)
+                    time.sleep(1)
+            while True:
+                phone = self.change_user(3,16,0,only_num = 1)
+                self.errorcheck.set_cellphone(address)
+                error_msg = self.errorcheck.check_cellphone()
+                if error_msg == True:
+                    self.make_text_appear(2,12,ssn,30,2)
+                    break
+                else:
+                    self.make_text_appear(2,12,error_msg,30,2)
+                    time.sleep(1)
             email = self.change_user(4,5,49)
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
@@ -1235,15 +1253,6 @@ class TUI():
                         self.make_text_appear(23,24,"Esc     ",12,2)
                         self.make_text_appear(23,27,"      |",8,1)
                         option = self.stdscr.getch()
-                        self.make_text_appear(21,23,"|",3)
-                        self.make_text_appear(21,24,"V",3,2)
-                        self.make_text_appear(21,25,"ika      |",11)
-                        self.make_text_appear(22,23,"|",3,)
-                        self.make_text_appear(22,24,"D",3,2)
-                        self.make_text_appear(22,25,"agsetning|",11)
-                        self.make_text_appear(23,23,"|",12,1)
-                        self.make_text_appear(23,24,"Esc     ",12,2)
-                        self.make_text_appear(23,27,"       |",9,1)
                         if option == 27:
                             break
                         elif option == ord("l") or option == ord("u"):
