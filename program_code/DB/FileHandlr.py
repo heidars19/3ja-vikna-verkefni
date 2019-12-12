@@ -164,7 +164,7 @@ class FileHandlr :
         else :
             if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
                 return self._filestream # Extend error from opening the file
-             return FileHandlr.UNSUCCESSFUL # Empty file (or no id column)
+            return FileHandlr.UNSUCCESSFUL # Empty file (or no id column)
 
 
     def get_header(self):
