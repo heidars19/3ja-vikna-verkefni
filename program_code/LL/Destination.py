@@ -25,11 +25,10 @@ class Destination():
         return f'{self._id},{self.destination},{self.country},{self.flight_time},{self.distance},{self.contact},{self.emergency_number},{self.airport},{self.destination_code},{self.registration_date}'
 
     def search_instance(self,searchparam, field_to_search, field_to_return=''):
-        '''\nTakes in searchparameter to look up in specified column. Returns value in same row, but different column\n
-            searchparam [string]: Look up value\n
-            field_to_search [string]: Header of look up value\n
-            field_to_return [string]: Header of return value\n
-            '''
+        '''
+        Takes in searchparameter to look up in specified column. Returns value in same row, but different column\n
+        searchparam: [string]..., field_to_search: [string]..., field_to_return: [string]...
+        '''
 
         if searchparam in field_to_search:
             if field_to_return:
