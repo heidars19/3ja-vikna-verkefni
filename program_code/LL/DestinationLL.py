@@ -35,13 +35,11 @@ class DestinationLL(LL_functions):
       
         new_dest = Destination(*destination_identity)
         registration_str = new_dest.get_registration_str()
-        print(registration_str)
         
         new_dest.destination_code = self.create_dest_code()
         
         registration_str = new_dest.get_registration_str()
-        print(registration_str)
- 
+
         return_value = self.save_object_to_DB("destination",registration_str)
         return return_value
 
