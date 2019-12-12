@@ -37,12 +37,14 @@ class EmployeeLL(LL_functions):
         employee_list = self.get_updated_list_from_DB('employee')
         working_employees_list = []
         line_list = []
+        
 
-        for i,line in enumerate(work_trips_by_date):   
-
-            for line in employee_list:
-                if line[0] in work_trips_by_date[i]:
-                    working_employees_list.append([line[2],line[6],work_trips_by_date[i][0]])
+        for dest_emp_info in work_trips_by_date:
+            dest, emp_list = dest_emp_info
+            for emp_instance in employee_list:
+                new_emp = Employee(*emp_instance)
+                if new_emp._id in emp_list:
+                    working_employees_list.append([new_emp.name,  new_emp.role, dest])
         
         return working_employees_list
 
