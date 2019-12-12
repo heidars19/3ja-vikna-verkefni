@@ -17,7 +17,7 @@ class LL_API:
         elif msg == -1 :
             return "An unknow error occurred while {}".format(keyword)
         elif msg == -404 :
-            return "File not Found error on {}".format(keyword))  
+            return "File not Found error on {}".format(keyword)
         else:
             return "An unknow error occurred or not getting return value from DB"
         return
