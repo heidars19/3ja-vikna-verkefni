@@ -1178,7 +1178,7 @@ class TUI():
                         self.make_text_appear(22,25,"agsetning|",11)
                         self.make_text_appear(23,23,"|",12,1)
                         self.make_text_appear(23,24,"Esc     ",12,2)
-                        self.make_text_appear(23,27,"      |",8,1)
+                        self.make_text_appear(23,27,"       |",9,1)
                         if option == 27:
                             break
                         elif option == ord("l") or option == ord("u"):
