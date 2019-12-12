@@ -161,6 +161,9 @@ class LL_API:
 
                 return_value = worktrip.get_changes_registration_str().split(',')
                 
+            elif list_type == "pilot_licences":
+                new_instance = EmployeeLL()
+                return_value = new_instance.find_pilot_with_license(a_license)
 
             else:
                 updated_list = []
