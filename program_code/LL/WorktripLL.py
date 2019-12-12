@@ -181,6 +181,9 @@ class WorktripLL(LL_functions):
         
         final_worktrip_list = []
         for line in worktrip_list:
+            if len(line[5]) < 17 :
+                line[5] += ':00'
+            
             if datetime.strptime(line[5], '%Y-%m-%d %H:%M') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
                 final_worktrip_list.append(line)
         
