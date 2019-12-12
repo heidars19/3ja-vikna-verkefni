@@ -17,7 +17,7 @@ class LL_API:
         elif msg == -1 :
             return "An unknow error occurred while {}".format(keyword)
         elif msg == -404 :
-            return "File not Found error on {}".format(keyword))  
+            return "File not Found error on {}".format(keyword)
         else:
             return "An unknow error occurred or not getting return value from DB"
         return
@@ -115,7 +115,6 @@ class LL_API:
                         employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
                         
                 return_value = employee_list
-                break
 
             elif list_type == "worktrips_by_date":
 
@@ -123,31 +122,26 @@ class LL_API:
                 worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
 
                 return_value = worktrips_by_date
-                break
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
                 return_value = plane_licence
-                break
 
             elif list_type == "available_planes":
                 new_instance = AirplanesLL()
                 available_planes = new_instance.get_available_planes(searchparam,_id) #datetime and airplane id
                 return_value = available_planes
-                break
 
             elif list_type == "work_schedule":
                 new_instance = WorktripLL()
                 workschedule = new_instance.get_workschedule(searchparam,_id,days) #searchparam is the date, the _id is the staffmemebers id.
                 return_value = workschedule
-                break
 
             elif list_type == "destination_id":
                 new_instance = DestinationLL()
                 destination_id = new_instance.get_destination_id(searchparam)
                 return_value = destination_id
-                break
 
             elif list_type =="worktrip_readable":  #Display in TUI, get names of destinations and airplanes that are referenced with ID´s in Worktrip Database
                 
@@ -175,7 +169,6 @@ class LL_API:
                 updated_list.pop(0)
         
                 return_value = updated_list
-                break
 
             if isinstance(return_value, int) :
                 return [[self.return_msg(return_value, keyword)]]
