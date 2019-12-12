@@ -2,10 +2,8 @@ from LL.Worktrip import *
 from DB.DATA_API import *
 from LL.LL_functions import *
 import string
-import datetime
 from datetime import timedelta
 from datetime import datetime
-from datetime import timedelta
 
 class WorktripLL(LL_functions):
 
@@ -14,10 +12,9 @@ class WorktripLL(LL_functions):
     def create_worktrip(self,worktrip_identity):
         """
         Creates a new worktrip and saves to database. \n
-        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
-            aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
+        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,
+        aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
         """
-
         worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
  
         for element in worktrip_list:
@@ -58,6 +55,9 @@ class WorktripLL(LL_functions):
         
 
     def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
+        '''
+        Calculate values that need to go into creating a worktrip, before writing it into database.
+        '''
 
         departing_from = 'Keflavík'
 
@@ -106,7 +106,6 @@ class WorktripLL(LL_functions):
         '''  
         Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers if needed    
         '''
-
         worktrip_full_list = []
         worktrip_full_list = self.get_updated_list_from_DB("worktrip")   # Get a list
 
@@ -118,28 +117,7 @@ class WorktripLL(LL_functions):
         for line in filtered_list:
             temp_list.append(line.split(','))
         return temp_list
-        
 
-#     def get_emp_dest_date(self, keyword,date):
-#         """
-#         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
-#         Date format: YYYY-MM-DD
-#         """
-
-#         row_names = ['departure','arrival']
-#         index_list = self.find_index_from_header(keyword, row_names)
-#         filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,exact_match=False)
-
-#         staff_row_names = ['captain' ,'copilot' ,'fsm' ,'fa1' ,'fa2']
-#         destinaton_row_names = ['arriving_at']
-
-#         staff_index_list = self.find_index_from_header(keyword, row_names)
-# #        destination_index_list = self.filter_by_header_index ()
-#         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
-
-#         return destination_staffmember_list
-
-    #######################################################################
 
     def get_emp_dest_date(self, date):
         """
@@ -150,27 +128,17 @@ class WorktripLL(LL_functions):
         trips.pop(0)
         
         staffmember_trips = []
-        for trip in trips:
-                
-            new_trip = Worktrip(*trip)
-                        
+        for trip in trips: 
+            new_trip = Worktrip(*trip)      
             if date in new_trip.departure:
                 staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
-
         return staffmember_trips
-
-
-
-
-
-    ##########################################################################
     
 
     def get_workschedule(self, date, _id='', days=7):
         """
-        Gets list with info about trips a employee is booked. Returns from where the flight is, to what location
+        Gets list with info about trips an employee is booked. Returns from where the flight is, to what location
         and when the flight is. 
-        Keyword = 
         """
         keyword = 'worktrip'
         date_list = self.create_date_list(date,days)
@@ -184,8 +152,7 @@ class WorktripLL(LL_functions):
             trips.extend(filtered_list)
         
         staffmember_trips = []
-        
-
+    
         for trip in trips:    
             trip_info = trip.split(',')
             new_trip = Worktrip(*trip_info)
@@ -198,18 +165,22 @@ class WorktripLL(LL_functions):
                 trips_list = [x.split(',') for x in trips]
                 return trips_list
         return staffmember_trips
-   
-    # def worktrip_readable(self):
-    #       worktrip_list = []
-    #       destination_names = []
-          
-
-    #       worktrip_list = self.get_updated_list_from_DB('worktrip')
-    #       destination_list = self.get_updated_list_from_DB('destination')
-
-    #       for worktrip in worktrip_list:
-    #         worktrip_info = worktrip_list.split(',')
-    #         worktrip = Worktrip(*worktrip_info)
-
-    #         items_to_read = [worktrip.arriving_at, worktrip.aircraft_id,worktrip, worktrip.captain,worktrip.copilot,worktrip.fsm, worktrip.fa1,worktrip.fa2]
-                
+ 
+ 
+        def get_worktrips_by_date(self, date, days) :
+            
+            start_date = strptime(date, '%Y-%m-%d')
+            if start_date < datetime.now() :
+                worktrip_list = self.get_updated_list_from_DB('worktripold') 
+            else :
+                worktrip_list = self.get_updated_list_from_DB('worktrip')       
+            
+            end_date = start_date + timedelta(days=days)
+            
+            final_worktrip_list = []
+            for line in worktrip_list:
+                if strptime(line[5], '%Y-%m-%d %H:%M') > start_date and strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
+                    final_worktrip_list.append(line)
+            
+            return final_worktrip_list
+        

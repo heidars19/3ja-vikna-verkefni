@@ -3,6 +3,7 @@ from LL.DestinationLL import *
 from LL.EmployeeLL import *
 from LL.AirplanesLL import *
 from LL.LL_functions import *
+from datetime import datetime
 
 class LL_API:
 
@@ -124,12 +125,19 @@ class LL_API:
                 
                 return_value = employee_list
 
-            # elif list_type == "worktrips_by_date":
 
-            #     new_instance = WorktripLL()
-            #     worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
+# ----------------------------
+            elif list_type == "worktrips_by_date":
+        
+                new_instance = WorktripLL()
+                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam, days)
 
-            #    return_value = worktrips_by_date
+                return_value = worktrips_by_date
+
+
+
+# ---------------------------------
+
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
@@ -185,11 +193,5 @@ class LL_API:
             if isinstance(return_value, int) :
                 return [[self.return_msg(return_value, keyword)]]
                 
-
             return return_value
         
-        
-        
-def testmain():
-    new = LL_API()
-   
