@@ -857,10 +857,10 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
     
-    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2):
+    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0):
         check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
         if check == 8:
-            variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel)
+            variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel,return_list = return_list)
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
@@ -948,7 +948,7 @@ class TUI():
                         if captain in temp_list[i]:
                             temp_list.pop(i)
                             break
-                copilot = self.change_user_dropdown_list(8,7,50,temp_list)
+                copilot = self.change_user_dropdown_list(8,7,50,temp_list,return_list = 1)
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
                 fsm = self.change_user_dropdown_list(9,9,49,temp_list)
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
