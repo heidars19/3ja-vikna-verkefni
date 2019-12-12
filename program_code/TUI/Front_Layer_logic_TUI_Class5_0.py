@@ -865,7 +865,6 @@ class TUI():
                 elif check in [10,456] or check == curses.KEY_DOWN:
                     variable_x = new_list[self.list_line_index+self.next_section][index+1]
                     break
-        self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
         return variable_x
 
     def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
@@ -927,49 +926,54 @@ class TUI():
 
     def change_user_menu(self):
         if self.menu_select == 0:
-
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
             name = self.item_list[self.list_line_index+self.next_section][2]
-            """while True:
-                ssn = self.make_user_input_window(5,15,1,1).strip()
-                self.errorcheck.set_ssn(ssn)
-                error_msg = self.errorcheck.check_ssn()
-                if error_msg == True:
-                    self.make_text_appear(5,15,ssn,30,2)
-                    break
-                else:
-                    self.make_text_appear(5,15,error_msg,30,2)
-                    time.sleep(1)"""
+            address = self.change_user(2,12,0)
             while True:
-                address = self.change_user(2,12,0)
                 self.errorcheck.set_address(address)
                 error_msg = self.errorcheck.check_address()
                 if error_msg == True:
-                    self.make_text_appear(2,12,ssn,30,2)
+                    self.make_text_appear(12,18,address,30,2)
                     break
                 else:
-                    self.make_text_appear(2,12,error_msg,30,2)
+                    self.make_text_appear(12,18,error_msg,30,2)
                     time.sleep(1)
+                    self.make_text_appear(12,18,"",30,2)
+                    address = self.make_user_input_window(12,18)
+            phone = self.change_user(3,16,0,only_num = 1)
             while True:
-                phone = self.change_user(3,16,0,only_num = 1)
-                self.errorcheck.set_cellphone(address)
+                self.errorcheck.set_cellphone(phone)
                 error_msg = self.errorcheck.check_cellphone()
                 if error_msg == True:
-                    self.make_text_appear(2,12,ssn,30,2)
+                    self.make_text_appear(16,10,phone,30,2)
                     break
                 else:
-                    self.make_text_appear(2,12,error_msg,30,2)
+                    self.make_text_appear(16,10,error_msg,30,2)
                     time.sleep(1)
+                    self.make_text_appear(16,10,"",30,2)
+                    phone = self.make_user_input_window(16,10)
             email = self.change_user(4,5,49)
+            while True:
+                self.errorcheck.set_mail(email)
+                error_msg = self.errorcheck.check_mail()
+                if error_msg == True:
+                    self.make_text_appear(5,56,email,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,56,error_msg,30,2)
+                    time.sleep(1)
+                    self.make_text_appear(5,56,"",30,2)
+                    email = self.make_user_input_window(5,56)
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
                 rank = self.change_user_dropdown(6,12,49,"Captain","Co-Pilot")
-                license = self.change_user(7,16,49)
+                license = self.make_plane_license_dropdown(10,110)
             else:
                 rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
                 license = ""
             self.instance_API.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
             self.item_list = self.instance_API.get_list("employee")
 
         if self.menu_select == 1:
