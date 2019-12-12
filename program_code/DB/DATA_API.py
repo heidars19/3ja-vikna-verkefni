@@ -80,7 +80,7 @@ class DATA_API:
             return self.line_number
 
         else :
-            if self.keyword == "worktripold":
+            if self.keyword == "worktrip":
                 new_instance.archive_old_worktrips()
             return_value = new_instance.read_filestream_into_list()
             return return_value

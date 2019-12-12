@@ -38,7 +38,7 @@ class LL_functions():
     def get_updated_list_from_DB(self,keyword):
         '''
         Returns a new list from database \n
-        keyword: 'employee', 'airplane', 'destination', 'worktrip', 'worktripold' 
+        keyword: 'employee', 'airplane', 'destination', 'worktrip' 
         '''
         self.data_api.set_data(keyword)
         updated_list = self.data_api.start()
