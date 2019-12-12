@@ -166,7 +166,8 @@ class LL_API:
                 updated_list = []
                 new_instance = LL_functions()
                 updated_list = new_instance.get_updated_list_from_DB(keyword)
-                updated_list.pop(0)
+                if len(updated_list) > 0 :
+                    updated_list.pop(0)
         
                 return_value = updated_list
 
