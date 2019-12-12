@@ -112,9 +112,9 @@ class FileHandlr :
                             if list_line[0] == 'id' : # If this is header line, jump to next iteration
                                 bak_file.write(line) # Copies over header
                                 continue
-                            # list_line[6] should be the date column, change index number if not
+                            # list_line[5] should be the date column, change index number if not
                             try :
-                                line_date = datetime.datetime.strptime(list_line[6], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
+                                line_date = datetime.datetime.strptime(list_line[5], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
                             except ValueError :
                                 # Date in file has wrong format
                                 return FileHandlr.WRONG_FORMAT
