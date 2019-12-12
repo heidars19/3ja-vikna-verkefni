@@ -143,10 +143,8 @@ class FileHandlr :
         '''
         self._filestream = self.open_file()
 
-        if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
-            return self._filestream # Extend error from opening the file
-
         try:
+            self._id = 0
             reader = csv.DictReader(self._filestream, delimiter=',')
             for line in reader: 
                 try: 
@@ -155,7 +153,8 @@ class FileHandlr :
                 except: # empty database og a corrupt line/wrong format
                     continue
         except:
-            return FileHandlr.UNKNOWN_ERROR
+            # return FileHandlr.UNKNOWN_ERROR
+            pass
         finally:
             self._filestream.close()
         
@@ -163,7 +162,9 @@ class FileHandlr :
             self._id += 1 # Increases current highest id by 1
             return self._id 
         else :
-            return FileHandlr.UNSUCCESSFUL # Empty file (or no id column)
+            if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
+                return self._filestream # Extend error from opening the file
+             return FileHandlr.UNSUCCESSFUL # Empty file (or no id column)
 
 
     def get_header(self):
