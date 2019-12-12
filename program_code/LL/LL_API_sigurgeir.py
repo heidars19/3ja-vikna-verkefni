@@ -113,6 +113,9 @@ class LL_API:
                 destination_id = new_instance.get_destination_id(searchparam)
                 return destination_id
 
+            elif list_type == "covert_id_to_names":
+                new_instance = De
+
             else:
                 updated_list = []
                 new_instance = LL_functions()
