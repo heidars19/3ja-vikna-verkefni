@@ -4,7 +4,6 @@ from datetime import timedelta
 
 
 class LL_functions():
-
     '''
     Abstract class for LL classes. Functions that talk to DB. \n
     '''

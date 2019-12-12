@@ -3,6 +3,7 @@ from LL.DestinationLL import *
 from LL.EmployeeLL import *
 from LL.AirplanesLL import *
 from LL.LL_functions import *
+from datetime import datetime
 
 class LL_API:
 
@@ -126,6 +127,7 @@ class LL_API:
 
             # elif list_type == "worktrips_by_date":
 
+
             #     new_instance = WorktripLL()
             #     worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
 
@@ -185,11 +187,9 @@ class LL_API:
             if isinstance(return_value, int) :
                 return [[self.return_msg(return_value, keyword)]]
                 
-
             return return_value
         
-        
-        
-def testmain():
-    new = LL_API()
+            
+# def testmain():
+#     new = LL_API()
    
