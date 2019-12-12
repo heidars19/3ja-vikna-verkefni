@@ -16,5 +16,3 @@ id,destination,country,flight_time,distance,contact,emerg_number,airport,destina
 16,Milano,Italy,5:30:10,2.100,John Philips,0219933884,BC_airport,16,2019-12-08 13:41:20.362544
 17,London,England,3:30,980,James Boon,2932239,Gatwick,17,2019-12-11 02:06:00.563700
 18,Vancouver,Kanada,3:30,980,James Boon,2932239,Gatwick,17,2019-12-11 02:06:00.563700
-19,Test,Canada,6:30:10,2.100,John Philips,0219933884,BC_airport,2019-12-11 18:07:06.506673
-20,Test,Canada,6:30:10,2.100,John Philips,0219933884,BC_airport,2019-12-11 19:57:09.208924
