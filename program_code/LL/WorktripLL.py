@@ -171,7 +171,7 @@ class WorktripLL(LL_functions):
         '''
         Returns a list of worktrips, old or new
         '''
-        start_date = strptime(date, '%Y-%m-%d')
+        start_date = datetime.strptime(date, '%Y-%m-%d')
         if start_date < datetime.now() :
             worktrip_list = self.get_updated_list_from_DB('worktripold') 
         else :
@@ -181,7 +181,7 @@ class WorktripLL(LL_functions):
         
         final_worktrip_list = []
         for line in worktrip_list:
-            if strptime(line[5], '%Y-%m-%d %H:%M') > start_date and strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
+            if datetime.strptime(line[5], '%Y-%m-%d %H:%M') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
                 final_worktrip_list.append(line)
         
         return final_worktrip_list
