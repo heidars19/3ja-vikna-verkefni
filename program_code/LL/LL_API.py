@@ -159,7 +159,7 @@ class LL_API:
                 worktrip.fa1 = employee_inst.find_name_by_id(worktrip.fa1)
                 worktrip.fa2 = employee_inst.find_name_by_id(worktrip.fa2)
 
-                retrun_value = worktrip.get_changes_registration_str().split(',')
+                return_value = worktrip.get_changes_registration_str().split(',')
                 
 
             else:
