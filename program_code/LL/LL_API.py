@@ -56,7 +56,7 @@ class LL_API:
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license=''):
+    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
             '''
             Gets lists from database. \n
             keyword [string]: employee /airplane / destination / worktrip\n
@@ -73,6 +73,9 @@ class LL_API:
 
                 LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
                 keyword = '', list_type = 'work_schedule'\n
+
+                LIST OF WORKTRIPS BY DATE \n
+                keyword = '', list_type = 'worktrips_by_date', searchparam = 'YYYY-MM-DD'\n
 
                 DESTINATION ID \n
                 keyword = '', list_type = "destination_id" \n
@@ -93,6 +96,13 @@ class LL_API:
                         
                 return employee_list
 
+            elif list_type == "worktrips_by_date":
+
+                new_instance = WorktripLL()
+                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
+
+                return worktrips_by_date
+
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
@@ -105,7 +115,7 @@ class LL_API:
 
             elif list_type == "work_schedule":
                 new_instance = WorktripLL()
-                workschedule = new_instance.get_workschedule(searchparam,_id) #searchparam is the date, the _id is the staffmemebers id.
+                workschedule = new_instance.get_workschedule(searchparam,_id,days) #searchparam is the date, the _id is the staffmemebers id.
                 return workschedule
 
             elif list_type == "destination_id":

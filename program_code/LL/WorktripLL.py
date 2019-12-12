@@ -141,14 +141,14 @@ class WorktripLL(LL_functions):
         return destination_staffmember_list
 
 
-    def get_workschedule(self, date, _id):
+    def get_workschedule(self, date, _id='', days=7):
         """
         Gets list with info about trips a employee is booked. Returns from where the flight is, to what location
         and when the flight is. 
         Keyword = 
         """
         keyword = 'worktrip'
-        date_list = self.create_date_list(date,7)
+        date_list = self.create_date_list(date,days)
 
         row_names = ['departure']
         index_list = self.find_index_from_header(keyword, row_names)
@@ -160,14 +160,18 @@ class WorktripLL(LL_functions):
         
         staffmember_trips = []
         
+
         for trip in trips:    
             trip_info = trip.split(',')
             new_trip = Worktrip(*trip_info)
             staff = [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]
             
-            if _id in staff:
-                staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
-        
+            if _id:
+                if _id in staff:
+                    staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
+            else:
+                trips_list = [x.split(',') for x in trips]
+                return trips_list
         return staffmember_trips
    
     # def worktrip_readable(self):
@@ -184,5 +188,3 @@ class WorktripLL(LL_functions):
 
     #         items_to_read = [worktrip.arriving_at, worktrip.aircraft_id,worktrip, worktrip.captain,worktrip.copilot,worktrip.fsm, worktrip.fa1,worktrip.fa2]
                 
-   
-

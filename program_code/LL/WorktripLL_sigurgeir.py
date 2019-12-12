@@ -159,4 +159,3 @@ class WorktripLL(LL_functions):
                     staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
                     return staffmember_trips
         return trips_list
-  
