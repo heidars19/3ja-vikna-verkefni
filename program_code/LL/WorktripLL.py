@@ -54,7 +54,6 @@ class WorktripLL(LL_functions):
         temp_list = duration.split(':') # temp_list[0] = hours and temp_list[1] = min, skipping seconds
         round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
         end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
-
         return end_time
         
 

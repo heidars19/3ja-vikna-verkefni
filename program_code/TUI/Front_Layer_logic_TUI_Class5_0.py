@@ -549,7 +549,7 @@ class TUI():
         time.sleep(2)
         curses.curs_set(0)
 
-    def calendar_screen(self):
+    def calendar_screen(self,time_travel = 0):
         cal = calendar.Calendar()
         editwin2 = curses.newwin(15,100,5,3)
         editwin2.attron(curses.color_pair(1))
@@ -611,12 +611,12 @@ class TUI():
             editwin3.attron(curses.color_pair(2))
                         
             check = editwin2.getch()
-            if check == curses.KEY_LEFT:
+            if check == curses.KEY_LEFT or check == 452:
                 if date_selected == 1 or date_selected == 5 or date_selected == 9  or date_selected == 13  or date_selected == 17 or date_selected == 21 or date_selected == 25 or date_selected == 29:
                     pass
                 else:
                     date_selected -= 1
-            elif check == curses.KEY_RIGHT:
+            elif check == curses.KEY_RIGHT or check == 454:
                 if date_selected == 4 or date_selected == 8 or date_selected == 12 or date_selected == 16 or date_selected == 20 or date_selected == 24 or date_selected == 28 or date_selected == days_in_month:
                     pass
                 else:
@@ -654,18 +654,32 @@ class TUI():
             elif check == 10:
                 editwin2.clear()
                 return selected_day
-            elif check == 338:
-                if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
-                    pass
-                else:
-                    add_month += 1
-                    date_selected = 1
-            elif check == 339:
-                if starting_year == datetime_year and starting_month == datetime_month:
-                    pass
-                else:
-                    add_month -= 1
-                    date_selected = 1
+            if time_travel == 0:
+                if check == 338:
+                    if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
+                        pass
+                    else:
+                        add_month += 1
+                        date_selected = 1
+                elif check == 339:
+                    if starting_year == datetime_year and starting_month == datetime_month:
+                        pass
+                    else:
+                        add_month -= 1
+                        date_selected = 1
+            elif time_travel == 1:
+                if check == 338:
+                    if starting_year + 2 == datetime_year and datetime_month + add_month == 12:
+                        pass
+                    else:
+                        add_month += 1
+                        date_selected = 1
+                elif check == 339:
+                    if starting_year - 2 == datetime_year and datetime_month + add_month == 1:
+                        pass
+                    else:
+                        add_month -= 1
+                        date_selected = 1
 
         editwin2.attroff(curses.color_pair(1))
         editwin2.refresh()
@@ -739,11 +753,11 @@ class TUI():
         self.make_text_appear(22,71,"reyta |",12)
         self.make_text_appear(23,68,"└────────┘",12)
         self.make_text_appear(21,79,"┌──────────────┐",17)
-        self.make_text_appear(22,79,"|",17)
-        self.make_text_appear(22,80," V",12,2)
-        self.make_text_appear(22,82,"innuyfirlit |",17)
-        self.make_text_appear(23,79,"└──────────────┘",17)
         if self.menu_select == 0:
+            self.make_text_appear(22,79,"|",17)
+            self.make_text_appear(22,80," V",12,2)
+            self.make_text_appear(22,82,"innuyfirlit |",17)
+            self.make_text_appear(23,79,"└──────────────┘",17)
             self.make_text_appear(5,4,self._header[self.menu_select][0] + ": " +self.item_list[self.list_line_index+self.next_section][1],49)
             self.make_text_appear(9,4,self._header[self.menu_select][1] + ": " +self.item_list[self.list_line_index+self.next_section][2],49)
             self.make_text_appear(12,4,self._header[self.menu_select][2] + ": " +self.item_list[self.list_line_index+self.next_section][3],49)
@@ -822,7 +836,6 @@ class TUI():
                     check = self.stdscr.getch()
                     if check == 27:
                         break
-
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
@@ -895,7 +908,7 @@ class TUI():
         if self.menu_select == 0:
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
-            name = self.change_user(1,9,0, name = 1)
+            name = self.item_list[self.list_line_index+self.next_section][2]
             address = self.change_user(2,12,0)
             phone = self.change_user(3,16,0,only_num = 1)
             email = self.change_user(4,5,49)
@@ -927,14 +940,22 @@ class TUI():
                 try:
                     captain = self.change_user_dropdown_list(7,5,49,temp_list,2)
                 except:
-                    self.feedback_screen("{:^{length:}}".format("Enginn laus captain með laus réttindi",length = 100))
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus captain með réttindi á vélina",length = 100))
                     time.sleep(5)
                     break
-                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot',rank='Co-Pilot', a_license=aircraft_id)
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=aircraft_id)
+                for i in range(len(temp_list)):
+                        if captain in temp_list[i]:
+                            temp_list.pop(i)
+                            break
                 copilot = self.change_user_dropdown_list(8,7,50,temp_list)
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
                 fsm = self.change_user_dropdown_list(9,9,49,temp_list)
-                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Attendant")
+                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
+                for i in range(len(temp_list)):
+                        if fsm in temp_list[i]:
+                            temp_list.pop(i)
+                            break
                 fa1 = self.change_user_dropdown_list(10,11,49,temp_list)
                 for i in range(len(temp_list)):
                         if fa1 in temp_list[i]:
@@ -1117,6 +1138,15 @@ class TUI():
                     self.list_line_index += 1
             elif key == 27:
                 break
+            elif key == ord("v"):
+                if self.menu_select == 1:
+                    date = self.calendar_screen()
+                    new_list = self.instance_API.get_list("worktrip","work_schedule",date)
+                    if not new_list:
+                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir í þessari viku!",length = 100))
+                        time.sleep(3)
+                    else:
+                        self.item_list = new_list
             elif key == ord("n"):
                 self.new_registration = True
                 self.new_reg_u_input = True
@@ -1125,11 +1155,15 @@ class TUI():
             elif key == ord("d"):
                 if self.menu_select == 0:
                     while True:
-                        self.make_text_appear(21,23,"L",2,2)
-                        self.make_text_appear(21,24,"ausir",11)
-                        self.make_text_appear(22,23,"U",2,2)
-                        self.make_text_appear(22,24,"ppteknir",11)
-                        self.make_text_appear(23,23,"Esc",12,2)
+                        self.make_text_appear(21,23,"|",3)
+                        self.make_text_appear(21,24,"L",3,2)
+                        self.make_text_appear(21,25,"ausir   |",11)
+                        self.make_text_appear(22,23,"|",3,)
+                        self.make_text_appear(22,24,"U",3,2)
+                        self.make_text_appear(22,25,"ppteknir|",11)
+                        self.make_text_appear(23,23,"|",12,1)
+                        self.make_text_appear(23,24,"Esc     ",12,2)
+                        self.make_text_appear(23,27,"      |",12,1)
                         option = self.stdscr.getch()
                         if option == 27:
                             break
@@ -1141,6 +1175,14 @@ class TUI():
                             if option == ord("u"):
                                 self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
                                 break
+                if self.menu_select == 1:
+                    date = self.calendar_screen()
+                    new_list = self.instance_API.get_list("worktrip","work_schedule",date,"", days = 1)
+                    if not new_list:
+                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
+                        time.sleep(3)
+                    else:
+                        self.item_list = new_list
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
                 if key == ord("f"):

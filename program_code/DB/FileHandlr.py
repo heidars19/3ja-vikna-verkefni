@@ -13,7 +13,7 @@ class FileHandlr :
     FILENOTFOUND = -404
     UNKNOWN_ERROR = -1
     UNSUCCESSFUL = 0 # No error, but search yealded no results
-    SUCCESS = 1
+    SUCCESS = 1 # For when you have no results to send back
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,capacity,name,registration_date'
@@ -134,7 +134,7 @@ class FileHandlr :
 
 
 
-    def find_next_id(self): 
+    def find_next_id(self, header_id='id'): 
         ''' 
         Finds the highest current id and sets self._id as that\n
         \n
@@ -148,8 +148,11 @@ class FileHandlr :
         try:
             reader = csv.DictReader(self._filestream, delimiter=',')
             for line in reader: 
-                if int(line['id']) > self._id :
-                    self._id = int(line['id'])
+                try: 
+                    if int(line[header_id]) > self._id :
+                        self._id = int(line[header_id])
+                except: # empty database og a corrupt line/wrong format
+                    continue
         except:
             return FileHandlr.UNKNOWN_ERROR
         finally:
