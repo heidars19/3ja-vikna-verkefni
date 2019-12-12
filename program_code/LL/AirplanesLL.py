@@ -75,6 +75,7 @@ class AirplanesLL(LL_functions):
         worktrip_list_from_db = self.get_updated_list_from_DB('worktrip')
         worktrip_list_from_db.pop(0)
         
+            
         unavailable_planes = []
         try :
             for line in worktrip_list_from_db:
@@ -84,7 +85,7 @@ class AirplanesLL(LL_functions):
                 if len(line[6]) < 17:
                     line[6] += ':00'
 
-                if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
+                if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
                     unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
         except:
             pass
