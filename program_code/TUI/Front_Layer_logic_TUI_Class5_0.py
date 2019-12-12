@@ -927,9 +927,20 @@ class TUI():
 
     def change_user_menu(self):
         if self.menu_select == 0:
+
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
             name = self.item_list[self.list_line_index+self.next_section][2]
+            """while True:
+                ssn = self.make_user_input_window(5,15,1,1).strip()
+                self.errorcheck.set_ssn(ssn)
+                error_msg = self.errorcheck.check_ssn()
+                if error_msg == True:
+                    self.make_text_appear(5,15,ssn,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,15,error_msg,30,2)
+                    time.sleep(1)"""
             address = self.change_user(2,12,0)
             phone = self.change_user(3,16,0,only_num = 1)
             email = self.change_user(4,5,49)
@@ -1202,7 +1213,10 @@ class TUI():
                         self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir í þessari viku!",length = 100))
                         time.sleep(3)
                     else:
-                        self.item_list = new_list
+                        buffer_list = []
+                        for i in range(len(new_list)):
+                            buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
+                        self.item_list = buffer_list
             elif key == ord("n"):
                 self.new_registration = True
                 self.new_reg_u_input = True
@@ -1247,7 +1261,10 @@ class TUI():
                         self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
                         time.sleep(3)
                     else:
-                        self.item_list = new_list
+                        buffer_list = []
+                        for i in range(len(new_list)):
+                            buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
+                        self.item_list = buffer_list
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
                 if key == ord("f"):
