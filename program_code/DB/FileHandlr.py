@@ -182,7 +182,7 @@ class FileHandlr :
             data_string = self._data_to_append
             
         # To prevent 'id' creation when adding a file into the archived WorkTripFileOld
-        if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
+        if not str(type(self)) == "<class 'DB_Models.WorkTripFileOld.WorkTripFileOld'>":
             return_value = FileHandlr.find_next_id(self)
             if return_value <= 0 : 
                 return return_value # Extend error from find_next_id
