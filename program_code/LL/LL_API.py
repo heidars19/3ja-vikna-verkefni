@@ -125,13 +125,19 @@ class LL_API:
                 
                 return_value = employee_list
 
-            # elif list_type == "worktrips_by_date":
+
+# ----------------------------
+            elif list_type == "worktrips_by_date":
+        
+                new_instance = WorktripLL()
+                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam, days)
+
+                return_value = worktrips_by_date
 
 
-            #     new_instance = WorktripLL()
-            #     worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
 
-            #    return_value = worktrips_by_date
+# ---------------------------------
+
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
@@ -189,7 +195,3 @@ class LL_API:
                 
             return return_value
         
-            
-# def testmain():
-#     new = LL_API()
-   
