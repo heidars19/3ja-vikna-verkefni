@@ -1136,10 +1136,10 @@ class TUI():
                         elif option == ord("l") or option == ord("u"):
                             date = self.calendar_screen()
                             if option == ord("l"):
-                                self.item_list  = self.instance_API.get_list("worktrip", "available_employees",date)
-                                break
+                                self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
+                                break    
                             if option == ord("u"):
-                                self.item_list  = self.instance_API.get_list("worktrip", "working_employees",date)
+                                self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
                                 break
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
