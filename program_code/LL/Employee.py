@@ -42,10 +42,10 @@ class Employee:
                 if field_to_return:
                     return [field_to_return]
                 else:
-                    self.get_changes_registration_str()
+                    return self.get_changes_registration_str()
         else:
             if searchparam == field_to_search:
                 if field_to_return:
                     return [field_to_return]
                 else:
-                    self.get_changes_registration_str()
+                    return self.get_changes_registration_str()

@@ -104,8 +104,7 @@ class WorktripLL(LL_functions):
         
     def get_flightnumber(self, destination_code, departure_time) :
         '''  
-        Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers\n
-        if needed    
+        Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers if needed    
         '''
 
         worktrip_full_list = []
