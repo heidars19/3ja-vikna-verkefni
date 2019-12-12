@@ -120,21 +120,51 @@ class WorktripLL(LL_functions):
         return temp_list
         
 
-    def get_emp_dest_date(self, keyword,date):
+#     def get_emp_dest_date(self, keyword,date):
+#         """
+#         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
+#         Date format: YYYY-MM-DD
+#         """
+
+#         row_names = ['departure','arrival']
+#         index_list = self.find_index_from_header(keyword, row_names)
+#         filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,exact_match=False)
+
+#         staff_row_names = ['captain' ,'copilot' ,'fsm' ,'fa1' ,'fa2']
+#         destinaton_row_names = ['arriving_at']
+
+#         staff_index_list = self.find_index_from_header(keyword, row_names)
+# #        destination_index_list = self.filter_by_header_index ()
+#         destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
+
+#         return destination_staffmember_list
+
+    #######################################################################
+
+    def get_emp_dest_date(self, date):
         """
         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
         Date format: YYYY-MM-DD
         """
+        trips = self.get_updated_list_from_DB('worktrip')
+        trips.pop(0)
+        
+        staffmember_trips = []
+        for trip in trips:
+                
+            new_trip = Worktrip(*trip)
+                        
+            if date in new_trip.departure:
+                staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
 
-        row_names = ['departure','arrival']
-        index_list = self.find_index_from_header(keyword, row_names)
-        filtered_list = self.get_filtered_list_from_DB(keyword,index_list,date,exact_match=False)
+        return staffmember_trips
 
-        row_names = ['arriving_at', 'captain' ,'copilot' ,'fsm' ,'fa1' ,'fa2']
-        staff_index_list = self.find_index_from_header(keyword, row_names)
-        destination_staffmember_list = self.filter_by_header_index(staff_index_list, filtered_list)
-        return destination_staffmember_list
 
+
+
+
+    ##########################################################################
+    
 
     def get_workschedule(self, date, _id='', days=7):
         """
