@@ -839,15 +839,18 @@ class TUI():
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
-        if check == 8:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
-            return variable_x
-        elif check == 330:
-            variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
-            return variable_x
-        elif check in [10,456] or check == curses.KEY_DOWN:
-            variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
-            return variable_x
+        variable_x = ""
+        while True:
+            if check == 8 or check == 127:
+                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name, data = self.item_list[self.list_line_index+self.next_section][index+1][:-1])
+                break
+            elif check == 330:
+                variable_x = self.make_user_input_window(y_position,6 + len(self._header[self.menu_select][index]) + extra_len, only_num = only_num, clock = clock, name = name)
+                break
+            elif check in [10,456] or check == curses.KEY_DOWN:
+                variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
+                break
+        return variable_x
 
     def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
         check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
