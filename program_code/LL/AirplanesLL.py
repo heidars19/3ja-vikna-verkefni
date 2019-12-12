@@ -76,14 +76,18 @@ class AirplanesLL(LL_functions):
         worktrip_list_from_db.pop(0)
         
         unavailable_planes = []
-        for line in worktrip_list_from_db:
-            if len(line[5]) < 17: # Adding seconds cause Database files had miscellaneous format...
-                line[5] += ':00'
-            if len(line[6]) < 17:
-                line[6] += ':00'
+        try :
+            for line in worktrip_list_from_db:
+        
+                if len(line[5]) < 17: # Adding seconds cause Database files had miscellaneous format...
+                    line[5] += ':00'
+                if len(line[6]) < 17:
+                    line[6] += ':00'
 
-            if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
-                unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
+                if datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") < start_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) < start_time or datetime.strptime(line[5], "%Y-%m-%d %H:%M:%S") > end_time and (datetime.strptime(line[6], "%Y-%m-%d %H:%M:%S") - timedelta(hours=1)) > end_time :
+                    unavailable_planes.append(line[7]) # Airplanes in worktrips with overlapping time to yours
+        except:
+            pass
 
         available_planes = []
         for line in airplane_list_from_db:

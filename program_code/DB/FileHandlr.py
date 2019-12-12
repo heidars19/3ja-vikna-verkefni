@@ -47,6 +47,9 @@ class FileHandlr :
 
 
     def start(self) :
+        '''
+        
+        '''
         if self._data_to_append :
             return FileHandlr.append_data_to_file(self)
         
@@ -66,9 +69,7 @@ class FileHandlr :
         return FileHandlr.UNKNOWN_ERROR
 
 
-
     def remove_file(file_to_remove) :
-
         try :
             if os.path.exists(file_to_remove): # Checks if .bak file exists and removes it if it does
                 try :
@@ -172,7 +173,7 @@ class FileHandlr :
 
     def append_data_to_file(self):
         ''' 
-        Appends data to file, creates a new file if none exists, and adds a header. 
+        Appends data to file, creates a new file if none exists, and adds a header. \n
 
         Accepts a list with 1 line or 1 string
         ''' 
@@ -182,7 +183,7 @@ class FileHandlr :
             data_string = self._data_to_append
             
         # To prevent 'id' creation when adding a file into the archived WorkTripFileOld
-        if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
+        if not str(type(self)) == "<class 'DB_Models.WorkTripFileOld.WorkTripFileOld'>":
             return_value = FileHandlr.find_next_id(self)
             if return_value <= 0 : 
                 return return_value # Extend error from find_next_id
@@ -228,7 +229,7 @@ class FileHandlr :
 
     def open_file(self, mode='r'):
         ''' 
-        Opens a file and returns a filestream, or None if error.
+        Opens a file and returns a filestream\n
         Does not close the file!
         '''
         try :
@@ -243,7 +244,6 @@ class FileHandlr :
     def read_filestream_into_list(self):
         '''
         Takes a filestream, returns a list with file contents.
-        Closes the file after reading it.
         '''
         self._filestream = self.open_file()
         if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
@@ -267,7 +267,6 @@ class FileHandlr :
         # Writes changes into a new file at first, then overwrites original file
         # Then removes the temporary .bak file
         # Breaks loops on error before removing any file
-
 
         BACKUP_FILE = self._filename +".bak"
         try :
