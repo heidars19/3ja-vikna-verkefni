@@ -42,11 +42,13 @@ class LL_functions():
         keyword: 'employee', 'airplane', 'destination', 'worktrip', 'worktripold' 
         '''
         self.data_api.set_data(keyword)
-
         updated_list = self.data_api.start()
         new_list = []
-        for i in updated_list:
-            new_list.append(i.split(','))
+        try :
+            for i in updated_list:
+                new_list.append(i.split(','))
+        except:
+            pass
         
         return new_list
     
