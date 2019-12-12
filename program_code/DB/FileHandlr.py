@@ -61,7 +61,7 @@ class FileHandlr :
             return self._line_number
 
         else :
-            if str(type(self)) == "<class 'DB.WorkTripFile.WorkTripFile'>":
+            if str(type(self)) == "<class 'DB_Models.WorkTripFileOld.WorkTripFileOld'>":
                 FileHandlr.archive_old_worktrips(self)
             return_value = FileHandlr.read_filestream_into_list(self)
             return return_value

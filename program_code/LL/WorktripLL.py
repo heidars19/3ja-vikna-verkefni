@@ -167,20 +167,22 @@ class WorktripLL(LL_functions):
         return staffmember_trips
  
  
-        def get_worktrips_by_date(self, date, days) :
-            
-            start_date = strptime(date, '%Y-%m-%d')
-            if start_date < datetime.now() :
-                worktrip_list = self.get_updated_list_from_DB('worktripold') 
-            else :
-                worktrip_list = self.get_updated_list_from_DB('worktrip')       
-            
-            end_date = start_date + timedelta(days=days)
-            
-            final_worktrip_list = []
-            for line in worktrip_list:
-                if strptime(line[5], '%Y-%m-%d %H:%M') > start_date and strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
-                    final_worktrip_list.append(line)
-            
-            return final_worktrip_list
+    def get_worktrips_by_date(self, date, days) :
+        '''
+        Returns a list of worktrips, old or new
+        '''
+        start_date = strptime(date, '%Y-%m-%d')
+        if start_date < datetime.now() :
+            worktrip_list = self.get_updated_list_from_DB('worktripold') 
+        else :
+            worktrip_list = self.get_updated_list_from_DB('worktrip')       
         
+        end_date = start_date + timedelta(days=days)
+        
+        final_worktrip_list = []
+        for line in worktrip_list:
+            if strptime(line[5], '%Y-%m-%d %H:%M') > start_date and strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
+                final_worktrip_list.append(line)
+        
+        return final_worktrip_list
+    
