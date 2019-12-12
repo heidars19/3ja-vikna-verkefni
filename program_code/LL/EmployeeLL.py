@@ -99,7 +99,9 @@ class EmployeeLL(LL_functions):
         return qualified_staff
 
         available_employees_list.pop(0)
-        return available_employees_lis
+        return available_employees_list
+
+
 
 
     def find_name_by_id(self, given_id):
