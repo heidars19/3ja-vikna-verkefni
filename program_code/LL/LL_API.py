@@ -134,12 +134,13 @@ class LL_API:
 
                 worktrip = Worktrip(*searchparam)
 
-                staff_ids = [worktrip.captain, worktrip.copilot, worktrip.fsm, worktrip.fa1, worktrip.fa2]
-
                 worktrip.aircraft_id = airplane_inst.find_name_by_id(worktrip.aircraft_id)
                 worktrip.arriving_at = destination_inst.find_name_by_id(worktrip.arriving_at)
-                staff_names = employee_inst.find_name_by_id(staff_ids)
-                s
+                worktrip.captain = employee_inst.find_name_by_id(worktrip.captain)
+                worktrip.copilot = employee_inst.find_name_by_id(worktrip.copilot)
+                worktrip.fsm = employee_inst.find_name_by_id(worktrip.fsm)
+                worktrip.fa1 = employee_inst.find_name_by_id(worktrip.fa1)
+                worktrip.fa2 = employee_inst.find_name_by_id(worktrip.fa2)
 
                 print (worktrip.get_changes_registration_str().split(','))
                 
