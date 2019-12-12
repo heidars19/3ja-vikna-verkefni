@@ -6,6 +6,23 @@ from LL.LL_functions import *
 
 class LL_API:
 
+    
+    def return_msg(self, msg, keyword=''):
+        '''
+        '''
+        if msg == 1:
+        return "Success in {}".format(keyword)
+    elif msg == 0 :
+        return "No success in {}".format(keyword)
+    elif msg == -1 :
+        return "An unknow error occurred while {}".format(keyword)
+    elif msg == -404 :
+        return "File not Found error on {}".format(keyword))  
+    else:
+        return "An unknow error occurred or not getting return value from DB"
+    return
+
+
     def create(self, keyword,user_input):    
         '''
         \n Creates new object and saves to Database. Returns msg with success or error. \n
@@ -97,34 +114,40 @@ class LL_API:
                 elif list_type == "available_employees":
                         employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
                         
-                return employee_list
+                return_value = employee_list
+                break
 
             elif list_type == "worktrips_by_date":
 
                 new_instance = WorktripLL()
                 worktrips_by_date = new_instance.get_worktrips_by_date(searchparam)
 
-                return worktrips_by_date
+                return_value = worktrips_by_date
+                break
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
-                return plane_licence
+                return_value = plane_licence
+                break
 
             elif list_type == "available_planes":
                 new_instance = AirplanesLL()
                 available_planes = new_instance.get_available_planes(searchparam,_id) #datetime and airplane id
-                return available_planes
+                return_value = available_planes
+                break
 
             elif list_type == "work_schedule":
                 new_instance = WorktripLL()
                 workschedule = new_instance.get_workschedule(searchparam,_id,days) #searchparam is the date, the _id is the staffmemebers id.
-                return workschedule
+                return_value = workschedule
+                break
 
             elif list_type == "destination_id":
                 new_instance = DestinationLL()
                 destination_id = new_instance.get_destination_id(searchparam)
-                return destination_id
+                return_value = destination_id
+                break
 
             elif list_type =="worktrip_readable":  #Display in TUI, get names of destinations and airplanes that are referenced with ID´s in Worktrip Database
                 
@@ -151,8 +174,17 @@ class LL_API:
                 updated_list = new_instance.get_updated_list_from_DB(keyword)
                 updated_list.pop(0)
         
-                return updated_list
+                return_value = updated_list
+                break
 
+            if isinstance(return_value, int) :
+                return [[self.return_msg(return_value, keyword)]]
+                
+
+            return return_value
+        
+        
+        
 def testmain():
     new = LL_API()
    
