@@ -1168,8 +1168,17 @@ class TUI():
                         self.make_text_appear(22,25,"ppteknir|",11)
                         self.make_text_appear(23,23,"|",12,1)
                         self.make_text_appear(23,24,"Esc     ",12,2)
-                        self.make_text_appear(23,27,"      |",12,1)
+                        self.make_text_appear(23,27,"      |",8,1)
                         option = self.stdscr.getch()
+                        self.make_text_appear(21,23,"|",3)
+                        self.make_text_appear(21,24,"V",3,2)
+                        self.make_text_appear(21,25,"ika      |",11)
+                        self.make_text_appear(22,23,"|",3,)
+                        self.make_text_appear(22,24,"D",3,2)
+                        self.make_text_appear(22,25,"agsetning|",11)
+                        self.make_text_appear(23,23,"|",12,1)
+                        self.make_text_appear(23,24,"Esc     ",12,2)
+                        self.make_text_appear(23,27,"      |",8,1)
                         if option == 27:
                             break
                         elif option == ord("l") or option == ord("u"):
