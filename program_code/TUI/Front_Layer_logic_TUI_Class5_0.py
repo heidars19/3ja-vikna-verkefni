@@ -1071,6 +1071,10 @@ class TUI():
                 idx = 1
                 idz = 0
                 self.item_list = self.instance_API.get_list("worktrip")
+                buffer_list = []
+                for i in range(len(self.item_list)-1):
+                    buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+                self.item_list = buffer_list
                 """leng = 0
                 for i in range(len(self.item_list)):
                     for x in range(len(self.item_list[i])):
