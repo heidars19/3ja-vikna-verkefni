@@ -11,16 +11,16 @@ class LL_API:
         '''
         '''
         if msg == 1:
-        return "Success in {}".format(keyword)
-    elif msg == 0 :
-        return "No success in {}".format(keyword)
-    elif msg == -1 :
-        return "An unknow error occurred while {}".format(keyword)
-    elif msg == -404 :
-        return "File not Found error on {}".format(keyword))  
-    else:
-        return "An unknow error occurred or not getting return value from DB"
-    return
+            return "Success in {}".format(keyword)
+        elif msg == 0 :
+            return "No success in {}".format(keyword)
+        elif msg == -1 :
+            return "An unknow error occurred while {}".format(keyword)
+        elif msg == -404 :
+            return "File not Found error on {}".format(keyword))  
+        else:
+            return "An unknow error occurred or not getting return value from DB"
+        return
 
 
     def create(self, keyword,user_input):    
