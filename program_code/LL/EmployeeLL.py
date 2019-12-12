@@ -118,14 +118,14 @@ class EmployeeLL(LL_functions):
         '''
         Finds a corresponding name to an 'id' in the database
         '''
-            if given_id:
-                class_type = Employee
-                airplane_list =  self.get_updated_list_from_DB('employee')
-                airplane_list.pop(0)
-                for line_from_db in airplane_list:
-                    instance = class_type(*line_from_db)
+        if given_id:
+            class_type = Employee
+            airplane_list =  self.get_updated_list_from_DB('employee')
+            airplane_list.pop(0)
+            for line_from_db in airplane_list:
+                instance = class_type(*line_from_db)
 
-                    if instance._id == given_id:
-                        return instance.name
-            else:
-                return given_id
+                if instance._id == given_id:
+                    return instance.name
+        else:
+            return given_id
