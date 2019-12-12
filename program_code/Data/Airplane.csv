@@ -1,1 +1,3 @@
 id,plane_id,plane_type,manufacturer,capacity,name,registration_date
+1,NAN01,Boeing747,Boeing,200,Palli,2019-12-12 15:39:31.726987
+2,NAN02,BoeingMAX,Boeing,300,Kalli,2019-12-12 15:40:24.610029
