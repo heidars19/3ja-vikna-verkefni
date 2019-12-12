@@ -6,7 +6,9 @@ class DestinationLL(LL_functions):
 
         
     def create_dest_code(self):
-        
+        '''
+        Creates a destination code fo destinations
+        '''
         full_list = self.get_updated_list_from_DB('destination')
         full_list.pop(0)
         
@@ -15,7 +17,7 @@ class DestinationLL(LL_functions):
             try:    
                 if int(line[8]) > dest_code :
                     dest_code = int(line[8])
-            except :
+            except IndexError:
                 continue
                 
         added_zero = ''
@@ -74,6 +76,9 @@ class DestinationLL(LL_functions):
 
 
     def find_name_by_id(self, given_id):
+        '''
+        Finds a corresponding name to an 'id' in the database
+        '''
         class_type = Destination
         db_list =  self.get_updated_list_from_DB('destination')
         db_list.pop(0)
