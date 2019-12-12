@@ -30,7 +30,6 @@ def main():
 
   
   # new_instance = LL_functions()
-  # new_instance = LL_API()
   # db_items = new_instance.get_list('destination')
   # index_list = new_instance.find_index_from_header( 'destination', ['id','destination'])
   # return_value = new_instance.filter_by_header_index( index_list, db_items)

@@ -158,7 +158,7 @@ class FileHandlr :
         finally:
             self._filestream.close()
         
-        if self._id > 0 :
+        if self._id >= 0 :
             self._id += 1 # Increases current highest id by 1
             return self._id 
         else :
