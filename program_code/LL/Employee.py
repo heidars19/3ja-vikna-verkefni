@@ -4,9 +4,7 @@ class Employee:
     """This class represents the Employees of Nan Air and keeps track of their information."""
 
     def __init__(self,_id,ssn,name,address,mobile,email,role,rank,licence,registration_date=""): 
-        from datetime import date
-        #today = date.today()
-
+        
         self._id = _id
         self.ssn = ssn
         self.name = name
@@ -32,11 +30,10 @@ class Employee:
         return f'{self._id},{self.ssn},{self.name},{self.address},{self.mobile},{self.email},{self.role},{self.rank},{self.licence},{self.__registration_date}'
 
     def search_instance(self,searchparam, field_to_search, field_to_return=''):
-        '''\nTakes in searchparameter to look up in specified column. Returns value in same row, but different column\n
-            searchparam [string]: Look up value\n
-            field_to_search [string]: Header of look up value\n
-            field_to_return [string]: Header of return value\n
-            '''
+        '''
+        Takes in searchparameter to look up in specified column. Returns value in same row, but different column\n
+        searchparam: [string]..., field_to_search: [string]..., field_to_return: [string]... 
+        '''
         if type(searchparam) == list:
             if searchparam in field_to_search:
                 if field_to_return:
