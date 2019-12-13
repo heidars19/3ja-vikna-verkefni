@@ -134,6 +134,9 @@ class EmployeeLL(LL_functions):
 
     def find_qualified_staff(self, staff_list, role='', rank='', a_license='' ):
         qualified_staff = []
+        if role == 'all':
+            return staff_list
+        
         for staff_info in staff_list:
             instance = Employee(*staff_info)
             if rank: 
