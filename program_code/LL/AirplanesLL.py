@@ -1,6 +1,6 @@
-from LL.Airplanes import *
-from DB.DATA_API import *
-from LL.LL_functions import *
+from LL_Models.Airplanes import Airplanes
+from DB.DATA_API import DATA_API
+from LL.LL_functions import LL_functions
 import string
 from datetime import datetime
 from datetime import timedelta
