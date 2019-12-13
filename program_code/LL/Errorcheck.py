@@ -78,7 +78,7 @@ class ErrorCheck:
         '''
         Checks if address is valid, returns True or an error string.
         '''
-        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.éýúíóðáæþÉÝÚÍÓÐÁÆÞ ")
+        allowed_chars = set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-.éýúíóðáæþöÉÝÚÍÓÐÁÆÞÖ ")
         for character in self.__address:
             if character not in allowed_chars:
                 return self.ERROR_ADDRESS
