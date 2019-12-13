@@ -1,5 +1,6 @@
 from textwrap import wrap
 import datetime
+from LL.LL_API import LL_functions
 
 
 class ErrorCheck:
@@ -144,6 +145,31 @@ class ErrorCheck:
         for i in self.__name:
             if i.isdigit():
                 return self.ERROR_NAME
+        return True
+    
+    
+    def check_worktrip_date(self, date) :
+        '''
+        Checks date of departure\n
+        date='YYYY-MM-DD HH:MM"
+        '''
+        worktrips = LL_API()
+        worktrip_list = worktrips.get_list('worktrip')
+        worktrip_list.pop(0)
+
+        start_date = datetime.strptime(date, '%Y-%m-%d %H:%M') - timedelta(minutes=10)
+        end_date = datetime.strptime(date, '%Y-%m-%d %H:%M') + timedelta(minutes=10)
+
+
+        final_worktrip_list = []
+        for line in worktrip_list:
+            if len(line[5]) < 17 :
+                line[5] += ':00'
+            
+            if datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
+                return False # Found a worktrip within allowed time
+                
+    
         return True
     
     
