@@ -81,7 +81,7 @@ class TUI():
         ("Kennitala","Nafn","Heimilisfang","Sími","Email","Starfsheiti","Titill","Leyfi"),\
         ("Flunúmer út","Flugnúmer heim","Brottför","Áfangastaður","Brottfarartími","Komutími","Flugvél","Captain","Copilot","Fsm","Fa1","Fa2","Staða"),\
         ("Áfangastaður","Land","Flugtími","Fjarlægð frá Íslandi","Tengiliður","Sími","FlugVöllur"),\
-        ("Plane_id","Plane_type","Framleiðandi","Sætafjöldi","Nafn"))
+        ("Stélnúmer","Tegund","Framleiðandi","Sætafjöldi","Nafn"))
         header_string = ""
         for i in range(len(self._header[self.menu_select])):
             try:
@@ -972,8 +972,11 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
     
-    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0,can_skip = 0):
-        check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
+    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0,can_skip = 0, requiered = 0):
+        if requiered == 0:
+            check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
+        else:
+            check = 8
         if check == 8:
             variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel,return_list = return_list)
         elif can_skip == 1:
@@ -1096,7 +1099,7 @@ class TUI():
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
                 try:
                     curses.curs_set(0)
-                    captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1)
+                    captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1, requiered = 1)
                 except:
                     self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
                     time.sleep(5)
@@ -1109,7 +1112,7 @@ class TUI():
                 
                 try:
                     curses.curs_set(0)
-                    copilot = self.change_user_dropdown_list(8,7,51,temp_list,return_list = 1)
+                    copilot = self.change_user_dropdown_list(8,7,51,temp_list,return_list = 1, requiered = 1)
                 except:
                     self.feedback_screen("{:^{length:}}".format("Enginn laus Co-Pilot með réttindi á vélina",length = 100))
                     time.sleep(5)
@@ -1119,7 +1122,7 @@ class TUI():
                 
                 try:
                     curses.curs_set(0)
-                    fsm = self.change_user_dropdown_list(9,9,51,temp_list,return_list = 1)
+                    fsm = self.change_user_dropdown_list(9,9,51,temp_list,return_list = 1, requiered = 1)
                 except:
                     self.feedback_screen("{:^{length:}}".format("Enginn laus FSM",length = 100))
                     time.sleep(5)
@@ -1164,7 +1167,7 @@ class TUI():
             emergency_contact = self.change_user(4,5,49)
             emergency_contact_phonenr = self.change_user(5,9,49,1)
             airport = self.change_user(6,12,49)
-            self.instance_API.change("destination",(_id,name,country,flight_time,distance_from_iceland,emergency_contact,emergency_contact_phonenr,airport,self.item_list[self.list_line_index+self.next_section][8]))
+            self.instance_API.change("destination",(_id,name,country,flight_time,distance_from_iceland,emergency_contact,emergency_contact_phonenr,airport,self.item_list[self.list_line_index+self.next_section][8],self.item_list[self.list_line_index+self.next_section][9]))
             self.item_list = self.instance_API.get_list("destination")
             
         if self.menu_select == 3:
