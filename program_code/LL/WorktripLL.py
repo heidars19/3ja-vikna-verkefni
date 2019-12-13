@@ -119,7 +119,7 @@ class WorktripLL(LL_functions):
         return temp_list
 
 
-    def get_emp_dest_date(self, date):
+    def get_emp_dest_date(self, date , include_arrivaldate=False):
         """
         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
         Date format: YYYY-MM-DD
@@ -129,9 +129,18 @@ class WorktripLL(LL_functions):
         
         staffmember_trips = []
         for trip in trips: 
-            new_trip = Worktrip(*trip)      
-            if date in new_trip.departure:
-                staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+            new_trip = Worktrip(*trip) 
+            new_trip.arrival = new_trip.arrival.split()
+            new_trip.departure = new_trip.departure.split()
+            if include_arrivaldate:
+                if date == new_trip.departure[0] or date == new_trip.arrival[0]:
+                    staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+                    
+            
+            if not include_arrivaldate:                
+                if date == new_trip.departure[0]:
+                    staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+        
         return staffmember_trips
     
 
