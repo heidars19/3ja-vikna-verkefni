@@ -119,9 +119,10 @@ class LL_API:
             elif list_type == "available_employees":
                 employee_list = []
                 worktrip_instance = WorktripLL()
+                busy_staff = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True) # Busy pilots
                 emp_instance = EmployeeLL()
-                employee_list = emp_instance.available_employees(get_emp_dest_date)
-                employee_list = emp_instance.find_qualified_staff(employee_list, role, rank, a_license)
+                available_staff = emp_instance.available_employees(busy_staff) # All pilots
+                employee_list = emp_instance.find_qualified_staff(available_staff, role, rank, a_license)
             
                 return_value = employee_list
 
@@ -135,7 +136,6 @@ class LL_API:
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
-                get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True)
                 return_value = plane_licence
 
             elif list_type == "available_planes":
