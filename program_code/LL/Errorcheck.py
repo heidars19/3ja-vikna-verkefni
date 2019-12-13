@@ -158,14 +158,14 @@ class ErrorCheck:
         worktrip_list = worktrips.get_list('worktrip')
         worktrip_list.pop(0)
 
-        start_date = datetime.strptime(date, '%Y-%m-%d %H:%M') - timedelta(minutes=10)
-        end_date = datetime.strptime(date, '%Y-%m-%d %H:%M') + timedelta(minutes=10)
+        start_date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M') - datetime.timedelta(minutes=10)
+        end_date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M') + datetime.timedelta(minutes=10)
 
         for line in worktrip_list:
             if len(line[5]) < 17 :
                 line[5] += ':00'
 
-            if datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
+            if datetime.datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
                 return False # Found a worktrip within allowed time
         return True
     
