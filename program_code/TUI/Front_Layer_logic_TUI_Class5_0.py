@@ -546,11 +546,11 @@ class TUI():
             if country == "stop1231":
                 self.new_reg_u_input = False
                 return
-            flight_time = self.make_user_input_window(12,14)
+            flight_time = self.make_user_input_window(12,14,clock = 1)
             if flight_time == "stop1231":
                 self.new_reg_u_input = False
                 return
-            distance_from_iceland = self.make_user_input_window(16,26)
+            distance_from_iceland = self.make_user_input_window(16,26,only_num = 1)
             if distance_from_iceland == "stop1231":
                 self.new_reg_u_input = False
                 return
