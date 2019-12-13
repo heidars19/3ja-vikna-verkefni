@@ -17,7 +17,7 @@ from LL.Errorcheck import *
 from curses import wrapper, color_pair
 from curses.textpad import Textbox, rectangle
 header_lengd = 20
-os.system('mode con: cols=150 lines=30')  # works on M$ Windows
+os.system('mode con: cols=120 lines=30')  # works on M$ Windows
 # coding = UTF-8
 
 class TUI():
@@ -1099,13 +1099,13 @@ class TUI():
                 departure_split = departure.split(" ")
                 aircraft_id = true_data[self.list_line_index+self.next_section][7]
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
-                """try:"""
-                curses.curs_set(0)
-                captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1, requiered = 1)
-                """                except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
-                time.sleep(5)
-                return"""
+                try:
+                    curses.curs_set(0)
+                    captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1, requiered = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
+                    time.sleep(5)
+                    return
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
                 for i in range(len(temp_list)):
                     if captain[0] in temp_list[i]:

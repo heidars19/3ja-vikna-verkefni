@@ -1,3 +1,5 @@
 id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,registration_date
 1,NA2275,NA3525,Keflavik,1,2019-12-19 12:21,2019-12-19 19:00,1,1,2,3,,,Mönnuð,2019-12-05 20:45:18.095017
-2,NA020,NA021,Keflavík,2,2019-12-23 20:00,2019-12-24 03:00,1,8,1,6,,,Mönnuð,2019-12-13 21:04:42.709192
+2,NA024,NA025,Keflavík,2,2019-12-23 20:00,2019-12-24 03:00,1,8,1,6,,,Mönnuð,2019-12-13 21:04:42.709192
+3,NA022,NA023,Keflavík,1,2019-12-23 17:00,2019-12-23 21:00,2,4,5,3,,,Mönnuð,2019-12-13 21:58:28.811652
+4,NA020,NA021,Keflavík,2,2019-12-23 08:00,2019-12-23 15:00,1,,,,,,,2019-12-13 22:02:07.553533
