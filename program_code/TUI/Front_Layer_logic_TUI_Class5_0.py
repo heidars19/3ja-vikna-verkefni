@@ -1129,11 +1129,11 @@ class TUI():
 
         if self.menu_select == 3:
             _id = self.item_list[self.list_line_index+self.next_section][0]
-            plane_id = self.change_user(1,5,0)
-            plane_type = self.change_user(2,9,0)
-            manufacturer = self.change_user(3,12,0)
-            seat_amount = self.change_user(4,16,0)
-            name = self.change_user(5,5,49)
+            plane_id = self.item_list[self.list_line_index+self.next_section][1]
+            plane_type = self.change_user(1,9,0)
+            manufacturer = self.change_user(2,12,0)
+            seat_amount = self.change_user(3,16,0)
+            name = self.change_user(4,5,49)
             
 
     def get_chr_from_user(self,y,x):
