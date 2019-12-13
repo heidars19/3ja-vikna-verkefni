@@ -101,29 +101,28 @@ class LL_API:
             READABLE WORKTRIP INFO WITH NAMES NOT IDS \n
             keyword = list_type = ""worktrip_readable", searchparam = (info that needs to be translated)
             '''
+            if list_type == "working_employees":
+                worktrip_instance = WorktripLL()
+                emp_instance = EmployeeLL()
+                get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam)
+                employee_list = []
+                working_staff_list = emp_instance.working_employees(get_emp_dest_date)
+                destination_inst = DestinationLL()
 
-            if list_type == "working_employees" or list_type == "available_employees": 
-                
+                for employee_info in working_staff_list:
+                    employeee, role, destination_id = employee_info
+                    destination_name = destination_inst.find_name_by_id(destination_id)
+                    employee_list.append(["",employeee, role,'', destination_name, '']) 
+                return_value = employee_list
+                       
+
+            elif list_type == "available_employees":
                 employee_list = []
                 worktrip_instance = WorktripLL()
                 emp_instance = EmployeeLL()
-
-                if list_type == "working_employees":
-                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam)
-                    employee_list = []
-                    working_staff_list = emp_instance.working_employees(get_emp_dest_date)
-                    destination_inst = DestinationLL()
-
-                    for employee_info in working_staff_list:
-                                employeee, role, destination_id = employee_info
-                                destination_name = destination_inst.find_name_by_id(destination_id)
-                                employee_list.append(["",employeee, role,'', destination_name, ''])        
-
-                elif list_type == "available_employees":
-                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True)
-                    employee_list = emp_instance.available_employees(get_emp_dest_date)
-                    employee_list = emp_instance.find_qualified_staff(employee_list, role, rank, a_license)
-                
+                employee_list = emp_instance.available_employees(get_emp_dest_date)
+                employee_list = emp_instance.find_qualified_staff(employee_list, role, rank, a_license)
+            
                 return_value = employee_list
 
             elif list_type == "worktrips_by_date":
@@ -136,6 +135,7 @@ class LL_API:
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
                 plane_licence = new_instance.get_plane_licence()
+                get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True)
                 return_value = plane_licence
 
             elif list_type == "available_planes":
