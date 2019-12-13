@@ -48,7 +48,7 @@ def main():
   
   #new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2019-12-20', '14')
-  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='', rank='Captain', a_license='F1Fighters')
   
 
 
