@@ -105,23 +105,24 @@ class LL_API:
             if list_type == "working_employees" or list_type == "available_employees": 
                 
                 employee_list = []
-                new_instance = WorktripLL()
-                get_emp_dest_date = new_instance.get_emp_dest_date(searchparam)
-                new_instance = EmployeeLL()
+                worktrip_instance = WorktripLL()
+                emp_instance = EmployeeLL()
 
                 if list_type == "working_employees":
+                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam)
                     employee_list = []
-                    employee_rank_dest_list = new_instance.working_employees(get_emp_dest_date)
+                    working_staff_list = emp_instance.working_employees(get_emp_dest_date)
                     destination_inst = DestinationLL()
 
-                    for employee_info in employee_rank_dest_list:
+                    for employee_info in working_staff_list:
                                 employeee, role, destination_id = employee_info
                                 destination_name = destination_inst.find_name_by_id(destination_id)
                                 employee_list.append(["",employeee, role,'', destination_name, ''])        
 
                 elif list_type == "available_employees":
-                    employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
-                    
+                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True)
+                    employee_list = emp_instance.available_employees(get_emp_dest_date)
+                    employee_list = emp_instance.find_qualified_staff(employee_list, role, rank, a_license)
                 
                 return_value = employee_list
 

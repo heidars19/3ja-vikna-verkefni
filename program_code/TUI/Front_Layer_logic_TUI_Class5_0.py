@@ -34,9 +34,8 @@ class TUI():
         self.instance_API = LL_API()
         self.next_section = 0
         self.item_list = self.instance_API.get_list("employee")
-        self.header_len = []
-        self.index_len = []
         self.errorcheck = ErrorCheck()
+        self.skip_filter = False
     def construct_TUI(self,x_list):
         main_menu_temp = self.construct_main_menu()
         if self.new_registration == True:
@@ -83,8 +82,12 @@ class TUI():
         for i in range(len(self._header[self.menu_select])):
             try:
                 if self.menu_select == 0:
-                    if i not in [2,4,7]:
-                        header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
+                    if self.skip_filter == False:
+                        if i not in [2,4,7]:
+                            header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
+                    elif self.skip_filter == True:
+                        header_string += "Nafn                Titill              Áfangastaður"
+                        break
                 elif self.menu_select == 1:
                     if i not in [0,1,7,8,9,10,11]:
                         header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/6)+2)
@@ -109,21 +112,7 @@ class TUI():
         new_list = []
         exceptions = ["", "Pilot", "Cabincrew"]
         rank_exception = [["Captain", "Co-Pilot"],["Flight Service Manager","Flight Attendant"]]
-        self.index_len = []
-        self.header_len = []
         self.select_len = 0
-        try:
-            for i in range(len(self.item_list[0])):
-                longest = 0
-                for x in range(0+self.next_section,len(self.item_list)+self.next_section):
-                    try:
-                        if len(self.item_list[x][i]) > longest:
-                            longest = len(self.item_list[x][i])
-                    except:
-                        continue
-                self.index_len.append(longest)
-        except:
-            pass
         for i in range(0+self.next_section,15+self.next_section):
             try:
                 new_string = ""
@@ -131,31 +120,21 @@ class TUI():
                     for x in range(len(self.item_list[i])):
                         if x not in [0,3,5,8,9]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
-                            self.header_len.append(self.index_len[x])
-                        if x == 3 or x == 5:
-                                self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 1:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,1,2,8,9,10,11,12,14]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:int(100/6)],lengd = int(100/6)+2)
-                            self.header_len.append(self.index_len[x])
-                        elif x != 0:
-                            self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 2:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,3,4,8,9]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
-                            self.header_len.append(self.index_len[x])
-                        if x in [3,4]:
-                            self.header_len.append(0)
                     new_list.append(new_string)
                 elif self.menu_select == 3:
                     for x in range(len(self.item_list[i])):
                         if x not in [0,6]:
                             new_string += "{:<{lengd:}}".format(self.item_list[i][x][0:19],lengd = int(100/5))
-                            self.header_len.append(self.index_len[x])
                     new_list.append(new_string)
                 self.select_len += 1
             except:
@@ -352,13 +331,13 @@ class TUI():
                 else:
                     return text_string_2
 
-    def make_plane_license_dropdown(self,y,x,create = 0):
+    def make_plane_license_dropdown(self,y,x,y1 = 16 ,x1 = 67,create = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
         plane_license_list = self.instance_API.get_list('airplane','plane_licences')
         #plane_license_list = ["hello","world","long"]
         editwin = curses.newwin(len(plane_license_list),20,y,x)
-        editwin2 = curses.newwin(1,30,16,67)
+        editwin2 = curses.newwin(1,30,y1,x1)
         editwin.keypad(1)
         curses.curs_set(0)
         while True:
@@ -429,7 +408,7 @@ class TUI():
                     break
                 else:
                     self.make_text_appear(5,15,error_msg,30,2)
-                    time.sleep(1)
+                    time.sleep(2)
             
             while True:
                 name = self.make_user_input_window(9,10, name = 1)
@@ -821,6 +800,10 @@ class TUI():
                 for i in range(3):
                     self.make_text_appear(21+i,50,"",40)
                 staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
+                """buffer_list = []
+                for i in range(len(staff_schedule)):
+                    buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+                staff_schedule = buffer_list"""
                 for i in range(15):
                     self.make_text_appear(5+i,3,"",100)
                 header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
@@ -865,7 +848,6 @@ class TUI():
                 elif check in [10,456] or check == curses.KEY_DOWN:
                     variable_x = new_list[self.list_line_index+self.next_section][index+1]
                     break
-        self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
         return variable_x
 
     def change_user_dropdown(self,index,y_position,extra_len,text_string1, text_string2, only_num = 0):
@@ -927,31 +909,55 @@ class TUI():
 
     def change_user_menu(self):
         if self.menu_select == 0:
-
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
             name = self.item_list[self.list_line_index+self.next_section][2]
-            """while True:
-                ssn = self.make_user_input_window(5,15,1,1).strip()
-                self.errorcheck.set_ssn(ssn)
-                error_msg = self.errorcheck.check_ssn()
+            address = self.change_user(2,12,0)
+            while True:
+                self.errorcheck.set_address(address)
+                error_msg = self.errorcheck.check_address()
                 if error_msg == True:
-                    self.make_text_appear(5,15,ssn,30,2)
+                    self.make_text_appear(12,18,address,30,2)
                     break
                 else:
-                    self.make_text_appear(5,15,error_msg,30,2)
-                    time.sleep(1)"""
-            address = self.change_user(2,12,0)
+                    self.make_text_appear(12,18,error_msg,30,2)
+                    time.sleep(1)
+                    self.make_text_appear(12,18,"",30,2)
+                    address = self.make_user_input_window(12,18)
             phone = self.change_user(3,16,0,only_num = 1)
+            while True:
+                self.errorcheck.set_cellphone(phone)
+                error_msg = self.errorcheck.check_cellphone()
+                if error_msg == True:
+                    self.make_text_appear(16,10,phone,30,2)
+                    break
+                else:
+                    self.make_text_appear(16,10,error_msg,30,2)
+                    time.sleep(1)
+                    self.make_text_appear(16,10,"",30,2)
+                    phone = self.make_user_input_window(16,10)
             email = self.change_user(4,5,49)
+            while True:
+                self.errorcheck.set_mail(email)
+                error_msg = self.errorcheck.check_mail()
+                if error_msg == True:
+                    self.make_text_appear(5,60,email,30,2)
+                    break
+                else:
+                    self.make_text_appear(5,60,error_msg,30,2)
+                    time.sleep(1)
+                    self.make_text_appear(5,60,"",30,2)
+                    email = self.make_user_input_window(5,60)
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
                 rank = self.change_user_dropdown(6,12,49,"Captain","Co-Pilot")
-                license = self.change_user(7,16,49)
+                license = self.make_plane_license_dropdown(10,110,16,60)
             else:
                 rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
                 license = ""
             self.instance_API.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
+            time.sleep(2)
             self.item_list = self.instance_API.get_list("employee")
 
         if self.menu_select == 1:
@@ -1107,8 +1113,10 @@ class TUI():
                 key = self.stdscr.getch()
             if key == 49:
                 self.menu_select = 0
-                self.exeption = 0
                 self.next_section = 0
+                self.highlight_main_list = ["x"," "," "]
+                self.exeption = 0
+                self.exeption2 = 0
                 idx = 0
                 idz = 0
                 self.item_list = self.instance_API.get_list("employee")
@@ -1220,9 +1228,10 @@ class TUI():
             elif key == ord("n"):
                 self.new_registration = True
                 self.new_reg_u_input = True
-            elif key == ord("s") or key == 10:
+            elif (key == ord("s") or key == 10) and self.skip_filter == False:
                 self.check_specifcly = True
-            elif key == ord("d"):
+            self.skip_filter = False
+            if key == ord("d"):
                 if self.menu_select == 0:
                     while True:
                         self.make_text_appear(21,23,"|",3)
@@ -1235,15 +1244,6 @@ class TUI():
                         self.make_text_appear(23,24,"Esc     ",12,2)
                         self.make_text_appear(23,27,"      |",8,1)
                         option = self.stdscr.getch()
-                        self.make_text_appear(21,23,"|",3)
-                        self.make_text_appear(21,24,"V",3,2)
-                        self.make_text_appear(21,25,"ika      |",11)
-                        self.make_text_appear(22,23,"|",3,)
-                        self.make_text_appear(22,24,"D",3,2)
-                        self.make_text_appear(22,25,"agsetning|",11)
-                        self.make_text_appear(23,23,"|",12,1)
-                        self.make_text_appear(23,24,"Esc     ",12,2)
-                        self.make_text_appear(23,27,"       |",9,1)
                         if option == 27:
                             break
                         elif option == ord("l") or option == ord("u"):
@@ -1253,10 +1253,25 @@ class TUI():
                                 break    
                             if option == ord("u"):
                                 self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
+                                self.skip_filter == True
                                 break
                 if self.menu_select == 1:
-                    date = self.calendar_screen()
-                    new_list = self.instance_API.get_list("worktrip","work_schedule",date,"", days = 1)
+                    date = self.calendar_screen(1)
+                    self.make_text_appear(21,23,"|",3)
+                    self.make_text_appear(21,24,"V",3,2)
+                    self.make_text_appear(21,25,"ikur     |",11)
+                    self.make_text_appear(22,23,"|",3,)
+                    self.make_text_appear(22,24,"D",3,2)
+                    self.make_text_appear(22,25,"ag       |",11)
+                    new_list = []
+                    while True:
+                        check = self.stdscr.getch()
+                        if check == ord("v"):
+                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=7)
+                            break
+                        elif check == ord("d"):
+                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
+                            break
                     if not new_list:
                         self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
                         time.sleep(3)

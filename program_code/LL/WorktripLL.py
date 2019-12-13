@@ -119,7 +119,7 @@ class WorktripLL(LL_functions):
         return temp_list
 
 
-    def get_emp_dest_date(self, date):
+    def get_emp_dest_date(self, date , include_arrivaldate=False):
         """
         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
         Date format: YYYY-MM-DD
@@ -129,9 +129,18 @@ class WorktripLL(LL_functions):
         
         staffmember_trips = []
         for trip in trips: 
-            new_trip = Worktrip(*trip)      
-            if date in new_trip.departure:
-                staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+            new_trip = Worktrip(*trip) 
+            new_trip.arrival = new_trip.arrival.split()
+            new_trip.departure = new_trip.departure.split()
+            if include_arrivaldate:
+                if date == new_trip.departure[0] or date == new_trip.arrival[0]:
+                    staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+                    
+            
+            if not include_arrivaldate:                
+                if date == new_trip.departure[0]:
+                    staffmember_trips.append([new_trip.arriving_at, [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]])
+        
         return staffmember_trips
     
 
@@ -167,20 +176,26 @@ class WorktripLL(LL_functions):
         return staffmember_trips
  
  
-        def get_worktrips_by_date(self, date, days) :
-            
-            start_date = strptime(date, '%Y-%m-%d')
-            if start_date < datetime.now() :
-                worktrip_list = self.get_updated_list_from_DB('worktripold') 
-            else :
-                worktrip_list = self.get_updated_list_from_DB('worktrip')       
-            
-            end_date = start_date + timedelta(days=days)
-            
-            final_worktrip_list = []
-            for line in worktrip_list:
-                if strptime(line[5], '%Y-%m-%d %H:%M') > start_date and strptime(line[5], '%Y-%m-%d %H:%M') < end_date :
-                    final_worktrip_list.append(line)
-            
-            return final_worktrip_list
+    def get_worktrips_by_date(self, date, days) :
+        '''
+        Returns a list of worktrips, old or new
+        '''
+        start_date = datetime.strptime(date, '%Y-%m-%d')
+        if start_date < datetime.now() :
+            worktrip_list = self.get_updated_list_from_DB('worktripold') 
+        else :
+            worktrip_list = self.get_updated_list_from_DB('worktrip')       
         
+        end_date = start_date + timedelta(days=days)
+        worktrip_list.pop(0)
+        
+        final_worktrip_list = []
+        for line in worktrip_list:
+            if len(line[5]) < 17 :
+                line[5] += ':00'
+            
+            if datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
+                final_worktrip_list.append(line)
+        
+        return final_worktrip_list
+    

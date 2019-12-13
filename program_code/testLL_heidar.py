@@ -35,8 +35,9 @@ def main():
   # return_value = new_instance.filter_by_header_index( index_list, db_items)
 
   # keyword='',list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7
-  return_value = new_instance.get_list(list_type='worktrips_by_date',searchparam = '2019-12-19', days=7):
+      # return_value = new_instance.get_list(list_type='worktrips_by_date',searchparam = '2019-12-19', days=7):
 
+  return_value = new_instance.get_list('worktrip')
   # return_value = new_instance.get_filtered_list_from_DB('destination',[0,2])
   # return_value = new_instance.get_list("airplane","available_planes",'2019-12-19 11:45', '2')
   # return_value = new_instance.get_available_planes('2019-12-19 11:45', '17')
