@@ -790,6 +790,7 @@ class TUI():
         return data
 
     def make_text_appear(self,y,x,text_string,box_len, color_pair = 1):
+        """This method makes text appear at a given x,y index and takes in a string and color pair to show important info if needed"""
         editwin2 = curses.newwin(1,box_len,y,x)
         editwin2.attron(curses.color_pair(color_pair))
         editwin2.addstr(text_string)
@@ -1155,7 +1156,7 @@ class TUI():
         curses.init_color(1, 0, 0, 0)
         curses.can_change_color()
         curses.init_color(curses.COLOR_GREEN,1000,0,0)
-        curses.init_pair(1,curses.COLOR_GREEN,curses.COLOR_BLACK)
+        curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLACK)
         curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
         curses.init_pair(3,curses.COLOR_WHITE, curses.COLOR_BLACK)
         
