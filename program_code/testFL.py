@@ -9,9 +9,7 @@ try:
         new_tui = TUI(stdscr)
         
         new_tui.main()
-
     wrapper(start)
 
 except ModuleNotFoundError:
-
     print("Ritaðu 'pip3 install windows.curses' í útstöðina til að flytja niður viðaukan") #tekið úr tölvuorðasafnið frá 1999
