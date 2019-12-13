@@ -1126,6 +1126,8 @@ class TUI():
             emergency_contact = self.change_user(4,5,49)
             emergency_contact_phonenr = self.change_user(5,9,49,1)
             airport = self.change_user(6,12,49)
+            self.instance_API.change("destination",(_id,name,country,flight_time,distance_from_iceland,emergency_contact,emergency_contact_phonenr,airport,self.item_list[self.list_line_index+self.next_section][8]))
+            self.item_list = self.instance_API.get_list("destination")
 
         if self.menu_select == 3:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1134,7 +1136,10 @@ class TUI():
             manufacturer = self.change_user(2,12,0)
             seat_amount = self.change_user(3,16,0)
             name = self.change_user(4,5,49)
-            
+            self.instance_API.change("airplane",(_id,plane_id,plane_type,manufacturer,seat_amount,name,self.item_list[self.list_line_index+self.next_section][5]))
+            self.item_list = self.instance_API.get_list("airplane")
+
+            # return_value = new_instance.change("airplane",('73','TF-breytt', 'NAbreytt','Fokker','F800','Breytt','13:25:38.975230'))
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
