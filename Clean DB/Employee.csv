@@ -1,0 +1,8 @@
+id,ssn,name,address,mobile,email,role,rank,licence,registration_date
+1,2405952309,Ófeigur Atli Steindórsson,Naustabryggja 11,6699516,ofeigur95@gmail.com,Pilot,Captain,747,2019-12-13 20:56:42.445928
+2,1212100000,Klár Lega Fullorðsson,Kleppsvegur 69,4206969,klar@lega.is,Pilot,Co-Pilot,747,2019-12-13 21:00:20.631904
+3,2012204009,Klámur Skrámsson,Kanínuholu 3,8899432,Skramur@klam.is,Cabincrew,Flight Service Manager,,2019-12-13 21:02:06.971786
+4,0504549009,Fismundur Hrafn,Jörvabær,5934121,Fisi@gmail.com,Pilot,Captain,MAX,2019-12-13 21:15:26.079606
+5,2305902309,Jósifína Geirmundsdóttir,Hangdyr 9,8942323,josif@nan.is,Pilot,Co-Pilot,MAX,2019-12-13 21:18:22.293732
+6,1807753109,Hermunda Hnoskdóttir,Geirdalur 825,8954123,hnosk@nan.is,Cabincrew,Flight Service Manager,,2019-12-13 21:20:20.462943
+7,0411604209,Drjúfur Skaufsson,Byndigata 83,6435123,skaufi@nan.is,Cabincrew,Flight Attendant,,2019-12-13 21:21:44.314615
