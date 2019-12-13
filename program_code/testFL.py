@@ -1,6 +1,9 @@
-"""import TUI.User_interface
+"""
+import TUI.User_interface
 import time
-time.sleep(1)"""
+time.sleep(1)
+"""
+
 from TUI.Front_Layer_logic_TUI_Class5_0 import TUI
 try:
     from curses import wrapper, color_pair
@@ -12,4 +15,4 @@ try:
     wrapper(start)
 
 except ModuleNotFoundError:
-    print("Ritaðu 'pip3 install windows.curses' í útstöðina til að flytja niður viðaukan") #tekið úr tölvuorðasafnið frá 1999
+    print("Ritaðu 'python pip3 install windows.curses' í útstöðina til að flytja niður viðaukan") #tekið úr tölvuorðasafninu frá 1999
