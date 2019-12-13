@@ -53,6 +53,10 @@ def main():
   #new_list = new_instance.get_list('airplane')
   # new_list = new_instance.get_list('destination')
   # new_list = new_instance.get_list('worktrip')
+<<<<<<< HEAD
+  #new_list = new_instance.get_list('worktrip',"working_employees",'2017-12-19')
+=======
+>>>>>>> 92dc9c7061ea93f8e7daba635bf38fb8d9f7d11d
   # new_list = new_instance.get_list('destination',"destination_id","Vancouver")
   # new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'work_schedule', '2019-12-25', '23')
@@ -75,6 +79,10 @@ def main():
   #Find pilot with license
   #new_list = new_instance.get_list ('employee', "pilot_licences", a_license='BOEING747')
 
+<<<<<<< HEAD
+  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-19", role='Pilot', rank='', a_license='')
+=======
+>>>>>>> 92dc9c7061ea93f8e7daba635bf38fb8d9f7d11d
 
   # new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2020-12-19', '14')
