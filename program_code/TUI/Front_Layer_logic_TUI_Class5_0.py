@@ -484,7 +484,7 @@ class TUI():
                 self.make_text_appear(12,66,rank,30,2)
                 self.make_text_appear(13,66,"",30)
             if "Pilot" in job_title:
-                license = self.make_plane_license_dropdown(10,110)
+                license = self.make_plane_license_dropdown(10,80)
                 self.make_text_appear(16,67,license,30,2)
                 time.sleep(1)
             else:
@@ -522,7 +522,6 @@ class TUI():
                     self.make_text_appear(9,22,error_msg,30,2)
                     time.sleep(1)
             self.make_text_appear(10,16,"",30,3)
-            #airplane = self.make_plane_license_dropdown(10,110)
             departure = "KEF"
             temp_list = self.instance_API.get_list("destination")
             destination = self.make_list_dropdown(16,18,temp_list,1,1)
@@ -1072,7 +1071,7 @@ class TUI():
             job_title = self.item_list[self.list_line_index+self.next_section][6]
             if self.item_list[self.list_line_index+self.next_section][6] == "Pilot":
                 rank = self.change_user_dropdown(6,12,49,"Captain","Co-Pilot")
-                license = self.make_plane_license_dropdown(10,110,16,60)
+                license = self.make_plane_license_dropdown(10,80,16,60)
             else:
                 rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
                 license = ""
@@ -1235,14 +1234,12 @@ class TUI():
                 self.next_section = 0
                 self.list_line_index = 0
                 idz = 0
-                idx = 0
                 key = 0
             elif self.check_specifcly == True:
                 self.look_at_specific_unit()
                 self.next_section = 0
                 self.list_line_index = 0
                 idz = 0
-                idx = 0
                 key = 0
                 self.check_specifcly = False
             else:
@@ -1476,7 +1473,8 @@ class TUI():
                 elif self.exeption == 1 and key == ord("l"):
                     self.list_line_index = 0
                     idz = 0
-                    license = self.make_plane_license_dropdown(10,110,1)
+                    self.feedback_screen("")
+                    license = self.make_plane_license_dropdown(8,47,create = 1)
                     buffer_list = []
                     for i in range(len(self.item_list)):
                         if license in self.item_list[i]:
