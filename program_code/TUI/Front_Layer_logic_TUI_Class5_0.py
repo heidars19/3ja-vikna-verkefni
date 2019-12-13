@@ -397,6 +397,7 @@ class TUI():
             editwin.attron(curses.color_pair(2))
             editwin.addstr(1,0,text_string_2)
             editwin.attroff(curses.color_pair(2))
+            
 
     def get_user_input(self):
         """This method is used to create new instances of staff, worktrip and so on, depending on the selected menu"""
