@@ -985,7 +985,7 @@ class TUI():
     def make_list_dropdown(self,y,x,object_list, index = 2, return_list = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        editwin = curses.newwin(len(object_list),20,10,80)
+        editwin = curses.newwin(len(object_list),20,10,30)
         editwin2 = curses.newwin(1,30,y,x)
         editwin.keypad(1)
         curses.curs_set(0)
@@ -1103,9 +1103,9 @@ class TUI():
                     return
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
                 for i in range(len(temp_list)):
-                        if captain[0] in temp_list[i]:
-                            temp_list.pop(i)
-                            break
+                    if captain[0] in temp_list[i]:
+                        temp_list.pop(i)
+                        break
                 
                 try:
                     curses.curs_set(0)
@@ -1126,9 +1126,9 @@ class TUI():
                     return
                 temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
                 for i in range(len(temp_list)):
-                        if fsm[0] in temp_list[i]:
-                            temp_list.pop(i)
-                            break
+                    if fsm[0] in temp_list[i]:
+                        temp_list.pop(i)
+                        break
                 try:
                     curses.curs_set(0)
                     fa1 = self.change_user_dropdown_list(10,11,51,temp_list,return_list = 1, can_skip = 1)
@@ -1136,9 +1136,9 @@ class TUI():
                     self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
                     time.sleep(5)
                 for i in range(len(temp_list)):
-                        if fa1[0] in temp_list[i]:
-                            temp_list.pop(i)
-                            break
+                    if fa1[0] in temp_list[i]:
+                        temp_list.pop(i)
+                        break
                 try:
                     curses.curs_set(0)
                     fa2 = self.change_user_dropdown_list(10,13,51,temp_list,return_list = 1, can_skip = 1)
