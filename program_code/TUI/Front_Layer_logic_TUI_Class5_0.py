@@ -401,6 +401,9 @@ class TUI():
             _id = ""
             while True:
                 ssn = self.make_user_input_window(5,15,1,1).strip()
+                if ssn == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 self.errorcheck.set_ssn(ssn)
                 error_msg = self.errorcheck.check_ssn()
                 if error_msg == True:
@@ -409,10 +412,12 @@ class TUI():
                 else:
                     self.make_text_appear(5,15,error_msg,30,2)
                     time.sleep(2)
-            
             while True:
                 name = self.make_user_input_window(9,10, name = 1)
                 self.errorcheck.set_name(name)
+                if name == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 error_msg = self.errorcheck.check_name()
                 if error_msg == True:
                     self.make_text_appear(9,10,name,30,2)
@@ -422,6 +427,9 @@ class TUI():
                     time.sleep(1)
             while True:
                 address = self.make_user_input_window(12,17)
+                if address == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 self.errorcheck.set_address(address)
                 error_msg = self.errorcheck.check_address()
                 if error_msg == True:
@@ -432,6 +440,9 @@ class TUI():
                     time.sleep(1)
             while True:
                 gsm = self.make_user_input_window(16,10,1)
+                if gsm == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 self.errorcheck.set_cellphone(gsm)
                 error_msg = self.errorcheck.check_cellphone()
                 if error_msg == True:
@@ -442,6 +453,9 @@ class TUI():
                     time.sleep(1)
             while True:
                 email = self.make_user_input_window(5,62)
+                if email == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 self.errorcheck.set_mail(email)
                 error_msg = self.errorcheck.check_mail()
                 if error_msg == True:
@@ -476,6 +490,8 @@ class TUI():
             time.sleep(1)
             _id = ""
             date = self.calendar_screen()
+            if date == "":
+                return
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(12,19,"KEF",30,2)
             self.make_text_appear(5,16,date,30,2)
@@ -483,6 +499,9 @@ class TUI():
             curses.curs_set(1)
             while True:
                 departure_time_out = self.make_user_input_window(9,22, clock = 1)
+                if departure_time_out == "stop1231":
+                    self.new_reg_u_input = False
+                    return
                 self.errorcheck.set_clock(departure_time_out)
                 error_msg = self.errorcheck.check_clock()
                 if error_msg == True:
@@ -499,7 +518,7 @@ class TUI():
             temp_list = self.instance_API.get_list("airplane","available_planes",date +" "+ departure_time_out, destination[0])
             airplane = self.make_list_dropdown(5,62,temp_list,1,1)
             self.instance_API.create("worktrip",(destination[0],date + " " + departure_time_out,airplane[0]))
-            self.feedback_screen("{:^{length:}}".format("Worktrip has been saved!",length = 100))
+            self.feedback_screen("{:^{length:}}".format("Vinnuferð vistuð!",length = 100))
             self.item_list = self.instance_API.get_list("worktrip")
             buffer_list = []
             for i in range(len(self.item_list)):
@@ -508,24 +527,60 @@ class TUI():
         if self.menu_select == 2:
             _id = ""
             destination_name = self.make_user_input_window(5,23)
+            if destination_name == "stop1231":
+                self.new_reg_u_input = False
+                return
             country = self.make_user_input_window(9,10)
+            if country == "stop1231":
+                self.new_reg_u_input = False
+                return
             flight_time = self.make_user_input_window(12,14)
+            if flight_time == "stop1231":
+                self.new_reg_u_input = False
+                return
             distance_from_iceland = self.make_user_input_window(16,26)
+            if distance_from_iceland == "stop1231":
+                self.new_reg_u_input = False
+                return
             name_of_contact = self.make_user_input_window(5,70,name = 1)
+            if name_of_contact == "stop1231":
+                self.new_reg_u_input = False
+                return
             contacts_phone = self.make_user_input_window(9,70)
+            if contacts_phone == "stop1231":
+                self.new_reg_u_input = False
+                return
             airport = self.make_user_input_window(12,65)
+            if airport == "stop1231":
+                self.new_reg_u_input = False
+                return
             self.instance_API.create("destination",(_id,destination_name,country,flight_time,distance_from_iceland,name_of_contact,contacts_phone,airport))
-            self.feedback_screen("{:^{length:}}".format("Destination has been saved!",length = 100))
+            self.feedback_screen("{:^{length:}}".format("Áfangastaður vistaður!",length = 100))
             self.item_list = self.instance_API.get_list("destination")
         if self.menu_select == 3:
             _id = ""
             plane_id = self.make_user_input_window(5,14)
+            if plane_id == "stop1231":
+                self.new_reg_u_input = False
+                return
             plane_type = self.make_user_input_window(9,16)
+            if plane_type == "stop1231":
+                self.new_reg_u_input = False
+                return
             manufacturer = self.make_user_input_window(12,18)
+            if manufacturer == "stop1231":
+                self.new_reg_u_input = False
+                return
             sætafjöldi = self.make_user_input_window(16,16)
+            if sætafjöldi == "stop1231":
+                self.new_reg_u_input = False
+                return
             name = self.make_user_input_window(5,59)
+            if name == "stop1231":
+                self.new_reg_u_input = False
+                return
             self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,sætafjöldi,name))
-            self.feedback_screen("{:^{length:}}".format("Airplane has been saved!",length = 100))
+            self.feedback_screen("{:^{length:}}".format("Flugvél vistuð!",length = 100))
             self.item_list = self.instance_API.get_list("airplane")
         self.new_reg_u_input = False
         time.sleep(1)
@@ -682,6 +737,9 @@ class TUI():
             ch = editwin.getch()
             if ch== 10:
                 break
+            if ch == 27:
+                data = "stop1231"
+                break
             elif ch == 8 or ch == 127:
                 data = data[:-1]
             elif data == 27:
@@ -797,32 +855,35 @@ class TUI():
         if action == ord("v"):
             if self.menu_select == 0:
                 date = self.calendar_screen()
-                for i in range(3):
-                    self.make_text_appear(21+i,50,"",40)
-                staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
-                """buffer_list = []
-                for i in range(len(staff_schedule)):
-                    buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
-                staff_schedule = buffer_list"""
-                for i in range(15):
-                    self.make_text_appear(5+i,3,"",100)
-                header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
-                z = 0
-                for i in range(len(header_list)):
-                    if i != 3:
-                        self.make_text_appear(3,5+z,header_list[i],30)
-                    else:
-                        self.make_text_appear(3,5+z,header_list[i],30,2)
-                    z += 20
-                for i in range(len(staff_schedule)):
+                if date != "":
+                    for i in range(3):
+                        self.make_text_appear(21+i,50,"",40)
+                    staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
+                    """buffer_list = []
+                    for i in range(len(staff_schedule)):
+                        buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+                    staff_schedule = buffer_list"""
+                    for i in range(15):
+                        self.make_text_appear(5+i,3,"",100)
+                    header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
                     z = 0
-                    for x in range(len(staff_schedule)):
-                        self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                    for i in range(len(header_list)):
+                        if i != 3:
+                            self.make_text_appear(3,5+z,header_list[i],30)
+                        else:
+                            self.make_text_appear(3,5+z,header_list[i],30,2)
                         z += 20
-                while True:
-                    check = self.stdscr.getch()
-                    if check == 27:
-                        break
+                    for i in range(len(staff_schedule)):
+                        z = 0
+                        for x in range(len(staff_schedule)):
+                            self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                            z += 20
+                    while True:
+                        check = self.stdscr.getch()
+                        if check == 27:
+                            break
+                else:
+                    return
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0, new_list = [], accept_new_list = 0):
         while True:
@@ -1133,6 +1194,7 @@ class TUI():
             elif key == 50:
                 self.menu_select = 1
                 self.next_section = 0
+                self.exeption = 0
                 idx = 1
                 idz = 0
                 self.item_list = self.instance_API.get_list("worktrip")
@@ -1153,6 +1215,7 @@ class TUI():
             elif key == 51:
                 self.menu_select = 2
                 self.next_section = 0
+                self.exeption = 0
                 idx = 2
                 idz = 0
                 self.item_list = self.instance_API.get_list("destination")
@@ -1169,6 +1232,7 @@ class TUI():
             elif key == 52:
                 self.menu_select = 3
                 self.next_section = 0
+                self.exeption = 0
                 idx = 3
                 idz = 0
                 self.item_list = self.instance_API.get_list("airplane")
@@ -1216,15 +1280,16 @@ class TUI():
             elif key == ord("v"):
                 if self.menu_select == 1:
                     date = self.calendar_screen()
-                    new_list = self.instance_API.get_list("worktrip","work_schedule",date)
-                    if not new_list:
-                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir í þessari viku!",length = 100))
-                        time.sleep(3)
-                    else:
-                        buffer_list = []
-                        for i in range(len(new_list)):
-                            buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
-                        self.item_list = buffer_list
+                    if date != "":
+                        new_list = self.instance_API.get_list("worktrip","work_schedule",date)
+                        if not new_list:
+                            self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir í þessari viku!",length = 100))
+                            time.sleep(3)
+                        else:
+                            buffer_list = []
+                            for i in range(len(new_list)):
+                                buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
+                            self.item_list = buffer_list
             elif key == ord("n"):
                 self.new_registration = True
                 self.new_reg_u_input = True
@@ -1257,29 +1322,34 @@ class TUI():
                                 break
                 if self.menu_select == 1:
                     date = self.calendar_screen(1)
-                    self.make_text_appear(21,23,"|",3)
-                    self.make_text_appear(21,24,"V",3,2)
-                    self.make_text_appear(21,25,"ikur     |",11)
-                    self.make_text_appear(22,23,"|",3,)
-                    self.make_text_appear(22,24,"D",3,2)
-                    self.make_text_appear(22,25,"ag       |",11)
-                    new_list = []
-                    while True:
-                        check = self.stdscr.getch()
-                        if check == ord("v"):
-                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=7)
-                            break
-                        elif check == ord("d"):
-                            new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
-                            break
-                    if not new_list:
-                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
-                        time.sleep(3)
-                    else:
-                        buffer_list = []
-                        for i in range(len(new_list)):
-                            buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
-                        self.item_list = buffer_list
+                    if date != "":
+                        self.make_text_appear(21,23,"|",3)
+                        self.make_text_appear(21,24,"V",3,2)
+                        self.make_text_appear(21,25,"ikur     |",11)
+                        self.make_text_appear(22,23,"|",3,)
+                        self.make_text_appear(22,24,"D",3,2)
+                        self.make_text_appear(22,25,"ag       |",11)
+                        new_list = []
+                        while True:
+                            check = self.stdscr.getch()
+                            if check == ord("v"):
+                                new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=7)
+                                break
+                            elif check == ord("d"):
+                                new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
+                                break
+                        if not new_list:
+                            self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
+                            time.sleep(3)
+                        else:
+                            buffer_list = []
+                            for i in range(len(new_list)):
+                                buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (new_list[i][0],new_list[i][1],new_list[i][2],new_list[i][3],new_list[i][4],new_list[i][5],new_list[i][6],new_list[i][7],new_list[i][8],new_list[i][9],new_list[i][10],new_list[i][11],new_list[i][12],new_list[i][13],new_list[i][14])))
+                            self.item_list = buffer_list
+                if self.menu_select == 3:
+                    date = self.calendar_screen()
+                    if date != "":
+                        self.item_list = self.instance_API.get_list("airplane","available_planes",date + " "+ "06:21","1")
             elif self.menu_select == 0:
                 self.item_list = self.instance_API.get_list("employee")
                 if key == ord("f"):
@@ -1389,8 +1459,4 @@ class TUI():
 def start(stdscr):
     new_tui = TUI(stdscr)
     new_tui.main()
-#ég er flottur
-#ég er flottari gaur
-#ég er flottastur gaur
-#ég er ennþá flottastastur gaur
 #wrapper(start)
