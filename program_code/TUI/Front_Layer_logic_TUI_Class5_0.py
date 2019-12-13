@@ -801,6 +801,7 @@ class TUI():
         editwin2.refresh()
 
     def feedback_screen(self,text_string):
+        """This method erases the screen and gives feedback to the user"""
         editwin2 = curses.newwin(15,100,5,3)
         editwin2.attron(curses.color_pair(1))
         editwin2.addstr(6,0,text_string)
@@ -808,6 +809,7 @@ class TUI():
         editwin2.refresh()
 
     def look_at_specific_unit(self):
+        """This method is used when a specific staff, airplain etc. and displays all the relevant info about the selected object"""
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
         self.make_text_appear(3,2,"",100)
         self.make_text_appear(21,68,"┌────────┐",12)
@@ -870,7 +872,10 @@ class TUI():
             self.make_text_appear(9,53,"",49)
             self.make_text_appear(12,53,"",49)
             self.make_text_appear(16,53,"",49)
-
+        """
+        Here i promt the user for an input to change the object and if the viewed object
+        is a staff member, you can view all worktrips for the next week after the selected date
+        """
         action = self.stdscr.getch()
         if action == ord("b"):
             self.change_user_menu()
@@ -911,6 +916,7 @@ class TUI():
                     return
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0, new_list = [], accept_new_list = 0):
+        """This function changes the user, """
         while True:
             check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
             variable_x = ""
@@ -1147,7 +1153,7 @@ class TUI():
             manufacturer = self.change_user(2,12,0)
             seat_amount = self.change_user(3,16,0)
             name = self.change_user(4,5,49)
-            self.instance_API.change("airplane",(_id,plane_id,plane_type,manufacturer,seat_amount,name,self.item_list[self.list_line_index+self.next_section][5]))
+            self.instance_API.change("airplane",(_id,plane_id,plane_type,manufacturer,seat_amount,name,self.item_list[self.list_line_index+self.next_section][6]))
             self.item_list = self.instance_API.get_list("airplane")
             self.next_section = 0
             self.list_line_index = 0
