@@ -1,6 +1,6 @@
-from DB.DATA_API import *
-from LL.Destination import Destination
-from LL.LL_functions import *
+from DB.DATA_API import DATA_API
+from LL_Models.Destination import Destination
+from LL.LL_functions import LL_functions
 
 class DestinationLL(LL_functions):
 

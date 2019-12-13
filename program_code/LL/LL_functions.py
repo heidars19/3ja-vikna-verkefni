@@ -1,4 +1,4 @@
-from DB.DATA_API import *
+from DB.DATA_API import DATA_API
 from datetime import datetime
 from datetime import timedelta
 

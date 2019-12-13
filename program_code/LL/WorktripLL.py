@@ -1,6 +1,6 @@
-from LL.Worktrip import *
-from DB.DATA_API import *
-from LL.LL_functions import *
+from LL_Models.Worktrip import Worktrip
+from DB.DATA_API import DATA_API
+from LL.LL_functions import LL_functions
 import string
 from datetime import timedelta
 from datetime import datetime

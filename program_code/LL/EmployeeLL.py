@@ -1,6 +1,6 @@
-from DB.DATA_API import *
-from LL.Employee import *
-from LL.LL_functions import *
+from DB.DATA_API import DATA_API
+from LL_Models.Employee import Employee
+from LL.LL_functions import LL_functions
 
 
 class EmployeeLL(LL_functions):
