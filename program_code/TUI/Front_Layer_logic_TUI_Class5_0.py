@@ -1213,8 +1213,10 @@ class TUI():
         
         while True:
             TUI_list = self.construct_TUI(self.highlight_main_list)
+            """
             x = 4
             y = 10
+            """
             self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
             if self.exeption == 1:
                 self.make_text_appear(21,65,"Flokka eftir ",20)
@@ -1237,6 +1239,10 @@ class TUI():
                 key = 0
             elif self.check_specifcly == True:
                 self.look_at_specific_unit()
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 key = 0
                 self.check_specifcly = False
             else:
