@@ -2,7 +2,7 @@ import time
 import sys
 """import curses
 import blessed"""
-empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+empty_space = "\n"*20
 airplane = \
 ("   __|__   "\
 ,"--@-(_)-@--"\
