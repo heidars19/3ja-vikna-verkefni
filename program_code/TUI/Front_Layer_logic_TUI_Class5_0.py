@@ -177,7 +177,7 @@ class TUI():
             ("Kennitala:","Nafn:","Heimilsfang:","Sími:", "Netfang:","Starfstitill:","Starfsstaða:"),
             ("Dagsetning:","Brottfaratími út:","Upphafsstaður:","Áfangastaður:","Flugvél:"),
             ("Nafn áfangastaðar:","Land:","Flugtími:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
-            ("Plane_id:","Plane_type:","Framleiðandi:","Sætafjöldi:","Nafn:"),
+            ("Stélnúmer:","Tegund:","Framleiðandi:","Sætafjöldi:","Nafn:"),
             )
         new_list = []
         new_string = ""
@@ -397,7 +397,7 @@ class TUI():
             editwin.attron(curses.color_pair(2))
             editwin.addstr(1,0,text_string_2)
             editwin.attroff(curses.color_pair(2))
-            
+
 
     def get_user_input(self):
         """This method is used to create new instances of staff, worktrip and so on, depending on the selected menu"""
@@ -499,6 +499,7 @@ class TUI():
             _id = ""
             date = self.calendar_screen()
             if date == "":
+                self.new_reg_u_input = False
                 return
             self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
             self.make_text_appear(12,19,"KEF",30,2)
@@ -800,7 +801,7 @@ class TUI():
                 or ch == ord("é") or ch == ord("É") or ch == ord(".") or ch == ord("Í") or ch == ord("í") or ch == ord("ó")\
                 or ch == ord("Ó") or ch == ord("ý") or ch == ord("Ý") or ch == ord("ú") or ch == ord("Ú") or ch == ord("ð") \
                 or ch == ord("Ð") or ch == ord("æ") or ch == ord("Æ") or ch == ord("þ") or ch == ord("Þ") or ch == ord("_") \
-                or ch == ord(":") or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö"): #This defines all the chrs this custom input accepts
+                or ch == ord(":") or ch == ord(" ") or ch == ord("á") or ch == ord("Á") or ch == ord("ö") or ch == ord("Ö") or ch == ord("-"): #This defines all the chrs this custom input accepts
                     data += chr(ch)
             editwin.clear()
             editwin.refresh()
