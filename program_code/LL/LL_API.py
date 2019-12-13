@@ -77,29 +77,28 @@ class LL_API:
     def get_list(self,keyword='',list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
             '''
             Gets lists from database. \n
-            keyword [string]: employee /airplane / destination / worktrip\n
-                \n
-           
-                LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
-                keyword = 'worktrip', list_type = 'working_employees', searchparam = 'YYYY-MM-DD' \n
+            keyword [string]: 'employee', 'airplane', 'destination', 'worktrip'\n
+        
+            LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
+            keyword = 'worktrip', list_type = 'working_employees', searchparam = 'YYYY-MM-DD' \n
 
-                LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
-                keyword = 'worktrip', list_type = 'available_employees', searchparam = 'YYYY-MM-DD' \n
-                
-                LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
-                keyword = '', list_type = 'plane_licences" \n
+            LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
+            keyword = 'worktrip', list_type = 'available_employees', searchparam = 'YYYY-MM-DD' \n
+            
+            LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
+            keyword = '', list_type = 'plane_licences" \n
 
-                LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
-                keyword = '', list_type = 'work_schedule'\n
+            LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
+            keyword = '', list_type = 'work_schedule'\n
 
-                LIST OF WORKTRIPS BY DATE \n
-                keyword = '', list_type = 'worktrips_by_date', searchparam = 'YYYY-MM-DD'\n
+            LIST OF WORKTRIPS BY DATE \n
+            keyword = '', list_type = 'worktrips_by_date', searchparam = 'YYYY-MM-DD'\n
 
-                DESTINATION ID \n
-                keyword = '', list_type = "destination_id" \n
+            DESTINATION ID \n
+            keyword = '', list_type = "destination_id" \n
 
-                READABLE WORKTRIP INFO WITH NAMES NOT IDS \n
-                keyword = list_type = ""worktrip_readable", searchparam = (info that needs to be translated)
+            READABLE WORKTRIP INFO WITH NAMES NOT IDS \n
+            keyword = list_type = ""worktrip_readable", searchparam = (info that needs to be translated)
             '''
 
             if list_type == "working_employees" or list_type == "available_employees": 
@@ -126,19 +125,12 @@ class LL_API:
                 
                 return_value = employee_list
 
-
-# ----------------------------
             elif list_type == "worktrips_by_date":
         
                 new_instance = WorktripLL()
                 worktrips_by_date = new_instance.get_worktrips_by_date(searchparam, days)
 
                 return_value = worktrips_by_date
-
-
-
-# ---------------------------------
-
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
