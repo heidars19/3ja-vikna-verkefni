@@ -882,6 +882,7 @@ class TUI():
                         for x in range(len(staff_schedule)):
                             self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
                             z += 20
+                    self.make_text_appear(21,55,"ESC",4,2)
                     while True:
                         check = self.stdscr.getch()
                         if check == 27:
