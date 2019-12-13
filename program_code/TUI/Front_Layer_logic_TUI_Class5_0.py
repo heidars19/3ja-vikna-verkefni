@@ -573,30 +573,46 @@ class TUI():
             plane_id = self.make_user_input_window(5,14)
             if plane_id == "stop1231":
                 self.new_reg_u_input = False
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 return
             plane_type = self.make_user_input_window(9,16)
             if plane_type == "stop1231":
                 self.new_reg_u_input = False
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 return
             manufacturer = self.make_user_input_window(12,18)
             if manufacturer == "stop1231":
                 self.new_reg_u_input = False
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 return
             sætafjöldi = self.make_user_input_window(16,16)
             if sætafjöldi == "stop1231":
                 self.new_reg_u_input = False
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 return
             name = self.make_user_input_window(5,59)
             if name == "stop1231":
                 self.new_reg_u_input = False
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 return
             self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,sætafjöldi,name))
             self.feedback_screen("{:^{length:}}".format("Flugvél vistuð!",length = 100))
             self.item_list = self.instance_API.get_list("airplane")
-        self.next_section = 0
-        self.list_line_index = 0
-        idz = 0
-        idx = 0
         self.new_reg_u_input = False
         time.sleep(1)
         time.sleep(2)
@@ -880,6 +896,10 @@ class TUI():
         action = self.stdscr.getch()
         if action == ord("b"):
             self.change_user_menu()
+            self.next_section = 0
+            self.list_line_index = 0
+            idz = 0
+            idx = 0
         if action == ord("v"):
             if self.menu_select == 0:
                 date = self.calendar_screen()
@@ -1210,6 +1230,10 @@ class TUI():
             #string_input = stdscr.getstr(21, 70)
             if self.new_reg_u_input == True:
                 self.get_user_input()
+                self.next_section = 0
+                self.list_line_index = 0
+                idz = 0
+                idx = 0
                 key = 0
             elif self.check_specifcly == True:
                 self.look_at_specific_unit()
