@@ -593,6 +593,9 @@ class TUI():
             self.instance_API.create("airplane",(_id,plane_id,plane_type,manufacturer,sætafjöldi,name))
             self.feedback_screen("{:^{length:}}".format("Flugvél vistuð!",length = 100))
             self.item_list = self.instance_API.get_list("airplane")
+        self.next_section = 0
+        self.list_line_index = 0
+        idz = 0
         self.new_reg_u_input = False
         time.sleep(1)
         time.sleep(2)
@@ -1044,6 +1047,9 @@ class TUI():
             self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
             time.sleep(2)
             self.item_list = self.instance_API.get_list("employee")
+            self.next_section = 0
+            self.list_line_index = 0
+            idz = 0
 
         if self.menu_select == 1:
             #change_user(self,index,y_position,extra_len, only_num = 0):
@@ -1115,7 +1121,9 @@ class TUI():
             for i in range(len(self.item_list)):
                 buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
             self.item_list = buffer_list
-            #worktrip_staffed = (_id, flight_number_out, flight_number_home,departing_from, arriving_at, departure, arrival, aircraft_id, captain, copilot, fsm, fa1, fa2 ,'Mönnuð', registration_date)
+            self.next_section = 0
+            self.list_line_index = 0
+            idz = 0
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1128,6 +1136,9 @@ class TUI():
             airport = self.change_user(6,12,49)
             self.instance_API.change("destination",(_id,name,country,flight_time,distance_from_iceland,emergency_contact,emergency_contact_phonenr,airport,self.item_list[self.list_line_index+self.next_section][8]))
             self.item_list = self.instance_API.get_list("destination")
+            self.next_section = 0
+            self.list_line_index = 0
+            idz = 0
 
         if self.menu_select == 3:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1138,8 +1149,9 @@ class TUI():
             name = self.change_user(4,5,49)
             self.instance_API.change("airplane",(_id,plane_id,plane_type,manufacturer,seat_amount,name,self.item_list[self.list_line_index+self.next_section][5]))
             self.item_list = self.instance_API.get_list("airplane")
-
-            # return_value = new_instance.change("airplane",('73','TF-breytt', 'NAbreytt','Fokker','F800','Breytt','13:25:38.975230'))
+            self.next_section = 0
+            self.list_line_index = 0
+            idz = 0
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
