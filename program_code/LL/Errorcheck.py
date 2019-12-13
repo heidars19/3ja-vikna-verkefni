@@ -1,6 +1,6 @@
 from textwrap import wrap
 import datetime
-from LL.LL_API import LL_functions
+from LL.LL_API import LL_API
 
 
 class ErrorCheck:
@@ -160,16 +160,12 @@ class ErrorCheck:
         start_date = datetime.strptime(date, '%Y-%m-%d %H:%M') - timedelta(minutes=10)
         end_date = datetime.strptime(date, '%Y-%m-%d %H:%M') + timedelta(minutes=10)
 
-
-        final_worktrip_list = []
         for line in worktrip_list:
             if len(line[5]) < 17 :
                 line[5] += ':00'
-            
+
             if datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') > start_date and datetime.strptime(line[5], '%Y-%m-%d %H:%M:%S') < end_date :
                 return False # Found a worktrip within allowed time
-                
-    
         return True
     
     
