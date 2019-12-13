@@ -546,7 +546,9 @@ class TUI():
             if country == "stop1231":
                 self.new_reg_u_input = False
                 return
+            self.make_text_appear(13,8,"Dæmi: 23:59",30,3)
             flight_time = self.make_user_input_window(12,14,clock = 1)
+            self.make_text_appear(13,8,"           ",30,3)
             if flight_time == "stop1231":
                 self.new_reg_u_input = False
                 return
@@ -1027,6 +1029,7 @@ class TUI():
                     return object_list[position_y]
 
     def change_user_menu(self):
+        """This method is called when changing a staff member registration etc, depends on what menus is selected"""
         if self.menu_select == 0:
             _id = self.item_list[self.list_line_index+self.next_section][0]
             ssn = self.item_list[self.list_line_index+self.next_section][1]
@@ -1187,6 +1190,7 @@ class TUI():
         idx = 0
 
     def get_chr_from_user(self,y,x):
+        """Gets a single character from user, first one pressed"""
         editwin = curses.newwin(1,1,y,4+x)
         editwin.keypad(1)
         editwin.attron(curses.color_pair(2))
@@ -1194,9 +1198,6 @@ class TUI():
         editwin.refresh()
         editwin.attroff(curses.color_pair(2))
         return editwin.getch()
-
-    def make_special_search(self):
-        pass
 
     def main(self):
         # Clear screen
@@ -1209,8 +1210,6 @@ class TUI():
         curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLACK)
         curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
         curses.init_pair(3,curses.COLOR_WHITE, curses.COLOR_BLACK)
-        
-        # This raises ZeroDivisionError when i == 10.
         idx = 0
         idy = 0
         idz = 0
@@ -1221,10 +1220,6 @@ class TUI():
         
         while True:
             TUI_list = self.construct_TUI(self.highlight_main_list)
-            """
-            x = 4
-            y = 10
-            """
             self.print_menu(TUI_list, list_den[idx], list_den3[idz],list_den4[idx])
             if self.exeption == 1:
                 self.make_text_appear(21,65,"Flokka eftir ",20)
@@ -1256,6 +1251,7 @@ class TUI():
                 curses.noecho()
                 self.stdscr.refresh()
                 key = self.stdscr.getch()
+            #A long and convoluted way to figure out where the hell the system is positioned
             if key == 49:
                 self.menu_select = 0
                 self.next_section = 0
@@ -1265,16 +1261,6 @@ class TUI():
                 idx = 0
                 idz = 0
                 self.item_list = self.instance_API.get_list("employee")
-                """leng = 0
-                for i in range(len(self.item_list)):
-                    for x in range(len(self.item_list[i])):
-                        self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
-                        self.stdscr.attroff(curses.color_pair(1))
-                        self.stdscr.refresh()
-                        leng += len(self.item_list[i][x]) +1 
-                    time.sleep(1)
-                    leng = 0"""
             elif key == 50:
                 self.menu_select = 1
                 self.next_section = 0
@@ -1286,16 +1272,6 @@ class TUI():
                 for i in range(len(self.item_list)):
                     buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
                 self.item_list = buffer_list
-                """leng = 0
-                for i in range(len(self.item_list)):
-                    for x in range(len(self.item_list[i])):
-                        self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
-                        self.stdscr.attroff(curses.color_pair(1))
-                        self.stdscr.refresh()
-                        leng += len(self.item_list[i][x]) +1 
-                    time.sleep(1)
-                    leng = 0"""
             elif key == 51:
                 self.menu_select = 2
                 self.next_section = 0
@@ -1303,16 +1279,6 @@ class TUI():
                 idx = 2
                 idz = 0
                 self.item_list = self.instance_API.get_list("destination")
-                """leng = 0
-                for i in range(len(self.item_list)):
-                    for x in range(len(self.item_list[i])):
-                        self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
-                        self.stdscr.attroff(curses.color_pair(1))
-                        self.stdscr.refresh()
-                        leng += len(self.item_list[i][x]) +1 
-                    time.sleep(1)
-                    leng = 0"""
             elif key == 52:
                 self.menu_select = 3
                 self.next_section = 0
@@ -1320,16 +1286,6 @@ class TUI():
                 idx = 3
                 idz = 0
                 self.item_list = self.instance_API.get_list("airplane")
-                """leng = 0
-                for i in range(len(self.item_list)):
-                    for x in range(len(self.item_list[i])):
-                        self.stdscr.attron(curses.color_pair(1))
-                        self.stdscr.addstr(0,leng,self.item_list[i][x]+" ")
-                        self.stdscr.attroff(curses.color_pair(1))
-                        self.stdscr.refresh()
-                        leng += len(self.item_list[i][x]) +1 
-                    time.sleep(1)
-                    leng = 0"""
             elif key == curses.KEY_LEFT or key == 452:
                 if self.next_section == 0:
                     self.next_section = 0
@@ -1507,12 +1463,6 @@ class TUI():
                             if "Flight Attendant" in self.item_list[i]:
                                 buffer_list.append(self.item_list[i])
                         self.item_list = buffer_list
-                """self.stdscr.clear()
-                self.stdscr.attron(curses.color_pair(1))
-                self.stdscr.addstr(0,0,str(key))
-                self.stdscr.attroff(curses.color_pair(1))
-                self.stdscr.refresh()
-                time.sleep(1)"""
 
     def print_menu(self, TUI_list, list_den ,list_den3 ,idx ):
         self.stdscr.clear()
