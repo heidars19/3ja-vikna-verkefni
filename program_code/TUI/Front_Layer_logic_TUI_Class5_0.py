@@ -985,7 +985,7 @@ class TUI():
     def make_list_dropdown(self,y,x,object_list, index = 2, return_list = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        editwin = curses.newwin(len(object_list),20,5,110)
+        editwin = curses.newwin(len(object_list),20,10,80)
         editwin2 = curses.newwin(1,30,y,x)
         editwin.keypad(1)
         curses.curs_set(0)
@@ -1081,75 +1081,79 @@ class TUI():
             self.item_list = self.instance_API.get_list("employee")
 
         if self.menu_select == 1:
-            #change_user(self,index,y_position,extra_len, only_num = 0):
-            true_data = self.instance_API.get_list("worktrip")
-            _id = self.item_list[self.list_line_index+self.next_section][0]
-            flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
-            flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
-            departing_from = self.item_list[self.list_line_index+self.next_section][3]
-            arriving_at = true_data[self.list_line_index+self.next_section][4]
-            departure = true_data[self.list_line_index+self.next_section][5]
-            arrival = true_data[self.list_line_index+self.next_section][6]
-            departure_split = departure.split(" ")
-            aircraft_id = true_data[self.list_line_index+self.next_section][7]
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
-            try:
-                curses.curs_set(0)
-                captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1)
-            except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
-                time.sleep(5)
-                return
-            temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
-            for i in range(len(temp_list)):
-                    if captain[0] in temp_list[i]:
-                        temp_list.pop(i)
-                        break
-            
-            try:
-                curses.curs_set(0)
-                copilot = self.change_user_dropdown_list(8,7,51,temp_list,return_list = 1)
-            except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus Co-Pilot með réttindi á vélina",length = 100))
-                time.sleep(5)
-                return
-            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
-            
-            
-            try:
-                curses.curs_set(0)
-                fsm = self.change_user_dropdown_list(9,9,51,temp_list,return_list = 1)
-            except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus FSM",length = 100))
-                time.sleep(5)
-                return
-            temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
-            for i in range(len(temp_list)):
-                    if fsm[0] in temp_list[i]:
-                        temp_list.pop(i)
-                        break
-            try:
-                curses.curs_set(0)
-                fa1 = self.change_user_dropdown_list(10,11,51,temp_list,return_list = 1, can_skip = 1)
-            except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
-                time.sleep(5)
-            for i in range(len(temp_list)):
-                    if fa1[0] in temp_list[i]:
-                        temp_list.pop(i)
-                        break
-            try:
-                curses.curs_set(0)
-                fa2 = self.change_user_dropdown_list(10,13,51,temp_list,return_list = 1, can_skip = 1)
-            except:
-                self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
-                time.sleep(5)
-            self.instance_API.change("worktrip",(_id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain[0],copilot[0],fsm[0],fa1[0],fa2[0],"Mönnuð",self.item_list[self.list_line_index+self.next_section][14]))
-            self.item_list = self.instance_API.get_list("worktrip")
-            buffer_list = []
-            for i in range(len(self.item_list)):
-                buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
-            self.item_list = buffer_list
+            if self.item_list[self.list_line_index+self.next_section][13] != "Mönnuð":
+                #change_user(self,index,y_position,extra_len, only_num = 0):
+                true_data = self.instance_API.get_list("worktrip")
+                _id = self.item_list[self.list_line_index+self.next_section][0]
+                flight_number_out = self.item_list[self.list_line_index+self.next_section][1]
+                flight_number_home = self.item_list[self.list_line_index+self.next_section][2]
+                departing_from = self.item_list[self.list_line_index+self.next_section][3]
+                arriving_at = true_data[self.list_line_index+self.next_section][4]
+                departure = true_data[self.list_line_index+self.next_section][5]
+                arrival = true_data[self.list_line_index+self.next_section][6]
+                departure_split = departure.split(" ")
+                aircraft_id = true_data[self.list_line_index+self.next_section][7]
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
+                try:
+                    curses.curs_set(0)
+                    captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
+                    time.sleep(5)
+                    return
+                temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
+                for i in range(len(temp_list)):
+                        if captain[0] in temp_list[i]:
+                            temp_list.pop(i)
+                            break
+                
+                try:
+                    curses.curs_set(0)
+                    copilot = self.change_user_dropdown_list(8,7,51,temp_list,return_list = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus Co-Pilot með réttindi á vélina",length = 100))
+                    time.sleep(5)
+                    return
+                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],rank = "Flight Service Manager")
+                
+                
+                try:
+                    curses.curs_set(0)
+                    fsm = self.change_user_dropdown_list(9,9,51,temp_list,return_list = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus FSM",length = 100))
+                    time.sleep(5)
+                    return
+                temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
+                for i in range(len(temp_list)):
+                        if fsm[0] in temp_list[i]:
+                            temp_list.pop(i)
+                            break
+                try:
+                    curses.curs_set(0)
+                    fa1 = self.change_user_dropdown_list(10,11,51,temp_list,return_list = 1, can_skip = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
+                    time.sleep(5)
+                for i in range(len(temp_list)):
+                        if fa1[0] in temp_list[i]:
+                            temp_list.pop(i)
+                            break
+                try:
+                    curses.curs_set(0)
+                    fa2 = self.change_user_dropdown_list(10,13,51,temp_list,return_list = 1, can_skip = 1)
+                except:
+                    self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
+                    time.sleep(5)
+                self.instance_API.change("worktrip",(_id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,aircraft_id,captain[0],copilot[0],fsm[0],fa1[0],fa2[0],"Mönnuð",self.item_list[self.list_line_index+self.next_section][14]))
+                self.item_list = self.instance_API.get_list("worktrip")
+                buffer_list = []
+                for i in range(len(self.item_list)):
+                    buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
+                self.item_list = buffer_list
+            else:
+                self.feedback_screen("{:^{length:}}".format("Ekki leyfilegt að breyta mannaðari ferð",length = 100))
+                time.sleep(3)
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1420,21 +1424,8 @@ class TUI():
                 if self.menu_select == 1:
                     date = self.calendar_screen(1)
                     if date != "":
-                        self.make_text_appear(21,23,"|",3)
-                        self.make_text_appear(21,24,"V",3,2)
-                        self.make_text_appear(21,25,"ikur     |",11)
-                        self.make_text_appear(22,23,"|",3,)
-                        self.make_text_appear(22,24,"D",3,2)
-                        self.make_text_appear(22,25,"ag       |",11)
                         new_list = []
-                        while True:
-                            check = self.stdscr.getch()
-                            if check == ord("v"):
-                                new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=7)
-                                break
-                            elif check == ord("d"):
-                                new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
-                                break
+                        new_list = self.instance_API.get_list(list_type='worktrips_by_date',searchparam = date, days=1)
                         if not new_list:
                             self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir á þessum degi!",length = 100))
                             time.sleep(3)
