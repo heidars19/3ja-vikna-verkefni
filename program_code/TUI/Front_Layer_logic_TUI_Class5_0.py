@@ -506,7 +506,11 @@ class TUI():
                 error_msg = self.errorcheck.check_clock()
                 if error_msg == True:
                     self.make_text_appear(9,22,departure_time_out,30,2)
-                    break
+                    if self.errorcheck.check_worktrip_date(date + " " + departure_time_out):
+                        break
+                    else:
+                        self.make_text_appear(9,22,"Tími stangast á við aðra ferð",30,2)
+                        time.sleep(2)
                 else:
                     self.make_text_appear(9,22,error_msg,30,2)
                     time.sleep(1)
