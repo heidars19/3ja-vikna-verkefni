@@ -863,30 +863,32 @@ class TUI():
                     for i in range(3):
                         self.make_text_appear(21+i,50,"",40)
                     staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
-                    """buffer_list = []
-                    for i in range(len(staff_schedule)):
-                        buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
-                    staff_schedule = buffer_list"""
-                    for i in range(15):
-                        self.make_text_appear(5+i,3,"",100)
-                    header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
-                    z = 0
-                    for i in range(len(header_list)):
-                        if i != 3:
-                            self.make_text_appear(3,5+z,header_list[i],30)
-                        else:
-                            self.make_text_appear(3,5+z,header_list[i],30,2)
-                        z += 20
-                    for i in range(len(staff_schedule)):
+                    if staff_schdeule:
+                        for i in range(len(staff_schedule)):
+                            staff_schedule[i][1] = self.instance_API.get_list("destination","destination_name",staff_schedule[i][1])
+                        for i in range(15):
+                            self.make_text_appear(5+i,3,"",100)
+                        header_list = ["Brottför","Áfangastaður","Dagsetning",self.item_list[self.list_line_index+self.next_section][2]]
                         z = 0
-                        for x in range(len(staff_schedule)):
-                            self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                        for i in range(len(header_list)):
+                            if i != 3:
+                                self.make_text_appear(3,5+z,header_list[i],30)
+                            else:
+                                self.make_text_appear(3,5+z,header_list[i],30,2)
                             z += 20
-                    self.make_text_appear(21,55,"ESC",4,2)
-                    while True:
-                        check = self.stdscr.getch()
-                        if check == 27:
-                            break
+                        for i in range(len(staff_schedule)):
+                            z = 0
+                            for x in range(len(staff_schedule)):
+                                self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
+                                z += 20
+                        self.make_text_appear(21,55,"ESC",4,2)
+                        while True:
+                            check = self.stdscr.getch()
+                            if check == 27:
+                                break
+                    else:
+                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir hjá starfsmanni í þessari viku",length = 19)
+                        time.sleep(2)
                 else:
                     return
     
