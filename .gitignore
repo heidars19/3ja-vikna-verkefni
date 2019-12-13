@@ -7,6 +7,8 @@ Using/*
 program_code/DB/__pycache__/*
 program_code/TUI/__pycache__/*
 program_code/LL/__pycache__/*
-program_code/Data/*
+program_code/Data/*.csv
 program_code/.vscode/*.json
-
+program_code/.vscode/*
+program_code/DB_Models/__pycache__/*
+program_code/LL_Models/__pycache__/*

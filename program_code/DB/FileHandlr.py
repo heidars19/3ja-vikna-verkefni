@@ -1,17 +1,19 @@
 import csv
-import fileinput
 import datetime
 import os
 
 class FileHandlr :
-    ''' Abstract class for filehandling '''
+    ''' 
+    Abstract class for filehandling\n
+    Contains all the functionality for the filehandlers.
+    '''
 
     # Return constants
     WRONG_FORMAT = -5 # Value error
     FILENOTFOUND = -404
     UNKNOWN_ERROR = -1
     UNSUCCESSFUL = 0 # No error, but search yealded no results
-    SUCCESS = 1
+    SUCCESS = 1 # For when you have no results to send back
 
     AIRPLANE_TABLE = "Data/Airplane.csv"
     AIRLPANE_TABLE_HEADER = 'id,plane_id,plane_type,manufacturer,capacity,name,registration_date'
@@ -40,12 +42,14 @@ class FileHandlr :
         self._replace_with = replace_with
         self._filestream = None
         self._line_number = None
-        self._data_list = None
         self._id = 0
         self._header = header
 
 
     def start(self) :
+        '''
+        
+        '''
         if self._data_to_append :
             return FileHandlr.append_data_to_file(self)
         
@@ -57,20 +61,15 @@ class FileHandlr :
             return self._line_number
 
         else :
-            if str(type(self)) == "<class 'DB.WorkTripFile.WorkTripFile'>":
+            if str(type(self)) == "<class 'DB_Models.WorkTripFileOld.WorkTripFileOld'>":
                 FileHandlr.archive_old_worktrips(self)
             return_value = FileHandlr.read_filestream_into_list(self)
-            if isinstance(self._data_list, list) :
-                return self._data_list
-            else :
-                return return_value
-
+            return return_value
+        
         return FileHandlr.UNKNOWN_ERROR
 
 
-
     def remove_file(file_to_remove) :
-
         try :
             if os.path.exists(file_to_remove): # Checks if .bak file exists and removes it if it does
                 try :
@@ -113,9 +112,9 @@ class FileHandlr :
                             if list_line[0] == 'id' : # If this is header line, jump to next iteration
                                 bak_file.write(line) # Copies over header
                                 continue
-                            # list_line[6] should be the date column, change index number if not
+                            # list_line[5] should be the date column, change index number if not
                             try :
-                                line_date = datetime.datetime.strptime(list_line[6], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
+                                line_date = datetime.datetime.strptime(list_line[5], "%Y-%m-%d %H:%M")  # "%Y-%m-%d %H:%M:%S.%f" for full isoformat date
                             except ValueError :
                                 # Date in file has wrong format
                                 return FileHandlr.WRONG_FORMAT
@@ -136,7 +135,7 @@ class FileHandlr :
 
 
 
-    def find_next_id(self): 
+    def find_next_id(self, header_id='id'): 
         ''' 
         Finds the highest current id and sets self._id as that\n
         \n
@@ -144,23 +143,30 @@ class FileHandlr :
         '''
         self._filestream = self.open_file()
 
-        if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
-            return self._filestream # Extend error from opening the file
-
         try:
+            self._id = 0
             reader = csv.DictReader(self._filestream, delimiter=',')
             for line in reader: 
-                if int(line['id']) > self._id :
-                    self._id = int(line['id'])
+                try: 
+                    if int(line[header_id]) > self._id :
+                        self._id = int(line[header_id])
+                except: # empty database og a corrupt line/wrong format
+                    continue
         except:
-            return FileHandlr.UNKNOWN_ERROR
+            # return FileHandlr.UNKNOWN_ERROR
+            pass
         finally:
-            self._filestream.close()
+            try:
+                self._filestream.close()
+            except:
+                pass
         
-        if self._id > 0 :
+        if self._id >= 0 :
             self._id += 1 # Increases current highest id by 1
             return self._id 
         else :
+            if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
+                return self._filestream # Extend error from opening the file
             return FileHandlr.UNSUCCESSFUL # Empty file (or no id column)
 
 
@@ -171,7 +177,7 @@ class FileHandlr :
 
     def append_data_to_file(self):
         ''' 
-        Appends data to file, creates a new file if none exists, and adds a header. 
+        Appends data to file, creates a new file if none exists, and adds a header. \n
 
         Accepts a list with 1 line or 1 string
         ''' 
@@ -181,7 +187,7 @@ class FileHandlr :
             data_string = self._data_to_append
             
         # To prevent 'id' creation when adding a file into the archived WorkTripFileOld
-        if not str(type(self)) == "<class 'DB.WorkTripFileOld.WorkTripFileOld'>":
+        if not str(type(self)) == "<class 'DB_Models.WorkTripFileOld.WorkTripFileOld'>":
             return_value = FileHandlr.find_next_id(self)
             if return_value <= 0 : 
                 return return_value # Extend error from find_next_id
@@ -227,7 +233,7 @@ class FileHandlr :
 
     def open_file(self, mode='r'):
         ''' 
-        Opens a file and returns a filestream, or None if error.
+        Opens a file and returns a filestream\n
         Does not close the file!
         '''
         try :
@@ -242,7 +248,6 @@ class FileHandlr :
     def read_filestream_into_list(self):
         '''
         Takes a filestream, returns a list with file contents.
-        Closes the file after reading it.
         '''
         self._filestream = self.open_file()
         if self._filestream == FileHandlr.UNKNOWN_ERROR or self._filestream == FileHandlr.FILENOTFOUND:
@@ -252,8 +257,7 @@ class FileHandlr :
             for line in self._filestream :
                 data_list.append(line.strip())
             self._filestream.close() # Closes file after grabbing data from it
-            self._data_list = data_list
-            return FileHandlr.SUCCESS
+            return data_list
         except : # Something went wrong
             self._filestream.close()
             return FileHandlr.UNKNOWN_ERROR
@@ -267,7 +271,6 @@ class FileHandlr :
         # Writes changes into a new file at first, then overwrites original file
         # Then removes the temporary .bak file
         # Breaks loops on error before removing any file
-
 
         BACKUP_FILE = self._filename +".bak"
         try :

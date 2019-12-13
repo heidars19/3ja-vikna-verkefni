@@ -7,11 +7,11 @@ try:
     import calendar
     def start(stdscr):
         new_tui = TUI(stdscr)
+        
         new_tui.main()
 
     wrapper(start)
 
 except ModuleNotFoundError:
-    print("type 'pip3 install windows.curses' in terminal to get the needed extesion")
 
-
+    print("Ritaðu 'pip3 install windows.curses' í útstöðina til að flytja niður viðaukan") #tekið úr tölvuorðasafnið frá 1999

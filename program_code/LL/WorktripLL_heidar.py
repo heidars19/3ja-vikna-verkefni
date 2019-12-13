@@ -4,48 +4,13 @@ from LL.LL_functions import *
 import string
 import datetime
 from datetime import timedelta
-from datetime import datetime
-from datetime import timedelta
 
 class WorktripLL(LL_functions):
 
     FLUGFELAG = 'NA' # Fyrir flugnúmer
-
-    def create_worktrip(self,worktrip_identity):
-        """
-        Creates a new worktrip and saves to database. \n
-        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
-            aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
-        """
-
-        worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
- 
-        for element in worktrip_list:
-            if element[0] == '' : 
-                new_worktrip = Worktrip(*element)
-                registration_str = new_worktrip.get_registration_str()
-
-                return_value = self.save_object_to_DB("worktrip",registration_str)
-
-            else : # Previously registered data, so we must fine line and overwrite it
-                new_worktrip = Worktrip(*element)
-                registration_str = new_worktrip.get_changes_registration_str()
-
-                return_value = self.change_object_in_DB("worktrip",registration_str, element[0])
-
-        return return_value
-
     
-    def calc_arrival_time(self, duration, start_time, layover=1):
-        '''
-        Given flight duration 1-way and departure time, will calculate when plane arrives back home.
-        '''
-        temp_list = duration.split(':') # temp_list[0] = hours and temp_list[1] = min, skipping seconds
-        round_trip_duration = timedelta(hours=int(temp_list[0]), minutes=int(temp_list[1]))*2 + timedelta(hours=layover)
-        end_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M") + round_trip_duration
 
-        return end_time
-        
+
 
     def calculate_worktrip_list(self, dest_id, departure_time, aircraft_id):
 
@@ -77,6 +42,7 @@ class WorktripLL(LL_functions):
         return final_list_of_flights
 
 
+
     def add_flightnumbers (self, work_list, destination_code) :
         '''  
         Final process of flight codes. Injects them into worktrip list.
@@ -95,6 +61,7 @@ class WorktripLL(LL_functions):
         return result_list
 
         
+
     def get_flightnumber(self, destination_code, departure_time) :
         '''  
         Registers a worktrip and calculates the flight number. Re-arranges previous flight-numbers\n
@@ -113,7 +80,36 @@ class WorktripLL(LL_functions):
             temp_list.append(line.split(','))
         return temp_list
         
+                    
 
+
+    def create_worktrip(self,worktrip_identity):
+        """
+        Creates a new worktrip and saves to database. \n
+        worktrip_identity = (id,flight_number_out,flight_number_home,departing_from,arriving_at,departure,arrival,\
+            aircraft_id,captain,copilot,fsm,fa1,fa2,staffing_status,destination_code,registration_date)
+        """
+        # Need this from TUI - destination_id,date,aircraft_id
+        # arriving_at,departure,aircraft_id
+
+        worktrip_list = self.calculate_worktrip_list(*worktrip_identity)
+ 
+        for element in worktrip_list:
+            if element[0] == '' : 
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_registration_str()
+
+                return_value = self.save_object_to_DB("worktrip",registration_str)
+
+            else : # Previously registered data, so we must fine line and overwrite it
+                new_worktrip = Worktrip(*element)
+                registration_str = new_worktrip.get_changes_registration_str()
+
+                return_value = self.change_object_in_DB("worktrip",registration_str, element[0])
+        return return_value
+
+
+     
     def get_emp_dest_date(self, keyword,date):
         """
         Gets list of employees enrolled in a worktrip at specified date, and the destinations.\n
@@ -130,7 +126,7 @@ class WorktripLL(LL_functions):
         return destination_staffmember_list
 
 
-    def get_workschedule(self, date, _id=''):
+    def get_workschedule(self, date, _id):
         """
         Gets list with info about trips a employee is booked. Returns from where the flight is, to what location
         and when the flight is. 
@@ -138,6 +134,8 @@ class WorktripLL(LL_functions):
         """
         keyword = 'worktrip'
         date_list = self.create_date_list(date,7)
+        
+
 
         row_names = ['departure']
         index_list = self.find_index_from_header(keyword, row_names)
@@ -146,16 +144,19 @@ class WorktripLL(LL_functions):
             filtered_list = []
             filtered_list = self.get_filtered_list_from_DB(keyword,index_list,a_date,exact_match=False)
             trips.extend(filtered_list)
-            trips_list = [[x.split(',')] for x in trips]
         
-        if _id:
-            staffmember_trips = []        
-            for trip in trips:    
-                trip_info = trip.split(',')
-                new_trip = Worktrip(*trip_info)
-                staff = [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]
-                
-                if _id in staff:
-                    staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
-                    return staffmember_trips
-        return trips_list
+        
+        staffmember_trips = []
+
+        
+        for trip in trips:    
+            trip_info = trip.split(',')
+            new_trip = Worktrip(*trip_info)
+            staff = [new_trip.captain, new_trip.copilot, new_trip.fsm, new_trip.fa1, new_trip.fa2 ]
+            
+            if _id in staff:
+                staffmember_trips.append([new_trip.departing_from, new_trip.arriving_at, new_trip.departure])
+        
+        return staffmember_trips
+
+   

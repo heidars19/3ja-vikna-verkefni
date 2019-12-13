@@ -139,10 +139,14 @@ class ErrorCheck:
             return self.ERROR_CLOCK
         
     def check_name(self):
+        if len(self.__name) < 3:
+            return self.ERROR_NAME
         for i in self.__name:
             if i.isdigit():
                 return self.ERROR_NAME
         return True
+    
+    
 def main():
     
     check = ErrorCheck()    

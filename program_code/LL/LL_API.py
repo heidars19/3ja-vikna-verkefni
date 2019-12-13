@@ -3,19 +3,37 @@ from LL.DestinationLL import *
 from LL.EmployeeLL import *
 from LL.AirplanesLL import *
 from LL.LL_functions import *
+from datetime import datetime
 
 class LL_API:
 
-#From UI: create("employee",(ssn,name,address,mobile,email,role,rank,licence))
-    def create(self, keyword,user_input, ):    
-        '''Creates new object and saves to Database. \n
-        keyword: employee,airplane,destination or worktrip
-        \n
-        user_input: user input for corresponding item as tuple. No id or registration date.
+    
+    def return_msg(self, msg, keyword=''):
         '''
+        '''
+        if msg == 1:
+            return "Success in {}".format(keyword)
+        elif msg == 0 :
+            return "No success in {}".format(keyword)
+        elif msg == -1 :
+            return "An unknow error occurred while {}".format(keyword)
+        elif msg == -404 :
+            return "File not Found error on {}".format(keyword)
+        else:
+            return "An unknow error occurred or not getting return value from DB"
+        return
+
+
+    def create(self, keyword,user_input):    
+        '''
+        \n Creates new object and saves to Database. Returns msg with success or error. \n
+        keyword [string]: employee /airplane / destination / worktrip\n
+        user_input [tuple]: User input for corresponding item as tuple with a leading empty string.
+        '''
+
         if keyword == 'employee':
-            cr_emp = EmployeeLL()
-            run_create = cr_emp.create_employee(user_input)
+            cr_emp = EmployeeLL() 
+            run_create = cr_emp.create_employee(user_input) 
 
         elif keyword == 'airplane':
             cr_air = AirplanesLL()
@@ -29,14 +47,15 @@ class LL_API:
             cr_trip = WorktripLL()
             run_create = cr_trip.create_worktrip(user_input)  
 
-        return run_create
+        return run_create 
 
     def change(self,keyword,changed_object):
-        '''Changes object in Database. \n
-        keyword[str]: employee,airplane,destination or worktrip
-        \n
-        changed_object[tuple]: Changed object, including id and registration date.
         '''
+        \n Changes object in Database. Returns msg with success or error. \n
+        keyword [string]: employee /airplane / destination / worktrip\n
+        changed_object [tuple]: User input for changed object including id and registration date.
+        '''
+
         if keyword == 'employee':
             ch_emp = EmployeeLL()
             run_change = ch_emp.change_employee(changed_object)
@@ -51,133 +70,129 @@ class LL_API:
 
         elif keyword == 'worktrip':
             ch_work = WorktripLL()
-            run_change = ch_work.change_worktrip(changed_object)
+            run_change = ch_work.add_employees_worktrip(changed_object)
 
         return run_change
 
-    def get_list(self,keyword,list_type="",searchparam = "", _id='', role='',rank='', a_license=''):
-            '''Gets updated list from database. \n
-               keyword[str]: employee,airplane,destination,worktrip \n
+    def get_list(self,keyword='',list_type="",searchparam = "", _id='', role='',rank='', a_license='', days=7):
+            '''
+            Gets lists from database. \n
+            keyword [string]: employee /airplane / destination / worktrip\n
                 \n
            
-                TO GET LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
+                LIST OF EMPLOYEES WORKING ON SPECIFIC DATE AND THEIR DESTINATIONS: \n
                 keyword = 'worktrip', list_type = 'working_employees', searchparam = 'YYYY-MM-DD' \n
 
-                TO GET LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
+                LIST OF EMPLOYEES AVAILABLE ON SPECIFIC DATE \n
                 keyword = 'worktrip', list_type = 'available_employees', searchparam = 'YYYY-MM-DD' \n
                 
-                TO GET LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
-                keyword = 'airplane', list_type = 'plane_licences" Returns list of unique types of registered airplanes.
+                LIST OF UNIQUE TYPES OF REGISTERED AIRPLANES\n
+                keyword = '', list_type = 'plane_licences" \n
+
+                LIST OF WORKSCHEDULE FOR A SPECIFIC EMPLOYEE \n
+                keyword = '', list_type = 'work_schedule'\n
+
+                LIST OF WORKTRIPS BY DATE \n
+                keyword = '', list_type = 'worktrips_by_date', searchparam = 'YYYY-MM-DD'\n
+
+                DESTINATION ID \n
+                keyword = '', list_type = "destination_id" \n
+
+                READABLE WORKTRIP INFO WITH NAMES NOT IDS \n
+                keyword = list_type = ""worktrip_readable", searchparam = (info that needs to be translated)
             '''
 
-            if list_type == "working_employees" or list_type == "available_employees":
+            if list_type == "working_employees" or list_type == "available_employees": 
                 
                 employee_list = []
-                #Get list of worktrips at specific date
-                new_instance = WorktripLL()
-                get_emp_dest_date = new_instance.get_emp_dest_date(keyword,searchparam)
-               # return get_emp_dest_date
-                new_instance = EmployeeLL()
+                worktrip_instance = WorktripLL()
+                emp_instance = EmployeeLL()
 
                 if list_type == "working_employees":
-                        employee_list = new_instance.working_employees(get_emp_dest_date)
-                        
+                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam)
+                    employee_list = []
+                    working_staff_list = emp_instance.working_employees(get_emp_dest_date)
+                    destination_inst = DestinationLL()
+
+                    for employee_info in working_staff_list:
+                                employeee, role, destination_id = employee_info
+                                destination_name = destination_inst.find_name_by_id(destination_id)
+                                employee_list.append(["",employeee, role,'', destination_name, ''])        
 
                 elif list_type == "available_employees":
-                        employee_list = new_instance.available_employees(get_emp_dest_date, role, rank, a_license)
-                        
-                return employee_list
-            
+                    get_emp_dest_date = worktrip_instance.get_emp_dest_date(searchparam, include_arrivaldate=True)
+                    employee_list = emp_instance.available_employees(get_emp_dest_date)
+                    employee_list = emp_instance.find_qualified_staff(employee_list, role, rank, a_license)
+                
+                return_value = employee_list
+
+
+# ----------------------------
+            elif list_type == "worktrips_by_date":
+        
+                new_instance = WorktripLL()
+                worktrips_by_date = new_instance.get_worktrips_by_date(searchparam, days)
+
+                return_value = worktrips_by_date
+
+
+
+# ---------------------------------
+
 
             elif list_type == "plane_licences":
                 new_instance = AirplanesLL()
-                plane_licence = new_instance.get_plance_licence(keyword, list_type)
+                plane_licence = new_instance.get_plane_licence()
+                return_value = plane_licence
 
-                return plane_licence
-            
-            elif list_type == "workschedule":
+            elif list_type == "available_planes":
+                new_instance = AirplanesLL()
+                available_planes = new_instance.get_available_planes(searchparam,_id) #datetime and airplane id
+                return_value = available_planes
+
+            elif list_type == "work_schedule":
                 new_instance = WorktripLL()
-                workschedule = new_instance.get_workschedule( searchparam,_id ) #searchparam is the date, the _id is the staffmemebers id.
-                return workschedule
+                workschedule = new_instance.get_workschedule(searchparam,_id,days) #searchparam is the date, the _id is the staffmemebers id.
+                return_value = workschedule
 
+            elif list_type == "destination_id":
+                new_instance = DestinationLL()
+                destination_id = new_instance.get_destination_id(searchparam)
+                return_value = destination_id
+
+            elif list_type =="worktrip_readable":  #Display in TUI, get names of destinations and airplanes that are referenced with ID´s in Worktrip Database
+                
+                airplane_inst = AirplanesLL()
+                destination_inst = DestinationLL()
+                employee_inst = EmployeeLL()
+
+                worktrip = Worktrip(*searchparam)
+
+                worktrip.aircraft_id = airplane_inst.find_name_by_id(worktrip.aircraft_id)
+                worktrip.arriving_at = destination_inst.find_name_by_id(worktrip.arriving_at)
+                worktrip.captain = employee_inst.find_name_by_id(worktrip.captain)
+                worktrip.copilot = employee_inst.find_name_by_id(worktrip.copilot)
+                worktrip.fsm = employee_inst.find_name_by_id(worktrip.fsm)
+                worktrip.fa1 = employee_inst.find_name_by_id(worktrip.fa1)
+                worktrip.fa2 = employee_inst.find_name_by_id(worktrip.fa2)
+
+                return_value = worktrip.get_changes_registration_str().split(',')
+                
+            elif list_type == "pilot_licences":
+                new_instance = EmployeeLL()
+                return_value = new_instance.find_pilot_with_license(a_license)
 
             else:
                 updated_list = []
                 new_instance = LL_functions()
                 updated_list = new_instance.get_updated_list_from_DB(keyword)
-                updated_list.pop(0)
+                if len(updated_list) > 0 :
+                    updated_list.pop(0)
         
-                return updated_list
+                return_value = updated_list
 
-def testmain():
-    new = LL_API()
-   
-#    new.create('airplane', ('32','rass','re re','re 31','er','asdf@gmail.com')) #airplane nyskraning test
-#    new.create('employee', ('0','4455668855','aparassgat Helga','Hehe 31','8453474','eythoroli95@gmail.com','Pilot','Copilot','Fokker232'))
-    new.create('destination',('11','asdf','Greenland','1:00:55','1.343','Hraði Brunann','328738975','flugvolllur'))
-
-
-
-
-
-
-
-
-
-
-
-
-# #Staff functions
-# #----------------------------------------------------------------------------------------------
-# def create_employee(ssn,name,address,mobile,email,role,rank,licence):
-#     """Creates a new employee, returns updated list of employees."""      
-    
-#     EmployeeLL.save_employee(ssn,name,address,mobile,email,role,rank,licence)
-
-#     # new_emp = Employee(ssn,name,address,mobile,email,role,rank,licence)
-#     updated_list = EmployeeLL.get_employee_list()
-#     return updated_list
-
-# def change_employee(self,ssn,name,address,mobile,email,role,rank,licence):
-#     """Changes information about employee, except ssn, name or creation date."""
-#     #old_info = EmployeeFile(fieldname="ssn",searchparam=ssn)
-#     new_info = Employee(ssn,name,address,mobile,email,role,rank,licence)
-
-#     EmployeeLL.change_info(old_info,new_info)
-
-#     #old_info = EmployeeFile(fieldname="ssn",searchparam=ssn)
-#     line_number = old_info.run_me()
-
-#     data_string = ",".join([ssn,name,address,mobile,email,role,rank,licence])
-
-#     new_info = EmployeeFile(line_to_replace=line_number,replace_with=data_string)
-#     new_info.run_me()
-
-
-# #----------------------------------------------------------------------------------------------
-# #Airplanes
-
-# def get_airplane_types():
-#     all_planes = Airplane.get_airplane_list()
-#     filtered_planes =Airplane.filter_planes(all_planes, capacity)
-#     return filtered_planes
-
-# def get_all_airplanes():
-#     all_planes = get_all_planes()
-#     return all_planes
-
-# def create_airplane(planeID, planeType, manufacturer, capacity, name, capacity):
-#     save_airplane(planeID, planeType, manufacturer, capacity, name, capacity)
-    
-    
-# #if __name__ == "__main__":
-
-
-#     #main()
-
-
-
-# #new_emp = '2501952149,Eyþór Óli Borgþórsson,Þingás 31,8453474,eythoroli95@gmail.com,Pilot,Copilot,Fokker232'
-# emp = create_employee("2501952149","Eyþór Óli Borgþórsson","Þingás 31","8453474","eythoroli95@gmail.com","Pilot","Copilot","Fokker232")
-
-# print(emp)
+            if isinstance(return_value, int) :
+                return [[self.return_msg(return_value, keyword)]]
+                
+            return return_value
+        
