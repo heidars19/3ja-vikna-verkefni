@@ -1076,7 +1076,7 @@ class TUI():
             else:
                 rank = self.change_user_dropdown(6,12,49,"Flight Service Manager","Flight Attendant")
                 license = ""
-            self.instance_API.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license))
+            self.instance_API.change("employee",(_id,ssn,name,address,phone,email,job_title,rank,license,self.item_list[self.list_line_index+self.next_section][9]))
             self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
             time.sleep(2)
             self.item_list = self.instance_API.get_list("employee")
