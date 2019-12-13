@@ -1,13 +1,3 @@
 id,destination,country,flight_time,distance,contact,emerg_number,airport,destination_code,registration_date
 1,Longyearbyen,Svalbard,1:30,1.993,Þarmar Klámsson,632827365,Vik,01,2019-12-08 13:41:20.362544
-2,Nuuk,Greenland,1:20,983,Hlíðar Brekkan,88837229,Nuuk,,2019-12-08 13:41:20.362544
-4,Thorshavn,Faroe Islands,1:05,1.233,Sulli Þamban,3535346346,Thorstown,04,2019-12-08 13:41:20.362544
-5,Tingwall,Shetland,1:30,750,Ulle Bjakk,7122235,Aleborg,,2019-12-08 13:41:20.362544
-6,Keflavik,Iceland,0:00,0,Subbi Skorsteins,8467899,Kef,06,2019-12-08 13:41:20.362544
-12,Köbenhavn,Denmark,2:30,2.100,Rasmus Rasmussen,0219933884,Kastrup,12,2019-12-07 13:02:41.118787
-13,Milano,Italy,3:30,2.100,John Philips,0219933884,BC_airport,13,2019-12-07 21:39:33.300255
-14,Kulusuk,Greenland,1:45,1.343,Hraði Brunann,328738975,Kulusuk,14,2019-12-07 20:25:07.287524
-15,Paris,France,4:30,2.100,John Philips,0219933884,ItaPort,15,2019-12-07 21:39:33.300255
-16,Milano,Italy,5:30,2.100,John Philips,0219933884,BC_airport,16,2019-12-08 13:41:20.362544
-17,London,England,3:30,980,James Boon,2932239,Gatwick,17,2019-12-11 02:06:00.563700
-18,Vancouver,Kanada,3:30,980,James Boon,2932239,Nambuway,18,2019-12-11 02:06:00.563700
+2,Nýfundnaland,Canada,3:00,123456,Hans Stolo,891234521,Newlandia,02,2019-12-13 21:03:22.311236

@@ -571,7 +571,7 @@ class TUI():
             self.item_list = self.instance_API.get_list("destination")
         if self.menu_select == 3:
             _id = ""
-            plane_id = self.make_user_input_window(5,14)
+            plane_id = self.make_user_input_window(5,15)
             if plane_id == "stop1231":
                 self.new_reg_u_input = False
                 self.next_section = 0
@@ -579,7 +579,7 @@ class TUI():
                 idz = 0
                 idx = 0
                 return
-            plane_type = self.make_user_input_window(9,16)
+            plane_type = self.make_user_input_window(9,12)
             if plane_type == "stop1231":
                 self.new_reg_u_input = False
                 self.next_section = 0
@@ -938,7 +938,7 @@ class TUI():
                     return
     
     def change_user(self,index,y_position,extra_len, only_num = 0, name = 0, clock = 0, new_list = [], accept_new_list = 0):
-        """This function changes the user, """
+        """This function changes the selected object, and has many different ways to limit user input"""
         while True:
             check = self.get_chr_from_user(y_position,2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]) + extra_len)
             variable_x = ""
@@ -997,15 +997,15 @@ class TUI():
         while True:
             editwin2.clear()
             editwin2.attron(curses.color_pair(2))
-            editwin2.addstr(0,0,object_list[position_y][index])
+            editwin2.addstr(0,0,object_list[position_y][index][0:28])
             editwin2.attroff(curses.color_pair(2))
             editwin2.refresh()
             editwin.refresh()
             for i in range(len(object_list)):
                 if position_y == i:
-                    self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(2))
+                    self.license_drop_down(editwin,object_list[i][index][0:18],i,curses.color_pair(2))
                 else:
-                    self.license_drop_down(editwin,object_list[i][index],i,curses.color_pair(1))
+                    self.license_drop_down(editwin,object_list[i][index][0:18],i,curses.color_pair(1))
             button_press = editwin.getch()
             if button_press == curses.KEY_UP or button_press == 450:
                 if position_y == 0:
@@ -1099,13 +1099,13 @@ class TUI():
                 departure_split = departure.split(" ")
                 aircraft_id = true_data[self.list_line_index+self.next_section][7]
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0].strip(), rank='Captain', a_license=self.item_list[self.list_line_index+self.next_section][7])
-                try:
-                    curses.curs_set(0)
-                    captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1, requiered = 1)
-                except:
-                    self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
-                    time.sleep(5)
-                    return
+                """try:"""
+                curses.curs_set(0)
+                captain = self.change_user_dropdown_list(7,5,51,temp_list,2,return_list = 1, requiered = 1)
+                """                except:
+                self.feedback_screen("{:^{length:}}".format("Enginn laus Captain með réttindi á vélina",length = 100))
+                time.sleep(5)
+                return"""
                 temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
                 for i in range(len(temp_list)):
                     if captain[0] in temp_list[i]:
