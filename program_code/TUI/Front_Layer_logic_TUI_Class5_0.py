@@ -1280,7 +1280,15 @@ class TUI():
                     idz += 1
                     self.list_line_index += 1
             elif key == 27:
-                break
+                self.feedback_screen("{:^{length:}}".format("Viltu hætta?",length = 100))
+                self.make_text_appear(10,40,"J",2,2)
+                self.make_text_appear(10,41,"á",2,1)
+                self.make_text_appear(10,60,"N",2,2)
+                self.make_text_appear(10,61,"ei",2,1)
+                option = self.stdscr.getch()
+                if option == ord("j"):
+                    break
+                option = None
             elif key == ord("v"):
                 if self.menu_select == 1:
                     date = self.calendar_screen()
@@ -1318,7 +1326,7 @@ class TUI():
                         elif option == ord("l") or option == ord("u"):
                             date = self.calendar_screen()
                             if option == ord("l"):
-                                self.item_list  = self.instance_API.get_list('worktrip','available_employees',date)
+                                self.item_list  = self.instance_API.get_list('worktrip','available_employees',date,role = "all")
                                 break    
                             if option == ord("u"):
                                 self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
