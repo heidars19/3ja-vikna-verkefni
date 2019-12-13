@@ -38,7 +38,14 @@ class AirplanesLL(LL_functions):
         row_names = ['plane_type']
         index_list = self.find_index_from_header('airplane', row_names) 
 
-        filtered_list = list(set(self.get_filtered_list_from_DB('airplane',index_list, exact_match = False, return_column=True)))
+        #filtered_list = list(set(self.get_filtered_list_from_DB('airplane',index_list, exact_match = False, return_column=True)))
+        
+        list_from_db = self.get_filtered_list_from_DB('airplane',index_list, exact_match = False, return_column=True)
+        filtered_list = []
+        for value in list_from_db :
+            if value not in filtered_list:
+                filtered_list.append(value)
+        
         filtered_list.pop(0)
         
         return filtered_list
