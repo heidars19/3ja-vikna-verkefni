@@ -596,6 +596,7 @@ class TUI():
         self.next_section = 0
         self.list_line_index = 0
         idz = 0
+        idx = 0
         self.new_reg_u_input = False
         time.sleep(1)
         time.sleep(2)
@@ -1007,6 +1008,8 @@ class TUI():
             ssn = self.item_list[self.list_line_index+self.next_section][1]
             name = self.item_list[self.list_line_index+self.next_section][2]
             address = self.change_user(2,12,0)
+            if address == "stop1231":
+                return
             while True:
                 self.errorcheck.set_address(address)
                 error_msg = self.errorcheck.check_address()
@@ -1019,6 +1022,8 @@ class TUI():
                     self.make_text_appear(12,18,"",30,2)
                     address = self.make_user_input_window(12,18)
             phone = self.change_user(3,16,0,only_num = 1)
+            if phone == "stop1231":
+                return
             while True:
                 self.errorcheck.set_cellphone(phone)
                 error_msg = self.errorcheck.check_cellphone()
@@ -1031,6 +1036,8 @@ class TUI():
                     self.make_text_appear(16,10,"",30,2)
                     phone = self.make_user_input_window(16,10)
             email = self.change_user(4,5,49)
+            if email == "stop1231":
+                return
             while True:
                 self.errorcheck.set_mail(email)
                 error_msg = self.errorcheck.check_mail()
@@ -1053,9 +1060,6 @@ class TUI():
             self.feedback_screen("{:^{length:}}".format("Starfsmanni hefur verið breytt!",length = 100))
             time.sleep(2)
             self.item_list = self.instance_API.get_list("employee")
-            self.next_section = 0
-            self.list_line_index = 0
-            idz = 0
 
         if self.menu_select == 1:
             #change_user(self,index,y_position,extra_len, only_num = 0):
@@ -1127,9 +1131,6 @@ class TUI():
             for i in range(len(self.item_list)):
                 buffer_list.append(self.instance_API.get_list(list_type='worktrip_readable', searchparam= (self.item_list[i][0],self.item_list[i][1],self.item_list[i][2],self.item_list[i][3],self.item_list[i][4],self.item_list[i][5],self.item_list[i][6],self.item_list[i][7],self.item_list[i][8],self.item_list[i][9],self.item_list[i][10],self.item_list[i][11],self.item_list[i][12],self.item_list[i][13],self.item_list[i][14])))
             self.item_list = buffer_list
-            self.next_section = 0
-            self.list_line_index = 0
-            idz = 0
 
         if self.menu_select == 2:
             _id = self.item_list[self.list_line_index+self.next_section][0]
@@ -1142,10 +1143,7 @@ class TUI():
             airport = self.change_user(6,12,49)
             self.instance_API.change("destination",(_id,name,country,flight_time,distance_from_iceland,emergency_contact,emergency_contact_phonenr,airport,self.item_list[self.list_line_index+self.next_section][8]))
             self.item_list = self.instance_API.get_list("destination")
-            self.next_section = 0
-            self.list_line_index = 0
-            idz = 0
-
+            
         if self.menu_select == 3:
             _id = self.item_list[self.list_line_index+self.next_section][0]
             plane_id = self.item_list[self.list_line_index+self.next_section][1]
@@ -1155,9 +1153,10 @@ class TUI():
             name = self.change_user(4,5,49)
             self.instance_API.change("airplane",(_id,plane_id,plane_type,manufacturer,seat_amount,name,self.item_list[self.list_line_index+self.next_section][6]))
             self.item_list = self.instance_API.get_list("airplane")
-            self.next_section = 0
-            self.list_line_index = 0
-            idz = 0
+        self.next_section = 0
+        self.list_line_index = 0
+        idz = 0
+        idx = 0
 
     def get_chr_from_user(self,y,x):
         editwin = curses.newwin(1,1,y,4+x)
