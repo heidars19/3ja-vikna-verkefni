@@ -1314,11 +1314,16 @@ class TUI():
                         elif option == ord("l") or option == ord("u"):
                             date = self.calendar_screen()
                             if option == ord("l"):
-                                self.item_list  = self.instance_API.get_list(keyword = 'worktrip', list_type = 'available_employees', searchparam = date)
+                                self.item_list  = self.instance_API.get_list('worktrip','available_employees',date)
                                 break    
                             if option == ord("u"):
                                 self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
-                                self.skip_filter == True
+                                if not self.item_list:
+                                    self.feedback_screen("{:^{length:}}".format("Engir starfsmenn uppteknir á þessum degi!",length = 100))
+                                    time.sleep(2)
+                                    self.item_list = self.instance_API.get_list("employee")
+                                else:
+                                    self.skip_filter == True
                                 break
                 if self.menu_select == 1:
                     date = self.calendar_screen(1)
