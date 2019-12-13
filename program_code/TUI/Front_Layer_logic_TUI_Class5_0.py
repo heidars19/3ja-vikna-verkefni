@@ -34,7 +34,6 @@ class TUI():
         self.instance_API = LL_API()
         self.next_section = 0
         self.item_list = self.instance_API.get_list("employee")
-        self.index_len = []
         self.errorcheck = ErrorCheck()
         self.skip_filter = False
     def construct_TUI(self,x_list):
@@ -86,7 +85,7 @@ class TUI():
                     if self.skip_filter == False:
                         if i not in [2,4,7]:
                             header_string += "{:<{lengd:}}".format(self._header[self.menu_select][i],lengd = int(100/5))
-                    else:
+                    elif self.skip_filter == True:
                         header_string += "Nafn                Titill              Áfangastaður"
                         break
                 elif self.menu_select == 1:
@@ -113,20 +112,7 @@ class TUI():
         new_list = []
         exceptions = ["", "Pilot", "Cabincrew"]
         rank_exception = [["Captain", "Co-Pilot"],["Flight Service Manager","Flight Attendant"]]
-        self.index_len = []
         self.select_len = 0
-        try:
-            for i in range(len(self.item_list[0])):
-                longest = 0
-                for x in range(0+self.next_section,len(self.item_list)+self.next_section):
-                    try:
-                        if len(self.item_list[x][i]) > longest:
-                            longest = len(self.item_list[x][i])
-                    except:
-                        continue
-                self.index_len.append(longest)
-        except:
-            pass
         for i in range(0+self.next_section,15+self.next_section):
             try:
                 new_string = ""
