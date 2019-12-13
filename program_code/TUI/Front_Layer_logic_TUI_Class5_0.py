@@ -985,7 +985,7 @@ class TUI():
     def make_list_dropdown(self,y,x,object_list, index = 2, return_list = 0):
         """This method gets all airplane licenses and creates a drop down menu for the user"""
         position_y = 0
-        editwin = curses.newwin(len(object_list),20,10,30)
+        editwin = curses.newwin(len(object_list),20,5,30)
         editwin2 = curses.newwin(1,30,y,x)
         editwin.keypad(1)
         curses.curs_set(0)
