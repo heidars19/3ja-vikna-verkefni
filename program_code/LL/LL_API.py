@@ -10,6 +10,7 @@ class LL_API:
     
     def return_msg(self, msg, keyword=''):
         '''
+        Replaces numeric error messages to strings
         '''
         if msg == 1:
             return "Success in {}".format(keyword)
@@ -26,8 +27,8 @@ class LL_API:
 
     def create(self, keyword,user_input):    
         '''
-        \n Creates new object and saves to Database. Returns msg with success or error. \n
-        keyword [string]: employee /airplane / destination / worktrip\n
+        Creates new object and saves to Database. Returns msg with success or error. \n
+        keyword [string]: 'employee', 'airplane', 'destination', 'worktrip'\n
         user_input [tuple]: User input for corresponding item as tuple with a leading empty string.
         '''
 
@@ -49,28 +50,28 @@ class LL_API:
 
         return run_create 
 
-    def change(self,keyword,changed_object):
+    def change(self,keyword, line_to_change_tuple):
         '''
-        \n Changes object in Database. Returns msg with success or error. \n
-        keyword [string]: employee /airplane / destination / worktrip\n
-        changed_object [tuple]: User input for changed object including id and registration date.
+        Changes a line in the database.\n
+        keyword [string]: 'employee', 'airplane', 'destination', 'worktrip'\n
+        line_to_change_tuple [tuple]: User input for changed object including id and registration date.
         '''
 
         if keyword == 'employee':
             ch_emp = EmployeeLL()
-            run_change = ch_emp.change_employee(changed_object)
+            run_change = ch_emp.change_employee(line_to_change_tuple)
 
         elif keyword == 'airplane':
             ch_air = AirplanesLL()
-            run_change = ch_air.change_airplane(changed_object)
+            run_change = ch_air.change_airplane(line_to_change_tuple)
 
         elif keyword == 'destination':
             ch_dest = DestinationLL()
-            run_change = ch_dest.change_destination(changed_object)
+            run_change = ch_dest.change_destination(line_to_change_tuple)
 
         elif keyword == 'worktrip':
             ch_work = WorktripLL()
-            run_change = ch_work.add_employees_worktrip(changed_object)
+            run_change = ch_work.add_employees_worktrip(line_to_change_tuple)
 
         return run_change
 
