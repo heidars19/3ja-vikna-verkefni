@@ -893,7 +893,7 @@ class TUI():
                             z += 20
                         for i in range(len(staff_schedule)):
                             z = 0
-                            for x in range(len(staff_schedule)):
+                            for x in range(len(staff_schedule[i])):
                                 self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
                                 z += 20
                         self.make_text_appear(21,55,"ESC",4,2)
@@ -1307,10 +1307,13 @@ class TUI():
                 self.make_text_appear(12,45,"á",2,1)
                 self.make_text_appear(12,60,"N",2,2)
                 self.make_text_appear(12,61,"ei",3,1)
-                option = self.stdscr.getch()
-                if option == ord("j"):
-                    break
-                option = None
+                while True:
+                    option = self.stdscr.getch()
+                    if option == ord("j"):
+                        return
+                    elif option == ord("n"):
+                        option = None
+                        break
             elif key == ord("v"):
                 if self.menu_select == 1:
                     date = self.calendar_screen()
