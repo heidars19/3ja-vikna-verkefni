@@ -925,10 +925,12 @@ class TUI():
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
     
-    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0):
+    def change_user_dropdown_list(self,index,y,x,object_list,lel = 2,return_list = 0,can_skip = 0):
         check = self.get_chr_from_user(y,x+2 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]))
         if check == 8:
             variable_x = self.make_list_dropdown(y,x+4 + len(self._header[self.menu_select][index] + self.item_list[self.list_line_index+self.next_section][index+1]),object_list,lel,return_list = return_list)
+        elif can_skip == 1:
+            variable_x = ["",""]
         else:
             variable_x = self.item_list[self.list_line_index+self.next_section][index+1]
         return variable_x
@@ -1047,7 +1049,7 @@ class TUI():
                 return
             temp_list = self.instance_API.get_list("worktrip", "available_employees",departure_split[0],role='Pilot', a_license=self.item_list[self.list_line_index+self.next_section][7])
             for i in range(len(temp_list)):
-                    if captain in temp_list[i]:
+                    if captain[0] in temp_list[i]:
                         temp_list.pop(i)
                         break
             
@@ -1070,22 +1072,22 @@ class TUI():
                 return
             temp_list = self.instance_API.get_list('worktrip',"available_employees",departure_split[0],role = "Cabincrew")
             for i in range(len(temp_list)):
-                    if fsm in temp_list[i]:
+                    if fsm[0] in temp_list[i]:
                         temp_list.pop(i)
                         break
             try:
                 curses.curs_set(0)
-                fa1 = self.change_user_dropdown_list(10,11,51,temp_list,return_list = 1)
+                fa1 = self.change_user_dropdown_list(10,11,51,temp_list,return_list = 1, can_skip = 1)
             except:
                 self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
                 time.sleep(5)
             for i in range(len(temp_list)):
-                    if fa1 in temp_list[i]:
+                    if fa1[0] in temp_list[i]:
                         temp_list.pop(i)
                         break
             try:
                 curses.curs_set(0)
-                fa2 = self.change_user_dropdown_list(10,13,51,temp_list,return_list = 1)
+                fa2 = self.change_user_dropdown_list(10,13,51,temp_list,return_list = 1, can_skip = 1)
             except:
                 self.feedback_screen("{:^{length:}}".format("Enginn laus FA",length = 100))
                 time.sleep(5)
@@ -1281,10 +1283,10 @@ class TUI():
                     self.list_line_index += 1
             elif key == 27:
                 self.feedback_screen("{:^{length:}}".format("Viltu hætta?",length = 100))
-                self.make_text_appear(10,40,"J",2,2)
-                self.make_text_appear(10,41,"á",2,1)
-                self.make_text_appear(10,60,"N",2,2)
-                self.make_text_appear(10,61,"ei",2,1)
+                self.make_text_appear(12,44,"J",2,2)
+                self.make_text_appear(12,45,"á",2,1)
+                self.make_text_appear(12,60,"N",2,2)
+                self.make_text_appear(12,61,"ei",3,1)
                 option = self.stdscr.getch()
                 if option == ord("j"):
                     break
@@ -1335,7 +1337,7 @@ class TUI():
                                     time.sleep(2)
                                     self.item_list = self.instance_API.get_list("employee")
                                 else:
-                                    self.skip_filter == True
+                                    self.skip_filter = True
                                 break
                 if self.menu_select == 1:
                     date = self.calendar_screen(1)
