@@ -37,6 +37,7 @@ class TUI():
         self.errorcheck = ErrorCheck()
         self.skip_filter = False
     def construct_TUI(self,x_list):
+        """This method combines all the parts of the ui into the main frame"""
         main_menu_temp = self.construct_main_menu()
         if self.new_registration == True:
             body_temp = self.construct_body_new_registration()
@@ -54,10 +55,12 @@ class TUI():
         return self.TUI_list
 
     def create_TUI_list(self,any_list):
+        """This method creates the list that is used to display the data"""
         for i in range(len(any_list)):
             self.TUI_list.append(any_list[i])
 
     def construct_main_menu(self):
+        """This method creates the main menu of the screen"""
         menu = ("1.Starfsmenn", "2.Vinnuferðir", "3.Áfangastaðir", "4.Flugvélar")
         self.date = datetime.date.today().strftime("%d %b %Y")
         get_date = "{:^{lengd:}}".format(self.date,lengd = header_lengd)
@@ -72,7 +75,8 @@ class TUI():
         (("╠════════════════════╩════════════════════╩════════════════════╩════════════════════╝                    ║")))
         return main_menu_template
 
-    def construct_header(self):#("Nafn áfangastaðar:","Land:","Fjarlægð frá Íslandi:", "Nafn tengiliðar:","Neyðarsímanúmer:","Flugvöllur:"),
+    def construct_header(self):
+        """This method creates the header, depending on what menu is selected"""
         self._header = (\
         ("Kennitala","Nafn","Heimilisfang","Sími","Email","Starfsheiti","Titill","Leyfi"),\
         ("Flunúmer út","Flugnúmer heim","Brottför","Áfangastaður","Brottfarartími","Komutími","Flugvél","Captain","Copilot","Fsm","Fa1","Fa2","Staða"),\
@@ -371,12 +375,14 @@ class TUI():
                 return plane_license_list[position_y]
 
     def license_drop_down(self,editwin,license_string,y,color_pair):
+        """This method displays a drop down list and highlights the selected item"""
         editwin.attron(color_pair)
         editwin.addstr(y,0,license_string)
         editwin.attroff(color_pair)
         editwin.refresh()
 
     def drop_down(self,editwin,text_string_1,text_string_2,position_y):
+        """This method is a part of creating a drop down menu with 2 elements"""
         if position_y == 0:
             editwin.attron(curses.color_pair(2))
             editwin.addstr(0,0,text_string_1)
@@ -393,6 +399,7 @@ class TUI():
             editwin.attroff(curses.color_pair(2))
 
     def get_user_input(self):
+        """This method is used to create new instances of staff, worktrip and so on, depending on the selected menu"""
         self.print_menu(self.TUI_list, self.highlight_main_list, [0,0],[0,0])
         curses.curs_set(0)
         self.make_text_appear(3,2,"",100)
@@ -592,6 +599,7 @@ class TUI():
         curses.curs_set(0)
 
     def calendar_screen(self,time_travel = 0):
+        """This method prints a calendar on the screen and returns the selected date"""
         cal = calendar.Calendar()
         editwin2 = curses.newwin(15,100,5,3)
         editwin2.attron(curses.color_pair(1))
@@ -652,41 +660,41 @@ class TUI():
             editwin3.refresh()
             editwin3.attron(curses.color_pair(2))
                         
-            check = editwin2.getch()
+            check = editwin2.getch()# This mess down here is to make sure the user doesnt go out of bounds in the calendar screen
             if check == curses.KEY_LEFT or check == 452:
-                if date_selected == 1 or date_selected == 5 or date_selected == 9  or date_selected == 13  or date_selected == 17 or date_selected == 21 or date_selected == 25 or date_selected == 29:
+                if date_selected in [1,5,9,13,17,21,25,29]:
                     pass
                 else:
                     date_selected -= 1
             elif check == curses.KEY_RIGHT or check == 454:
-                if date_selected == 4 or date_selected == 8 or date_selected == 12 or date_selected == 16 or date_selected == 20 or date_selected == 24 or date_selected == 28 or date_selected == days_in_month:
+                if date_selected in [4,8,12,16,20,24,28,days_in_month]:
                     pass
                 else:
                     date_selected += 1
             elif check == curses.KEY_UP or check == 450:
                 current = date_selected
-                if date_selected == 1 or date_selected == 2 or date_selected == 3 or date_selected == 4:
+                if date_selected in [1,2,3,4]:
                     pass
                 else:
                     date_selected -= 4
             elif check == curses.KEY_DOWN or check == 456:
                 if days_in_month == 31:
-                    if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 31:
+                    if date_selected in [28,29,30,31]:
                         pass
                     else:
                         date_selected += 4
                 elif days_in_month == 30:
-                    if date_selected == 28 or date_selected == 29 or date_selected == 30 or date_selected == 27:
+                    if date_selected in [28,29,30,27]:
                         pass
                     else:
                         date_selected += 4
                 elif days_in_month == 29:
-                    if date_selected == 28 or date_selected == 29 or date_selected == 26 or date_selected == 27:
+                    if date_selected in [28,29,26,27]:
                         pass
                     else:
                         date_selected += 4
                 elif days_in_month == 28:
-                    if date_selected == 28 or date_selected == 25 or date_selected == 26 or date_selected == 27:
+                    if date_selected in [28,25,26,27]:
                         pass
                     else:
                         date_selected += 4
@@ -727,6 +735,12 @@ class TUI():
         editwin2.refresh()
 
     def make_user_input_window(self,y,x, only_num = 0, ssn = 0, clock = 0, name = 0,data = ""):
+        """
+        This method creates a new window where the user can type, the keyboard had to be custom made 
+        because the built-in keyboard in curses only supports ASCCI and since its a custom made I can control
+        the input that is accepted, depending on the situation for example when typing in an SSN it only allows
+        numbers and when the ssn gets to the length of 10 it automaticly sends the ssn to an error check.
+        """
         editwin = curses.newwin(1,30,y,x)
         editwin.attron(curses.color_pair(2))
         editwin.refresh()
@@ -738,7 +752,7 @@ class TUI():
                 break
             if len(data) == 29:
                 break
-            ch = editwin.getch()
+            ch = editwin.getch() #This is a built-in keypress getter from curses
             if ch== 10:
                 break
             if ch == 27:
@@ -776,6 +790,7 @@ class TUI():
         return data
 
     def make_text_appear(self,y,x,text_string,box_len, color_pair = 1):
+        """This method makes text appear at a given x,y index and takes in a string and color pair to show important info if needed"""
         editwin2 = curses.newwin(1,box_len,y,x)
         editwin2.attron(curses.color_pair(color_pair))
         editwin2.addstr(text_string)
@@ -878,7 +893,7 @@ class TUI():
                             z += 20
                         for i in range(len(staff_schedule)):
                             z = 0
-                            for x in range(len(staff_schedule)):
+                            for x in range(len(staff_schedule[i])):
                                 self.make_text_appear(5+i,5+z,staff_schedule[i][x],30)
                                 z += 20
                         self.make_text_appear(21,55,"ESC",4,2)
@@ -1114,11 +1129,11 @@ class TUI():
 
         if self.menu_select == 3:
             _id = self.item_list[self.list_line_index+self.next_section][0]
-            plane_id = self.change_user(1,5,0)
-            plane_type = self.change_user(2,9,0)
-            manufacturer = self.change_user(3,12,0)
-            seat_amount = self.change_user(4,16,0)
-            name = self.change_user(5,5,49)
+            plane_id = self.item_list[self.list_line_index+self.next_section][1]
+            plane_type = self.change_user(1,9,0)
+            manufacturer = self.change_user(2,12,0)
+            seat_amount = self.change_user(3,16,0)
+            name = self.change_user(4,5,49)
             
 
     def get_chr_from_user(self,y,x):
@@ -1136,10 +1151,12 @@ class TUI():
     def main(self):
         # Clear screen
         self.stdscr.clear() 
+        curses.start_color()
+        curses.use_default_colors()
         curses.init_color(1, 0, 0, 0)
         curses.can_change_color()
         curses.init_color(curses.COLOR_GREEN,1000,0,0)
-        curses.init_pair(1,curses.COLOR_GREEN,curses.COLOR_BLACK)
+        curses.init_pair(1,curses.COLOR_WHITE,curses.COLOR_BLACK)
         curses.init_pair(2,curses.COLOR_YELLOW, curses.COLOR_BLACK)
         curses.init_pair(3,curses.COLOR_WHITE, curses.COLOR_BLACK)
         
@@ -1290,10 +1307,13 @@ class TUI():
                 self.make_text_appear(12,45,"á",2,1)
                 self.make_text_appear(12,60,"N",2,2)
                 self.make_text_appear(12,61,"ei",3,1)
-                option = self.stdscr.getch()
-                if option == ord("j"):
-                    break
-                option = None
+                while True:
+                    option = self.stdscr.getch()
+                    if option == ord("j"):
+                        return
+                    elif option == ord("n"):
+                        option = None
+                        break
             elif key == ord("v"):
                 if self.menu_select == 1:
                     date = self.calendar_screen()
@@ -1332,6 +1352,12 @@ class TUI():
                             date = self.calendar_screen()
                             if option == ord("l"):
                                 self.item_list  = self.instance_API.get_list('worktrip','available_employees',date,role = "all")
+                                if not self.item_list:
+                                    self.feedback_screen("{:^{length:}}".format("Engir starfsmenn lausir á þessum degi!",length = 100))
+                                    time.sleep(2)
+                                    self.item_list = self.instance_API.get_list("employee")
+                                else:
+                                    self.skip_filter = True
                                 break    
                             if option == ord("u"):
                                 self.item_list  = self.instance_API.get_list('worktrip', list_type = 'working_employees', searchparam = date)
