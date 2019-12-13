@@ -1307,10 +1307,13 @@ class TUI():
                 self.make_text_appear(12,45,"á",2,1)
                 self.make_text_appear(12,60,"N",2,2)
                 self.make_text_appear(12,61,"ei",3,1)
-                option = self.stdscr.getch()
-                if option == ord("j"):
-                    break
-                option = None
+                while True:
+                    option = self.stdscr.getch()
+                    if option == ord("j"):
+                        return
+                    elif option == ord("n"):
+                        option = None
+                        break
             elif key == ord("v"):
                 if self.menu_select == 1:
                     date = self.calendar_screen()
