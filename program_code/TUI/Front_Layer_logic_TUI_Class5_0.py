@@ -863,7 +863,7 @@ class TUI():
                     for i in range(3):
                         self.make_text_appear(21+i,50,"",40)
                     staff_schedule = self.instance_API.get_list("worktrip","work_schedule",date,self.item_list[self.list_line_index+self.next_section][0])
-                    if staff_schdeule:
+                    if staff_schedule:
                         for i in range(len(staff_schedule)):
                             staff_schedule[i][1] = self.instance_API.get_list("destination","destination_name",staff_schedule[i][1])
                         for i in range(15):
@@ -887,7 +887,7 @@ class TUI():
                             if check == 27:
                                 break
                     else:
-                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir hjá starfsmanni í þessari viku",length = 19)
+                        self.feedback_screen("{:^{length:}}".format("Engar vinnuferðir hjá starfsmanni í þessari viku",length = 100))
                         time.sleep(2)
                 else:
                     return
