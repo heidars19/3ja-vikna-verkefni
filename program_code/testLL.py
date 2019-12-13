@@ -59,7 +59,7 @@ def main():
   
   #Working and Available employees
   #new_list = new_instance.get_list('worktrip',"working_employees",'2020-12-19')
-  new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-12", role='Pilot', rank='', a_license='Fokker232')
+  #new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-12", role='Pilot', rank='', a_license='Fokker232')
   #new_list  = new_instance.get_list("worktrip", "available_employees", "2020-12-19")
   
 
@@ -75,7 +75,9 @@ def main():
   #Find pilot with license
   #new_list = new_instance.get_list ('employee', "pilot_licences", a_license='BOEING747')
 
-
+  new_list = new_instance.get_list("destination","destination_name", "10")
+ 
+ 
   # new_list = new_instance.get_list('airplane','plane_licences') 
   #new_list = new_instance.get_list('worktrip', 'workschedule', '2020-12-19', '14')
   # new_list  = new_instance.get_list("worktrip", "available_employees", "2019-12-20", role='Pilot', rank='', a_license='Fokker232')

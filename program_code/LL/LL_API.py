@@ -160,6 +160,11 @@ class LL_API:
                 destination_id = new_instance.get_destination_id(searchparam)
                 return_value = destination_id
 
+            elif list_type == "destination_name":
+                new_instance = DestinationLL()
+                destination_id = new_instance.find_name_by_id(searchparam)
+                return_value = destination_id
+
             elif list_type =="worktrip_readable":  #Display in TUI, get names of destinations and airplanes that are referenced with ID´s in Worktrip Database
                 
                 airplane_inst = AirplanesLL()
